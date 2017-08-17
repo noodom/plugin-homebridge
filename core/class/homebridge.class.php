@@ -85,7 +85,7 @@ class homebridge extends eqLogic {
 	/*                        Permet d'installer les dépendances                          */
 	/*                                                                                    */
 	/**************************************************************************************/
-	public static function check_ios() {
+	/*public static function check_ios() {
 		$ios = 0;
 		foreach (eqLogic::byType('homebridge') as $homebridge){
 			if($homebridge->getConfiguration('type_homebridge') == "ios"){
@@ -93,34 +93,26 @@ class homebridge extends eqLogic {
 			}
 		}
 		return $ios;
-	}
+	}*/
 	
 	public static function dependancy_info() {
 		$return = array();
 		$return['log'] = 'homebridge_update';
 		//$return['progress_file'] = '/tmp/homebridge_in_progress';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
-		$state = '';
-		if(self::check_ios() == 0){
+
+		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
 			$state = 'ok';
-		}
-		else {
-			if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
-				$state = 'ok';
-			}else{
-				$state = 'nok';
-			}	
-		}
+		}else{
+			$state = 'nok';
+		}	
+		
 		$return['state'] = $state;
 		return $return;
 	}
 	
 	public static function dependancy_install($fromRepair = false) {
 		if (file_exists(jeedom::getTmpFolder('homebridge') . '/dependance')) {
-		    return;
-		}
-		if(self::check_ios() == 0){
-		    config::save('deamonAutoMode',0,'homebridge');
 		    return;
 		}
 		log::remove('homebridge_update');
@@ -222,11 +214,7 @@ class homebridge extends eqLogic {
 		$return = array();
 		$return['log'] = 'homebridge';
 		$return['state'] = 'nok';
-		if(self::check_ios() == 0){
-			$return['state'] = 'ok';
-			$return['launchable'] = 'ok';
-			return $return;
-		}
+
 		$result = exec("ps -eo pid,command | grep ' homebridge' | grep -v grep | awk '{print $1}'");
 		if ($result <> 0) {
             $return['state'] = 'ok';
@@ -241,15 +229,7 @@ class homebridge extends eqLogic {
 		self::generate_file();
 		$deamon_info = self::deamon_info();
 		if ($deamon_info['launchable'] != 'ok') {
-			if(self::check_ios() == 0){
-				return false;
-			}else{
-				throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
-			}
-		}else{
-			if(self::check_ios() == 0){
-				return false;
-			}
+			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
 
 		// check avahi-daemon started, if not, start
@@ -675,7 +655,7 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 
-	public function getQrCode() {
+	/*public function getQrCode() {
 		$interne = network::getNetworkAccess('internal');
 		$externe = network::getNetworkAccess('external');
 		$user = $this->getConfiguration('affect_user');
@@ -704,7 +684,7 @@ class homebridge extends eqLogic {
 			$retour = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl='.json_encode($request_qrcode);
 		}
 		return $retour;
-	}
+	}*/
 	
 	/**************************************************************************************/
 	/*                                                                                    */
@@ -712,7 +692,7 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 	
-	public static function jsonPublish($os,$titre,$message,$badge = 'null'){
+	/*public static function jsonPublish($os,$titre,$message,$badge = 'null'){
 		if($os == 'ios'){
 			if($badge == 'null'){
 				$publish = '{"default": "Erreur de texte de notification","APNS": "{\"aps\":{\"alert\": {\"title\":\"'.$titre.'\",\"body\":\"'.$message.'\"},\"badge\":'.$badge.',\"sound\":\"silence.caf\"}}"}';
@@ -749,7 +729,7 @@ class homebridge extends eqLogic {
         $server_output = curl_exec ($ch);
         curl_close ($ch);
         log::add('homebridge', 'debug', 'notification resultat > '.$server_output);
-	}
+	}*/
 	
 	/**************************************************************************************/
 	/*                                                                                    */
@@ -757,7 +737,7 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 	
-	public function postInsert() {
+	/*public function postInsert() {
 		$key = config::genKey(32);
 		$this->setLogicalId($key);
 		$this->save();
@@ -782,7 +762,7 @@ class homebridge extends eqLogic {
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
 
-    }
+    }*/
 	
 
 	/*     * *********************Méthodes d'instance************************* */
@@ -804,7 +784,7 @@ class homebridgeCmd extends cmd {
 											}
 											 */
 
-	public function execute($_options = array()) {
+	/*public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
 		$arn = $eqLogic->getConfiguration('notificationArn', null);
 		$os = $eqLogic->getConfiguration('type_homebridge', null);
@@ -821,7 +801,7 @@ class homebridgeCmd extends cmd {
 				log::add('homebridge', 'debug', 'ARN non configuré ', 'config');	
 			}
 		};
-	}
+	}*/
 
 	/*     * **********************Getteur Setteur*************************** */
 }
