@@ -27,23 +27,24 @@ try {
 	}
 
 	if (init('action') == 'repairHomebridge'){
-		mobile::repairHomebridge(false);
-		ajax::success();
+		$ret=homebridge::repairHomebridge(false);
+		ajax::success($ret);
 	}
 	if (init('action') == 'repairHomebridge_reinstall'){
-		mobile::repairHomebridge(true);
-		ajax::success();
+		$ret=homebridge::repairHomebridge(true);
+		ajax::success($ret);
 	}
+	
 	if (init('action') == 'regenerateHomebridgeConf') {
-		mobile::generate_file();
+		homebridge::generate_file();
 		ajax::success();
 	}
 	if (init('action') == 'getJSON') {
-		$file = mobile::getJSON();
+		$file = homebridge::getJSON();
 		ajax::success($file);
 	}
 	if (init('action') == 'saveJSON') {
-		$ret = mobile::saveJSON(init('file'));
+		$ret = homebridge::saveJSON(init('file'));
 		ajax::success($ret);
 	}
 	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
