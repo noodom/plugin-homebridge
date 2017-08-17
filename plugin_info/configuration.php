@@ -162,7 +162,8 @@ sendVarToJs('hasIos', homebridge::check_ios());
 							level : 'danger'
 						});
 					},
-					success : function() {
+					success : function(data) {
+						$('#div_plugin_configuration').setValues(data.result, '.configKey');
 						$('#div_alert').showAlert({
 							message : "{{Réparation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
 							level : 'success'
@@ -189,7 +190,8 @@ sendVarToJs('hasIos', homebridge::check_ios());
 							level : 'danger'
 						});
 					},
-					success : function() {
+					success : function(data) {
+						$('#div_plugin_configuration').setValues(data.result, '.configKey');
 						$('#div_alert').showAlert({
 							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
 							level : 'success'
