@@ -45,6 +45,7 @@ if ($jsonrpc->getMethod() == 'sync_homebridge') {
 		'eqLogics' => $eqLogics,
 		'cmds' => $cmds['cmds'],
 		'objects' => $objects,
+		//'scenarios' => homebridge::discovery_scenario(),
 		'config' => array('datetime' => getmicrotime()),
 	);
 	
@@ -62,19 +63,22 @@ if ($jsonrpc->getMethod() == 'cmdsbyEqlogicID') {
 	$commandes = $cmds['cmds'];
 	$cmdAPI = array();
 	foreach($commandes as $cmd){
-        if(isset($cmd["eqLogic_id"])){
-                if($cmd["eqLogic_id"] != $params['id']){
-                        unset($commandes[$i]);
-                }else{
-	                array_push($cmdAPI, $commandes[$i]);
-                }
-        }
-        $i++;   
-    }
-    log::add('homebridge', 'debug', 'Commande > '.json_encode($cmdAPI));
+		if(isset($cmd["eqLogic_id"])){
+			if($cmd["eqLogic_id"] != $params['id']){
+				unset($commandes[$i]);
+			}else{
+				array_push($cmdAPI, $commandes[$i]);
+			}
+		}
+		$i++;   
+    	}
+   	log::add('homebridge', 'debug', 'Commande > '.json_encode($cmdAPI));
 	$jsonrpc->makeSuccess($cmdAPI);
 }
-
+if ($jsonrpc->getMethod() == 'version') {
+	$homebridge_update = update::byLogicalId('homebridge');
+	$jsonrpc->makeSuccess($homebridge_update->getLocalVersion());	
+}
 if ($jsonrpc->getMethod() == 'event') {
 	$eqLogic = eqLogic::byId($params['eqLogic_id']);
 	if (!is_object($eqLogic)) {
