@@ -1,7 +1,7 @@
 {
 	"id" : "homebridge",
 	"name" : "Homebridge",
-	"description" : "Plugin pour homebridge",
+	"description" : "Plugin pour Homebridge",
 	"icon" : "fa fa-mobile",
 	"licence" : "AGPL",
 	"author" : "Nebz",
@@ -9,6 +9,6 @@
 	"installation" : "Aucune",
 	"hasDependency" : 1,
 	"hasOwnDeamon" : 1,
-	"category" : "passerelle domotique",
+	"category" : "communication",
 	"version" : "0.4"
 }
