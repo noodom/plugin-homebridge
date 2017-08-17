@@ -124,10 +124,11 @@ class homebridge extends eqLogic {
 		    return;
 		}
 		log::remove('homebridge_update');
+		log::remove('homebridge_homebridge_update');
 		self::generate_file();
 		
         $returnArray = array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
-							 'log' => log::getPathToLog(__CLASS__ . '_homebridge_update'));
+							 'log' => log::getPathToLog(__CLASS__ . '_update'));
 							 
         if($fromRepair) {
 			$cmd = 'sudo /bin/bash ' . $returnArray['script'];
