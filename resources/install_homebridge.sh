@@ -11,7 +11,7 @@ echo "--10%"
 actual=`nodejs -v`;
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
-if [[ $actual == *"4."* || $actual == *"5."* ]]
+if [[ $actual == *"6."* ]]
 then
   echo "Ok, version suffisante";
 else
@@ -23,28 +23,10 @@ else
   arch=`arch`;
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
-  if [[ $arch == "armv6l" ]]
-  then
-    echo "Raspberry 1 détecté, utilisation du paquet pour armv6"
-    sudo rm /etc/apt/sources.list.d/nodesource.list
-    wget http://node-arm.herokuapp.com/node_latest_armhf.deb
-    sudo dpkg -i node_latest_armhf.deb
-    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
-    rm node_latest_armhf.deb
-  fi
-  if [[ $arch == "aarch64" ]]
-  then
-    wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
-    sudo dpkg -i nodejs_5-1_arm64.deb
-    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
-    rm nodejs_5-1_arm64.deb
-  fi
-  if [[ $arch != "aarch64" && $arch != "armv6l" ]]
-  then
+  
     echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     sudo apt-get install -y nodejs
-  fi
   
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
