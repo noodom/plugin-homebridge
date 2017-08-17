@@ -9,7 +9,6 @@ sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns liba
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
 actual=`nodejs -v`;
-actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
 if [[ $actual == *"6."* ]]
 then
