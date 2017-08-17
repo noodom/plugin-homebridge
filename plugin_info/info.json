@@ -4,11 +4,11 @@
 	"description" : "Plugin pour homebridge",
 	"icon" : "fa fa-mobile",
 	"licence" : "AGPL",
-	"author" : "Jeedom",
+	"author" : "Nebz",
 	"require" : "3.0",
 	"installation" : "Aucune",
 	"hasDependency" : 1,
 	"hasOwnDeamon" : 1,
-	"category" : "communication",
+	"category" : "passerelle domotique",
 	"version" : "0.4"
 }
