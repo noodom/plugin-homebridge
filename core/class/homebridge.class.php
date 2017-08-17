@@ -153,6 +153,7 @@ class homebridge extends eqLogic {
 		}else{
 			$apikey = config::byKey('api');
 		}
+		//$apikey = jeedom::getApiKey('homebridge'); need to manage jeeHomebridge.php first
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
