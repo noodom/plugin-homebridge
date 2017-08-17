@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function homebridge_update(){
-	$ios = 0;
+	/*$ios = 0;
     	foreach (eqLogic::byType('homebridge') as $homebridge){
 		if($homebridge->getLogicalId() == null || $homebridge->getLogicalId() == ""){
 			$homebridge->remove();
@@ -27,9 +27,9 @@ function homebridge_update(){
 			}
 		}
 	}
-	if($ios == 1){
+	if($ios == 1){*/
 		$pluginhomebridge = plugin::byId('homebridge');
-		$pluginhomebridge->dependancy_install();
-	}
+		$pluginhomebridge->dependancy_install(true);
+	//}
 }
 ?>
