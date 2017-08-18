@@ -206,10 +206,7 @@ class homebridge extends eqLogic {
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
 		fclose($fp);
-		if(file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
-			log::add('homebridge','info','Le fichier config.json de Homebridge existe');
-		}
-		else {
+		if(!file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
 			log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas : '.dirname(__FILE__) . '/../../resources/homebridge/config.json');
 		}
 	}
