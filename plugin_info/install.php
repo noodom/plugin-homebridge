@@ -60,30 +60,18 @@ function homebridge_install(){
 			config::save('mac_homebridge',$mac_mobile,'homebridge');
 		}
 		
-		config::save('log::level::homebridge',config::byKey('log::level::mobile'));
+		config::save('log::level::homebridge',log::getLogLevel('mobile'));
 		
 		// + copy data directory*/	
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
-	/*$pluginHomebridge->dependancy_install(true);*/
+	$pluginHomebridge->dependancy_install(true);
 	$pluginHomebridge->generate_file();
 }
 
 function homebridge_update(){
 	log::add('homebridge', 'debug', 'Mise à jour du Plugin Homebridge');
-	/*$ios = 0;
-    	foreach (eqLogic::byType('homebridge') as $homebridge){
-		if($homebridge->getLogicalId() == null || $homebridge->getLogicalId() == ""){
-			$homebridge->remove();
-		}else{
-			if($homebridge->getConfiguration('type_homebridge') == "ios"){
-				$ios = 1;
-			}
-		}
-	}
-	if($ios == 1){*/
-		$pluginHomebridge = plugin::byId('homebridge');
-		/*$pluginHomebridge->dependancy_install(true);*/
-	//}
+	$pluginHomebridge = plugin::byId('homebridge');
+	$pluginHomebridge->dependancy_install(true);
 }
 ?>
