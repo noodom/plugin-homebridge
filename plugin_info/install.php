@@ -70,9 +70,7 @@ function homebridge_install(){
 		}
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
-	//$pluginHomebridge->generate_file();
 	$pluginHomebridge->dependancy_install(true);
-	$pluginHomebridge->generate_file();
 }
 
 function homebridge_update(){
