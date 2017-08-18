@@ -66,17 +66,18 @@ function homebridge_install(){
 		
 		$log_mobile = log::getLogLevel('mobile');
 		$log_homebridge = log::getLogLevel('homebridge');
-		log::add('homebridge', 'info', 'B Log mobile:'.$log_mobile);
-		log::add('homebridge', 'info', 'B Log homebridge:'.$log_homebridge);
+		log::add('homebridge', 'info', 'B Log mobile:'.$log_mobile.' '.config::byKey('log::level::mobile'));
+		log::add('homebridge', 'info', 'B Log homebridge:'.$log_homebridge.' '.config::byKey('log::level::homebridge'));
 		config::save('log::level::homebridge',$log_mobile);
 		$log_mobile = log::getLogLevel('mobile');
 		$log_homebridge = log::getLogLevel('homebridge');
-		log::add('homebridge', 'info', 'A Log mobile:'.$log_mobile);
-		log::add('homebridge', 'info', 'A Log homebridge:'.$log_homebridge);
+		log::add('homebridge', 'info', 'A Log mobile:'.$log_mobile.' '.config::byKey('log::level::mobile'));
+		log::add('homebridge', 'info', 'A Log homebridge:'.$log_homebridge.' '.config::byKey('log::level::homebridge'));
 		
 		// + copy data directory*/	
-		$platform_mobile = dirname(__FILE__).'/../../../mobile/data/otherPlatform.json';
-		$platform_homebridge = dirname(__FILE__).'/../../data/otherPlatform.json';
+		$platform_homebridge = dirname(__FILE__).'/data/otherPlatform.json';
+		$platform_mobile = dirname(__FILE__).'/../mobile/data/otherPlatform.json';
+
 		log::add('homebridge','info','my exists '.$platform_homebridge.' ? '.file_exists($platform_homebridge));
 		if(file_exists($platform_homebridge)) log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
 		log::add('homebridge','info','mobile exists '.$platform_mobile.' ? '.file_exists($platform_mobile));
