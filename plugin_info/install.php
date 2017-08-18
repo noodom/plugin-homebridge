@@ -64,17 +64,6 @@ function homebridge_install(){
 			log::add('homebridge', 'info', 'Reprise de la MAC de mobile:'.$mac_mobile);
 		}
 		
-		$log_mobile = log::getLogLevel('mobile');
-		$log_homebridge = log::getLogLevel('homebridge');
-		log::add('homebridge', 'info', 'B Log mobile:'.$log_mobile.' '.var_dump(config::byKey('log::level::mobile')));
-		log::add('homebridge', 'info', 'B Log homebridge:'.$log_homebridge.' '.var_dump(config::byKey('log::level::homebridge')));
-		config::save('log::level::homebridge',$log_mobile);
-		$log_mobile = log::getLogLevel('mobile');
-		$log_homebridge = log::getLogLevel('homebridge');
-		log::add('homebridge', 'info', 'A Log mobile:'.$log_mobile.' '.var_dump(config::byKey('log::level::mobile')));
-		log::add('homebridge', 'info', 'A Log homebridge:'.$log_homebridge.' '.var_dump(config::byKey('log::level::homebridge')));
-		
-		// + copy data directory*/	
 		$platform_homebridge = dirname(__FILE__).'/../data/otherPlatform.json';
 		$platform_mobile = dirname(__FILE__).'/../../mobile/data/otherPlatform.json';
 
@@ -82,6 +71,10 @@ function homebridge_install(){
 		if(file_exists($platform_homebridge)) log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
 		log::add('homebridge','info','mobile exists '.$platform_mobile.' ? '.file_exists($platform_mobile));
 		if(file_exists($platform_mobile)) log::add('homebridge','info','mobile dateM ? '.filemtime($platform_mobile));
+		if(filemtime($platform_mobile) > filemtime($platform_homebridge)) {
+			log::add('homebridge','info','Fichier de plateforme Mobile plus récent, on le reprend');
+			exec('sudo cp '.$platform_mobile.' '.$platform_homebridge' >> ' . log::getPathToLog(__CLASS__) . ' 2>&1 ');	
+		}
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
 	//$pluginHomebridge->generate_file();
