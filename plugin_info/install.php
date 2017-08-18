@@ -77,9 +77,9 @@ function homebridge_install(){
 		// + copy data directory*/	
 		$platform_mobile = dirname(__FILE__).'/../../../mobile/data/otherPlatform.json';
 		$platform_homebridge = dirname(__FILE__).'/../../data/otherPlatform.json';
-		log::add('homebridge','info','my exists ? '.file_exists($platform_homebridge));
+		log::add('homebridge','info','my exists '.$platform_homebridge.' ? '.file_exists($platform_homebridge));
 		if(file_exists($platform_homebridge)) log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
-		log::add('homebridge','info','mobile exists ? '.file_exists($platform_mobile));
+		log::add('homebridge','info','mobile exists '.$platform_mobile.' ? '.file_exists($platform_mobile));
 		if(file_exists($platform_mobile)) log::add('homebridge','info','mobile dateM ? '.filemtime($platform_mobile));
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
