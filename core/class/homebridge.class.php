@@ -144,6 +144,7 @@ class homebridge extends eqLogic {
 		return (($ret===false)?false:true);
 	}
 	public static function generate_file(){
+		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(homebridge::deamon_info()=="ok") homebridge::deamon_stop();
 		$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		config::save('user_homebridge',$user_homebridge,'homebridge');
