@@ -53,8 +53,8 @@ class homebridge extends eqLogic {
 	public static function PluginToSend() {
 		$PluginToSend=[];
 		$plugins = plugin::listPlugin(true);
-		$plugin_compatible = homebridge::Pluginsuported();
-		$plugin_widget = homebridge::PluginWidget();
+		$plugin_compatible = self::Pluginsuported();
+		$plugin_widget = self::PluginWidget();
 		foreach ($plugins as $plugin){
 			$plugId = $plugin->getId();
 			if ($plugId == 'homebridge') {
@@ -117,7 +117,7 @@ class homebridge extends eqLogic {
 		}
 		log::remove('homebridge_update');
 
-		homebridge::generate_file();
+		self::generate_file();
 		
         $returnArray = array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
 							 'log' => log::getPathToLog(__CLASS__ . '_update'));
@@ -145,7 +145,7 @@ class homebridge extends eqLogic {
 	}
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
-		if(homebridge::deamon_info()=="ok") homebridge::deamon_stop();
+		if(self::deamon_info()=="ok") self::deamon_stop();
 		$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		config::save('user_homebridge',$user_homebridge,'homebridge');
 		$user = user::byId($user_homebridge);
@@ -160,10 +160,10 @@ class homebridge extends eqLogic {
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
 		$name_homebridge = config::byKey('name_homebridge','homebridge',config::byKey('name'),true);
 		config::save('name_homebridge',$name_homebridge,'homebridge');
-		$mac_homebridge = config::byKey('mac_homebridge','homebridge',homebridge::generateRandomMac(),true);
+		$mac_homebridge = config::byKey('mac_homebridge','homebridge',self::generateRandomMac(),true);
 		config::save('mac_homebridge',$mac_homebridge,'homebridge');
 		
-		if(in_array($pin_homebridge,homebridge::DisallowedPIN())) {
+		if(in_array($pin_homebridge,self::DisallowedPIN())) {
 			log::add('homebridge', 'error', 'Le PIN Homebridge n\'est pas autorisée par Apple : '.$pin_homebridge);	
 		}
 		
@@ -210,6 +210,8 @@ class homebridge extends eqLogic {
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
 		fclose($fp);
+		if(file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) log::add('homebridge','info','Le fichier config.json de Homebridge existe');
+		else log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas');
 	}
 	
 	public static function deamon_info() {
@@ -311,7 +313,7 @@ class homebridge extends eqLogic {
 	
 	public static function repairHomebridge($reinstall=true) {
 		log::add('homebridge', 'info', 'Procedure de réparation');
-		homebridge::deamon_stop();
+		self::deamon_stop();
 		log::add('homebridge', 'info', 'suppression des accessoires et du persist');
 		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
 		exec($cmd);
@@ -332,12 +334,12 @@ class homebridge extends eqLogic {
 		config::save('name_homebridge',$name_homebridge,'homebridge');
 		if($reinstall) {
 			log::add('homebridge', 'info', 'réinstallation des dependances');
-			homebridge::dependancy_install(true);
+			self::dependancy_install(true);
 		}
 		
 		exec('sudo systemctl restart avahi-daemon');
 		sleep(1);
-		homebridge::deamon_start();
+		self::deamon_start();
 		$return['mac_homebridge']=$mac_homebridge;
 		$return['name_homebridge']=$name_homebridge;
 		return $return;
@@ -510,7 +512,7 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_multi($cmds) {
 		$array_final = array();
-		$tableData = homebridge::PluginMultiInEqLogic();
+		$tableData = self::PluginMultiInEqLogic();
 		foreach ($cmds as &$cmd) {
 			if(in_array($cmd['generic_type'], $tableData)){
 				$keys = array_keys(array_column($cmds,'eqLogic_id'), $cmd['eqLogic_id']);
@@ -537,7 +539,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function change_cmdAndeqLogic($cmds,$eqLogics){
-		$plage_cmd = homebridge::discovery_multi($cmds);
+		$plage_cmd = self::discovery_multi($cmds);
 		$eqLogic_array = array();
 		$nbr_cmd = count($plage_cmd);
 		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
@@ -712,9 +714,9 @@ class homebridge extends eqLogic {
 	public static function notification($arn,$os,$titre,$message,$badge = 'null'){
 		log::add('homebridge', 'debug', 'notification en cours !');
 		if($badge == 'null'){
-			$publish = homebridge::jsonPublish($os,$titre,$message,$badge);
+			$publish = self::jsonPublish($os,$titre,$message,$badge);
 		}else{
-			$publish = homebridge::jsonPublish($os,$titre,$message);
+			$publish = self::jsonPublish($os,$titre,$message);
 		}
 		log::add('homebridge', 'debug', 'JSON envoyé : '.$publish);
 		$post = [
@@ -724,7 +726,7 @@ class homebridge extends eqLogic {
 			'publish' => $publish 
 		];
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,homebridge::LienAWS());
+		curl_setopt($ch, CURLOPT_URL,self::LienAWS());
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS,$post);            
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -797,7 +799,7 @@ class homebridgeCmd extends cmd {
 		if($this->getLogicalId() == 'notif') {
 			log::add('homebridge', 'debug', 'Commande de notification ', 'config');
 			if($arn != null && $os != null){
-				homebridge::notification($arn,$os,$_options['title'],$_options['message']);
+				self::notification($arn,$os,$_options['title'],$_options['message']);
 				log::add('homebridge', 'debug', 'Action : Envoi d\'une configuration ', 'config');
 			}else{
 				log::add('homebridge', 'debug', 'ARN non configuré ', 'config');	
