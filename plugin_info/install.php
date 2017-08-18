@@ -32,8 +32,9 @@ function homebridge_install(){
 		log::add('homebridge', 'debug', 'my User:'.$user_homebridge);
 		$user_mobile = config::byKey('user_homebridge','mobile');
 		log::add('homebridge', 'debug', 'mobile User:'.$user_mobile);
-		
-		//config::save('user_homebridge',$user_homebridge,'homebridge');
+		// if(!$user_homebridge && $user_mobile) {
+			//config::save('user_homebridge',$user_mobile,'homebridge');
+		// }
 
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge');
 		log::add('homebridge', 'debug', 'my pin:'.$pin_homebridge);
@@ -49,11 +50,13 @@ function homebridge_install(){
 		log::add('homebridge', 'debug', 'Présence du plugin Mobile [High Five old friend]');
 		config::save('mac_homebridge',$mac_homebridge,'homebridge');
 
-		config::save('log::level::homebridge',config::byKey('log::level::mobile'));*/
+		config::save('log::level::homebridge',config::byKey('log::level::mobile'));
+		
+		// + copy data directory*/
 		
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
-	$pluginHomebridge->dependancy_install(true);
+	/*$pluginHomebridge->dependancy_install(true);*/
 	$pluginHomebridge->generate_file();
 }
 
@@ -71,7 +74,7 @@ function homebridge_update(){
 	}
 	if($ios == 1){*/
 		$pluginHomebridge = plugin::byId('homebridge');
-		$pluginHomebridge->dependancy_install(true);
+		/*$pluginHomebridge->dependancy_install(true);*/
 	//}
 }
 ?>
