@@ -53,7 +53,11 @@ class homebridge extends eqLogic {
 		$plugin_widget = self::PluginWidget();
 		foreach ($plugins as $plugin){
 			$plugId = $plugin->getId();
-			if ($plugId == 'homebridge') {
+			//shortcut
+				array_push($PluginToSend, $plugId);
+				break;
+			//shortcut
+			if ($plugId == 'homebridge' || $plugId == 'mobile') {
 				continue;
 			} elseif (in_array($plugId,$plugin_widget)) {
 				array_push($PluginToSend, $plugId);
@@ -201,7 +205,7 @@ class homebridge extends eqLogic {
 				$response['platforms'][] = $jsonArr;
 		}
 		
-		exec('sudo mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >> '.log::getPathToLog(__CLASS__).' 2>&1 &');
+		exec('sudo mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
 		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
@@ -352,13 +356,18 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 
-	public static function discovery_eqLogic($plugin = [],$hash = null){
+	public static function discovery_eqLogic($plugin = []){
 		$return = [];
 		foreach ($plugin as $plugin_type) {
-			$eqLogics = eqLogic::byType($plugin_type, true);
+			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
-					if($eqLogic->getObject_id() !== null && object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 && $eqLogic->getIsEnable() == 1 && ($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
+					if(		$eqLogic->getObject_id() !== null // has room
+						//&&	$eqLogic->getIsEnable() == 1
+						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+						//&& 	($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget())) // visible or supported
+						){
+							
 						$eqLogic_array = utils::o2a($eqLogic);
 						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
 							$eqLogic_array["sendToHomebridge"] = $eqLogic_array["configuration"]["sendToHomebridge"];
@@ -381,126 +390,138 @@ class homebridge extends eqLogic {
 		        }
 		}
 		foreach ($plugin as $plugin_type) {
-			$eqLogics = eqLogic::byType($plugin_type, true);
+			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
                   	$i = 0;
-                  if($eqLogic->getObject_id() !== null && object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 && $eqLogic->getIsEnable() == 1 && ($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
-					foreach ($eqLogic->getCmd() as $cmd) {
-                    	if($cmd->getDisplay('generic_type') != null && !in_array($cmd->getDisplay('generic_type'),['GENERIC_ERROR','DONT']) && ($cmd->getIsVisible() == 1 || in_array($cmd->getDisplay('generic_type'), $genericisvisible) || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
-                      		$cmd_array = $cmd->exportApi();
-                      					
-							//Variables
-							$maxValue = null;
-							$minValue = null;
-							$actionCodeAccess = null;
-							$actionConfirm = null;
-							$generic_type = null;
-							$icon = null;
-							$invertBinary = null;
-							$title_disable = null;
-							$title_placeholder = null;
-							$message_placeholder = null;
-								
-							if(isset($cmd_array['configuration'])){
-								$configuration = $cmd_array['configuration'];
-								if(isset($configuration['maxValue'])){
-									$maxValue = $configuration['maxValue'];
-								}
-								if(isset($configuration['minValue'])){
-									$minValue = $configuration['minValue'];
-								}
-								if(isset($configuration['actionCodeAccess'])){
-									$actionCodeAccess = $configuration['actionCodeAccess'];
-								}
-								if(isset($configuration['actionConfirm'])){
-									$actionConfirm = $configuration['actionConfirm'];
-								}
-							}
-							if(isset($cmd_array['display'])){
-								$display = $cmd_array['display'];
-								if(isset($display['generic_type'])){
-									$generic_type = $display['generic_type'];
-								}
-								if(isset($display['icon'])){
-									$icon = $display['icon'];
-								}
-								if(isset($display['invertBinary'])){
-									$invertBinary = $display['invertBinary'];
-								}
-								if(isset($display['title_disable'])){
-									$title_disable = $display['title_disable'];
-								}
-								if(isset($display['title_placeholder'])){
-									$title_placeholder = $display['title_placeholder'];
-								}
-								if(isset($display['message_placeholder'])){
-									$message_placeholder = $display['message_placeholder'];
-								}
-							}
-							unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
-							$cmd_array['configuration']['maxValue'] = $maxValue;
-							if ($minValue != null) {
-								$cmd_array['configuration']['minValue'] = $minValue;
-							}
-							$cmd_array['display']['generic_type'] = $generic_type;
-							if ($icon != null) {
-								$cmd_array['display']['icon'] = $icon;
-							}
-							if(isset($invertBinary)){
-								if ($invertBinary != null) {
-									$cmd_array['display']['invertBinary'] = $invertBinary;
-								}
-							}
-							if(isset($title_disable)){
-								if ($title_disable != null) {
-									$cmd_array['display']['title_disable'] = $title_disable;
-								}
-							}
-							if(isset($title_placeholder)){
-								if ($title_placeholder != null) {
-									$cmd_array['display']['title_placeholder'] = $title_placeholder;
-								}
-							}
-							if(isset($message_placeholder)){
-								if ($message_placeholder != null) {
-									$cmd_array['display']['message_placeholder'] = $message_placeholder;
-								}
-							}
-							if(isset($actionCodeAccess)){
-								if($actionCodeAccess !== null ){
-									if($actionCodeAccess !== ''){
-										$cmd_array['configuration']['actionCodeAccess'] = true;
+					if(		$eqLogic->getObject_id() !== null // has room
+						//&&	$eqLogic->getIsEnable() == 1
+						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+						//&& 	($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget())) // visible or supported
+						){
+							
+						foreach ($eqLogic->getCmd() as $cmd) {
+							if(	$cmd->getDisplay('generic_type') != null 
+								&& !in_array($cmd->getDisplay('generic_type'),['GENERIC_ERROR','DONT']) 
+								/*&& (	$cmd->getIsVisible() == 1 
+										|| in_array($cmd->getDisplay('generic_type'), $genericisvisible) 
+										|| in_array($eqLogic->getEqType_name(), self::PluginWidget())
+									)*/
+								){
+									
+								$cmd_array = $cmd->exportApi();
+											
+								//Variables
+								$maxValue = null;
+								$minValue = null;
+								$actionCodeAccess = null;
+								$actionConfirm = null;
+								$generic_type = null;
+								$icon = null;
+								$invertBinary = null;
+								$title_disable = null;
+								$title_placeholder = null;
+								$message_placeholder = null;
+									
+								if(isset($cmd_array['configuration'])){
+									$configuration = $cmd_array['configuration'];
+									if(isset($configuration['maxValue'])){
+										$maxValue = $configuration['maxValue'];
+									}
+									if(isset($configuration['minValue'])){
+										$minValue = $configuration['minValue'];
+									}
+									if(isset($configuration['actionCodeAccess'])){
+										$actionCodeAccess = $configuration['actionCodeAccess'];
+									}
+									if(isset($configuration['actionConfirm'])){
+										$actionConfirm = $configuration['actionConfirm'];
 									}
 								}
-							}
-							if(isset($actionConfirm)){
-								if($actionConfirm !== null){
-									if($actionConfirm == 1){
-										$cmd_array['configuration']['actionConfirm'] = true;
+								if(isset($cmd_array['display'])){
+									$display = $cmd_array['display'];
+									if(isset($display['generic_type'])){
+										$generic_type = $display['generic_type'];
+									}
+									if(isset($display['icon'])){
+										$icon = $display['icon'];
+									}
+									if(isset($display['invertBinary'])){
+										$invertBinary = $display['invertBinary'];
+									}
+									if(isset($display['title_disable'])){
+										$title_disable = $display['title_disable'];
+									}
+									if(isset($display['title_placeholder'])){
+										$title_placeholder = $display['title_placeholder'];
+									}
+									if(isset($display['message_placeholder'])){
+										$message_placeholder = $display['message_placeholder'];
 									}
 								}
+								unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
+								$cmd_array['configuration']['maxValue'] = $maxValue;
+								if ($minValue != null) {
+									$cmd_array['configuration']['minValue'] = $minValue;
+								}
+								$cmd_array['display']['generic_type'] = $generic_type;
+								if ($icon != null) {
+									$cmd_array['display']['icon'] = $icon;
+								}
+								if(isset($invertBinary)){
+									if ($invertBinary != null) {
+										$cmd_array['display']['invertBinary'] = $invertBinary;
+									}
+								}
+								if(isset($title_disable)){
+									if ($title_disable != null) {
+										$cmd_array['display']['title_disable'] = $title_disable;
+									}
+								}
+								if(isset($title_placeholder)){
+									if ($title_placeholder != null) {
+										$cmd_array['display']['title_placeholder'] = $title_placeholder;
+									}
+								}
+								if(isset($message_placeholder)){
+									if ($message_placeholder != null) {
+										$cmd_array['display']['message_placeholder'] = $message_placeholder;
+									}
+								}
+								if(isset($actionCodeAccess)){
+									if($actionCodeAccess !== null ){
+										if($actionCodeAccess !== ''){
+											$cmd_array['configuration']['actionCodeAccess'] = true;
+										}
+									}
+								}
+								if(isset($actionConfirm)){
+									if($actionConfirm !== null){
+										if($actionConfirm == 1){
+											$cmd_array['configuration']['actionConfirm'] = true;
+										}
+									}
+								}
+								if ($cmd_array['type'] == 'action'){
+									unset($cmd_array['currentValue']);
+								}
+								if ($cmd_array['value'] === null || $cmd_array['value'] == ""){
+									//unset($cmd_array['value']);
+									$cmd_array['value'] == "0";
+								}else{
+									$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
+								}
+								if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
+									unset($cmd_array['unite']);
+								}
+								$cmds_array[] = $cmd_array;
+								$i++;
 							}
-							if ($cmd_array['type'] == 'action'){
-								unset($cmd_array['currentValue']);
-							}
-							if ($cmd_array['value'] === null || $cmd_array['value'] == ""){
-								//unset($cmd_array['value']);
-								$cmd_array['value'] == "0";
-							}else{
-								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
-							}
-							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
-								unset($cmd_array['unite']);
-							}
-							$cmds_array[] = $cmd_array;
-                      		$i++;
-                      	}
+						}
+						if($i > 0){
+							$return = $cmds_array;
+						}
 					}
-                  	if($i > 0){
-                    	$return = $cmds_array;
-                    }
-				}
                 }
 			}
 		}
