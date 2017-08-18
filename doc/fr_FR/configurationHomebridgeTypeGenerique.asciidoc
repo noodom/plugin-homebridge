@@ -1,7 +1,7 @@
-==== Lumières
+===== Lumières
 Support des couleurs basique et buggé, doit être réécrit et documenté
 
-==== Prises
+===== Prises
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
@@ -13,26 +13,26 @@ Support des couleurs basique et buggé, doit être réécrit et documenté
 | Action/Prise Slider | NON Utilisé | N/A
 |===
 
-==== Volets
+===== Volets
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
 | Info/Volet Etat | OUI | 0 = Fermé 
 
 >95 = Ouvert
-| Action/Volet Bouton Monter | NON Utilisé | N/A
-| Action/Volet Bouton Descendre | NON Utilisé | N/A
+| Action/Volet Bouton Monter | Si Descendre | Référence vers l'Etat
+| Action/Volet Bouton Descendre | Si Monter | Référence vers l'Etat
 | Action/Volet Bouton Stop | NON Utilisé | N/A
-| Action/Volet Bouton Slider | OUI | Référence vers l'Etat
+| Action/Volet Bouton Slider | Si Seul | Référence vers l'Etat
 |===
 
-==== Volets BSO
+===== Volets BSO
 Pas encore supportés
 
-==== Chauffage fil pilote
+===== Chauffage fil pilote
 N'existe pas en HomeKit
 
-==== Serrures
+===== Serrures
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
@@ -43,25 +43,25 @@ N'existe pas en HomeKit
 | Action/Serrure Bouton Fermer | OUI | Référence vers l'Etat
 |===
 
-==== Sirènes
+===== Sirènes
 N'existe pas en HomeKit
 
-==== Thermostats
+===== Thermostats
 Support basique, aucune configuration
 
-==== Cameras
+===== Cameras
 Support par "Plateforme Homebridge supplémentaire"
 
-==== Modes
+===== Modes
 N'existe pas en HomeKit
 
-==== Alarmes
+===== Alarmes
 Support en lecture d'état, changement d'état à venir
 
-==== Météo
+===== Météo
 Pas encore supporté (certains éléments existent en HomeKit mais pas tous)
 
-==== Portails ou Garages
+===== Portails ou Garages
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
@@ -83,7 +83,7 @@ Info/Garage état ouvrant
 | Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
 |===
 
-==== Generic
+===== Generic
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
@@ -126,9 +126,13 @@ pas 0 = Sabotage
 | Info/Choc 
 
 (N'existe pas en HomeKit)| NON | N/A
-| Info/Générique 
+| Info/Générique | NON | Valeur <64 charactères 
 
-(N'existe pas en HomeKit)| NON | N/A
+avec Unité indiquée ou pas
+
+dans Eve uniquement
+
+mise à jour après slide vers le bas
 | Action/Générique 
 
 (N'existe pas en HomeKit)| NON | N/A
@@ -137,6 +141,6 @@ pas 0 = Sabotage
 
 
 [IMPORTANT]
-Les références vers l'état dans les actions est primordiale !! sinon pas de lien entre l'état et ses actions possible.
+Les références vers l'état dans les actions est primordiale !! sinon pas de lien entre l'état et ses actions possibles.
 
 image::../images/reference-etat.png[]
