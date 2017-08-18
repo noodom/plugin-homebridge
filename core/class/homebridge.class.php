@@ -725,5 +725,3 @@ class homebridgeCmd extends cmd {
 
 	/*     * **********************Getteur Setteur*************************** */
 }
-
-?>
