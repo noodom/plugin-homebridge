@@ -75,17 +75,15 @@ function homebridge_install(){
 		log::add('homebridge', 'info', 'A Log homebridge:'.$log_homebridge);
 		
 		// + copy data directory*/	
-		//exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
 		$platform_mobile = dirname(__FILE__).'/../../../mobile/data/otherPlatform.json';
 		$platform_homebridge = dirname(__FILE__).'/../../data/otherPlatform.json';
 		log::add('homebridge','info','my exists ? '.file_exists($platform_homebridge));
-		log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
+		if(file_exists($platform_homebridge)) log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
 		log::add('homebridge','info','mobile exists ? '.file_exists($platform_mobile));
-		log::add('homebridge','info','mobile dateM ? '.filemtime($platform_mobile));
-		//exec('sudo cp '.dirname(__FILE__).'/../../../mobile/data/otherPlatform.json');
+		if(file_exists($platform_mobile)) log::add('homebridge','info','mobile dateM ? '.filemtime($platform_mobile));
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
-	$pluginHomebridge->generate_file();
+	//$pluginHomebridge->generate_file();
 	$pluginHomebridge->dependancy_install(true);
 	$pluginHomebridge->generate_file();
 }
