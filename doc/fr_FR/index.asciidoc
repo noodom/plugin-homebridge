@@ -1,5 +1,7 @@
 = Plugin Mobile
 
+== Plugin Mobile
+
 Plugin permettant d'utiliser l'application Mobile Jeedom.
 
 include::configurationPlugin.asciidoc[]
@@ -8,7 +10,7 @@ include::configurationMobile.asciidoc[]
 
 include::configurationTypeGenerique.asciidoc[]
 
-= Homebridge
+== Homebridge
 
 include::presentationHomebridge.asciidoc[]
 
@@ -16,11 +18,13 @@ include::demonHomebridge.asciidoc[]
 
 include::configurationHomebridge.asciidoc[]
 
-= Troubleshooting
+== Troubleshooting
 
 include::TroubleshootingMobile.asciidoc[]
 
 include::TroubleshootingHomebridge.asciidoc[]
+
+include::logHomebridge.asciidoc[]
 
 include::changelog.asciidoc[]
 
