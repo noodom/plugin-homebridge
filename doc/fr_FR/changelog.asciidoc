@@ -1,10 +1,74 @@
-= Changelog
+== Changelog
 
-== Mobile
+=== Mobile
 
-=== TO ADD
+==== v1.2.0
+   * Ajout des designs
+   * Ajout des notifications simple
+   * Ajout des garages et portail
+   * Multi-BugFix
+   * Amélioration de la stabilité et de la fluidité
+   * BugFix TouchID
+
+==== v1.1.1
+   * Amélioration de la stabilité et de la fluidité
+   * Refonte Global des vues
+   * BugFix TouchID empechant la synchronisation auto
+   * Nouvelle notification interne
+   * Les pièces ne remonte plus après un retour dessus
+   * BugFix température tronqué dans les favoris
+   * BugFix Couleur RGB
+   * BugFix QRCode
+   * BugFix barre d'etat IOS
+   * BugFix menu hamburger
+   
+==== v1.1.0
+   * Ajout des raccourcis et favoris de type actionneur
+   * Ajout du type information pour les raccourcis et favoris
+   * Plugin officiel Mode
+   * Modification de la synchro d'entrée
+   * Pièce en mode carré
+   * Ajout message et mises à jours Dispo
+   * Fix sur multiprises
+   * Fix serrure inversée
+   * Fix stop sur les stores
+   * Fix réinitialisation de l'app
+
+==== v1.0.2
+   * Mise en place du mot "Objets"
+   * Fix Multi-Bug
+   * Fix Lumière et Prise
+   * Ajout de la confirmation d'action
+   * Ajout du mot de passe sur une action
+   * Ajout Lumière par Toggle
+   * Fix volet roulant
+   
+==== v1.0.1
+   * Fix du bug Pièces (Icones)
+   * Ajout Générique Info
+   * Ajout Générique Action
+   * Corrections mineures
+   * Corrections orthographiques
+   * Fix Scénario Favoris
+   * Fix Suppression de Scénario
+   * Fix Generic
+   * Nouveau procédé de Log, pour l’aide au résolution de problème.
+   
+==== v1.0.0
+   * Début de l'application mobile
 
 === Homebridge
+
+==== v1.2.2
+    * Type Generic Info supporté pour les infos Jeedom de type Numerique, Binaire, Autre
+    
+    IMPORTANT: ne pas modifier ce type dans Jeedom pendant que homebridge fonctionne
+
+==== v1.2.1
+    * Bugfix : capteurs Fenêtres
+    * Bugfix : volets Somfy
+    * Bugfix : Consommation Electrique qui bug sur composants zwave
+    * Bugfix : En chargement pour perif avec batterie
 
 ==== v1.2.0
     * Realease Stable
@@ -104,3 +168,19 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
     * Au démarrage du daemon, vérification si avahi-daemon et dbus sont bien lancés, sinon, les démarrer.
     * A l'install des dépendances, passer avahi-daemon et dbus à enabled si pas le cas.
     * Corrections diverses, simplifications et optimisations.
+
+
+== Bugs Connus
+  * Le plugin Alarme n'est pas encore complêtement supporté car vous pouvez créer des "modes" dynamiquement et les modes de HomeKit sont statique, je dois trouver un moyen sympa de les "mapper" entre eux.
+  * Le plugin Thermostat est resté au même point aussi.
+  * Redémarrage à la sauvage pendant le démarrage du plugin (du daemon) : vous crachez tout votre homebridge -> Réparation.
+  * Les ampoules couleur... elle ne fonctionnaient pas bien, ce n'est toujours pas réglé (je dois réécrire cette partie) (toute ampoules en fait)
+  * Possibles problèmes sur certains types génériques plus rares.
+  
+== TODO | ROADMAP
+  * Corriger un bug dans les lightbulbs, set à false la color (pré-existant).
+  * Ajouter des accessoires supportés (Qualité d'air, double relay, etc)
+  * Comme les pièces ne sont pas portée dans Maison, donner l'option d'un préfix ou sufix nom de la pièce pour avoir facile à les ranger dans Maison (mais il faut renommer pour siri... donc on laisse le choix)
+  * Investiguer pour recharger les accessoires sans relancer le daemon.
+  * la vérification du status de dépendances homebridge doit inclure la version homebridge required et HAP-NodeJS etc
+  * ...
