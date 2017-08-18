@@ -1,4 +1,4 @@
-=== Sélection des accessoires 
+==== Sélection des accessoires 
 
 Vous devez sélectionner les équipements que vous souhaitez utiliser avec Homebridge.
 
@@ -40,11 +40,11 @@ Il faut une certaine cohérence dans le choix des types génériques. Dans le ca
 
 image::../images/ypegelumi.png[]
 
-=== Types génériques compatibles avec Homebridge
+==== Types génériques compatibles avec Homebridge
 
 include::configurationHomebridgeTypeGenerique.asciidoc[]
 
-=== Configuration du plugin mobile
+==== Configuration du plugin mobile
 
 Une fois tous les objets configurés avec leurs bons types génériques, retournez dans *-> Equipement -> Configuration.*
 
@@ -79,7 +79,7 @@ Réservé à un public averti. Il n'y aura aucun support pour cette partie. (per
 
 Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, finaliser la configuration en cliquant sur **sauvegarder**.
 
-=== Ajout de jeedom dans homekit
+==== Ajout de jeedom dans homekit
 
 Il existe plusieurs applications sur l'appstore compatible homekit. Nous allons utiliser l'application "domicile".
 
