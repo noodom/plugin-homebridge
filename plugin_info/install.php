@@ -29,36 +29,28 @@ function homebridge_install(){
 		$pluginMobile->deamon_stop();
 		
 		$user_homebridge = config::byKey('user_homebridge','homebridge');
-		log::add('homebridge', 'info', 'my User:'.$user_homebridge);
 		$user_mobile = config::byKey('user_homebridge','mobile');
-		log::add('homebridge', 'info', 'mobile User:'.$user_mobile);
 		if(!$user_homebridge && $user_mobile) {
 			config::save('user_homebridge',$user_mobile,'homebridge');
 			log::add('homebridge', 'info', 'Reprise du User de mobile:'.$user_mobile);
 		}
 
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge');
-		log::add('homebridge', 'info', 'my pin:'.$pin_homebridge);
 		$pin_mobile = config::byKey('pin_homebridge','mobile');
-		log::add('homebridge', 'info', 'mobile pin:'.$pin_mobile);
 		if(!$pin_homebridge && $pin_mobile) {
 			config::save('pin_homebridge',$pin_mobile,'homebridge');
 			log::add('homebridge', 'info', 'Reprise du PIN de mobile:'.$pin_mobile);
 		}
 
 		$name_homebridge = config::byKey('name_homebridge','homebridge');
-		log::add('homebridge', 'info', 'my name:'.$name_homebridge);
 		$name_mobile = config::byKey('name_homebridge','mobile');
-		log::add('homebridge', 'info', 'mobile name:'.$name_mobile);
 		if(!$name_homebridge && $name_mobile) {
 			config::save('name_homebridge',$name_mobile,'homebridge');
 			log::add('homebridge', 'info', 'Reprise du Nom de mobile:'.$name_mobile);
 		}
 
 		$mac_homebridge = config::byKey('mac_homebridge','homebridge');
-		log::add('homebridge', 'info', 'my mac:'.$mac_homebridge);
 		$mac_mobile = config::byKey('mac_homebridge','mobile');
-		log::add('homebridge', 'info', 'mobile mac:'.$mac_mobile);
 		if(!$mac_homebridge && $mac_mobile) {
 			config::save('mac_homebridge',$mac_mobile,'homebridge');
 			log::add('homebridge', 'info', 'Reprise de la MAC de mobile:'.$mac_mobile);
@@ -67,13 +59,14 @@ function homebridge_install(){
 		$platform_homebridge = dirname(__FILE__).'/../data/otherPlatform.json';
 		$platform_mobile = dirname(__FILE__).'/../../mobile/data/otherPlatform.json';
 
-		log::add('homebridge','info','my exists '.$platform_homebridge.' ? '.file_exists($platform_homebridge));
-		if(file_exists($platform_homebridge)) log::add('homebridge','info','my dateM ? '.filemtime($platform_homebridge));
-		log::add('homebridge','info','mobile exists '.$platform_mobile.' ? '.file_exists($platform_mobile));
-		if(file_exists($platform_mobile)) log::add('homebridge','info','mobile dateM ? '.filemtime($platform_mobile));
-		if(filemtime($platform_mobile) > filemtime($platform_homebridge)) {
-			log::add('homebridge','info','Fichier de plateforme Mobile plus récent, on le reprend');
-			exec('sudo cp '.$platform_mobile.' '.$platform_homebridge' >> ' . log::getPathToLog(__CLASS__) . ' 2>&1 ');	
+		if(file_exists($platform_mobile) && file_exists($platform_homebridge)) {
+			if(filemtime($platform_mobile) > filemtime($platform_homebridge)) {
+				log::add('homebridge','info','Fichier de plateforme Mobile plus récent, on le reprend');
+				exec('sudo cp '.$platform_mobile.' '.$platform_homebridge.' >> ' . log::getPathToLog(__CLASS__) . ' 2>&1 ');	
+			}
+		} else if(file_exists($platform_mobile) && !file_exists($platform_homebridge)) {
+			log::add('homebridge','info','Fichier de plateforme Mobile préexistant, on le reprend');
+			exec('sudo cp '.$platform_mobile.' '.$platform_homebridge.' >> ' . log::getPathToLog(__CLASS__) . ' 2>&1 ');	
 		}
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
