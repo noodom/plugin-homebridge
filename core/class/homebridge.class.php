@@ -59,11 +59,11 @@ class homebridge extends eqLogic {
 			$plugId = $plugin->getId();
 			if ($plugId == 'homebridge') {
 				continue;
-			} else if (in_array($plugId,$plugin_widget)) {
+			} elseif (in_array($plugId,$plugin_widget)) {
 				array_push($PluginToSend, $plugId);
-			} else if (in_array($plugId,$plugin_compatible) && !in_array($plugId,$plugin_widget) && config::byKey('sendToApp', $plugId, 1) == 1){
+			} elseif (in_array($plugId,$plugin_compatible) && !in_array($plugId,$plugin_widget) && config::byKey('sendToApp', $plugId, 1) == 1){
 				array_push($PluginToSend, $plugId);
-			} else if (!in_array($plugId,$plugin_compatible) && config::byKey('sendToApp', $plugId, 0) == 1){
+			} elseif (!in_array($plugId,$plugin_compatible) && config::byKey('sendToApp', $plugId, 0) == 1){
 				$subClasses = config::byKey('subClass', $plugId, '');
 				if ($subClasses != ''){
 					$subClassesList = explode(';',$subClasses);
@@ -103,7 +103,7 @@ class homebridge extends eqLogic {
 
 		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
 			$state = 'ok';
-		}else{
+		} else {
 			$state = 'nok';
 		}	
 		
@@ -487,13 +487,13 @@ class homebridge extends eqLogic {
 							if ($cmd_array['type'] == 'action'){
 								unset($cmd_array['currentValue']);
 							}
-							if ($cmd_array['value'] == null || $cmd_array['value'] == ""){
+							if ($cmd_array['value'] === null || $cmd_array['value'] == ""){
 								//unset($cmd_array['value']);
 								$cmd_array['value'] == "0";
 							}else{
 								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 							}
-							if ($cmd_array['unite'] == null || $cmd_array['unite'] == ""){
+							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
 								unset($cmd_array['unite']);
 							}
 							$cmds_array[] = $cmd_array;
