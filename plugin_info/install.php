@@ -16,7 +16,12 @@
  */
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
+function homebridge_install(){
+	log::add('homebridge', 'debug', 'Installation du Plugin Homebridge');
+}
+
 function homebridge_update(){
+	log::add('homebridge', 'debug', 'Mise à jour du Plugin Homebridge');
 	/*$ios = 0;
     	foreach (eqLogic::byType('homebridge') as $homebridge){
 		if($homebridge->getLogicalId() == null || $homebridge->getLogicalId() == ""){
