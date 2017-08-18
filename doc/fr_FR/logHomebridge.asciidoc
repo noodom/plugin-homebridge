@@ -1,4 +1,4 @@
-== Interprétation des LOGS Homebridge
+=== Interprétation des LOGS Homebridge
 
 [source,]
 ----
