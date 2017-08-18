@@ -14,7 +14,7 @@ $plugin_widget = homebridge::PluginWidget();
     <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
-                <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un homebridge}}</a>
+                <!--<a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un homebridge}}</a>-->
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
                 <?php
 foreach ($eqLogics as $eqLogic) {
@@ -36,12 +36,12 @@ foreach ($eqLogics as $eqLogic) {
 	<div role="tabpanel" class="tab-pane active" id="eqlogictab">
 	<legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
      <div class="eqLogicThumbnailContainer">
-	 <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+	<!-- <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
          <center>
             <i class="fa fa-plus-circle" style="font-size : 5em;color:#94ca02;"></i>
         </center>
         <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>Ajouter</center></span>
-	</div>
+	</div>-->
       <div class="cursor eqLogicAction" data-action="gotoPluginConf" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;">
         <center>
           <i class="fa fa-wrench" style="font-size : 5em;color:#767676;"></i>
@@ -55,7 +55,7 @@ foreach ($eqLogics as $eqLogic) {
   <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
 </div>
 </div>
-    <legend><i class="icon techno-listening3"></i>  {{Mes Téléphones homebridges}}
+    <!--<legend><i class="icon techno-listening3"></i>  {{Mes Téléphones homebridges}}
     </legend>
     <div class="eqLogicThumbnailContainer">
 	 <?php
@@ -76,7 +76,7 @@ foreach ($eqLogics as $eqLogic) {
                     echo '</div>';
                 }
     ?>
-</div>
+</div>-->
 </div>
 	<div role="tabpanel" class="tab-pane" id="plugintab">
     <legend><i class="fa fa-check-circle-o"></i>  {{Le(s) Plugin(s) Compatible(s)}}
@@ -189,7 +189,7 @@ foreach ($allScenario as $scenario) {
 </div>
 </div>
 </div>
-</div>
+</div><!--
 <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
     <a class="btn btn-danger eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
     <a class="btn btn-success eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
@@ -198,8 +198,8 @@ foreach ($allScenario as $scenario) {
     <li role="presentation" class="active"><a href="#eqlogictabin" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{homebridge}}</a></li>
     <!--<li role="presentation"><a href="#notificationtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Notifications}}</a></li>
     <li role="presentation"><a href="#commandtab" aria-controls="cmd" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
--->  
-</ul>
+ 
+</ul>--> 
   <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
     <div role="tabpanel" class="tab-pane active" id="eqlogictabin">
     <div class="row">
@@ -280,7 +280,7 @@ foreach (user::all() as $user) {
             		<legend><i class="fa fa-qrcode"></i>  {{Notifications Infos :}}</legend>
 					<label class="col-sm-3 control-label">{{Id homebridge :}}</label>
 			                    <div class="col-sm-3">
-			            		<input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="{{Iq}}" disabled/>
+			            		<input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="{{Iq}}" disabled /></div>
 					</fieldset>
 	            </form>
 	        </div>
@@ -295,6 +295,6 @@ foreach (user::all() as $user) {
 	    </div>
     </div>
     </div>
-</div>
+</div>  
 <?php include_file('desktop', 'homebridge', 'js', 'homebridge');?>
 <?php include_file('core', 'plugin.template', 'js');?>
