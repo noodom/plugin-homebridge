@@ -117,7 +117,7 @@ class homebridge extends eqLogic {
 		}
 		log::remove('homebridge_update');
 
-		self::generate_file();
+		homebridge::generate_file();
 		
         $returnArray = array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
 							 'log' => log::getPathToLog(__CLASS__ . '_update'));
