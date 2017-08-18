@@ -144,7 +144,7 @@ class homebridge extends eqLogic {
 		return (($ret===false)?false:true);
 	}
 	public static function generate_file(){
-		if(self::deamon_info()=="ok") self::deamon_stop();
+		if(homebridge::deamon_info()=="ok") homebridge::deamon_stop();
 		$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		config::save('user_homebridge',$user_homebridge,'homebridge');
 		$user = user::byId($user_homebridge);
@@ -159,10 +159,10 @@ class homebridge extends eqLogic {
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
 		$name_homebridge = config::byKey('name_homebridge','homebridge',config::byKey('name'),true);
 		config::save('name_homebridge',$name_homebridge,'homebridge');
-		$mac_homebridge = config::byKey('mac_homebridge','homebridge',self::generateRandomMac(),true);
+		$mac_homebridge = config::byKey('mac_homebridge','homebridge',homebridge::generateRandomMac(),true);
 		config::save('mac_homebridge',$mac_homebridge,'homebridge');
 		
-		if(in_array($pin_homebridge,self::DisallowedPIN())) {
+		if(in_array($pin_homebridge,homebridge::DisallowedPIN())) {
 			log::add('homebridge', 'error', 'Le PIN Homebridge n\'est pas autorisée par Apple : '.$pin_homebridge);	
 		}
 		
