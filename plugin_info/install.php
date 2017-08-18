@@ -25,7 +25,7 @@ function homebridge_install(){
 		$mobileExists=false;
 	}
 	if(mobileExists) {
-		log::add('homebridge', 'debug', 'Présence du plugin Mobile');
+		log::add('homebridge', 'debug', 'Présence du plugin Mobile [High Five old friend]');
 		$pluginMobile->deamon_stop();
 	}
 	$pluginHomebridge = plugin::byId('homebridge');
