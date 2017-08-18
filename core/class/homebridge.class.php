@@ -201,7 +201,7 @@ class homebridge extends eqLogic {
 				$response['platforms'][] = $jsonArr;
 		}
 		
-		exec('sudo mkdir ' . dirname(__FILE__) . '/../../ressources/homebridge >> '.log::getPathToLog(__CLASS__ . '_update').' 2>&1 &');
+		exec('sudo mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >> '.log::getPathToLog(__CLASS__).' 2>&1 &');
 		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
