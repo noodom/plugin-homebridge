@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function homebridge_install(){
-	log::add('homebridge', 'debug', 'Installation du Plugin Homebridge');
+	log::add('homebridge', 'info', 'Installation du Plugin Homebridge');
 	$MobileExists=true;
 	try {
 		$pluginMobile = plugin::byId('mobile');
@@ -25,37 +25,37 @@ function homebridge_install(){
 		$mobileExists=false;
 	}
 	if(mobileExists) {
-		log::add('homebridge', 'debug', 'Présence du plugin Mobile [High Five old friend]');
+		log::add('homebridge', 'info', 'Présence du plugin Mobile [High Five old friend]');
 		$pluginMobile->deamon_stop();
 		
 		$user_homebridge = config::byKey('user_homebridge','homebridge');
-		log::add('homebridge', 'debug', 'my User:'.$user_homebridge);
+		log::add('homebridge', 'info', 'my User:'.$user_homebridge);
 		$user_mobile = config::byKey('user_homebridge','mobile');
-		log::add('homebridge', 'debug', 'mobile User:'.$user_mobile);
+		log::add('homebridge', 'info', 'mobile User:'.$user_mobile);
 		if(!$user_homebridge && $user_mobile) {
 			config::save('user_homebridge',$user_mobile,'homebridge');
 		}
 
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge');
-		log::add('homebridge', 'debug', 'my pin:'.$pin_homebridge);
+		log::add('homebridge', 'info', 'my pin:'.$pin_homebridge);
 		$pin_mobile = config::byKey('pin_homebridge','mobile');
-		log::add('homebridge', 'debug', 'mobile pin:'.$pin_mobile);
+		log::add('homebridge', 'info', 'mobile pin:'.$pin_mobile);
 		if(!$pin_homebridge && $pin_mobile) {
 			config::save('pin_homebridge',$pin_mobile,'homebridge');
 		}
 
 		$name_homebridge = config::byKey('name_homebridge','homebridge');
-		log::add('homebridge', 'debug', 'my name:'.$name_homebridge);
+		log::add('homebridge', 'info', 'my name:'.$name_homebridge);
 		$name_mobile = config::byKey('name_homebridge','mobile');
-		log::add('homebridge', 'debug', 'mobile name:'.$name_mobile);
+		log::add('homebridge', 'info', 'mobile name:'.$name_mobile);
 		if(!$name_homebridge && $name_mobile) {
 			config::save('name_homebridge',$name_mobile,'homebridge');
 		}
 
 		$mac_homebridge = config::byKey('mac_homebridge','homebridge');
-		log::add('homebridge', 'debug', 'my mac:'.$mac_homebridge);
+		log::add('homebridge', 'info', 'my mac:'.$mac_homebridge);
 		$mac_mobile = config::byKey('mac_homebridge','mobile');
-		log::add('homebridge', 'debug', 'mobile mac:'.$mac_mobile);
+		log::add('homebridge', 'info', 'mobile mac:'.$mac_mobile);
 		if(!$mac_homebridge && $mac_mobile) {
 			config::save('mac_homebridge',$mac_mobile,'homebridge');
 		}
@@ -70,7 +70,7 @@ function homebridge_install(){
 }
 
 function homebridge_update(){
-	log::add('homebridge', 'debug', 'Mise à jour du Plugin Homebridge');
+	log::add('homebridge', 'info', 'Mise à jour du Plugin Homebridge');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install(true);
 }
