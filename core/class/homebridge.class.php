@@ -41,10 +41,6 @@ class homebridge extends eqLogic {
 		return $PluginMulti;
 	}
 	
-	public static function LienAWS() {
-		return 'http://195.154.56.168:8000/notif/';
-	}
-	
 	public static function DisallowedPIN() {
 		$DisallowedPIN = ['000-00-000','111-11-111','222-22-222','333-33-333','444-44-444','555-55-555','666-66-666','777-77-777','888-88-888','999-99-999','123-45-678','876-54-321'];
 		return $DisallowedPIN;
@@ -653,87 +649,7 @@ class homebridge extends eqLogic {
 		}
 		return $retour;
 	}
-	/**************************************************************************************/
-	/*                                                                                    */
-	/*                         Permet de creer le Json du QRCode                          */
-	/*                                                                                    */
-	/**************************************************************************************/
 
-	/*public function getQrCode() {
-		$interne = network::getNetworkAccess('internal');
-		$externe = network::getNetworkAccess('external');
-		$user = $this->getConfiguration('affect_user');
-		
-		if($interne == null || $interne == 'http://:80' || $interne == 'https://:80'){
-			$retour = 'internalError';
-		}else if($externe == null || $externe == 'http://:80' || $externe == 'https://:80'){
-			$retour = 'externalError';
-		}else if($user == ''){
-			$retour = 'UserError';
-		}else{
-			$key = $this->getLogicalId();
-			$request_qrcode = array(
-			'eqLogic_id' => $this->getId(),
-				'url_internal' => $interne,
-				'url_external' => $externe,
-				'Iq' => $key
-			);
-			if ($user != '') {
-				$username = user::byId($this->getConfiguration('affect_user'));
-				if (is_object($username)) {
-					$request_qrcode['username'] = $username->getLogin();
-					$request_qrcode['apikey'] = $username->getHash();
-				}
-			}
-			$retour = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl='.json_encode($request_qrcode);
-		}
-		return $retour;
-	}*/
-	
-	/**************************************************************************************/
-	/*                                                                                    */
-	/*                                 Pour les notifications                             */
-	/*                                                                                    */
-	/**************************************************************************************/
-	
-	/*public static function jsonPublish($os,$titre,$message,$badge = 'null'){
-		if($os == 'ios'){
-			if($badge == 'null'){
-				$publish = '{"default": "Erreur de texte de notification","APNS": "{\"aps\":{\"alert\": {\"title\":\"'.$titre.'\",\"body\":\"'.$message.'\"},\"badge\":'.$badge.',\"sound\":\"silence.caf\"}}"}';
-			}else{
-				$publish = '{"default": "test", "APNS": "{\"aps\":{\"alert\": {\"title\":\"'.$titre.'\",\"body\":\"'.$message.'\"},\"sound\":\"silence.caf\"}}"}';
-			}
-		}else if($os == 'android'){
-			$publish = '{"default": "Erreur de texte de notification", "GCM": "{ \"data\": {\"notificationId\":\"'.rand(3, 5).'\",\"title\":\"'.$titre.'\",\"text\":\"'.$message.'\",\"vibrate\":\"true\",\"lights\":\"true\" } }"}';
-		}else if($os == 'microsoft'){
-			
-		}
-		return $publish;
-	}
-	
-	public static function notification($arn,$os,$titre,$message,$badge = 'null'){
-		log::add('homebridge', 'debug', 'notification en cours !');
-		if($badge == 'null'){
-			$publish = self::jsonPublish($os,$titre,$message,$badge);
-		}else{
-			$publish = self::jsonPublish($os,$titre,$message);
-		}
-		log::add('homebridge', 'debug', 'JSON envoyé : '.$publish);
-		$post = [
-			'id' => '1',
-			'type' => $os,
-			'arn' => $arn,
-			'publish' => $publish 
-		];
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,self::LienAWS());
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,$post);            
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
-        log::add('homebridge', 'debug', 'notification resultat > '.$server_output);
-	}*/
 	
 	/**************************************************************************************/
 	/*                                                                                    */
