@@ -18,6 +18,18 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function homebridge_install(){
 	log::add('homebridge', 'debug', 'Installation du Plugin Homebridge');
+	$MobileExists=true;
+	try {
+		$pluginMobile = plugin::byId('mobile');
+	} catch(Exception $e) {
+		$mobileExists=false;
+	}
+	if(mobileExists) {
+		log::add('homebridge', 'debug', 'Présence du plugin Mobile');
+		$pluginMobile->deamon_stop();
+	}
+	$pluginHomebridge = plugin::byId('homebridge');
+	$pluginHomebridge->dependancy_install(true);
 }
 
 function homebridge_update(){
@@ -33,8 +45,8 @@ function homebridge_update(){
 		}
 	}
 	if($ios == 1){*/
-		$pluginhomebridge = plugin::byId('homebridge');
-		$pluginhomebridge->dependancy_install(true);
+		$pluginHomebridge = plugin::byId('homebridge');
+		$pluginHomebridge->dependancy_install(true);
 	//}
 }
 ?>
