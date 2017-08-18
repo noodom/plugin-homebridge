@@ -1,4 +1,4 @@
-== Aide Mobile
+=== Aide Mobile
 
 *-> Je suis sur Android version de l'app (1.0.1 ou 1.0.0) je n'arrive pas à accéder à mes pièces ni même à la configuration de l'app.*
 
