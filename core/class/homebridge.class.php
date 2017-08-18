@@ -92,10 +92,9 @@ class homebridge extends eqLogic {
 	}*/
 	
 	public static function dependancy_info() {
-		$return = array();
+		$return = [];
 		$return['log'] = 'homebridge_update';
-		//$return['progress_file'] = '/tmp/homebridge_in_progress';
-		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
+		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance'];
 
 		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
 			$state = 'ok';
@@ -163,8 +162,8 @@ class homebridge extends eqLogic {
 			log::add('homebridge', 'error', 'Le PIN Homebridge n\'est pas autorisée par Apple : '.$pin_homebridge);	
 		}
 		
-		$response = array();
-		$response['bridge'] = array();
+		$response = [];
+		$response['bridge'] = [];
 		$response['bridge']['name'] = $name_homebridge;
 		$response['bridge']['username'] = $mac_homebridge;
 		$response['bridge']['port'] = 51826;
@@ -183,7 +182,7 @@ class homebridge extends eqLogic {
 		$plateform['apikey'] = $apikey;
 		$plateform['pollerperiod'] = 0.5;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
-		$response['platforms'] = array();
+		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
@@ -206,12 +205,16 @@ class homebridge extends eqLogic {
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
 		fclose($fp);
-		if(file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) log::add('homebridge','info','Le fichier config.json de Homebridge existe');
-		else log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas');
+		if(file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
+			log::add('homebridge','info','Le fichier config.json de Homebridge existe');
+		}
+		else {
+			log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas : '.dirname(__FILE__) . '/../../resources/homebridge/config.json');
+		}
 	}
 	
 	public static function deamon_info() {
-		$return = array();
+		$return = [];
 		$return['log'] = 'homebridge';
 		$return['state'] = 'nok';
 
@@ -351,8 +354,8 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 
-	public static function discovery_eqLogic($plugin = array(),$hash = null){
-		$return = array();
+	public static function discovery_eqLogic($plugin = [],$hash = null){
+		$return = [];
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type, true);
 			if (is_array($eqLogics)) {
@@ -371,9 +374,9 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	public static function discovery_cmd($plugin = array()){
-		$return = array();
-		$genericisvisible = array();
+	public static function discovery_cmd($plugin = []){
+		$return = [];
+		$genericisvisible = [];
 		foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
 		        if ($info['family'] !== 'Generic') {
 		            array_push($genericisvisible, $key);
@@ -507,7 +510,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function discovery_multi($cmds) {
-		$array_final = array();
+		$array_final = [];
 		$tableData = self::PluginMultiInEqLogic();
 		foreach ($cmds as &$cmd) {
 			if(in_array($cmd['generic_type'], $tableData)){
@@ -522,8 +525,8 @@ class homebridge extends eqLogic {
 				
 			}
 		}
-		$dif = array();
-		$array_cmd_multi = array();
+		$dif = [];
+		$array_cmd_multi = [];
 		foreach ($array_final as &$array_fi){
 			if(!in_array($array_fi, $dif)){
 				array_push($dif, $array_fi);
@@ -536,7 +539,7 @@ class homebridge extends eqLogic {
 	
 	public static function change_cmdAndeqLogic($cmds,$eqLogics){
 		$plage_cmd = self::discovery_multi($cmds);
-		$eqLogic_array = array();
+		$eqLogic_array = [];
 		$nbr_cmd = count($plage_cmd);
 		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
 		if($nbr_cmd != 0){
@@ -585,7 +588,7 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_object() {
 		$all = utils::o2a(object::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$object){
 			if (isset($object['display']['sendToApp']) && $object['display']['sendToApp'] == "0") {
 				continue;
@@ -599,7 +602,7 @@ class homebridge extends eqLogic {
 	 
 	public static function discovery_scenario() {
 		$all = utils::o2a(scenario::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$scenario){
 			if (isset($scenario['display']['sendToApp']) && $scenario['display']['sendToApp'] == "0") {
 				continue;
@@ -619,7 +622,7 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_message() {
 		$all = utils::o2a(message::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$message){
 				$return[]=$message;	
 		}
@@ -628,7 +631,7 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_plan() {
 		$all = utils::o2a(planHeader::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$plan){
 				$return[]=$plan;	
 		}
@@ -637,7 +640,7 @@ class homebridge extends eqLogic {
 
 
 	public static function delete_object_eqlogic_null($objectsATraiter,$eqlogicsATraiter){
-		$retour = array();
+		$retour = [];
 		foreach ($objectsATraiter as &$objectATraiter){
 			$id_object = $objectATraiter['id'];
 			foreach ($eqlogicsATraiter as &$eqlogicATraiter){
