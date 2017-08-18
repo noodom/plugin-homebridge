@@ -4,7 +4,7 @@ touch ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
 echo "--0%"
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
-sudo killall homebridge
+sudo killall homebridge 2>/dev/null
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
