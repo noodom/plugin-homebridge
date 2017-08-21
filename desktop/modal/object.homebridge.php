@@ -23,7 +23,7 @@ $object = object::byId($_GET['object_id']);
 sendVarToJS('object', $_GET['object_id']);
 ?>
 
-<div class="row row-overflow">
+<div class="row">
 	<div>
 		<center>
 		<?php
@@ -33,7 +33,7 @@ sendVarToJS('object', $_GET['object_id']);
 		</center>
 	</div><br/>
 	<div class="alert alert-info div_object_configuration" role="alert">
-		{{Vous pouvez activer ou désactiver l\'envoi de cette pièce vers l\'application}}
+		{{Vous pouvez activer ou désactiver l'envoi de cette pièce vers l'application}}
 		<?php
 			$check = 'checked';
 			if ($object->getDisplay('sendToApp', 1) == 0) {
@@ -45,7 +45,7 @@ sendVarToJS('object', $_GET['object_id']);
 		<span class="form-control objectAttr" type="text" data-l1key="name" style="display : none;"><?=$object->getName()?></span>
 	</div>
 	<div class="col-lg-12 col-md-12 col-sm-12 eqLogicPluginDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-		<legend><i class="fa fa-building"></i>  {{Type Générique de l\'objet}}
+		<legend><i class="fa fa-building"></i>  {{Type Générique de l'objet}}
 			<div class="form-actions pull-right">
 				<a class="btn btn-success eqLogicAction"  style="padding:0px 3px 0px 3px;" onclick="SaveObject()"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
 			</div>
