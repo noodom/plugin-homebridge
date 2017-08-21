@@ -193,7 +193,7 @@ if(!isConnect()) {
 					success : function(data) {
 						$('#div_plugin_configuration').setValues(data.result, '.configKey');
 						$('#div_alert').showAlert({
-							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
+							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'à la fin de l'installation des dépendances}}",
 							level : 'success'
 						});
 					}
