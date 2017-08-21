@@ -92,4 +92,3 @@ if ($jsonrpc->getMethod() == 'event') {
 }
 
 throw new Exception(__('Aucune demande', __FILE__));
-?>
