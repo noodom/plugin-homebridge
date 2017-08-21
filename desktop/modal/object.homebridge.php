@@ -83,85 +83,105 @@ sendVarToJS('object', $_GET['object_id']);
 					<div id="config_<?=$eqLogic->getId()?>" class="panel-collapse collapse">
 						<div class="panel-body">
 							<?php
-								$cmds = null;
-								$cmds = cmd::byEqLogicId($eqLogic->getId());
+							switch($eqLogic->getEqType_name()) :
+								case "alarm" :
+								/*	$cmds = null;
+									$cmds = cmd::byEqLogicId($eqLogic->getId());
+									foreach ($cmds as $cmd) {
+										//echo $cmd->getDisplay('generic_type');
+										if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
+											echo $cmd->getid().' '.$cmd->getName()."<br />";
+										}
+									}*/
 							?>
-							<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
-								<tr>
-									<th>{{Id Cmd}}</th>
-									<th>{{Nom de la Commande}}</th>
-									<th>{{Type Générique}}</th>
-								</tr>
+								
+							<?php
+								//break;
+								default :
+							?>
 								<?php
-								foreach ($cmds as $cmd) :
-									array_push($tableau_cmd, $cmd->getId());
+									$cmds = null;
+									$cmds = cmd::byEqLogicId($eqLogic->getId());
 								?>
-									<tr class="cmdLine">
-										<td>
-											<span class="cmdAttr" data-l1key="id"><?=$cmd->getId()?></span>
-										</td>
-										<td>
-											<?php
-											echo $cmd->getName();
-											$display_icon = 'none';
-											$icon ='';
-											if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
-												$display_icon = 'block';
-												$icon = $cmd->getDisplay('icon');
-											}
-											?>
-											<div class="iconeGeneric pull-right" style="display:<?=$display_icon?>;">
-												<div>
-												<span class="cmdAttr label label-info cursor" data-l1key="display" data-l2key="icon" style="font-size : 1.2em;" >' . $icon . '</span>
-												<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> {{Icône}}</a>
-												</div>
-											</div>
-										</td>
-										<td>
-											<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd->getId(); ?>">
-												<option value="">{{Aucun}}</option>
-												<?php
-													$groups = array();
-													foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
-														if ($cmd->getType() == 'info' && $info['type'] == 'Action') {
-															continue;
-														} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
-															continue;
-														/* }  elseif (isset($info['ignore']) && $info['ignore'] == true) {
-														continue;*/
-														}
-														$info['key'] = $key;
-														if (!isset($groups[$info['family']])) {
-															$groups[$info['family']][0] = $info;
-														} else {
-															array_push($groups[$info['family']], $info);
-														}
-													}
-													ksort($groups);
-													foreach ($groups as $group) {
-														usort($group, function ($a, $b) {
-														return strcmp($a['name'], $b['name']);
-														});
-														foreach ($group as $key => $info) {
-															if ($key == 0) {
-																echo '<optgroup label="{{' . $info['family'] . '}}">';
-															}
-															if($info['key'] == $cmd->getDisplay('generic_type')){
-																echo '<option value="' . $info['key'] . '" selected>' . $info['type'] . ' / ' . $info['name'] . '</option>';
-															}else{
-																echo '<option value="' . $info['key'] . '">' . $info['type'] . ' / ' . $info['name'] . '</option>';
-															}
-														}
-														echo '</optgroup>';
-													}
-												?>
-											</select>
-										</td>
+								<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
+									<tr>
+										<th>{{Id Cmd}}</th>
+										<th>{{Nom de la Commande}}</th>
+										<th>{{Type Générique}}</th>
 									</tr>
-								<?php
-								endforeach;
-								?>
-							</table>
+									<?php
+									foreach ($cmds as $cmd) :
+										array_push($tableau_cmd, $cmd->getId());
+									?>
+										<tr class="cmdLine">
+											<td>
+												<span class="cmdAttr" data-l1key="id"><?=$cmd->getId()?></span>
+											</td>
+											<td>
+												<?php
+												echo $cmd->getName();
+												$display_icon = 'none';
+												$icon ='';
+												if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
+													$display_icon = 'block';
+													$icon = $cmd->getDisplay('icon');
+												}
+												?>
+												<div class="iconeGeneric pull-right" style="display:<?=$display_icon?>;">
+													<div>
+													<span class="cmdAttr label label-info cursor" data-l1key="display" data-l2key="icon" style="font-size : 1.2em;" ><?=$icon?></span>
+													<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> {{Icône}}</a>
+													</div>
+												</div>
+											</td>
+											<td>
+												<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd->getId(); ?>">
+													<option value="">{{Aucun}}</option>
+													<?php
+														$groups = array();
+														foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
+															if ($cmd->getType() == 'info' && $info['type'] == 'Action') {
+																continue;
+															} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
+																continue;
+															/* }  elseif (isset($info['ignore']) && $info['ignore'] == true) { // display ignored types
+															continue;*/
+															}
+															$info['key'] = $key;
+															if (!isset($groups[$info['family']])) {
+																$groups[$info['family']][0] = $info;
+															} else {
+																array_push($groups[$info['family']], $info);
+															}
+														}
+														ksort($groups);
+														foreach ($groups as $group) {
+															usort($group, function ($a, $b) {
+															return strcmp($a['name'], $b['name']);
+															});
+															foreach ($group as $key => $info) {
+																if ($key == 0) {
+																	echo '<optgroup label="{{' . $info['family'] . '}}">';
+																}
+																if($info['key'] == $cmd->getDisplay('generic_type')){
+																	echo '<option value="' . $info['key'] . '" selected>' . $info['type'] . ' / ' . $info['name'] . '</option>';
+																}else{
+																	echo '<option value="' . $info['key'] . '">' . $info['type'] . ' / ' . $info['name'] . '</option>';
+																}
+															}
+															echo '</optgroup>';
+														}
+													?>
+												</select>
+											</td>
+										</tr>
+									<?php
+									endforeach;
+									?>
+								</table>
+							<?php
+							endswitch;
+							?>
 						</div>
 					</div>
 				</div>
