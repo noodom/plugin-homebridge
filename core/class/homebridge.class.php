@@ -26,15 +26,15 @@ class homebridge extends eqLogic {
 
 	/*     * ***********************Methode static*************************** */
 
-	public static function Pluginsuported() {
+	/*public static function Pluginsuported() {
 		$Pluginsuported = ['openzwave','rfxcom','edisio','mpower', 'mySensors', 'Zibasedom', 'virtual', 'camera','weather','philipsHue','enocean','wifipower','alarm','mode','apcupsd', 'btsniffer','dsc','rflink','mysensors','relaynet','remora','unipi','eibd','thermostat','netatmoThermostat','espeasy','jeelink','teleinfo','tahoma','protexiom','lifx','wattlet','rfplayer','openenocean'];
 		return $Pluginsuported;
-	}
+	}*/
 	
-	public static function PluginWidget() {
+	/*public static function PluginWidget() {
 		$PluginWidget = ['alarm','camera','thermostat','netatmoThermostat','weather','mode'];	
 		return $PluginWidget;
-	}
+	}*/
 	
 	public static function PluginMultiInEqLogic(){
 		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE'];
@@ -49,17 +49,20 @@ class homebridge extends eqLogic {
 	public static function PluginToSend() {
 		$PluginToSend=[];
 		$plugins = plugin::listPlugin(true);
-		$plugin_compatible = self::Pluginsuported();
-		$plugin_widget = self::PluginWidget();
+		/*$plugin_compatible = self::Pluginsuported();
+		$plugin_widget = self::PluginWidget();*/
 		foreach ($plugins as $plugin){
 			$plugId = $plugin->getId();
-			//shortcut
-				array_push($PluginToSend, $plugId);
-				break;
-			//shortcut
+			
 			if ($plugId == 'homebridge' || $plugId == 'mobile') {
 				continue;
-			} elseif (in_array($plugId,$plugin_widget)) {
+			} 
+			//shortcut
+			else {
+				array_push($PluginToSend, $plugId);
+			}
+			//shortcut
+			/*elseif (in_array($plugId,$plugin_widget)) {
 				array_push($PluginToSend, $plugId);
 			} elseif (in_array($plugId,$plugin_compatible) && !in_array($plugId,$plugin_widget) && config::byKey('sendToApp', $plugId, 1) == 1){
 				array_push($PluginToSend, $plugId);
@@ -74,8 +77,9 @@ class homebridge extends eqLogic {
 				array_push($PluginToSend, $plugId);
 			} else {
 				continue;
-			}
+			}*/
 		}
+		log::add('homebridge_api','info',$PluginToSend);
 		return $PluginToSend;
 		
 	}
