@@ -179,6 +179,7 @@ class homebridge extends eqLogic {
 		$plateform['apikey'] = $apikey;
 		$plateform['pollerperiod'] = 0.5;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
+		$plateform['myPlugin'] = 'homebridge';
 		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
