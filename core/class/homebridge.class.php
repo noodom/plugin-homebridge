@@ -324,8 +324,13 @@ class homebridge extends eqLogic {
 			log::add('homebridge', 'info', 'suppression homebridge-jeedom');
 			$cmd = 'npm uninstall homebridge-jeedom --save';
 			exec($cmd);
-			log::add('homebridge', 'info', 'suppression homebridge');
+			log::add('homebridge', 'info', 'suppression homebridge 1/2');
 			$cmd = 'npm uninstall homebridge --save';
+			exec($cmd);
+			log::add('homebridge', 'info', 'suppression homebridge 2/2');
+			$cmd = 'sudo rm -fR /usr/local/lib/node_modules/homebridge >/dev/null 2>&1';
+			exec($cmd);
+			$cmd = 'sudo rm -fR /usr/lib/node_modules/homebridge >/dev/null 2>&1';
 			exec($cmd);
 		}
 		$mac_homebridge = self::generateRandomMac();
