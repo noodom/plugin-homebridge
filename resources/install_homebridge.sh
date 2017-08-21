@@ -32,7 +32,9 @@ else
 fi
 echo 40 > ${PROGRESS_FILE}
 echo "--40%"
+echo "Installation de node-gyp..."
 sudo npm install -g node-gyp
+echo "Installation de request..."
 sudo npm install -g request
 echo 50 > ${PROGRESS_FILE}
 echo "--50%"
@@ -40,10 +42,13 @@ nodePath=`npm root -g`
 sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
+echo "Installation de Homebridge..."
 sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge.git#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
+echo "Installation de Homebridge-Jeedom..."
 sudo npm install -g https://github.com/jeedom/homebridge-jeedom.git#beta
+echo "Installation de Homebridge-Camera-FFMPEG..."
 sudo npm install -g https://github.com/jeedom/homebridge-camera-ffmpeg.git#master
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
