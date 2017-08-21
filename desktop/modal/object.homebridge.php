@@ -75,7 +75,7 @@ sendVarToJS('object', $_GET['object_id']);
 								<?=$eqLogic->getHumanName(true)?>
 								<a class="btn btn-mini btn-success eqLogicAction pull-right" style="padding:0px 3px 0px 3px;cursor:pointer;" onclick="SaveObject()"><i class="fa fa-floppy-o" style="color:white;"></i></a>
 								<small>
-									<label style="cursor:default;margin-left:5px">{{  Envoyer à Homebridge  }}<input style="display:inline-block" type="checkbox" class="eqLogicAttr configuration" data-l1key="configuration" data-l2key="sendToHomebridge<?=$check?>"/></label>
+									<label style="cursor:default;margin-left:5px">{{  Envoyer à Homebridge  }}<input style="display:inline-block" type="checkbox" class="eqLogicAttr configuration" data-l1key="configuration" data-l2key="sendToHomebridge" <?=$check?>/></label>
 								</small>
 							</a>
 						</h3>
