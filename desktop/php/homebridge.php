@@ -29,9 +29,9 @@ sendVarToJS('eqType', 'homebridge');
 	<div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipements}}</a></li>
-			<!--<li role="presentation"><a href="#plugintab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Plugins}}</a></li>-->
-			<li role="presentation"><a href="#objecttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon maison-house112"></i> {{Objets / Pièces}}</a></li>
-			<!--<li role="presentation"><a href="#scenariotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon jeedom-clap_cinema"></i> {{Scénarios}}</a></li>-->
+			<!--<li role="presentation"><a href="#alarmstab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon jeedom-sirene"></i> {{Alarmes}}</a></li>
+			<li role="presentation"><a href="#thermotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon jeedom-thermometre-celcius"></i> {{Thermostats}}</a></li>
+			<li role="presentation"><a href="#scenariotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon jeedom-clap_cinema"></i> {{Scénarios}}</a></li>-->
 		</ul>
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
@@ -80,7 +80,7 @@ sendVarToJS('eqType', 'homebridge');
 						}*/
 					?>
 				</div>-->
-			</div>
+			<!--</div>-->
 			<!--
 			<div role="tabpanel" class="tab-pane" id="plugintab">
 				<legend><i class="fa fa-check-circle-o"></i>  {{Le(s) Plugin(s) Compatible(s)}}</legend>
@@ -148,7 +148,7 @@ sendVarToJS('eqType', 'homebridge');
 					?>
 				</div>
 			</div>-->
-			<div role="tabpanel" class="tab-pane" id="objecttab">
+			<!--<div role="tabpanel" class="tab-pane" id="objecttab">-->
 				<legend><i class="icon maison-modern13"></i>  {{Les Pièces}}</legend>
 				<div class="eqLogicThumbnailContainer">
 					<?php
@@ -163,6 +163,45 @@ sendVarToJS('eqType', 'homebridge');
 							echo str_replace('></i>', ' style="font-size : 6em;color:#767676;"></i>', $object->getDisplay('icon', '<i class="fa fa-lemon-o"></i>'));
 							echo "</center>";
 							echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $object->getName() . '</center></span>';
+							echo '</div>';
+						}
+					?>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="alarmstab">
+				<legend><i class="icon jeedom-sirene"></i>  {{Les Alarmes}}</legend>
+				<div class="eqLogicThumbnailContainer">
+					<?php
+						$pluginAlarm = plugin::byId('alarm');
+						$eqLogicsAlarm = eqLogic::byType($pluginAlarm->getId());
+
+						foreach ($eqLogicsAlarm as $eqLogicAlarm) {
+							$opacity = ($eqLogicAlarm->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
+							echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogicAlarm->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
+							echo "<center>";
+							echo '<img src="' . $pluginAlarm->getPathImgIcon() . '" height="105" width="95" />';
+							echo "</center>";
+							echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogicAlarm->getHumanName(true, true) . '</center></span>';
+							echo '</div>';
+						}
+					?>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="thermotab">
+				<legend><i class="icon jeedom-thermometre-celcius"></i>  {{Les Thermostats}}</legend>
+				<div class="eqLogicThumbnailContainer">
+					<?php
+						$allScenario = scenario::all();
+						foreach ($allScenario as $scenario) {
+							$opacity = '';
+							if ($scenario->getDisplay('sendToApp', 1) == 0) {
+								$opacity = 'opacity:0.3;';
+							}
+							echo '<div class="scenarioDisplayCard cursor" data-scenario_id="' . $scenario->getId() . '" data-type="' . $scenario->getType() . '" onclick="clickscenario(\''. $scenario->getId(). '\',\''. $scenario->getName() .'\')" style="background-color : #ffffff; height : 140px;margin-bottom : 35px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
+							echo "<center>";
+							echo '<img src="core/img/scenario.png" height="90" width="85" />';
+							echo "</center>";
+							echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $scenario->getHumanName(true, true,true,true) . '</center></span>';
 							echo '</div>';
 						}
 					?>
@@ -219,10 +258,10 @@ sendVarToJS('eqType', 'homebridge');
 									<div class="col-sm-3">
 										<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
 											<option value="">{{Aucun}}</option>
-											<?php
+											<?php/*
 												foreach (object::all() as $object) {
 													echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-												}
+												}*/
 											?>
 										</select>
 									</div>
@@ -249,10 +288,10 @@ sendVarToJS('eqType', 'homebridge');
 									<div class="col-sm-3">
 										<select class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="affect_user">
 											<option value="">{{Aucun}}</option>
-											<?php
+											<?php/*
 												foreach (user::all() as $user) {
 													echo '<option value="' . $user->getId() . '">' . ucfirst($user->getLogin()) . '</option>';
-												}
+												}*/
 											?>
 										</select>
 									</div>
