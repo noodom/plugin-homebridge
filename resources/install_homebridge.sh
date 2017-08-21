@@ -25,6 +25,7 @@ else
   
     echo "Utilisation du dépot officiel"
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-key update
     sudo apt-get install -y nodejs
   
   new=`nodejs -v`;
