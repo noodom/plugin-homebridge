@@ -4,10 +4,10 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 sendVarToJS('eqType', 'homebridge');
-$eqLogics = eqLogic::byType('homebridge');
-$plugins = plugin::listPlugin(true);
-$plugin_compatible = homebridge::Pluginsuported();
-$plugin_widget = homebridge::PluginWidget();
+//$eqLogics = eqLogic::byType('homebridge');
+//$plugins = plugin::listPlugin(true);
+//$plugin_compatible = homebridge::Pluginsuported();
+//$plugin_widget = homebridge::PluginWidget();
 ?>
 
 <div class="row row-overflow">
@@ -16,11 +16,11 @@ $plugin_widget = homebridge::PluginWidget();
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <!--<a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un homebridge}}</a>-->
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
-                <?php
+                <!--<?php/*
 foreach ($eqLogics as $eqLogic) {
 	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
-}
-?>
+}*/
+?>-->
            </ul>
        </div>
    </div>
@@ -28,7 +28,7 @@ foreach ($eqLogics as $eqLogic) {
    <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipements}}</a></li>
-			<li role="presentation"><a href="#plugintab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Plugins}}</a></li>
+			<!--<li role="presentation"><a href="#plugintab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Plugins}}</a></li>-->
 			<li role="presentation"><a href="#objecttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon maison-house112"></i> {{Objets / Pièces}}</a></li>
 			<!--<li role="presentation"><a href="#scenariotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon jeedom-clap_cinema"></i> {{Scénarios}}</a></li>-->
 		</ul>
@@ -58,7 +58,7 @@ foreach ($eqLogics as $eqLogic) {
     <!--<legend><i class="icon techno-listening3"></i>  {{Mes Téléphones homebridges}}
     </legend>
     <div class="eqLogicThumbnailContainer">
-	 <?php
+	 <?php/*
 				foreach ($eqLogics as $eqLogic) {
 					$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
                     echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
@@ -74,15 +74,15 @@ foreach ($eqLogics as $eqLogic) {
                     echo "</center>";
                     echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
                     echo '</div>';
-                }
+                }*/
     ?>
 </div>-->
 </div>
-	<div role="tabpanel" class="tab-pane" id="plugintab">
+	<!--<div role="tabpanel" class="tab-pane" id="plugintab">
     <legend><i class="fa fa-check-circle-o"></i>  {{Le(s) Plugin(s) Compatible(s)}}
     </legend>
     <div class="eqLogicThumbnailContainer">
-    	<?php
+    	<?php/*
     	foreach ($plugins as $plugin){
 			$opacity = '';
     		if($plugin->getId() != 'homebridge'){
@@ -111,13 +111,13 @@ foreach ($eqLogics as $eqLogic) {
 			echo '</div>';
 			}
 			}
-    	}
+    	}*/
 		?>
 </div>
 <legend><i class="fa fa-times-circle-o"></i>  {{Le(s) Plugin(s) Non Testé(s)}}
     </legend>
     <div class="eqLogicThumbnailContainer">
-    	<?php
+    	<?php/*
     	foreach ($plugins as $plugin){
 			$opacity = '';
     		if($plugin->getId() != 'homebridge'){
@@ -142,10 +142,10 @@ foreach ($eqLogics as $eqLogic) {
 					echo '</div>';
 			}
 			}
-    	}
+    	}*/
 		?>
 </div>
-</div>
+</div>-->
 <div role="tabpanel" class="tab-pane" id="objecttab">
     <legend><i class="icon maison-modern13"></i>  {{Les Pièces}}
     </legend>
@@ -200,7 +200,7 @@ foreach ($allScenario as $scenario) {
     <li role="presentation"><a href="#commandtab" aria-controls="cmd" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
   
 </ul>-->
-  <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+ <!-- <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
     <div role="tabpanel" class="tab-pane active" id="eqlogictabin">
     <div class="row">
         <div class="col-lg-6">
@@ -295,7 +295,7 @@ foreach (user::all() as $user) {
 	    </div>
     </div>
     </div>
-</div>
+</div>-->
 </div>  
 <?php include_file('desktop', 'homebridge', 'js', 'homebridge');?>
 <?php include_file('core', 'plugin.template', 'js');?>
