@@ -99,34 +99,23 @@ class homebridge extends eqLogic {
 		$return = [];
 		$return['log'] = 'homebridge_update';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
-
 		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
-			$state = 'ok';
+			$return['state'] = 'ok';
 		} else {
-			$state = 'nok';
+			$return['state'] = 'nok';
 		}	
-		
-		$return['state'] = $state;
 		return $return;
 	}
 	
-	public static function dependancy_install($fromRepair = false) {
+	public static function dependancy_install() {
 		if (file_exists(jeedom::getTmpFolder('homebridge') . '/dependance')) {
 		    return;
 		}
-		log::remove('homebridge_update');
-
+		log::remove(__CLASS__ . '_update');
 		self::generate_file();
 		
-        $returnArray = array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
-							 'log' => log::getPathToLog(__CLASS__ . '_update'));
-							 
-        if($fromRepair) {
-			$cmd = 'sudo /bin/bash ' . $returnArray['script'];
-			$cmd .= ' >> ' . $returnArray['log'] . ' 2>&1 &';
-			exec($cmd);
-		}
-		return $returnArray;
+        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
+					 'log' => log::getPathToLog(__CLASS__ . '_update'));
 	}
 	public static function getJSON(){
 		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
@@ -143,7 +132,7 @@ class homebridge extends eqLogic {
 		return (($ret===false)?false:true);
 	}
 	public static function generate_file(){
-		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
+		log::add('homebridge_api','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
 		$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		config::save('user_homebridge',$user_homebridge,'homebridge');
@@ -229,7 +218,7 @@ class homebridge extends eqLogic {
 	}
 	public static function deamon_start($_debug = false) {
 		if(log::getLogLevel('homebridge')==100) $_debug=true;
-		log::add('homebridge', 'info', 'Mode debug : ' . $_debug);
+		log::add('homebridge_api', 'info', 'Mode debug : ' . $_debug);
 		self::deamon_stop();
 		self::generate_file();
 		$deamon_info = self::deamon_info();
@@ -239,7 +228,7 @@ class homebridge extends eqLogic {
 
 		// check avahi-daemon started, if not, start
 		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then sudo systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
-		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		exec($cmd . ' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 &');
 		
 		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .'homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
@@ -253,15 +242,15 @@ class homebridge extends eqLogic {
 			$i++;
 		}
 		if ($i >= 30) {
-			log::add('homebridge', 'error', 'Impossible de lancer le démon homebridge, relancer le démon en debug et vérifiez la log', 'unableStartDeamon');
+			log::add('homebridge_api', 'error', 'Impossible de lancer le démon homebridge, relancer le démon en debug et vérifiez la log', 'unableStartDeamon');
 			return false;
 		}
 		message::removeAll('homebridge', 'unableStartDeamon');
-		log::add('homebridge', 'info', 'Démon homebridge lancé');
+		log::add('homebridge_api', 'info', 'Démon homebridge lancé');
 		
 		// Check if multiple IP's -> warning because could cause problems with mdns https://github.com/nfarina/homebridge/issues/1351
 		$cmd = 'if [ $(sudo ip addr | grep "inet " | grep -v " tun" | grep -v " lo" | wc -l) -gt 1 ]; then echo "WARNING : Vous avez plusieurs IP de configurées, cela peut poser problème avec Homebridge et mDNS"; fi';
-		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		exec($cmd . ' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 &');
 		return true;
 	}
 	public static function deamon_stop() {
@@ -313,39 +302,43 @@ class homebridge extends eqLogic {
 	/**************************************************************************************/
 	
 	public static function repairHomebridge($reinstall=true) {
-		log::add('homebridge', 'info', 'Procedure de réparation');
-		self::deamon_stop();
-		log::add('homebridge', 'info', 'suppression des accessoires et du persist');
+		$pluginHomebridge = plugin::byId('homebridge');
+		log::add('homebridge_api', 'info', 'Procedure de réparation');
+		$pluginHomebridge->deamon_stop();
+		log::add('homebridge_api', 'info', 'suppression des accessoires et du persist');
 		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
 		exec($cmd);
 		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
 		exec($cmd);
 		if($reinstall) {
-			log::add('homebridge', 'info', 'suppression homebridge-jeedom');
+			log::add('homebridge_api', 'info', 'suppression homebridge-jeedom');
 			$cmd = 'npm uninstall homebridge-jeedom --save';
 			exec($cmd);
-			log::add('homebridge', 'info', 'suppression homebridge 1/2');
+			log::add('homebridge_api', 'info', 'suppression homebridge 1/3');
 			$cmd = 'npm uninstall homebridge --save';
 			exec($cmd);
-			log::add('homebridge', 'info', 'suppression homebridge 2/2');
+			log::add('homebridge_api', 'info', 'suppression homebridge 2/3');
 			$cmd = 'sudo rm -fR /usr/local/lib/node_modules/homebridge >/dev/null 2>&1';
 			exec($cmd);
 			$cmd = 'sudo rm -fR /usr/lib/node_modules/homebridge >/dev/null 2>&1';
 			exec($cmd);
+			log::add('homebridge_api', 'info', 'suppression homebridge 3/3');
+			$cmd = 'sudo rm -f /usr/bin/homebridge >/dev/null 2>&1';
+			exec($cmd);
+			$cmd = 'sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
+			exec($cmd);
 		}
 		$mac_homebridge = self::generateRandomMac();
-		log::add('homebridge', 'info', 'création d\'une nouvelle MAC adress : '.$mac_homebridge);
+		log::add('homebridge_api', 'info', 'création d\'une nouvelle MAC adress : '.$mac_homebridge);
 		config::save('mac_homebridge',$mac_homebridge,'homebridge');
 		$name_homebridge = config::byKey('name').'_Repaired_'.base_convert(mt_rand(0,255),10,16);
 		config::save('name_homebridge',$name_homebridge,'homebridge');
 		if($reinstall) {
-			log::add('homebridge', 'info', 'réinstallation des dependances');
-			self::dependancy_install(true);
+			log::add('homebridge_api', 'info', 'réinstallation des dependances');
+			$pluginHomebridge->dependancy_install();
 		}
 		
 		exec('sudo systemctl restart avahi-daemon');
-		sleep(1);
-		self::deamon_start();
 		$return['mac_homebridge']=$mac_homebridge;
 		$return['name_homebridge']=$name_homebridge;
 		return $return;
@@ -565,11 +558,11 @@ class homebridge extends eqLogic {
 		$plage_cmd = self::discovery_multi($cmds);
 		$eqLogic_array = [];
 		$nbr_cmd = count($plage_cmd);
-		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
+		log::add('homebridge_api', 'info', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
 		if($nbr_cmd != 0){
 			$i = 0;
 			while($i < $nbr_cmd){
-				log::add('homebridge', 'info', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
+				log::add('homebridge_api', 'info', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
 				$eqLogic_id = $cmds[$plage_cmd[$i]]['eqLogic_id'];
 				$name_cmd = $cmds[$plage_cmd[$i]]['name'];
 				foreach ($eqLogics as &$eqLogic){
@@ -577,7 +570,7 @@ class homebridge extends eqLogic {
 						$eqLogic_name = $eqLogic['name'].' / '.$name_cmd;
 					}
 				}
-				log::add('homebridge', 'debug', 'nouveau nom > '.$eqLogic_name);
+				log::add('homebridge_api', 'info', 'nouveau nom > '.$eqLogic_name);
 				$id = $cmds[$plage_cmd[$i]]['id'];
 				$new_eqLogic_id = '999'.$eqLogic_id.''.$id;
 				$cmds[$plage_cmd[$i]]['eqLogic_id'] = $new_eqLogic_id;
@@ -586,7 +579,7 @@ class homebridge extends eqLogic {
 				$j = 0;
 				while($j < $nbr_keys){
 					if($cmds[$keys[$j]]['value'] == $cmds[$plage_cmd[$i]]['id'] && $cmds[$keys[$j]]['type'] == 'action'){
-						log::add('homebridge', 'debug', 'Changement de l\'action > '.$cmds[$keys[$j]]['id']);
+						log::add('homebridge_api', 'info', 'Changement de l\'action > '.$cmds[$keys[$j]]['id']);
 						$cmds[$keys[$j]]['eqLogic_id'] = $new_eqLogic_id;
 					}
 					$j++;
