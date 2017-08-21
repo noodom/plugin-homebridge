@@ -109,8 +109,8 @@ sendVarToJS('object', $_GET['object_id']);
             continue;
         } elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
             continue;
-        }  elseif (isset($info['ignore']) && $info['ignore'] == true) {
-            continue;
+       /* }  elseif (isset($info['ignore']) && $info['ignore'] == true) {
+            continue;*/
         }
         $info['key'] = $key;
         if (!isset($groups[$info['family']])) {
