@@ -101,19 +101,42 @@ function listAlarmSetModes($id,$selected) {
 								$SetModeNuit    = $eqLogic->getConfiguration('SetModeNuit', 'NOT');
 							?>
 								<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
-								Absent :  
-									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-										<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
-									</select><br />
-								Présent :  
-									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-										<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
-									</select><br />
-								Nuit :  
-									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-										<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
-									</select><br />				
-								<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
+								<table class="table">
+									<tr class="cmdLine">
+										<th>{{Mode HomeKit}}</th>
+										<th>{{Mode Jeedom}}</th>
+									</tr>
+									<tr class="cmdLine">
+										<td>{{Absent}}</td>
+										<td>
+											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
+												<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
+											</select>
+										</td>
+									</tr>
+									<tr class="cmdLine">
+										<td>{{Présent}}</td>
+										<td>
+											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
+												<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+											</select>
+										</td>
+									</tr>
+									<tr class="cmdLine">
+										<td>{{Nuit}}</td>
+										<td>
+											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
+												<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
+											</select>	
+										</td>
+									</tr>
+									<tr class="cmdLine">
+										<td></td>
+										<td>
+											<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
+										</td>
+									</tr>
+								</table>
 							<?php
 								break;
 								case "camera" :
