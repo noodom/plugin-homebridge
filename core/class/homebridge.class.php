@@ -388,6 +388,18 @@ class homebridge extends eqLogic {
 						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
 							$eqLogic_array["sendToHomebridge"] = $eqLogic_array["configuration"]["sendToHomebridge"];
 						}
+						if(isset($eqLogic_array["configuration"]['SetModeAbsent'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["configuration"]['SetModeAbsent'];
+						}
+						if(isset($eqLogic_array["configuration"]['SetModePresent'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["configuration"]['SetModePresent'];
+						}
+						if(isset($eqLogic_array["configuration"]['SetModeNuit'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["configuration"]['SetModeNuit'];
+						}
 						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
 						$return[] = $eqLogic_array;
 					}
