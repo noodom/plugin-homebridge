@@ -326,7 +326,7 @@ class homebridge extends eqLogic {
 		$cmd = 'nodePath=`npm root -g`;cd ${nodePath};sudo npm rebuild;';
 		exec($cmd);
 		
-		log::add('homebridge_api', 'info', 'suppression homebridge 3/3');
+		log::add('homebridge_api', 'info', 'Suppression bin homebridge');
 		$cmd = 'sudo rm -f /usr/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
 		$cmd = 'sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
