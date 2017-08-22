@@ -32,24 +32,33 @@ $sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginTo
 		//'scenarios' => homebridge::discovery_scenario(),
 		'config' => array('datetime' => getmicrotime()),
 	);
+	function validateJSON($toValidate) {
+		$ob = json_decode(json_encode($toValidate));
+		if($ob === null) {
+			$JSONvalid= 'JSON <i class="fa fa-times" style="color:#FA5858;"></i>';
+		}else{
+			$JSONvalid= 'JSON <i class="fa fa-check" style="color:#94ca02;"></i>';
+		}
+		return $JSONvalid;
+	}
 ?>
 <!--<button class="btn" data-clipboard-target=".copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>-->
-<h3>{{JSON valide :}}<h3>
-<pre id='pre_eventlog' style='overflow: auto; with:90%;'><?php
-	$ob = json_decode(json_encode($sync_array));
-	if($ob === null) {
-		echo '{{Json mal encodé}}';
-	}else{
-		echo '{{Json bien encodé}}';
-	}
-?></pre>
-<h3>{{Pièces :}} <a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<?php
+	$JSONvalid = validateJSON($sync_array['objects']);
+?>
+<h3>{{Pièces :}} (<?=$JSONvalid?>) <a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="piece copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['objects'],JSON_PRETTY_PRINT); ?></pre>
 
-<h3>{{Périphériques :}} <a class="btn" data-clipboard-target=".eqLogics"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<?php
+	$JSONvalid = validateJSON($sync_array['eqLogics']);
+?>
+<h3>{{Périphériques :}} (<?=$JSONvalid?>)<a class="btn" data-clipboard-target=".eqLogics"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="eqLogics copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['eqLogics'],JSON_PRETTY_PRINT); ?></pre>
 
-<h3>{{Commandes :}} <a class="btn" data-clipboard-target=".cmds"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<?php
+	$JSONvalid = validateJSON($sync_array['cmds']);
+?>
+<h3>{{Commandes :}} (<?=$JSONvalid?>)<a class="btn" data-clipboard-target=".cmds"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="cmds copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['cmds'],JSON_PRETTY_PRINT); ?></pre>
 
 <!--<h3>{{Scénarios :}}</h3>
@@ -78,14 +87,22 @@ Linux :
 <h3>{{IP :}} <a class="btn" data-clipboard-target=".ip"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="ip copyAll" style='overflow: auto; with:90%;height:200px;'><?=shell_exec("ip addr")?></pre>
 
-<h3>{{config.json :}} <a class="btn" data-clipboard-target=".configJson"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="configJson copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/config.json")),JSON_PRETTY_PRINT)?></pre>
+<?php
+	$configJson = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/config.json");
+	$JSONvalid = validateJSON($configJson);
+?>
+<h3>{{config.json :}} (<?=$JSONvalid?>)<a class="btn" data-clipboard-target=".configJson"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="configJson copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($configJson),JSON_PRETTY_PRINT)?></pre>
 
 <h3>{{persist :}} <a class="btn" data-clipboard-target=".persist"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:100px;'><?=shell_exec('ls -l '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
 
-<h3>{{cachedAccessories :}} <a class="btn" data-clipboard-target=".cachedAccessories"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="cachedAccessories copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories")),JSON_PRETTY_PRINT)?></pre>
+<?php
+	$cachedAccessories = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories");
+	$JSONvalid = validateJSON($cachedAccessories);
+?>
+<h3>{{cachedAccessories :}} (<?=$JSONvalid?>)<a class="btn" data-clipboard-target=".cachedAccessories"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="cachedAccessories copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($cachedAccessories),JSON_PRETTY_PRINT)?></pre>
 
 <script src="plugins/homebridge/desktop/js/clipboard.min.js"></script>
 <script>var clipboard = new Clipboard('.btn');</script>
