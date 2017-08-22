@@ -19,7 +19,7 @@
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=health').dialog('open');
 })
  $('#info_app').on('click', function(){
-	$('#md_modal').dialog({title: "{{Informations envoyées à l'app}}"});
+	$('#md_modal').dialog({title: "{{Informations envoyées à Homebridge}}"});
 	$('#md_modal').load('index.php?v=d&plugin=homebridge&modal=info_app.homebridge').dialog('open');
 })
 function clickplugin(id_plugin,name_plugin){
@@ -33,7 +33,7 @@ function clickobject(id_object){
 }
 
 function clickscenario(id_scenario,name_scenario){
-	$('#md_modal').dialog({title: "{{Configuration homebridge du Scnéario "+name_scenario+"}}"});
+	$('#md_modal').dialog({title: "{{Configuration homebridge du Scénario "+name_scenario+"}}"});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=scenario.homebridge&scenario_id=' +id_scenario).dialog('open');
 }
 
@@ -49,3 +49,4 @@ if (hash) {
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
 });
+
