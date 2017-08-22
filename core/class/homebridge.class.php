@@ -655,14 +655,14 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	public static function discovery_message() {
+	/*public static function discovery_message() {
 		$all = utils::o2a(message::all());
 		$return = [];
 		foreach ($all as &$message){
 				$return[]=$message;	
 		}
 		return $return;
-	}
+	}*/
 	
 	public static function discovery_plan() {
 		$all = utils::o2a(planHeader::all());
