@@ -67,8 +67,7 @@ npm -v : <?=shell_exec("npm -v")?>
 npm prefix -g : <?=shell_exec("npm prefix -g")?>
 npm root -g : <?=shell_exec("npm root -g")?>
 arch : <?=shell_exec("arch")?>
-Linux :
-<?=shell_exec("cat /etc/*-release")?>
+Linux : <?=shell_exec("lsb_release -d -s")?>
 </pre>
 
 <h3>{{Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
