@@ -77,8 +77,8 @@ Linux :
 <h3>{{config.json :}} <a class="btn" data-clipboard-target=".configJson"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="configJson copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/config.json")),JSON_PRETTY_PRINT)?></pre>
 
-<h3>{{persists :}} <a class="btn" data-clipboard-target=".persist"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:200px;'><?=shell_exec('ls -alF '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
+<h3>{{persist :}} <a class="btn" data-clipboard-target=".persist"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:100px;'><?=shell_exec('ls -alF '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
 
 <h3>{{cachedAccessories :}} <a class="btn" data-clipboard-target=".cachedAccessories"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="cachedAccessories copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories")),JSON_PRETTY_PRINT)?></pre>
