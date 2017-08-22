@@ -61,9 +61,15 @@ $sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginTo
 <h3>{{NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:200px;'>
 node -v : <?=shell_exec("node -v")?>
+which node : <?=shell_exec("which node")?>
+ls -l node : <?=shell_exec("ls -l `which node`")?>
 nodejs -v : <?=shell_exec("nodejs -v")?>
+which nodejs : <?=shell_exec("which nodejs")?>
+ls -l nodejs : <?=shell_exec("ls -l `which nodejs`")?>
 npm -v : <?=shell_exec("npm -v")?>
 npm prefix -g : <?=shell_exec("npm prefix -g")?>
+npm root -g : <?=shell_exec("npm root -g")?>
+arch : <?=shell_exec("arch")?>
 Linux :
 <?=shell_exec("cat /etc/*-release")?>
 </pre>
@@ -78,7 +84,7 @@ Linux :
 <pre id='pre_eventlog' class="configJson copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/config.json")),JSON_PRETTY_PRINT)?></pre>
 
 <h3>{{persist :}} <a class="btn" data-clipboard-target=".persist"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:100px;'><?=shell_exec('ls -alF '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
+<pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:100px;'><?=shell_exec('ls -l '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
 
 <h3>{{cachedAccessories :}} <a class="btn" data-clipboard-target=".cachedAccessories"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="cachedAccessories copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode(file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories")),JSON_PRETTY_PRINT)?></pre>
