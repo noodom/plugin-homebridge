@@ -94,9 +94,20 @@ sendVarToJS('object', $_GET['object_id']);
 										}
 									}*/
 							?>
-								
+								<span class="cmdAttr" data-l1key="id">Plugin Alarme en visualisation seulement pour l'instant</span>
 							<?php
-								//break;
+								break;
+								case "camera" :
+							?>
+								<span class="cmdAttr" data-l1key="id">Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge</span>
+							<?php
+								break;
+								case "netatmoThermostat" :
+								case "thermostat" :
+							?>
+								<span class="cmdAttr" data-l1key="id">Plugin Thermostat en mode limité seulement pour l'instant</span>
+							<?php
+								break;
 								default :
 							?>
 								<?php
