@@ -21,6 +21,16 @@ if (!isConnect('admin')) {
 
 $object = object::byId($_GET['object_id']);
 sendVarToJS('object', $_GET['object_id']);
+function listAlarmSetModes($id,$selected) {
+	$cmds = cmd::byEqLogicId($id);
+	$opt = "<option value='NOT'>Aucun</option>";
+	foreach ($cmds as $cmd) {
+		if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
+			$opt.= '<option value="'.$cmd->getid().'"'.(($selected==$cmd->getid())?" selected":'').'>'.$cmd->getName().'</option>';
+		}
+	}
+	return $opt;
+}
 ?>
 
 <div class="row">
@@ -85,15 +95,24 @@ sendVarToJS('object', $_GET['object_id']);
 							<?php
 							switch($eqLogic->getEqType_name()) :
 								case "alarm" :
-								/*	$cmds = null;
-									$cmds = cmd::byEqLogicId($eqLogic->getId());
-									foreach ($cmds as $cmd) {
-										//echo $cmd->getDisplay('generic_type');
-										if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
-											echo $cmd->getid().' '.$cmd->getName()."<br />";
-										}
-									}*/
+								$SetModeAbsent  = $eqLogic->getConfiguration('SetModeAbsent', 'NOT');
+								$SetModePresent = $eqLogic->getConfiguration('SetModePresent', 'NOT');
+								$SetModeNuit    = $eqLogic->getConfiguration('SetModeNuit', 'NOT');
 							?>
+								<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
+								Absent :  
+									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
+										<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+									</select><br />
+								Présent :  
+									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
+										<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+									</select><br />
+								Nuit :  
+									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
+										<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
+									</select><br />				
+							
 								<span class="cmdAttr" data-l1key="id">Plugin Alarme en visualisation seulement pour l'instant</span>
 							<?php
 								break;
@@ -216,8 +235,15 @@ $('.cmdAttr').on('change click',function(){
 $('.objectAttr').on('change click',function(){
 	changed=1;
 });
+
 $('.eqLogicAttr').on('change click',function(){
 	var eqLogic = $(this).closest('.panel-title').getValues('.eqLogicAttr')[0];
+	console.log(eqLogic.id,eqLogic.configuration);
+	eqLogicsHomebridge.push(eqLogic);
+});
+$('.eqLogicAttrAlarm').on('change click',function(){
+	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
+	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
 });
 
@@ -230,7 +256,7 @@ function SaveObject(){
 		}
 	});
 	var eqLogicsHomebridgeFiltered = [];
-	$.each(eqLogicsHomebridge, function(index, eqLogic) {
+	$.each(eqLogicsHomebridge, function(index, eqLogic) { // problem is here
 		var eqLogics = $.grep(eqLogicsHomebridgeFiltered, function (e) {
 			return eqLogic.id === e.id;
 		});
