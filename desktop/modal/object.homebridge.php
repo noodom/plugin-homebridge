@@ -107,7 +107,7 @@ function listAlarmSetModes($id,$selected) {
 										<th>{{Mode Jeedom}}</th>
 									</tr>
 									<tr class="cmdLine">
-										<td>{{Absent}}</td>
+										<td>{{À distance / Absence}}</td>
 										<td>
 											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
 												<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
@@ -115,7 +115,7 @@ function listAlarmSetModes($id,$selected) {
 										</td>
 									</tr>
 									<tr class="cmdLine">
-										<td>{{Présent}}</td>
+										<td>{{Domicile / Présence}}</td>
 										<td>
 											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
 												<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
