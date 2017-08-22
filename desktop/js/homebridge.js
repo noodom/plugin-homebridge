@@ -49,37 +49,3 @@ if (hash) {
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
 });
-/*
- * Fonction pour l'ajout de commande, appellé automatiquement par plugin.template
- */
-
- function printEqLogic(_eqLogic){
-    $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // méthode de transmission des données au fichier php
-        url: "plugins/homebridge/core/ajax/homebridge.ajax.php", // url du fichier php
-        data: {
-            action: "getQrCode",
-            id: _eqLogic.id,
-        },
-        dataType: 'json',
-        global: false,
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) { // si l'appel a bien fonctionné
-        if (data.state != 'ok') {
-            $('#div_alert').showAlert({message: data.result, level: 'danger'});
-            return;
-        }
-	if (data.result == 'internalError') {
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'adresse interne (voir configuration de votre Jeedom !)}}');
-	}else if(data.result == 'externalError'){
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'adresse externe (voir configuration de votre Jeedom !)}}');
-	}else if(data.result == 'UserError'){
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'utilisateur selectionné}}');
-	}else{
-		$('.qrCodeImg').empty().append('<img src='+data.result+' />');
-	}
-    }
-});
-}
