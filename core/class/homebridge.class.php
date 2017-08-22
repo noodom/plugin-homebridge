@@ -306,6 +306,34 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 	
+	public static function uninstallHomebridge() {
+		log::add('homebridge_api', 'info', 'Suppression homebridge-camera-ffmpeg...');
+		$cmd = 'sudo npm rm -g homebridge-camera-ffmpeg --save';
+		exec($cmd);
+		log::add('homebridge_api', 'info', 'Suppression homebridge-jeedom...');
+		$cmd = 'sudo npm rm -g homebridge-jeedom --save';
+		exec($cmd);
+		log::add('homebridge_api', 'info', 'Suppression homebridge...');
+		$cmd = 'sudo npm rm -g homebridge --save';
+		exec($cmd);
+		log::add('homebridge_api', 'info', 'Suppression request...');
+		$cmd = 'sudo npm rm -g request --save';
+		exec($cmd);
+		log::add('homebridge_api', 'info', 'Suppression node-gyp...');
+		$cmd = 'sudo npm rm -g node-gyp --save';
+		exec($cmd);
+		log::add('homebridge_api', 'info', 'Rebuild...');
+		$cmd = 'nodePath=`npm root -g`;cd ${nodePath};sudo npm rebuild;';
+		exec($cmd);
+		
+		log::add('homebridge_api', 'info', 'suppression homebridge 3/3');
+		$cmd = 'sudo rm -f /usr/bin/homebridge >/dev/null 2>&1';
+		exec($cmd);
+		$cmd = 'sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
+		exec($cmd);
+	}
+	
+	
 	public static function repairHomebridge($reinstall=true) {
 		$pluginHomebridge = plugin::byId('homebridge');
 		log::add('homebridge_api', 'info', 'Procedure de réparation');
@@ -316,22 +344,7 @@ class homebridge extends eqLogic {
 		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
 		exec($cmd);
 		if($reinstall) {
-			log::add('homebridge_api', 'info', 'suppression homebridge-jeedom');
-			$cmd = 'npm uninstall homebridge-jeedom --save';
-			exec($cmd);
-			log::add('homebridge_api', 'info', 'suppression homebridge 1/3');
-			$cmd = 'npm uninstall homebridge --save';
-			exec($cmd);
-			log::add('homebridge_api', 'info', 'suppression homebridge 2/3');
-			$cmd = 'sudo rm -fR /usr/local/lib/node_modules/homebridge >/dev/null 2>&1';
-			exec($cmd);
-			$cmd = 'sudo rm -fR /usr/lib/node_modules/homebridge >/dev/null 2>&1';
-			exec($cmd);
-			log::add('homebridge_api', 'info', 'suppression homebridge 3/3');
-			$cmd = 'sudo rm -f /usr/bin/homebridge >/dev/null 2>&1';
-			exec($cmd);
-			$cmd = 'sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
-			exec($cmd);
+			homebridge::uninstallHomebridge();
 		}
 		$mac_homebridge = self::generateRandomMac();
 		log::add('homebridge_api', 'info', 'création d\'une nouvelle MAC adress : '.$mac_homebridge);
