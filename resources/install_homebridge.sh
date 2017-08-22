@@ -5,6 +5,45 @@ echo 0 > ${PROGRESS_FILE}
 echo "--0%"
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
 sudo killall homebridge 2>/dev/null
+
+echo "Vérification si la source deb-multimedia existe (bug lors du apt-get update si c'est le cas)"
+if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
+  echo "deb-multimedia existe !"
+  if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge ]; then
+    echo "mais on l'a déjà désactivé..."
+  else
+	if [ -f /etc/apt/sources.list.d/deb-multimedia.list ]; then
+	  echo "Désactivation de la source deb-multimedia !"
+      sudo mv /etc/apt/sources.list.d/deb-multimedia.list /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge
+	else
+	  if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabled ]; then
+        echo "mais il est déjà désactivé..."
+	  else
+	    echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
+	  fi
+	fi
+  fi
+fi
+
+echo "Vérification si la source repo.jeedom.com existe (bug lors de l'installation de node 6 si c'est le cas)"
+if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
+  echo "repo.jeedom.com existe !"
+  if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
+    echo "mais on l'a déjà désactivé..."
+  else
+	if [ -f /etc/apt/sources.list.d/jeedom.list ]; then
+	  echo "Désactivation de la source repo.jeedom.com !"
+      sudo mv /etc/apt/sources.list.d/jeedom.list /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge
+	else
+	  if [ -f /etc/apt/sources.list.d/jeedom.list.disabled ]; then
+        echo "mais il est déjà désactivé..."
+	  else
+	    echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
+	  fi
+	fi
+  fi
+fi
+
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
@@ -16,6 +55,8 @@ if [[ $actual == *"6."* ]]
 then
   echo "Ok, version suffisante";
 else
+  echo 20 > ${PROGRESS_FILE}
+  echo "--20%"
   echo "KO, version obsolète à upgrader";
   echo "Suppression du Nodejs existant et installation du paquet recommandé"
   sudo npm rm -g homebridge-camera-ffmpeg --save
@@ -76,6 +117,14 @@ sudo sed -i "/.*use-ipv6.*/c\use-ipv6=no  #changed by homebridge" /etc/avahi/ava
 if [ -n $1 ]; then
 	UsedEth=$(ip addr | grep $1 | awk '{print $7}')
 	sudo sed -i "/.*allow-interfaces.*/c\#allow-interfaces=$UsedEth  #changed by homebridge" /etc/avahi/avahi-daemon.conf
+fi
+if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge ]; then
+  echo "Réactivation de la source deb-multimedia qu'on avait désactivé !"
+  sudo mv /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge /etc/apt/sources.list.d/deb-multimedia.list
+fi
+if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
+  echo "Réactivation de la source repo.jeedom.com qu'on avait désactivé !"
+  sudo mv /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge /etc/apt/sources.list.d/jeedom.list
 fi
 echo "Installation Homebridge OK"
 echo 100 > ${PROGRESS_FILE}
