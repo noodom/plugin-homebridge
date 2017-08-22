@@ -42,14 +42,28 @@ $sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginTo
 
 <h3>{{Environnement NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:200px;'>
-node -v : <?=shell_exec("node -v")?>
+<?php
+	$nodeVer=shell_exec("node -v");
+	$nodejsVer=shell_exec("nodejs -v");
+	if($nodeVer == $nodejsVer) :
+?>
+Version NodeJS : <?=$nodeVer?>
+<?php
+	else :
+?>
+<span style='color:red'>
+node -v : <?=$nodeVer?>
 ls -l node : <?=shell_exec("ls -l `which node`")?>
-nodejs -v : <?=shell_exec("nodejs -v")?>
+nodejs -v : <?=$nodejsVer?>
 ls -l nodejs : <?=shell_exec("ls -l `which nodejs`")?>
-npm -v : <?=shell_exec("npm -v")?>
-npm prefix -g : <?=shell_exec("npm prefix -g")?>
-npm root -g : <?=shell_exec("npm root -g")?>
-arch : <?=shell_exec("arch")?>
+</span>
+<?php
+	endif;
+?>
+Version NPM : <?=shell_exec("npm -v")?>
+Prefix Global : <?=shell_exec("npm prefix -g")?>
+Root Global : <?=shell_exec("npm root -g")?>
+Architecture : <?=shell_exec("arch")?>
 Linux : <?=shell_exec("lsb_release -d -s")?>
 </pre>
 
