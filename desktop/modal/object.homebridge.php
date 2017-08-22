@@ -26,7 +26,8 @@ function listAlarmSetModes($id,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
 		if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
-			$opt.= '<option value="'.$cmd->getid().'"'.(($selected==$cmd->getid())?" selected":'').'>'.$cmd->getName().'</option>';
+			$val = $cmd->getid().'|'.$cmd->getName();
+			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
 		}
 	}
 	return $opt;
@@ -102,7 +103,7 @@ function listAlarmSetModes($id,$selected) {
 								<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
 								Absent :  
 									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-										<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+										<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
 									</select><br />
 								Présent :  
 									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
@@ -112,8 +113,7 @@ function listAlarmSetModes($id,$selected) {
 									<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
 										<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
 									</select><br />				
-							
-								<span class="cmdAttr" data-l1key="id">Plugin Alarme en visualisation seulement pour l'instant</span>
+								<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
 							<?php
 								break;
 								case "camera" :
@@ -241,7 +241,7 @@ $('.eqLogicAttr').on('change click',function(){
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
 });
-$('.eqLogicAttrAlarm').on('change click',function(){
+$('.eqLogicAttrAlarm').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
@@ -256,6 +256,7 @@ function SaveObject(){
 		}
 	});
 	var eqLogicsHomebridgeFiltered = [];
+	eqLogicsHomebridge.reverse();
 	$.each(eqLogicsHomebridge, function(index, eqLogic) { // problem is here
 		var eqLogics = $.grep(eqLogicsHomebridgeFiltered, function (e) {
 			return eqLogic.id === e.id;
