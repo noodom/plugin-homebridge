@@ -9,28 +9,34 @@ sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns liba
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
 actual=`nodejs -v`;
+nodePath=`npm root -g`
 echo "Version actuelle : ${actual}"
+
 if [[ $actual == *"6."* ]]
 then
   echo "Ok, version suffisante";
 else
   echo "KO, version obsolète à upgrader";
   echo "Suppression du Nodejs existant et installation du paquet recommandé"
-  sudo npm rm -g homebridge
+  sudo npm rm -g homebridge-camera-ffmpeg --save
+  sudo npm rm -g homebridge-jeedom --save
+  sudo npm rm -g homebridge --save
+  sudo npm rm -g request --save
+  sudo npm rm -g node-gyp --save
+  cd ${nodePath};
   sudo npm rebuild
   sudo apt-get -y --purge autoremove nodejs npm
-  arch=`arch`;
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
-  
-    echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    sudo apt-key update
-    sudo apt-get install -y nodejs
+  echo "Utilisation du dépot officiel"
+  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  sudo apt-key update
+  sudo apt-get install -y nodejs
   
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
 fi
+
 echo 40 > ${PROGRESS_FILE}
 echo "--40%"
 echo "Installation de node-gyp..."
@@ -48,9 +54,9 @@ sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge.git#maste
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
-sudo npm install -g https://github.com/jeedom/homebridge-jeedom.git#beta
+sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-jeedom.git#beta
 echo "Installation de Homebridge-Camera-FFMPEG..."
-sudo npm install -g https://github.com/jeedom/homebridge-camera-ffmpeg.git#master
+sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-camera-ffmpeg.git#master
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 # copy the avconv ffmpeg wrapper
