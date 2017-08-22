@@ -69,22 +69,7 @@ function homebridge_install(){
 			exec('sudo cp '.$platform_mobile.' '.$platform_homebridge.' >> ' . log::getPathToLog(__CLASS__) . ' 2>&1 ');	
 		}
 	}
-	log::add('homebridge_api', 'info', 'Suppression homebridge-jeedom');
-	$cmd = 'npm uninstall homebridge-jeedom --save';
-	exec($cmd);
-	log::add('homebridge_api', 'info', 'Suppression homebridge 1/3');
-	$cmd = 'npm uninstall homebridge --save';
-	exec($cmd);
-	log::add('homebridge_api', 'info', 'Suppression homebridge 2/3');
-	$cmd = 'sudo rm -fR /usr/local/lib/node_modules/homebridge >/dev/null 2>&1';
-	exec($cmd);
-	$cmd = 'sudo rm -fR /usr/lib/node_modules/homebridge >/dev/null 2>&1';
-	exec($cmd);
-	log::add('homebridge_api', 'info', 'Suppression homebridge 3/3');
-	$cmd = 'sudo rm -f /usr/bin/homebridge >/dev/null 2>&1';
-	exec($cmd);
-	$cmd = 'sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
-	exec($cmd);	
+	homebridge::uninstallHomebridge();
 	log::add('homebridge_api', 'info', 'Installation des dépendances');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
