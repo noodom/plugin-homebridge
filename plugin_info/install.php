@@ -79,6 +79,13 @@ function homebridge_install(){
 			exec('echo "Fichier AccessoryInfo de Mobile préexistant, on le reprend" >> '.log::getPathToLog(__CLASS__ . '_api'));
 			exec('yes | ' . system::getCmdSudo() . ' cp '.$AccessoryInfoMobile.' '.$AccessoryInfoHomebridge.' >> ' . log::getPathToLog(__CLASS__) . '_api 2>&1 ');
 		}
+		
+		$IdentifierCacheMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/persist/IdentifierCache.'.$mac_mobile.'.json';
+		$IdentifierCacheHomebridge = dirname(__FILE__).'/../resources/homebridge/persist/IdentifierCache.'.$mac_homebridge.'.json';
+		if(file_exists($IdentifierCacheMobile) && !file_exists($IdentifierCacheHomebridge)) {
+			exec('echo "Fichier IdentifierCache de Mobile préexistant, on le reprend" >> '.log::getPathToLog(__CLASS__ . '_api'));
+			exec('yes | ' . system::getCmdSudo() . ' cp '.$IdentifierCacheMobile.' '.$IdentifierCacheHomebridge.' >> ' . log::getPathToLog(__CLASS__) . '_api 2>&1 ');
+		}
 	}
 	
 	homebridge::uninstallHomebridge();
