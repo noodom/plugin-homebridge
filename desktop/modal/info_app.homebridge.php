@@ -67,7 +67,7 @@ $PluginToSend = homebridge::PluginToSend();
 					$error = 'Erreur inconnue ('.$errorNum.')';
 					break;
 			}
-			return 'JSON <i class="fa fa-times" style="color:#FA5858;" title="'.$error.'"> </i>';
+			return 'JSON <i class="fa fa-times" style="color:#FA5858;" title="{{'.$error.'}}"> </i>';
 		}
 	}
 ?>
@@ -85,6 +85,7 @@ Version NodeJS : <?=$nodeVer?>
 	else :
 ?>
 <span style='color:red'>
+{{Incohérence de versions}}
 node -v : <?=$nodeVer?>
 ls -l node : <?=shell_exec("ls -l `which node`")?>
 nodejs -v : <?=$nodejsVer?>
