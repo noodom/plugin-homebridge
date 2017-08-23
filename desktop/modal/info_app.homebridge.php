@@ -34,36 +34,37 @@ $PluginToSend = homebridge::PluginToSend();
 		if(is_json($toValidate)) {
 			return 'JSON <i class="fa fa-check" style="color:#94ca02;"> </i>';
 		} else {
-			switch (json_last_error()) {
+			$errorNum=json_last_error();
+			switch ($errorNum) {
 				case JSON_ERROR_DEPTH:
-					$error = 'The maximum stack depth has been exceeded.';
+					$error = 'La profondeur maximale de la pile a été atteinte.';
 					break;
 				case JSON_ERROR_STATE_MISMATCH:
-					$error = 'Invalid or malformed JSON.';
+					$error = 'JSON invalide ou mal formé.';
 					break;
 				case JSON_ERROR_CTRL_CHAR:
-					$error = 'Control character error, possibly incorrectly encoded.';
+					$error = 'Erreur lors du contrôle des caractères ; probablement un encodage incorrect.';
 					break;
 				case JSON_ERROR_SYNTAX:
-					$error = 'Syntax error, malformed JSON.';
+					$error = 'Erreur de syntaxe.';
 					break;
 				// PHP >= 5.3.3
 				case JSON_ERROR_UTF8:
-					$error = 'Malformed UTF-8 characters, possibly incorrectly encoded.';
+					$error = 'Caractères UTF-8 malformés, possiblement mal encodés.';
 					break;
 				// PHP >= 5.5.0
 				case JSON_ERROR_RECURSION:
-					$error = 'One or more recursive references in the value to be encoded.';
+					$error = 'Une ou plusieurs références récursives sont présentes dans la valeur à encoder.';
 					break;
 				// PHP >= 5.5.0
 				case JSON_ERROR_INF_OR_NAN:
-					$error = 'One or more NAN or INF values in the value to be encoded.';
+					$error = 'Une ou plusieurs valeurs NAN ou INF sont présentes dans la valeurs à encoder.';
 					break;
 				case JSON_ERROR_UNSUPPORTED_TYPE:
-					$error = 'A value of a type that cannot be encoded was given.';
+					$error = 'Une valeur d\'un type qui ne peut être encodée a été fournie.';
 					break;
 				default:
-					$error = 'Unknown JSON error occured.';
+					$error = 'Erreur inconnue ('.$errorNum.')';
 					break;
 			}
 			return 'JSON <i class="fa fa-times" style="color:#FA5858;" title="'.$error.'"> </i>';
