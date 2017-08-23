@@ -38,7 +38,7 @@ function listAlarmSetModes($id,$selected) {
 	<div>
 		<center>
 		<?php
-			echo str_replace('></i>', ' style="font-size : 6em;color:#767676;"></i>', $object->getDisplay('icon', '<i class="fa fa-lemon-o"></i>'));
+		echo str_replace('></i>', ' style="font-size : 6em;color:#767676;"></i>', $object->getDisplay('icon', '<i class="fa fa-lemon-o"></i>'));
 		?>
 		<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center><?=$object->getName()?></center></span>
 		</center>
@@ -46,10 +46,10 @@ function listAlarmSetModes($id,$selected) {
 	<div class="alert alert-info div_object_configuration" role="alert">
 		{{Vous pouvez activer ou désactiver l'envoi de cette pièce vers l'application}}
 		<?php
-			$check = 'checked';
-			if ($object->getDisplay('sendToApp', 1) == 0) {
-				$check = 'unchecked';
-			}
+		$check = 'checked';
+		if ($object->getDisplay('sendToApp', 1) == 0) {
+			$check = 'unchecked';
+		}
 		?>
 		<label class="checkbox-inline pull-right"><input type="checkbox" class="objectAttr" data-l1key="display" data-l2key="sendToApp" <?=$check?>/>{{Activer}}</label>
 		<span class="form-control objectAttr" type="text" data-l1key="id" style="display : none;"><?=$_GET['object_id']?></span>
@@ -65,8 +65,8 @@ function listAlarmSetModes($id,$selected) {
 		<div class="EnregistrementDisplay"></div>
     
 		<?php
-			$tableau_cmd = [];
-			$eqLogics = $object->getEqLogic();
+		$tableau_cmd = [];
+		$eqLogics = $object->getEqLogic();
 		?>
 		<div class="panel-group" id="accordionConfiguration">
 			<?php
@@ -95,101 +95,100 @@ function listAlarmSetModes($id,$selected) {
 							<?php
 							switch($eqLogic->getEqType_name()) :
 								case "alarm" :
-								$SetModeAbsent  = $eqLogic->getConfiguration('SetModeAbsent', 'NOT');
-								$SetModePresent = $eqLogic->getConfiguration('SetModePresent', 'NOT');
-								$SetModeNuit    = $eqLogic->getConfiguration('SetModeNuit', 'NOT');
+									$SetModePresent = $eqLogic->getConfiguration('SetModePresent', 'NOT');
+									$SetModeAbsent  = $eqLogic->getConfiguration('SetModeAbsent', 'NOT');
+									$SetModeNuit    = $eqLogic->getConfiguration('SetModeNuit', 'NOT');
 							?>
-								<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
-								<table class="table">
-									<tr class="cmdLine">
-										<th>{{Mode HomeKit}}</th>
-										<th>{{Mode Jeedom}}</th>
-									</tr>
-									<tr class="cmdLine">
-										<td>{{À distance / Absence}}</td>
-										<td>
-											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-												<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
-											</select>
-										</td>
-									</tr>
-									<tr class="cmdLine">
-										<td>{{Domicile / Présence}}</td>
-										<td>
-											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-												<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
-											</select>
-										</td>
-									</tr>
-									<tr class="cmdLine">
-										<td>{{Nuit}}</td>
-										<td>
-											<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-												<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
-											</select>	
-										</td>
-									</tr>
-									<tr class="cmdLine">
-										<td></td>
-										<td>
-											<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
-										</td>
-									</tr>
-								</table>
-							<?php
+									<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
+									<table class="table">
+										<tr class="cmdLine">
+											<th>{{Mode app Maison}}</th>
+											<th>{{Mode app Eve}}</th>
+											<th>{{Mode Jeedom}}</th>
+										</tr>
+										<tr class="cmdLine">
+											<td>{{Domicile}}</td><td>{{Présence}}</td>
+											<td>
+												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
+													<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+												</select>
+											</td>
+										</tr>
+										<tr class="cmdLine">
+											<td>{{À distance}}</td><td>{{Absence}}</td>
+											<td>
+												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
+													<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
+												</select>
+											</td>
+										</tr>
+										<tr class="cmdLine">
+											<td>{{Nuit}}</td><td>{{Nuit}}</td>
+											<td>
+												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
+													<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
+												</select>	
+											</td>
+										</tr>
+										<tr class="cmdLine">
+											<td></td><td></td>
+											<td>
+												<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
+											</td>
+										</tr>
+									</table>
+								<?php
 								break;
 								case "camera" :
-							?>
-								<span class="cmdAttr" data-l1key="id">Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge</span>
-							<?php
+								?>
+									<span class="cmdAttr" data-l1key="id">Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge</span>
+								<?php
 								break;
 								case "netatmoThermostat" :
 								case "thermostat" :
-							?>
-								<span class="cmdAttr" data-l1key="id">Plugin Thermostat en mode limité seulement pour l'instant</span>
-							<?php
+								?>
+									<span class="cmdAttr" data-l1key="id">Plugin Thermostat en mode limité seulement pour l'instant</span>
+								<?php
 								break;
 								default :
-							?>
-								<?php
 									$cmds = null;
 									$cmds = cmd::byEqLogicId($eqLogic->getId());
 								?>
-								<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
-									<tr>
-										<th>{{Id Cmd}}</th>
-										<th>{{Nom de la Commande}}</th>
-										<th>{{Type Générique}}</th>
-									</tr>
-									<?php
-									foreach ($cmds as $cmd) :
-										array_push($tableau_cmd, $cmd->getId());
-									?>
-										<tr class="cmdLine">
-											<td>
-												<span class="cmdAttr" data-l1key="id"><?=$cmd->getId()?></span>
-											</td>
-											<td>
-												<?php
-												echo $cmd->getName();
-												$display_icon = 'none';
-												$icon ='';
-												if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
-													$display_icon = 'block';
-													$icon = $cmd->getDisplay('icon');
-												}
-												?>
-												<div class="iconeGeneric pull-right" style="display:<?=$display_icon?>;">
-													<div>
-													<span class="cmdAttr label label-info cursor" data-l1key="display" data-l2key="icon" style="font-size : 1.2em;" ><?=$icon?></span>
-													<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> {{Icône}}</a>
-													</div>
-												</div>
-											</td>
-											<td>
-												<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd->getId(); ?>">
-													<option value="">{{Aucun}}</option>
+									<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
+										<tr>
+											<th>{{Id Cmd}}</th>
+											<th>{{Nom de la Commande}}</th>
+											<th>{{Type Générique}}</th>
+										</tr>
+										<?php
+										foreach ($cmds as $cmd) :
+											array_push($tableau_cmd, $cmd->getId());
+										?>
+											<tr class="cmdLine">
+												<td>
+													<span class="cmdAttr" data-l1key="id"><?=$cmd->getId()?></span>
+												</td>
+												<td>
 													<?php
+													echo $cmd->getName();
+													$display_icon = 'none';
+													$icon ='';
+													if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
+														$display_icon = 'block';
+														$icon = $cmd->getDisplay('icon');
+													}
+													?>
+													<div class="iconeGeneric pull-right" style="display:<?=$display_icon?>;">
+														<div>
+															<span class="cmdAttr label label-info cursor" data-l1key="display" data-l2key="icon" style="font-size : 1.2em;" ><?=$icon?></span>
+															<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> {{Icône}}</a>
+														</div>
+													</div>
+												</td>
+												<td>
+													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd->getId(); ?>">
+														<option value="">{{Aucun}}</option>
+														<?php
 														$groups = array();
 														foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
 															if ($cmd->getType() == 'info' && $info['type'] == 'Action') {
@@ -223,14 +222,14 @@ function listAlarmSetModes($id,$selected) {
 															}
 															echo '</optgroup>';
 														}
-													?>
-												</select>
-											</td>
-										</tr>
-									<?php
-									endforeach;
-									?>
-								</table>
+														?>
+													</select>
+												</td>
+											</tr>
+										<?php
+										endforeach;
+										?>
+									</table>
 							<?php
 							endswitch;
 							?>
