@@ -71,6 +71,7 @@ function listAlarmSetModes($id,$selected) {
 		<div class="panel-group" id="accordionConfiguration">
 			<?php
 			foreach ($eqLogics as $eqLogic) :
+				if($eqLogic->getEqType_name() == "mobile") continue;
 				$check = 'checked';
 				if ($eqLogic->getConfiguration('sendToHomebridge', 1) == 0) {
 					$check = 'unchecked';
@@ -80,9 +81,7 @@ function listAlarmSetModes($id,$selected) {
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionConfiguration" href="#config_<?=$eqLogic->getId()?>" style="text-decoration:none">
-								<span class="eqLogicAttr hidden" data-l1key="id">
-									<?=$eqLogic->getId()?>
-								</span>
+								<span class="eqLogicAttr hidden" data-l1key="id"><?=$eqLogic->getId()?></span>
 								<?=$eqLogic->getHumanName(true)?>
 								<a class="btn btn-mini btn-success eqLogicAction pull-right" style="padding:0px 3px 0px 3px;cursor:pointer;" onclick="SaveObject()"><i class="fa fa-floppy-o" style="color:white;"></i></a>
 								<small>
