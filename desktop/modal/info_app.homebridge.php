@@ -153,7 +153,7 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 <?php
 	$IdentifierCache = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/persist/IdentifierCache.".$mac_homebridge.".json");
 ?>
-<h3>{{ID's HomeKit :}} (<?=validateJSON($IdentifierCache)?>)<a class="btn" data-clipboard-target=".IdentifierCache"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<h3>{{Cache Identifiants :}} (<?=validateJSON($IdentifierCache)?>)<a class="btn" data-clipboard-target=".IdentifierCache"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="IdentifierCache copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($IdentifierCache),JSON_PRETTY_PRINT)?></pre>
 
 <?php
