@@ -24,7 +24,7 @@ function homebridge_install(){
 	} catch(Exception $e) {
 		$mobileExists=false;
 	}
-	if(mobileExists) {
+	if($mobileExists && $pluginMobile && $pluginMobile->isActive()) {
 		exec('echo "Présence du plugin Mobile [High Five old friend]" >> '.log::getPathToLog(__CLASS__ . '_api'));
 		$pluginMobile->deamon_stop();
 		
