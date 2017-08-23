@@ -21,7 +21,7 @@ if (!isConnect('admin')) {
 
 $PluginToSend = homebridge::PluginToSend();
 
-$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend),homebridge::discovery_eqLogic($PluginToSend));
+	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend),homebridge::discovery_eqLogic($PluginToSend));
 	$eqLogics = $sync_new[1];
 	$cmds = $sync_new[0];
 	
@@ -31,10 +31,42 @@ $sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginTo
 		'objects' => homebridge::delete_object_eqlogic_null(homebridge::discovery_object(),$eqLogics['eqLogics'])
 	);
 	function validateJSON($toValidate) {
-		if(json_encode(json_decode($toValidate)) === null) {
-			return 'JSON <i class="fa fa-times" style="color:#FA5858;"> '.json_last_error().'</i>';
+		if(is_json($toValidate)) {
+			return 'JSON <i class="fa fa-check" style="color:#94ca02;"> </i>';
 		} else {
-			return 'JSON <i class="fa fa-check" style="color:#94ca02;"></i>';
+			switch (json_last_error()) {
+				case JSON_ERROR_DEPTH:
+					$error = 'The maximum stack depth has been exceeded.';
+					break;
+				case JSON_ERROR_STATE_MISMATCH:
+					$error = 'Invalid or malformed JSON.';
+					break;
+				case JSON_ERROR_CTRL_CHAR:
+					$error = 'Control character error, possibly incorrectly encoded.';
+					break;
+				case JSON_ERROR_SYNTAX:
+					$error = 'Syntax error, malformed JSON.';
+					break;
+				// PHP >= 5.3.3
+				case JSON_ERROR_UTF8:
+					$error = 'Malformed UTF-8 characters, possibly incorrectly encoded.';
+					break;
+				// PHP >= 5.5.0
+				case JSON_ERROR_RECURSION:
+					$error = 'One or more recursive references in the value to be encoded.';
+					break;
+				// PHP >= 5.5.0
+				case JSON_ERROR_INF_OR_NAN:
+					$error = 'One or more NAN or INF values in the value to be encoded.';
+					break;
+				case JSON_ERROR_UNSUPPORTED_TYPE:
+					$error = 'A value of a type that cannot be encoded was given.';
+					break;
+				default:
+					$error = 'Unknown JSON error occured.';
+					break;
+			}
+			return 'JSON <i class="fa fa-times" style="color:#FA5858;" title="'.$error.'"> </i>';
 		}
 	}
 ?>
@@ -67,20 +99,20 @@ Architecture : <?=shell_exec("arch")?>
 Linux : <?=shell_exec("lsb_release -d -s")?>
 </pre>
 
-<h3>{{Pièces :}} (<?=validateJSON($sync_array['objects'])?>) <a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="piece copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['objects'],JSON_PRETTY_PRINT); ?></pre>
 
-<h3>{{Périphériques :}} (<?=validateJSON($sync_array['eqLogics'])?>)<a class="btn" data-clipboard-target=".eqLogics"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<h3>{{Périphériques :}} (<?=validateJSON(json_encode($sync_array['eqLogics']))?>)<a class="btn" data-clipboard-target=".eqLogics"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="eqLogics copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['eqLogics'],JSON_PRETTY_PRINT); ?></pre>
 
-<h3>{{Commandes :}} (<?=validateJSON($sync_array['cmds'])?>)<a class="btn" data-clipboard-target=".cmds"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<h3>{{Commandes :}} (<?=validateJSON(json_encode($sync_array['cmds']))?>)<a class="btn" data-clipboard-target=".cmds"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="cmds copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['cmds'],JSON_PRETTY_PRINT); ?></pre>
 
 <?php
 	$otherPlatform = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 ?>
-<h3>{{Autres Plateformes :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform)).']'?>)<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($otherPlatform,JSON_PRETTY_PRINT); ?></pre>
+<h3>{{Autres Plateformes :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform).']')?>)<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherPlatform; ?></pre>
 
 <h3>{{Environnement Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="avahi copyAll" style='overflow: auto; with:90%;height:200px;'>
@@ -108,6 +140,19 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 
 <h3>{{DB Homebridge :}} <a class="btn" data-clipboard-target=".persist"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="persist copyAll" style='overflow: auto; with:90%;height:100px;'><?=shell_exec('ls -l '.dirname(__FILE__) . "/../../resources/homebridge/persist/")?></pre>
+
+<?php
+	$mac_homebridge = str_replace(':','',config::byKey('mac_homebridge','homebridge'));
+	$AccessoryInfo = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/persist/AccessoryInfo.".$mac_homebridge.".json");
+?>
+<h3>{{Config du Bridge :}} (<?=validateJSON($AccessoryInfo)?>)<a class="btn" data-clipboard-target=".AccessoryInfo"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="AccessoryInfo copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($AccessoryInfo),JSON_PRETTY_PRINT)?></pre>
+
+<?php
+	$IdentifierCache = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/persist/IdentifierCache.".$mac_homebridge.".json");
+?>
+<h3>{{ID's HomeKit :}} (<?=validateJSON($IdentifierCache)?>)<a class="btn" data-clipboard-target=".IdentifierCache"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="IdentifierCache copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($IdentifierCache),JSON_PRETTY_PRINT)?></pre>
 
 <?php
 	$cachedAccessories = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories");
