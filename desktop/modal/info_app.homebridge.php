@@ -79,7 +79,7 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 <?php
 	$otherPlatform = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 ?>
-<h3>{{Autres Plateformes :}} (<?=validateJSON($otherPlatform)?>)<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<h3>{{Autres Plateformes :}} (<?=validateJSON('['.str_replace('|',','$otherPlatform)).']'?>)<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($otherPlatform,JSON_PRETTY_PRINT); ?></pre>
 
 <h3>{{Environnement Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
