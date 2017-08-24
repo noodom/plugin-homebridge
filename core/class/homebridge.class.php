@@ -574,11 +574,11 @@ class homebridge extends eqLogic {
 		$plage_cmd = self::discovery_multi($cmds);
 		$eqLogic_array = [];
 		$nbr_cmd = count($plage_cmd);
-		log::add('homebridge', 'info', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
+		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
 		if($nbr_cmd != 0){
 			$i = 0;
 			while($i < $nbr_cmd){
-				log::add('homebridge', 'info', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
+				log::add('homebridge', 'debug', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
 				$eqLogic_id = $cmds[$plage_cmd[$i]]['eqLogic_id'];
 				$name_cmd = $cmds[$plage_cmd[$i]]['name'];
 				foreach ($eqLogics as &$eqLogic){
@@ -586,7 +586,7 @@ class homebridge extends eqLogic {
 						$eqLogic_name = $eqLogic['name'].' / '.$name_cmd;
 					}
 				}
-				log::add('homebridge', 'info', 'nouveau nom > '.$eqLogic_name);
+				log::add('homebridge', 'debug', 'nouveau nom > '.$eqLogic_name);
 				$id = $cmds[$plage_cmd[$i]]['id'];
 				$new_eqLogic_id = '999'.$eqLogic_id.''.$id;
 				$cmds[$plage_cmd[$i]]['eqLogic_id'] = $new_eqLogic_id;
