@@ -1,7 +1,6 @@
 {
 	"id" : "homebridge",
 	"name" : "Homebridge",
-	"description" : "Plugin pour Homebridge",
 	"licence" : "AGPL",
 	"author" : "Nebz",
 	"require" : "3.0",
@@ -9,7 +8,6 @@
 	"hasDependency" : true,
 	"hasOwnDeamon" : true,
 	"category" : "communication",
-	"version" : "1.0",
 	"issue" : "https://github.com/jeedom/plugin-homebridge/issues",
 	"changelog" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/fr_FR/changelog.asciidoc",
 	"documentation" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/fr_FR/index.asciidoc"
