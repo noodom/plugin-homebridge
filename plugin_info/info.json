@@ -2,7 +2,6 @@
 	"id" : "homebridge",
 	"name" : "Homebridge",
 	"description" : "Plugin pour Homebridge",
-	"icon" : "fa fa-mobile",
 	"licence" : "AGPL",
 	"author" : "Nebz",
 	"require" : "3.0",
