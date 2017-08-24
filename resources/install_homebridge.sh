@@ -107,7 +107,7 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable; charset=binary"*
   echo "FFMPEG existe"; 
 else 
   echo "FFMPEG n'existe pas, on copie le wrapper pour avconv"; 
-  sudo cp ${nodePath}/homebridge-jeedom/ffmpeg-wrapper /usr/bin/ffmpeg
+  sudo cp -f ${nodePath}/homebridge-jeedom/ffmpeg-wrapper /usr/bin/ffmpeg
   sudo chmod +x /usr/bin/ffmpeg
 fi
 
