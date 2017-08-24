@@ -475,10 +475,10 @@ class homebridge extends eqLogic {
 								}
 								unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
 								if ($maxValue != null) {
-									$cmd_array['configuration']['maxValue'] = $maxValue;
+									$cmd_array['configuration']['maxValue'] = floatval($maxValue);
 								}
 								if ($minValue != null) {
-									$cmd_array['configuration']['minValue'] = $minValue;
+									$cmd_array['configuration']['minValue'] = floatval($minValue);
 								}
 								//$cmd_array['display']['generic_type'] = $generic_type;
 								if ($icon != null) {
