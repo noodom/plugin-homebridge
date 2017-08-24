@@ -24,11 +24,7 @@ function homebridge_install(){
 	} catch(Exception $e) {
 		$mobileExists=false;
 	}
-	exec('echo "`date +"[%Y-%m-%d %T]"` Verif plugin Mobile '.$pluginMobile.'" >> '.log::getPathToLog('homebridge_api'));
-	if($pluginMobile) {
-		exec('echo "`date +"[%Y-%m-%d %T]"` Verif plugin Mobile '.$mobileExists.' '.$pluginMobile->isActive().'" >> '.log::getPathToLog('homebridge_api'));
-	}
-	if($mobileExists && $pluginMobile && $pluginMobile->isActive()) {
+	if($mobileExists){// && $pluginMobile && $pluginMobile->isActive()) {
 		exec('echo "`date +"[%Y-%m-%d %T]"` Présence du plugin Mobile [High Five old friend]" >> '.log::getPathToLog('homebridge_api'));
 		$pluginMobile->deamon_stop();
 		
