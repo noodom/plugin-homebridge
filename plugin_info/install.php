@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function homebridge_install(){
 	exec('echo "`date +"[%Y-%m-%d %T]"` Installation du Plugin Homebridge" >> '.log::getPathToLog('homebridge_api'));
-	$MobileExists=true;
+	$mobileExists=true;
 	try {
 		$pluginMobile = plugin::byId('mobile');
 	} catch(Exception $e) {
