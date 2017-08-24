@@ -62,7 +62,6 @@ function homebridge_install(){
 		
 		$platform_homebridge = dirname(__FILE__).'/../data/otherPlatform.json';
 		$platform_mobile = dirname(__FILE__).'/../../mobile/data/otherPlatform.json';
-
 		if(file_exists($platform_mobile) && file_exists($platform_homebridge)) {
 			if(filemtime($platform_mobile) > filemtime($platform_homebridge)) {
 				exec('echo "`date +"[%Y-%m-%d %T]"` Fichier de plateforme Mobile plus récent, on le reprend" >> '.log::getPathToLog('homebridge_api'));
@@ -85,6 +84,13 @@ function homebridge_install(){
 		if(file_exists($IdentifierCacheMobile) && !file_exists($IdentifierCacheHomebridge)) {
 			exec('echo "`date +"[%Y-%m-%d %T]"` Fichier IdentifierCache de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge_api'));
 			exec('yes | ' . system::getCmdSudo() . ' cp '.$IdentifierCacheMobile.' '.$IdentifierCacheHomebridge.' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 ');
+		}
+		
+		$cachedAccessoriesMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/accessories/cachedAccessories';
+		$cachedAccessoriesHomebridge = dirname(__FILE__).'/../resources/homebridge/accessories/cachedAccessories';
+		if(file_exists($cachedAccessoriesMobile) && !file_exists($cachedAccessoriesHomebridge)) {
+			exec('echo "`date +"[%Y-%m-%d %T]"` Fichier cachedAccessories de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge_api'));
+			exec('yes | ' . system::getCmdSudo() . ' cp '.$cachedAccessoriesMobile.' '.$cachedAccessoriesHomebridge.' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 ');
 		}
 	}
 	
