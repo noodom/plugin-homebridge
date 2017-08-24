@@ -59,6 +59,8 @@ function homebridge_install(){
 			$mac_homebridge = $mac_mobile;
 			exec('echo "`date +"[%Y-%m-%d %T]"` Reprise de la MAC de mobile:'.$mac_mobile.'" >> '.log::getPathToLog('homebridge_api'));
 		}
+		$ID_mobile = str_replace(':','',$mac_mobile);
+		$ID_homebridge = str_replace(':','',$mac_homebridge);
 		
 		$platform_homebridge = dirname(__FILE__).'/../data/otherPlatform.json';
 		$platform_mobile = dirname(__FILE__).'/../../mobile/data/otherPlatform.json';
@@ -72,15 +74,15 @@ function homebridge_install(){
 			exec('yes | ' . system::getCmdSudo() . ' cp '.$platform_mobile.' '.$platform_homebridge.' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 ');	
 		}
 		
-		$AccessoryInfoMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/persist/AccessoryInfo.'.$mac_mobile.'.json';
-		$AccessoryInfoHomebridge = dirname(__FILE__).'/../resources/homebridge/persist/AccessoryInfo.'.$mac_homebridge.'.json';
+		$AccessoryInfoMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/persist/AccessoryInfo.'.$ID_mobile.'.json';
+		$AccessoryInfoHomebridge = dirname(__FILE__).'/../resources/homebridge/persist/AccessoryInfo.'.$ID_homebridge.'.json';
 		if(file_exists($AccessoryInfoMobile) && !file_exists($AccessoryInfoHomebridge)) {
 			exec('echo "`date +"[%Y-%m-%d %T]"` Fichier AccessoryInfo de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge_api'));
 			exec('yes | ' . system::getCmdSudo() . ' cp '.$AccessoryInfoMobile.' '.$AccessoryInfoHomebridge.' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 ');
 		}
 		
-		$IdentifierCacheMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/persist/IdentifierCache.'.$mac_mobile.'.json';
-		$IdentifierCacheHomebridge = dirname(__FILE__).'/../resources/homebridge/persist/IdentifierCache.'.$mac_homebridge.'.json';
+		$IdentifierCacheMobile = dirname(__FILE__).'/../../mobile/resources/homebridge/persist/IdentifierCache.'.$ID_mobile.'.json';
+		$IdentifierCacheHomebridge = dirname(__FILE__).'/../resources/homebridge/persist/IdentifierCache.'.$ID_homebridge.'.json';
 		if(file_exists($IdentifierCacheMobile) && !file_exists($IdentifierCacheHomebridge)) {
 			exec('echo "`date +"[%Y-%m-%d %T]"` Fichier IdentifierCache de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge_api'));
 			exec('yes | ' . system::getCmdSudo() . ' cp '.$IdentifierCacheMobile.' '.$IdentifierCacheHomebridge.' >> ' . log::getPathToLog('homebridge_api') . ' 2>&1 ');
