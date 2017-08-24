@@ -316,6 +316,7 @@ class homebridge extends eqLogic {
 		exec($cmd);
 		$cmd = system::getCmdSudo() . ' rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
+		log::add('homebridge_api', 'info', 'Homebridge supprimé');
 	}
 	
 	
