@@ -439,10 +439,10 @@ class homebridge extends eqLogic {
 									
 								if(isset($cmd_array['configuration'])){
 									$configuration = $cmd_array['configuration'];
-									if(isset($configuration['maxValue'])){
+									if(isset($configuration['maxValue']) && $configuration['maxValue'] != ""){
 										$maxValue = $configuration['maxValue'];
 									}
-									if(isset($configuration['minValue'])){
+									if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
 										$minValue = $configuration['minValue'];
 									}
 									if(isset($configuration['actionCodeAccess'])){
@@ -474,7 +474,9 @@ class homebridge extends eqLogic {
 									}
 								}
 								unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
-								$cmd_array['configuration']['maxValue'] = $maxValue;
+								if ($maxValue != null) {
+									$cmd_array['configuration']['maxValue'] = $maxValue;
+								}
 								if ($minValue != null) {
 									$cmd_array['configuration']['minValue'] = $minValue;
 								}
