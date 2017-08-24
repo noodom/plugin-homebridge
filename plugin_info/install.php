@@ -94,7 +94,7 @@ function homebridge_install(){
 		}
 	}
 	
-	homebridge::uninstallHomebridge();
+	//homebridge::uninstallHomebridge(); // will be uninstalled if new nodejs version
 	exec('echo "`date +"[%Y-%m-%d %T]"` Installation des dépendances" >> '.log::getPathToLog('homebridge_api'));
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
