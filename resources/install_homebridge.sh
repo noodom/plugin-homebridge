@@ -48,7 +48,6 @@ sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns liba
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
 actual=`nodejs -v`;
-nodePath=`npm root -g`
 echo "Version actuelle : ${actual}"
 
 if [[ $actual == *"6."* ]]
@@ -64,8 +63,11 @@ else
   sudo npm rm -g homebridge --save
   sudo npm rm -g request --save
   sudo npm rm -g node-gyp --save
-  cd ${nodePath};
+  cd `npm root -g`;
   sudo npm rebuild
+  sudo rm -f /usr/bin/homebridge >/dev/null 2>&1
+  sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1
+  
   sudo apt-get -y --purge autoremove nodejs npm
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
