@@ -105,4 +105,9 @@ function homebridge_update(){
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
 }
+
+function homebridge_remove(){
+	exec('echo "`date +"[%Y-%m-%d %T]"` Suppression du Plugin Homebridge (remove)" >> '.log::getPathToLog('homebridge_api'));
+	homebridge::uninstallHomebridge();
+}
 ?>
