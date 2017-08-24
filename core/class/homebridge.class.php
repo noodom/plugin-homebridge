@@ -480,7 +480,7 @@ class homebridge extends eqLogic {
 								if ($minValue != null) {
 									$cmd_array['configuration']['minValue'] = $minValue;
 								}
-								$cmd_array['display']['generic_type'] = $generic_type;
+								//$cmd_array['display']['generic_type'] = $generic_type;
 								if ($icon != null) {
 									$cmd_array['display']['icon'] = $icon;
 								}
@@ -521,10 +521,12 @@ class homebridge extends eqLogic {
 								if ($cmd_array['type'] == 'action'){
 									unset($cmd_array['currentValue']);
 								}
-								if ($cmd_array['value'] === null || $cmd_array['value'] == ""){
-									//unset($cmd_array['value']);
-									$cmd_array['value'] == "0";
-								}else{
+								if ($cmd_array['type'] == 'info'){
+									if ($cmd_array['value'] === null || $cmd_array['value'] == "") {
+										unset($cmd_array['value']);
+									}
+								}
+								if ($cmd_array['value'] !== null || $cmd_array['value'] != ""){
 									$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 								}
 								if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
