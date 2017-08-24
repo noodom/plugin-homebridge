@@ -103,7 +103,7 @@ sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-camera-ff
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
-if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable; charset=binary"* ]]; then 
+if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
   echo "FFMPEG existe"; 
 else 
   echo "FFMPEG n'existe pas, on copie le wrapper pour avconv"; 
