@@ -308,7 +308,7 @@ class homebridge extends eqLogic {
 		$cmd = system::getCmdSudo() . ' npm rm -g node-gyp --save';
 		exec($cmd);
 		log::add('homebridge_api', 'info', 'Rebuild...');
-		$cmd = 'nodePath=`npm root -g`;cd ${nodePath};' . system::getCmdSudo() . ' npm rebuild;';
+		$cmd = 'cd `npm root -g`;' . system::getCmdSudo() . ' npm rebuild;';
 		exec($cmd);
 		
 		log::add('homebridge_api', 'info', 'Suppression bin homebridge');
