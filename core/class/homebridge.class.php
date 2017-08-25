@@ -397,12 +397,12 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_cmd($plugin = []){
 		$return = [];
-		$genericisvisible = [];
+		/*$genericisvisible = [];
 		foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
-		        if ($info['family'] !== 'Generic') {
-		            array_push($genericisvisible, $key);
-		        }
-		}
+			if ($info['family'] !== 'Generic') {
+				array_push($genericisvisible, $key);
+			}
+		}*/
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
@@ -473,7 +473,9 @@ class homebridge extends eqLogic {
 										$message_placeholder = $display['message_placeholder'];
 									}
 								}
+								
 								unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
+								
 								if ($maxValue != null) {
 									$cmd_array['configuration']['maxValue'] = floatval($maxValue);
 								}
@@ -666,14 +668,14 @@ class homebridge extends eqLogic {
 		return $return;
 	}*/
 	
-	public static function discovery_plan() {
+	/*public static function discovery_plan() {
 		$all = utils::o2a(planHeader::all());
 		$return = [];
 		foreach ($all as &$plan){
 				$return[]=$plan;	
 		}
 		return $return;
-	}
+	}*/
 
 
 	public static function delete_object_eqlogic_null($objectsATraiter,$eqlogicsATraiter){
