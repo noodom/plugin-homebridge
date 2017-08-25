@@ -115,7 +115,7 @@ class homebridge extends eqLogic {
 		if (file_exists(jeedom::getTmpFolder('homebridge') . '/dependance')) {
 		    return;
 		}
-		log::remove(__CLASS__ . '_update');
+		log::remove(__CLASS__ . '_dep');
 		self::generate_file();
 		
         return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
