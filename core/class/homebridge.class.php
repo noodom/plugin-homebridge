@@ -372,7 +372,7 @@ class homebridge extends eqLogic {
 							
 						$eqLogic_array = utils::o2a($eqLogic);
 						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
-							$eqLogic_array["sendToHomebridge"] = $eqLogic_array["configuration"]["sendToHomebridge"];
+							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
 						}
 						if(isset($eqLogic_array["configuration"]['SetModeAbsent'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
@@ -385,6 +385,12 @@ class homebridge extends eqLogic {
 						if(isset($eqLogic_array["configuration"]['SetModeNuit'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
 							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["configuration"]['SetModeNuit'];
+						}
+						if (isset($eqLogic_array['isVisible'])){
+							$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
+						}
+						if (isset($eqLogic_array['isEnable'])){
+							$eqLogic_array['isEnable']=intval($eqLogic_array['isEnable']);
 						}
 						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
 						$return[] = $eqLogic_array;
@@ -535,6 +541,9 @@ class homebridge extends eqLogic {
 								if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
 									unset($cmd_array['unite']);
 								}
+								if (isset($cmd_array['isVisible'])){
+									$cmd_array['isVisible']=intval($cmd_array['isVisible']);
+								}
 								$cmds_array[] = $cmd_array;
 								$i++;
 							}
@@ -633,7 +642,13 @@ class homebridge extends eqLogic {
 			if (isset($object['display']['sendToApp']) && $object['display']['sendToApp'] == "0") {
 				continue;
 			} else {
-				unset($object['configuration'],$object['display']['tagColor'], $object['display']['tagTextColor']);
+				unset($object['configuration'],$object['display']['tagColor'], $object['display']['tagTextColor'],$object['display']['summaryTextColor'],$object['display']['icon']);
+				if (isset($object['isVisible'])) {
+					$object['isVisible']=intval($object['isVisible']);
+				}
+				if (isset($object['display']['sendToApp'])) {
+					$object['display']['sendToApp']=intval($object['display']['sendToApp']);
+				}
 				$return[]=$object;
 			}
 		}
