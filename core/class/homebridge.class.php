@@ -488,7 +488,7 @@ class homebridge extends eqLogic {
 								}
 								if(isset($invertBinary)){
 									if ($invertBinary != null) {
-										$cmd_array['display']['invertBinary'] = $invertBinary;
+										$cmd_array['display']['invertBinary'] = intval($invertBinary);
 									}
 								}
 								if(isset($title_disable)){
