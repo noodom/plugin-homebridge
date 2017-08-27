@@ -50,7 +50,7 @@ echo "--10%"
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
 
-if [[ $actual == *"6."* ]]
+if [[ $actual == *"4."* || $actual == *"5."* ]]
 then
   echo "Ok, version suffisante";
 else
@@ -72,7 +72,7 @@ else
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
   echo "Utilisation du dépot officiel"
-  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
   sudo apt-key update
   sudo apt-get install -y nodejs
   
