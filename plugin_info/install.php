@@ -86,7 +86,7 @@ function homebridge_install(){
 		if (!empty($AccessoryInfosMobile)) {
 			foreach($AccessoryInfosMobile as $AccessoryInfoMobile) {
 				if(file_exists($AccessoryInfoMobile) && !file_exists($AccessoryInfoHomebridge.basename($AccessoryInfoMobile))) {
-					exec('echo "`date +"[%Y-%m-%d %T]"` Fichier AccessoryInfo de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge'));
+					exec('echo "`date +"[%Y-%m-%d %T]"` Fichier '.basename($AccessoryInfoMobile).' de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge'));
 					exec(system::getCmdSudo() . ' mv -f '.$AccessoryInfoMobile.' '.$AccessoryInfoHomebridge.basename($AccessoryInfoMobile).' >> ' . log::getPathToLog('homebridge') . ' 2>&1 ');// delete it from mobile
 					$AccessoryInfoMoved = true;
 				}
@@ -100,7 +100,7 @@ function homebridge_install(){
 		if (!empty($IdentifierCachesMobile)) {
 			foreach($IdentifierCachesMobile as $IdentifierCacheMobile) {
 				if(file_exists($IdentifierCacheMobile) && !file_exists($IdentifierCacheHomebridge.basename($IdentifierCacheMobile))) {
-					exec('echo "`date +"[%Y-%m-%d %T]"` Fichier IdentifierCache de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge'));
+					exec('echo "`date +"[%Y-%m-%d %T]"` Fichier '.basename($IdentifierCacheMobile).' de Mobile préexistant, on le reprend" >> '.log::getPathToLog('homebridge'));
 					exec(system::getCmdSudo() . ' mv -f '.$IdentifierCacheMobile.' '.$IdentifierCacheHomebridge.basename($IdentifierCacheMobile).' >> ' . log::getPathToLog('homebridge') . ' 2>&1 ');// delete it from mobile
 					$IdentifierCacheMoved = true;
 				}
