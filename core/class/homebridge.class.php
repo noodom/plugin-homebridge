@@ -196,22 +196,24 @@ class homebridge extends eqLogic {
 		foreach ($jsonPlatforms as $jsonPlatform) {
 			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
-				$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
-				$AVCONVexists = shell_exec('file -bi `which avconv`');
-				
-				if (strpos($FFMPEGexists, 'text/x-shellscript') !== false) {
-					log::add('homebridge','info','FFMPEG existe et c\'est mon wrapper');
-					# should not happens as it was deleted by dependencies, should i repair ffmpeg ? if it exists
-					#lets use the new wrapper
-					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
-				} elseif (strpos($FFMPEGexists, 'application') !== false) {
-					log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
-					$jsonArr['videoProcessor'] = 'ffmpeg';
-				} elseif (strpos($AVCONVexists, 'application') !== false) {
-					log::add('homebridge','info','FFMPEG n\'existe pas mais avconv oui et c\'est un exécutable, on l\'utilise');
-					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
-				} else {
-					log::add('homebridge','info','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+				if($jsonArr['platform']=='Camera-ffmpeg') {
+					$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
+					$AVCONVexists = shell_exec('file -bi `which avconv`');
+					
+					if (strpos($FFMPEGexists, 'text/x-shellscript') !== false) {
+						log::add('homebridge','info','FFMPEG existe et c\'est mon wrapper');
+						# should not happens as it was deleted by dependencies, should i repair ffmpeg ? if it exists
+						#lets use the new wrapper
+						$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+					} elseif (strpos($FFMPEGexists, 'application') !== false) {
+						log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
+						$jsonArr['videoProcessor'] = 'ffmpeg';
+					} elseif (strpos($AVCONVexists, 'application') !== false) {
+						log::add('homebridge','info','FFMPEG n\'existe pas mais avconv oui et c\'est un exécutable, on l\'utilise');
+						$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+					} else {
+						log::add('homebridge','info','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+					}
 				}
 				$response['platforms'][] = $jsonArr;
 			}
