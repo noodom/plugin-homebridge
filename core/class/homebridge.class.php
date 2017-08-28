@@ -617,7 +617,7 @@ class homebridge extends eqLogic {
 		$plage_cmd = self::discovery_multi($cmds);
 		$eqLogic_array = [];
 		$nbr_cmd = count($plage_cmd);
-		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
+		//log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
 		if($nbr_cmd != 0){
 			$i = 0;
 			while($i < $nbr_cmd){
