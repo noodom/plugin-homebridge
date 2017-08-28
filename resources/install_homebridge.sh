@@ -115,6 +115,7 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then
   echo "Nettoyage de mon wrapper FFMPEG"; 
   sudo rm -f /usr/bin/ffmpeg
 fi 
+sudo chmod +x ./ffmpeg-wrapper
 
 echo 90 > ${PROGRESS_FILE}
 echo "--90%"
