@@ -26,7 +26,7 @@ if(!isConnect()) {
 <style>
 @font-face {
   font-family: Scancardium;
-  src: url(/plugins/homebridge/plugin_info/Scancardium.ttf);
+  src: url(/plugins/homebridge/resources/Scancardium.ttf);
 }
 </style>
 <form class="form-horizontal">
