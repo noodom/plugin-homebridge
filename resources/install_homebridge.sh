@@ -114,6 +114,7 @@ echo "--80%"
 if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then 
   echo "Nettoyage de mon wrapper FFMPEG"; 
   sudo rm -f /usr/bin/ffmpeg
+  echo "Réinstallez ffmpeg s'il était installé"; 
 fi 
 sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper
 
