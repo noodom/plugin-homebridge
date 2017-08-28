@@ -199,10 +199,15 @@ class homebridge extends eqLogic {
 				$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
 				$AVCONVexists = shell_exec('file -bi `which avconv`');
 				
-				if (strpos($FFMPEGexists, 'application/x-executable') !== false) {
-					log::add('homebridge','info','FFMPEG existe et est un exécutable, on l\'utilise');
+				if (strpos($FFMPEGexists, 'text/x-shellscript') !== false) {
+					log::add('homebridge','info','FFMPEG existe et c\'est mon wrapper');
+					# should not happens as it was deleted by dependencies, should i repair ffmpeg ? if it exists
+					#lets use the new wrapper
+					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+				} elseif (strpos($FFMPEGexists, 'application') !== false) {
+					log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
 					$jsonArr['videoProcessor'] = 'ffmpeg';
-				} elseif (strpos($AVCONVexists, 'application/x-executable') !== false) {
+				} elseif (strpos($AVCONVexists, 'application') !== false) {
 					log::add('homebridge','info','FFMPEG n\'existe pas mais avconv oui et c\'est un exécutable, on l\'utilise');
 					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
 				} else {
