@@ -194,7 +194,7 @@ class homebridge extends eqLogic {
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
 		foreach ($jsonPlatforms as $jsonPlatform) {
-			$jsonArr = json_decode($jsonPlatform);
+			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
 				if(!$jsonArr['videoProcessor'])
 					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
