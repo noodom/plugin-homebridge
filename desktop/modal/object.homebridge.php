@@ -203,9 +203,7 @@ function listAlarmSetModes($id,$selected) {
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Météo') { // display ignored types
 																continue;
-															} elseif (isset($info['family']) && $info['family'] == 'Mode') { // display ignored types
-																continue;
-															}
+															} 
 															$info['key'] = $key;
 															if (!isset($groups[$info['family']])) {
 																$groups[$info['family']][0] = $info;
