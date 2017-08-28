@@ -195,8 +195,16 @@ function listAlarmSetModes($id,$selected) {
 																continue;
 															} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
 																continue;
-															/* }  elseif (isset($info['ignore']) && $info['ignore'] == true) { // display ignored types
-															continue;*/
+															} elseif (isset($info['family']) && $info['family'] == 'Thermostat') { // display ignored types
+																continue;
+															} elseif (isset($info['family']) && $info['family'] == 'Caméra') { // display ignored types
+																continue;
+															} elseif (isset($info['family']) && $info['family'] == 'Alarme') { // display ignored types
+																continue;
+															} elseif (isset($info['family']) && $info['family'] == 'Météo') { // display ignored types
+																continue;
+															} elseif (isset($info['family']) && $info['family'] == 'Mode') { // display ignored types
+																continue;
 															}
 															$info['key'] = $key;
 															if (!isset($groups[$info['family']])) {
