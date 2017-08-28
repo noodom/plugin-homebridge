@@ -139,6 +139,16 @@ function listAlarmSetModes($id,$selected) {
 									</table>
 								<?php
 								break;
+								case "weather" :
+								?>
+									<span class="cmdAttr" data-l1key="id">Plugin Météo non supporté pour l'instant</span>
+								<?php
+								break;
+								case "mode" :
+								?>
+									<span class="cmdAttr" data-l1key="id">Plugin Mode non supporté pour l'instant</span>
+								<?php
+								break;
 								case "camera" :
 								?>
 									<span class="cmdAttr" data-l1key="id">Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge</span>
@@ -203,7 +213,9 @@ function listAlarmSetModes($id,$selected) {
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Météo') { // display ignored types
 																continue;
-															} 
+															} elseif (isset($info['family']) && $info['family'] == 'Mode') { // display ignored types
+																continue;
+															}
 															$info['key'] = $key;
 															if (!isset($groups[$info['family']])) {
 																$groups[$info['family']][0] = $info;
