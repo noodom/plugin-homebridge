@@ -111,6 +111,10 @@ echo "--80%"
 #  sudo cp -f ${nodePath}/homebridge-jeedom/ffmpeg-wrapper /usr/bin/ffmpeg
 #  sudo chmod +x /usr/bin/ffmpeg
 #fi
+if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then 
+  echo "Nettoyage de mon wrapper FFMPEG"; 
+  sudo rm -f /usr/bin/ffmpeg
+fi 
 
 echo 90 > ${PROGRESS_FILE}
 echo "--90%"
