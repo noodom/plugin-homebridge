@@ -126,6 +126,8 @@ function homebridge_install(){
 				exec(system::getCmdSudo() . ' rm -fR '.dirname(__FILE__).'/../../mobile/resources/homebridge/ >> ' . log::getPathToLog('homebridge') . ' 2>&1 ');// delete it from mobile
 			}
 		}
+		log::remove('mobile_homebridge');
+		log::remove('mobile_homebridge_update');
 	}
 	
 	//homebridge::uninstallHomebridge(); // will be uninstalled if new nodejs version
