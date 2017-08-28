@@ -196,8 +196,18 @@ class homebridge extends eqLogic {
 		foreach ($jsonPlatforms as $jsonPlatform) {
 			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
-				if(!$jsonArr['videoProcessor'])
+				$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
+				$AVCONVexists = shell_exec('file -bi `which avconv`');
+				
+				if (strpos($FFMPEGexists, 'application/x-executable') !== false) {
+					log::add('homebridge','info','FFMPEG existe et est un exécutable, on l\'utilise');
+					$jsonArr['videoProcessor'] = 'ffmpeg';
+				} elseif (strpos($AVCONVexists, 'application/x-executable') !== false) {
+					log::add('homebridge','info','FFMPEG n\'existe pas mais avconv oui et c\'est un exécutable, on l\'utilise');
 					$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+				} else {
+					log::add('homebridge','info','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+				}
 				$response['platforms'][] = $jsonArr;
 			}
 		}
