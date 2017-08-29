@@ -71,10 +71,20 @@ else
   sudo apt-get -y --purge autoremove nodejs npm
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
-  echo "Utilisation du dépot officiel"
-  curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-  sudo apt-key update
-  sudo apt-get install -y nodejs
+  if [[ `arch` == "aarch64" ]]
+  then
+	echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
+    wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
+    sudo dpkg -i nodejs_5-1_arm64.deb
+    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
+    rm nodejs_5-1_arm64.deb
+  else
+    echo "Utilisation du dépot officiel"
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    sudo apt-key update
+    sudo apt-get install -y nodejs  
+  fi
+  
   
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
