@@ -116,6 +116,7 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then
   sudo rm -f /usr/bin/ffmpeg
   echo "Réinstallez ffmpeg s'il était installé"; 
 fi 
+pwd
 sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper
 
 echo 90 > ${PROGRESS_FILE}
