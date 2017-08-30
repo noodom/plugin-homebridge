@@ -51,6 +51,11 @@ class homebridge extends eqLogic {
 		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE'];
 		return $PluginMulti;
 	}
+
+	public static function PluginCustomisable(){
+		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE'];
+		return $PluginCustomisable;
+	}
 	
 	public static function DisallowedPIN() {
 		$DisallowedPIN = ['000-00-000','111-11-111','222-22-222','333-33-333','444-44-444','555-55-555','666-66-666','777-77-777','888-88-888','999-99-999','123-45-678','876-54-321'];
@@ -423,6 +428,20 @@ class homebridge extends eqLogic {
 						if(isset($eqLogic_array["configuration"]['SetModeNuit'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
 							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["configuration"]['SetModeNuit'];
+						}
+						if(isset($eqLogic_array["configuration"]['customValues'])){
+							if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
+							$tempArray['OPEN'] = $eqLogic_array["configuration"]['OPEN'];
+							$tempArray['OPEN'] = (($tempArray['OPEN'] !== '')?intval($tempArray['OPEN']):null);
+							$tempArray['OPENING'] = $eqLogic_array["configuration"]['OPENING'];
+							$tempArray['OPENING'] = (($tempArray['OPENING'] !== '')?intval($tempArray['OPENING']):null);
+							$tempArray['STOPPED'] = $eqLogic_array["configuration"]['STOPPED'];
+							$tempArray['STOPPED'] = (($tempArray['STOPPED'] !== '')?intval($tempArray['STOPPED']):null);
+							$tempArray['CLOSING'] = $eqLogic_array["configuration"]['CLOSING'];
+							$tempArray['CLOSING'] = (($tempArray['CLOSING'] !== '')?intval($tempArray['CLOSING']):null);
+							$tempArray['CLOSED'] = $eqLogic_array["configuration"]['CLOSED'];
+							$tempArray['CLOSED'] = (($tempArray['CLOSED'] !== '')?intval($tempArray['CLOSED']):null);
+							$eqLogic_array["customValues"] = $tempArray;
 						}
 						if (isset($eqLogic_array['isVisible'])){
 							$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
