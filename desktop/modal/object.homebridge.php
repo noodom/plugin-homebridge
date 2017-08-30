@@ -264,7 +264,7 @@ function listAlarmSetModes($id,$selected) {
 										?>
 											<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
 											<span class="eqLogicAttrGarage configuration" type="text" data-l1key="configuration" data-l2key="customValues" style="display : none;">1</span>
-											<tr><td colspan='3'>{{Personnalisation des états}}</td></tr>
+											<tr><th colspan='3'>{{Personnalisation des états}}</th></tr>
 											<tr>
 												<td>&nbsp;</td>
 												<td>{{Ouvert}}</td>
