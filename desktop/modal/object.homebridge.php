@@ -200,7 +200,8 @@ function listAlarmSetModes($id,$selected) {
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
-														foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
+														$generic_array = array_merge(jeedom::getConfiguration('cmd::generic_type'),homebridge::getCustomGenerics());
+														foreach ($generic_array as $key => $info) {
 															if ($cmd->getType() == 'info' && $info['type'] == 'Action') {
 																continue;
 															} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
