@@ -133,7 +133,7 @@ function listAlarmSetModes($id,$selected) {
 										<tr class="cmdLine">
 											<td></td><td></td>
 											<td>
-												<span class="cmdAttr" data-l1key="id">Merci de ne pas choisir plusieurs fois le même mode</span>
+												<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
 											</td>
 										</tr>
 									</table>
@@ -141,28 +141,29 @@ function listAlarmSetModes($id,$selected) {
 								break;
 								case "weather" :
 								?>
-									<span class="cmdAttr" data-l1key="id">Plugin Météo non supporté pour l'instant</span>
+									<span class="cmdAttr" data-l1key="id">{{Plugin Météo non supporté pour l'instant}}</span>
 								<?php
 								break;
 								case "mode" :
 								?>
-									<span class="cmdAttr" data-l1key="id">Plugin Mode non supporté pour l'instant</span>
+									<span class="cmdAttr" data-l1key="id">{{Plugin Mode non supporté pour l'instant}}</span>
 								<?php
 								break;
 								case "camera" :
 								?>
-									<span class="cmdAttr" data-l1key="id">Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge</span>
+									<span class="cmdAttr" data-l1key="id">{{Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge}}</span>
 								<?php
 								break;
 								case "netatmoThermostat" :
 								case "thermostat" :
 								?>
-									<span class="cmdAttr" data-l1key="id">Plugin Thermostat en mode limité seulement pour l'instant</span>
+									<span class="cmdAttr" data-l1key="id">{{Plugin Thermostat en mode limité seulement pour l'instant}}</span>
 								<?php
 								break;
 								default :
 									$cmds = null;
 									$cmds = cmd::byEqLogicId($eqLogic->getId());
+									$hasCustomisable = false;
 								?>
 									<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
 										<tr>
@@ -234,6 +235,9 @@ function listAlarmSetModes($id,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																if($info['key'] == $cmd->getDisplay('generic_type')){
+																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
+																		$hasCustomisable = $info['key'];
+																	}
 																	echo '<option value="' . $info['key'] . '" selected>' . $info['type'] . ' / ' . $info['name'] . '</option>';
 																}else{
 																	echo '<option value="' . $info['key'] . '">' . $info['type'] . ' / ' . $info['name'] . '</option>';
@@ -247,6 +251,51 @@ function listAlarmSetModes($id,$selected) {
 											</tr>
 										<?php
 										endforeach;
+										switch($hasCustomisable) {
+											case "GARAGE_STATE" :
+											case "BARRIER_STATE":
+												//var_dump($eqLogic);
+												$customValues 	=  	$eqLogic->getConfiguration('customValues', false);
+												$OPEN 		=	$eqLogic->getConfiguration('OPEN', (($customValues)?'':255));
+												$OPENING  	= 	$eqLogic->getConfiguration('OPENING', (($customValues)?'':254));
+												$STOPPED    = 	$eqLogic->getConfiguration('STOPPED', (($customValues)?'':253));
+												$CLOSING    = 	$eqLogic->getConfiguration('CLOSING', (($customValues)?'':252));
+												$CLOSED    	= 	$eqLogic->getConfiguration('CLOSED', (($customValues)?'':0));
+										?>
+											<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
+											<span class="eqLogicAttrGarage configuration" type="text" data-l1key="configuration" data-l2key="customValues" style="display : none;">1</span>
+											<tr><td colspan='3'>{{Personnalisation des états}}</td></tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>{{Ouvert}}</td>
+												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPEN" value='<?=$OPEN?>' /></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>{{Ouverture en cours}}</td>
+												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPENING" value='<?=$OPENING?>' /></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>{{Stoppé}}</td>
+												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="STOPPED" value='<?=$STOPPED?>' /></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>{{Fermeture en cours}}</td>
+												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSING" value='<?=$CLOSING?>' /></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>{{Fermé}}</td>
+												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSED" value='<?=$CLOSED?>' /></td>
+											</tr>
+											<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>
+										<?php
+											break;
+											default:
+											break;
+										}
 										?>
 									</table>
 							<?php
@@ -286,6 +335,12 @@ $('.eqLogicAttrAlarm').on('change',function(){
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
 });
+$('.eqLogicAttrGarage').on('change',function(){
+	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrGarage')[0];
+	console.log(eqLogic.id,eqLogic.configuration);
+	eqLogicsHomebridge.push(eqLogic);
+});
+
 
 // SAUVEGARDE
 function SaveObject(){
