@@ -35,6 +35,17 @@ class homebridge extends eqLogic {
 		$PluginWidget = ['alarm','camera','thermostat','netatmoThermostat','weather','mode'];	
 		return $PluginWidget;
 	}*/
+
+	public static function getCustomGenerics(){
+		$CUSTOM_GENERIC_TYPE = array(
+			'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
+			
+			'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
+			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
+			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true)
+		);
+		return $CUSTOM_GENERIC_TYPE;
+	}
 	
 	public static function PluginMultiInEqLogic(){
 		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE'];
