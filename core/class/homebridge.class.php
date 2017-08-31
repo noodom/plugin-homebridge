@@ -38,11 +38,11 @@ class homebridge extends eqLogic {
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
-			'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
+			//'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
 			
-			'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
-			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
-			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true)
+			//'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -150,6 +150,77 @@ class homebridge extends eqLogic {
 		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
 		return (($ret===false)?false:true);
+	}
+	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
+		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
+		
+		foreach ($eqLogicToSave as $newVal) {
+			$found = false;
+			foreach ($content['eqLogic'] as $id => $eqLogic) {
+				if($eqLogic['id'] == $newVal['id']) {
+					if($newVal['configuration']) 
+						$content['eqLogic'][$id]['configuration'] = $newVal['configuration'];
+					if($newVal['display'])
+						$content['eqLogic'][$id]['display'] = $newVal['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['eqLogic'],$newVal);
+			}
+		}
+		//var_dump($content['cmd']);
+		foreach ($cmdOldValues as $oldValCmd) {
+			//echo "-oldValCmd:".$oldValCmd['id'];
+			for($i=0;$i< count($content['cmd']);$i++) {
+				//echo "--contentCmd:".$content['cmd'][$i]['id'];
+				if($content['cmd'][$i]['id'] == $oldValCmd['id']) {
+					//echo "---match ".$i;
+					array_splice($content['cmd'],$i);
+					break;
+				}
+			}
+		}			
+		//var_dump($content['cmd']);
+		foreach ($cmdToSave as $newValCmd) {
+			$found = false;
+			foreach ($content['cmd'] as $id => $cmd) {
+				if($cmd['id'] == $newValCmd['id']) {
+					if($newValCmd['configuration']) 
+						$content['cmd'][$id]['configuration'] = $newValCmd['configuration'];
+					if($newValCmd['display'])
+						$content['cmd'][$id]['display'] = $newValCmd['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['cmd'],$newValCmd);
+			}
+		}	
+		
+		$content = json_encode($content);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+		return (($ret===false)?false:true);
+	}
+	public static function getCustomData(){
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec('touch ' . dirname(__FILE__) . '/../../data/customData.json');
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		$content = json_decode($content,true);
+		return $content;
 	}
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
