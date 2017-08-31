@@ -67,21 +67,30 @@ function listAlarmSetModes($id,$selected) {
 		<?php
 		$tableau_cmd = [];
 		$eqLogics = $object->getEqLogic();
+		$customValuesArr = homebridge::getCustomData();
 		?>
 		<div class="panel-group" id="accordionConfiguration">
 			<?php
 			foreach ($eqLogics as $eqLogic) :
+				$customEQValuesArr = [];
 				if($eqLogic->getEqType_name() == "mobile") continue;
 				$check = 'checked';
 				if ($eqLogic->getConfiguration('sendToHomebridge', 1) == 0) {
 					$check = 'unchecked';
 				}
+				$eql_id = $eqLogic->getId();
+				foreach($customValuesArr['eqLogic'] as $eqLogicCustom) {
+					if($eqLogicCustom['id'] == $eql_id) {
+						$customEQValuesArr = $eqLogicCustom;	
+						break;
+					}
+				}
 			?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionConfiguration" href="#config_<?=$eqLogic->getId()?>" style="text-decoration:none">
-								<span class="eqLogicAttr hidden" data-l1key="id"><?=$eqLogic->getId()?></span>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionConfiguration" href="#config_<?=$eql_id?>" style="text-decoration:none">
+								<span class="eqLogicAttr hidden" data-l1key="id"><?=$eql_id?></span>
 								<?=$eqLogic->getHumanName(true)?>
 								<a class="btn btn-mini btn-success eqLogicAction pull-right" style="padding:0px 3px 0px 3px;cursor:pointer;" onclick="SaveObject()"><i class="fa fa-floppy-o" style="color:white;"></i></a>
 								<small>
@@ -90,16 +99,23 @@ function listAlarmSetModes($id,$selected) {
 							</a>
 						</h3>
 					</div>
-					<div id="config_<?=$eqLogic->getId()?>" class="panel-collapse collapse">
+					<div id="config_<?=$eql_id?>" class="panel-collapse collapse">
 						<div class="panel-body">
 							<?php
 							switch($eqLogic->getEqType_name()) :
 								case "alarm" :
-									$SetModePresent = $eqLogic->getConfiguration('SetModePresent', 'NOT');
-									$SetModeAbsent  = $eqLogic->getConfiguration('SetModeAbsent', 'NOT');
-									$SetModeNuit    = $eqLogic->getConfiguration('SetModeNuit', 'NOT');
+									if(isset($customEQValuesArr['configuration'])) {
+										$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
+										$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
+										$SetModeNuit    = (($customEQValuesArr['configuration']['SetModeNuit'])?$customEQValuesArr['configuration']['SetModeNuit']:'NOT');
+									}
+									else {
+										$SetModePresent = 'NOT';
+										$SetModeAbsent  = 'NOT';
+										$SetModeNuit    = 'NOT';
+									}
 							?>
-									<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
+									<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
 									<table class="table">
 										<tr class="cmdLine">
 											<th>{{Mode app Maison}}</th>
@@ -110,7 +126,7 @@ function listAlarmSetModes($id,$selected) {
 											<td>{{Domicile}}</td><td>{{Présence}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-													<?=listAlarmSetModes($eqLogic->getId(),$SetModePresent)?>
+													<?=listAlarmSetModes($eql_id,$SetModePresent)?>
 												</select>
 											</td>
 										</tr>
@@ -118,7 +134,7 @@ function listAlarmSetModes($id,$selected) {
 											<td>{{À distance}}</td><td>{{Absence}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-													<?=listAlarmSetModes($eqLogic->getId(),$SetModeAbsent)?>
+													<?=listAlarmSetModes($eql_id,$SetModeAbsent)?>
 												</select>
 											</td>
 										</tr>
@@ -126,7 +142,7 @@ function listAlarmSetModes($id,$selected) {
 											<td>{{Nuit}}</td><td>{{Nuit}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-													<?=listAlarmSetModes($eqLogic->getId(),$SetModeNuit)?>
+													<?=listAlarmSetModes($eql_id,$SetModeNuit)?>
 												</select>	
 											</td>
 										</tr>
@@ -162,10 +178,10 @@ function listAlarmSetModes($id,$selected) {
 								break;
 								default :
 									$cmds = null;
-									$cmds = cmd::byEqLogicId($eqLogic->getId());
-									$hasCustomisable = false;
+									$cmds = cmd::byEqLogicId($eql_id);
+									$isCustomisable = false;
 								?>
-									<table id='<?=$eqLogic->getId()?>' class="table TableCMD">
+									<table id='<?=$eql_id?>' class="table TableCMD">
 										<tr>
 											<th>{{Id Cmd}}</th>
 											<th>{{Nom de la Commande}}</th>
@@ -173,11 +189,19 @@ function listAlarmSetModes($id,$selected) {
 										</tr>
 										<?php
 										foreach ($cmds as $cmd) :
-											array_push($tableau_cmd, $cmd->getId());
+											$cmd_id = $cmd->getId();
+											$customCMDValuesArr=['display'=>null];
+											array_push($tableau_cmd, $cmd_id);
+											foreach($customValuesArr['cmd'] as $cmdCustom) {
+												if($cmdCustom['id'] == $cmd_id) {
+													$customCMDValuesArr = $cmdCustom['display'];	
+													break;
+												}
+											}
 										?>
 											<tr class="cmdLine">
 												<td>
-													<span class="cmdAttr" data-l1key="id"><?=$cmd->getId()?></span>
+													<span class="cmdAttr" data-l1key="id"><?=$cmd_id?></span>
 												</td>
 												<td>
 													<?php
@@ -191,13 +215,13 @@ function listAlarmSetModes($id,$selected) {
 													?>
 													<div class="iconeGeneric pull-right" style="display:<?=$display_icon?>;">
 														<div>
-															<span class="cmdAttr label label-info cursor" data-l1key="display" data-l2key="icon" style="font-size : 1.2em;" ><?=$icon?></span>
+															<span class="cmdAttr label label-info cursor" style="font-size : 1.2em;" ><?=$icon?></span>
 															<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> {{Icône}}</a>
 														</div>
 													</div>
 												</td>
 												<td>
-													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd->getId(); ?>">
+													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
@@ -234,14 +258,14 @@ function listAlarmSetModes($id,$selected) {
 																if ($key == 0) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
-																if($info['key'] == $cmd->getDisplay('generic_type')){
+																$selected = '';
+																if($info['key'] == $cmd->getDisplay('generic_type') || $info['key'] == $customCMDValuesArr['generic_type']){
 																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
-																		$hasCustomisable = $info['key'];
+																		$isCustomisable = $info['key'];
 																	}
-																	echo '<option value="' . $info['key'] . '" selected>' . $info['type'] . ' / ' . $info['name'] . '</option>';
-																}else{
-																	echo '<option value="' . $info['key'] . '">' . $info['type'] . ' / ' . $info['name'] . '</option>';
+																	$selected=' selected';
 																}
+																echo '<option value="' . (($info['homebridge_type'])?'HB|':'') . $info['key'] . '"'.$selected.'>' . $info['type'] . ' / ' . $info['name'] .'</option>';
 															}
 															echo '</optgroup>';
 														}
@@ -251,18 +275,28 @@ function listAlarmSetModes($id,$selected) {
 											</tr>
 										<?php
 										endforeach;
-										switch($hasCustomisable) {
+										switch($isCustomisable) {
 											case "GARAGE_STATE" :
 											case "BARRIER_STATE":
 												//var_dump($eqLogic);
-												$customValues 	=  	$eqLogic->getConfiguration('customValues', false);
-												$OPEN 		=	$eqLogic->getConfiguration('OPEN', (($customValues)?'':255));
-												$OPENING  	= 	$eqLogic->getConfiguration('OPENING', (($customValues)?'':254));
-												$STOPPED    = 	$eqLogic->getConfiguration('STOPPED', (($customValues)?'':253));
-												$CLOSING    = 	$eqLogic->getConfiguration('CLOSING', (($customValues)?'':252));
-												$CLOSED    	= 	$eqLogic->getConfiguration('CLOSED', (($customValues)?'':0));
+												if(isset($customEQValuesArr['configuration'])) {
+													$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
+													$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
+													$OPENING	  = ((isset($customEQValuesArr['configuration']['OPENING']))?$customEQValuesArr['configuration']['OPENING']:254);
+													$STOPPED	  = ((isset($customEQValuesArr['configuration']['STOPPED']))?$customEQValuesArr['configuration']['STOPPED']:253);
+													$CLOSING	  = ((isset($customEQValuesArr['configuration']['CLOSING']))?$customEQValuesArr['configuration']['CLOSING']:252);
+													$CLOSED		  = ((isset($customEQValuesArr['configuration']['CLOSED']))?$customEQValuesArr['configuration']['CLOSED']:0);
+												}
+												else {
+													$customValues = false;
+													$OPEN		  = 255;
+													$OPENING	  = 254;
+													$STOPPED	  = 253;
+													$CLOSING	  = 252;
+													$CLOSED		  = 0;
+												}
 										?>
-											<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eqLogic->getId()?></span>
+											<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
 											<span class="eqLogicAttrGarage configuration" type="text" data-l1key="configuration" data-l2key="customValues" style="display : none;">1</span>
 											<tr><th colspan='3'>{{Personnalisation des états}}</th></tr>
 											<tr>
@@ -317,9 +351,28 @@ function listAlarmSetModes($id,$selected) {
 <script>
 var changed=0;
 var eqLogicsHomebridge = [];
+var eqLogicsCustoms = [];
+var oldValues = [];
 // CHANGE CLICK
-$('.cmdAttr').on('change click',function(){
+$('.cmdAttr').on('change',function(){
 	$(this).closest('tr').attr('data-change','1');
+});
+$('.cmdAttr').on('click',function(){
+	$(this).closest('tr').attr('data-change','1');
+	var found = false;
+	for(var i=0; i<oldValues.length ; i++) {
+		if($(this).attr('data-cmd_id') == oldValues[i].id) {
+			found=true;
+		}
+	}
+	if(!found) {
+		if($(this).value().substr(0,3) == 'HB|') {
+			oldValues.push({
+				'id' : $(this).attr('data-cmd_id'),
+				'oldValue' : $(this).value()
+			});
+		}
+	}
 });
 $('.objectAttr').on('change click',function(){
 	changed=1;
@@ -333,26 +386,36 @@ $('.eqLogicAttr').on('change click',function(){
 $('.eqLogicAttrAlarm').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
-	eqLogicsHomebridge.push(eqLogic);
+	eqLogicsCustoms.push(eqLogic);
 });
 $('.eqLogicAttrGarage').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrGarage')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
-	eqLogicsHomebridge.push(eqLogic);
+	eqLogicsCustoms.push(eqLogic);
 });
 
 
 // SAUVEGARDE
 function SaveObject(){
-	var cmds = [];
+	var cmds = []
+	var customCmds = [];
+	var cmdValues;
 	$('.TableCMD tr').each(function(){
 		if($(this).attr('data-change') == '1'){
-			cmds.push($(this).getValues('.cmdAttr')[0]);
+			cmdValues = $(this).getValues('.cmdAttr')[0];
+			if(cmdValues.display.generic_type.substr(0,3) == 'HB|') {
+				cmdValues.display.generic_type = cmdValues.display.generic_type.replace('HB|','');
+				customCmds.push(cmdValues);
+			}
+			else {
+				cmds.push(cmdValues);
+			}
 		}
 	});
+
 	var eqLogicsHomebridgeFiltered = [];
 	eqLogicsHomebridge.reverse();
-	$.each(eqLogicsHomebridge, function(index, eqLogic) { // problem is here
+	$.each(eqLogicsHomebridge, function(index, eqLogic) {
 		var eqLogics = $.grep(eqLogicsHomebridgeFiltered, function (e) {
 			return eqLogic.id === e.id;
 		});
@@ -391,6 +454,48 @@ function SaveObject(){
 		success: function (data) {
 			modifyWithoutSave = false;
 			$('.EnregistrementDisplay').showAlert({message: '{{Sauvegarde effectuée avec succès}}', level: 'success'});
+		}
+	});
+	
+	var eqLogicsCustomsFiltered = [];
+	eqLogicsCustoms.reverse();
+	$.each(eqLogicsCustoms, function(index, eqLogic) {
+		var eqLogics = $.grep(eqLogicsCustomsFiltered, function (e) {
+			return eqLogic.id === e.id;
+		});
+		if (eqLogics.length === 0) {
+			eqLogicsCustomsFiltered.push(eqLogic);
+		}
+	});
+	// custom Save
+	$.ajax({
+		type: 'POST',
+		url: 'plugins/homebridge/core/ajax/homebridge.ajax.php',
+		data: {
+			action: 'saveCustomData',
+			eqLogic: eqLogicsCustomsFiltered,
+			cmd: customCmds,
+			oldValues: oldValues
+		},
+		dataType: 'json',
+		global: false,
+		error: function (request, status, error) {
+			handleAjaxError(request, status, error, $('.EnregistrementDisplay'));
+		},
+		success: function (data) {
+			if (data['result']!=false) {
+				$('.EnregistrementDisplay').showAlert({
+					message: '{{Sauvegarde de la configuration réussie.}}',
+					level: 'success'
+				});
+				eqLogicsCustoms = [];
+				oldValues = [];
+			} else {
+				$('.EnregistrementDisplay').showAlert({
+					message: '{{Echec de la sauvegarde de la configuration : }}' + data['data'],
+					level: 'danger'
+				});
+			}
 		}
 	});
 }
