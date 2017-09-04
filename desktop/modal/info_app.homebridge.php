@@ -21,7 +21,8 @@ if (!isConnect('admin')) {
 
 $PluginToSend = homebridge::PluginToSend();
 
-	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend),homebridge::discovery_eqLogic($PluginToSend));
+	$customValues=homebridge::getCustomData();
+	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend,$customValues['cmd']),homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
 	$eqLogics = $sync_new[1];
 	$cmds = $sync_new[0];
 	
