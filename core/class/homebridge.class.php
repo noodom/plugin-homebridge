@@ -38,11 +38,11 @@ class homebridge extends eqLogic {
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
-			'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
+			//'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
 			
-			'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
-			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true),
-			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true)
+			//'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -150,6 +150,77 @@ class homebridge extends eqLogic {
 		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
 		return (($ret===false)?false:true);
+	}
+	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
+		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
+		
+		foreach ($eqLogicToSave as $newVal) {
+			$found = false;
+			foreach ($content['eqLogic'] as $id => $eqLogic) {
+				if($eqLogic['id'] == $newVal['id']) {
+					if($newVal['configuration']) 
+						$content['eqLogic'][$id]['configuration'] = $newVal['configuration'];
+					if($newVal['display'])
+						$content['eqLogic'][$id]['display'] = $newVal['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['eqLogic'],$newVal);
+			}
+		}
+		//var_dump($content['cmd']);
+		foreach ($cmdOldValues as $oldValCmd) {
+			//echo "-oldValCmd:".$oldValCmd['id'];
+			for($i=0;$i< count($content['cmd']);$i++) {
+				//echo "--contentCmd:".$content['cmd'][$i]['id'];
+				if($content['cmd'][$i]['id'] == $oldValCmd['id']) {
+					//echo "---match ".$i;
+					array_splice($content['cmd'],$i);
+					break;
+				}
+			}
+		}			
+		//var_dump($content['cmd']);
+		foreach ($cmdToSave as $newValCmd) {
+			$found = false;
+			foreach ($content['cmd'] as $id => $cmd) {
+				if($cmd['id'] == $newValCmd['id']) {
+					if($newValCmd['configuration']) 
+						$content['cmd'][$id]['configuration'] = $newValCmd['configuration'];
+					if($newValCmd['display'])
+						$content['cmd'][$id]['display'] = $newValCmd['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['cmd'],$newValCmd);
+			}
+		}	
+		
+		$content = json_encode($content);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+		return (($ret===false)?false:true);
+	}
+	public static function getCustomData(){
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec('touch ' . dirname(__FILE__) . '/../../data/customData.json');
+		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		$content = json_decode($content,true);
+		return $content;
 	}
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
@@ -401,7 +472,7 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 
-	public static function discovery_eqLogic($plugin = []){
+	public static function discovery_eqLogic($plugin = [],$customEqLogics){
 		$return = [];
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
@@ -412,34 +483,44 @@ class homebridge extends eqLogic {
 						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
 						//&& 	($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget())) // visible or supported
 						){
-							
+						
 						$eqLogic_array = utils::o2a($eqLogic);
+						
+						foreach($customEqLogics as $custeqLogic) { // import customConfiguration
+							if($eqLogic_array['id'] == $custeqLogic['id']) {
+								$eqLogic_array['customConfiguration'] = $custeqLogic['configuration'];
+								break;
+							}
+						}
+						
+						
 						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
 							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
 						}
-						if(isset($eqLogic_array["configuration"]['SetModeAbsent'])){
+						
+						if(isset($eqLogic_array["customConfiguration"]['SetModeAbsent'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["configuration"]['SetModeAbsent'];
+							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["customConfiguration"]['SetModeAbsent'];
 						}
-						if(isset($eqLogic_array["configuration"]['SetModePresent'])){
+						if(isset($eqLogic_array["customConfiguration"]['SetModePresent'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["configuration"]['SetModePresent'];
+							$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["customConfiguration"]['SetModePresent'];
 						}
-						if(isset($eqLogic_array["configuration"]['SetModeNuit'])){
+						if(isset($eqLogic_array["customConfiguration"]['SetModeNuit'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["configuration"]['SetModeNuit'];
+							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["customConfiguration"]['SetModeNuit'];
 						}
-						if(isset($eqLogic_array["configuration"]['customValues'])){
+						if(isset($eqLogic_array["customConfiguration"]['customValues'])){
 							if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
-							$tempArray['OPEN'] = $eqLogic_array["configuration"]['OPEN'];
+							$tempArray['OPEN'] = $eqLogic_array["customConfiguration"]['OPEN'];
 							$tempArray['OPEN'] = (($tempArray['OPEN'] !== '')?intval($tempArray['OPEN']):null);
-							$tempArray['OPENING'] = $eqLogic_array["configuration"]['OPENING'];
+							$tempArray['OPENING'] = $eqLogic_array["customConfiguration"]['OPENING'];
 							$tempArray['OPENING'] = (($tempArray['OPENING'] !== '')?intval($tempArray['OPENING']):null);
-							$tempArray['STOPPED'] = $eqLogic_array["configuration"]['STOPPED'];
+							$tempArray['STOPPED'] = $eqLogic_array["customConfiguration"]['STOPPED'];
 							$tempArray['STOPPED'] = (($tempArray['STOPPED'] !== '')?intval($tempArray['STOPPED']):null);
-							$tempArray['CLOSING'] = $eqLogic_array["configuration"]['CLOSING'];
+							$tempArray['CLOSING'] = $eqLogic_array["customConfiguration"]['CLOSING'];
 							$tempArray['CLOSING'] = (($tempArray['CLOSING'] !== '')?intval($tempArray['CLOSING']):null);
-							$tempArray['CLOSED'] = $eqLogic_array["configuration"]['CLOSED'];
+							$tempArray['CLOSED'] = $eqLogic_array["customConfiguration"]['CLOSED'];
 							$tempArray['CLOSED'] = (($tempArray['CLOSED'] !== '')?intval($tempArray['CLOSED']):null);
 							$eqLogic_array["customValues"] = $tempArray;
 						}
@@ -449,7 +530,7 @@ class homebridge extends eqLogic {
 						if (isset($eqLogic_array['isEnable'])){
 							$eqLogic_array['isEnable']=intval($eqLogic_array['isEnable']);
 						}
-						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
+						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'],$eqLogic_array['customConfiguration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
 						$return[] = $eqLogic_array;
 					}
 				}
@@ -458,35 +539,30 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	public static function discovery_cmd($plugin = []){
+	public static function discovery_cmd($plugin = [],$customCmds){
 		$return = [];
-		/*$genericisvisible = [];
-		foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
-			if ($info['family'] !== 'Generic') {
-				array_push($genericisvisible, $key);
-			}
-		}*/
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
                   	$i = 0;
 					if(		$eqLogic->getObject_id() !== null // has room
-						//&&	$eqLogic->getIsEnable() == 1
 						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
-						//&& 	($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget())) // visible or supported
 						){
-							
-						foreach ($eqLogic->getCmd() as $cmd) {
+						$cmds = $eqLogic->getCmd();
+						foreach ($cmds as $cmd) {
 							if(	$cmd->getDisplay('generic_type') != null 
 								&& !in_array($cmd->getDisplay('generic_type'),['GENERIC_ERROR','DONT']) 
-								/*&& (	$cmd->getIsVisible() == 1 
-										|| in_array($cmd->getDisplay('generic_type'), $genericisvisible) 
-										|| in_array($eqLogic->getEqType_name(), self::PluginWidget())
-									)*/
 								){
 									
 								$cmd_array = $cmd->exportApi();
+								
+								foreach($customCmds as $custCmd) { // replace generic_type if custom type exists
+									if($cmd_array['id'] == $custCmd['id']) {
+										$cmd_array['generic_type'] = $custCmd['display']['generic_type'];
+										break;
+									}
+								}
 											
 								//Variables
 								$maxValue = null;
@@ -686,6 +762,7 @@ class homebridge extends eqLogic {
 				array_push($eqLogics, $new_eqLogic);
 			}		
 		}
+		
 		$new_cmds = array('cmds' => $cmds);
 		$new_eqLogic = array('eqLogics' => $eqLogics);
 		$news = array($new_cmds,$new_eqLogic);
