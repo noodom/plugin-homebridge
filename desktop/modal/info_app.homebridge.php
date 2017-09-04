@@ -33,7 +33,7 @@ $PluginToSend = homebridge::PluginToSend();
 	);
 	function validateJSON($toValidate) {
 		if(is_json($toValidate)) {
-			return 'JSON <i class="fa fa-check" style="color:#94ca02;"> </i>';
+			return 'JSON <i class="fa fa-check" style="color:#94ca02;" title="{{OK}}"> </i>';
 		} else {
 			$errorNum=json_last_error();
 			switch ($errorNum) {
@@ -72,7 +72,7 @@ $PluginToSend = homebridge::PluginToSend();
 		}
 	}
 ?>
-<!--<button class="btn" data-clipboard-target=".copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>-->
+<button id="copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>
 
 <h3>{{Environnement NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:200px;'>
@@ -164,4 +164,16 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 <pre id='pre_eventlog' class="cachedAccessories copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($cachedAccessories),JSON_PRETTY_PRINT)?></pre>
 
 <script src="plugins/homebridge/desktop/js/clipboard.min.js"></script>
-<script>var clipboard = new Clipboard('.btn');</script>
+<script>
+	var clipboard = new Clipboard('.btn');
+	var allClipboard = new Clipboard('#copyAll', {
+		text: function() {
+			var text = "";
+			$('.copyAll').each(function(){
+				text+="§"+$(this).prev().text()+"\n";
+				text+=$(this).text()+"\n\n";
+			});
+			return text;
+		}
+	});
+</script>
