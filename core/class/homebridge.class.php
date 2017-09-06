@@ -38,11 +38,10 @@ class homebridge extends eqLogic {
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
-			//'CO2' => array('name' => 'CO2 (ppm)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true), // correction of missing )
-			
-			//'BATTERY_CHARGING' => array('name' => 'Batterie en charge', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
+			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
