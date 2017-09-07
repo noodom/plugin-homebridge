@@ -117,6 +117,12 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 <h3>{{Autres Plateformes :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform).']')?>)<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherPlatform; ?></pre>
 
+<?php
+	$customData = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+?>
+<h3>{{Custom Datas :}} (<?=validateJSON('['.str_replace('|',',',$customData).']')?>)<a class="btn" data-clipboard-target=".customData"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="customData copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($customData),JSON_PRETTY_PRINT)?></pre>
+
 <h3>{{Environnement Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="avahi copyAll" style='overflow: auto; with:90%;height:200px;'>
 <?=shell_exec("avahi-browse _hap._tcp -t -v -r -p")?>
