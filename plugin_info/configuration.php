@@ -81,7 +81,7 @@ if(!isConnect()) {
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{PIN Homebridge (format : XXX-XX-XXX)}}</label>
 			<div class="col-lg-3" style="background-color:#fff !important;padding:15px">
-				<input id="input_pin_homebridge" class="configKey form-control" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
+				<input id="input_pin_homebridge" class="configKey form-control" maxlength="10" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
 			</div>
 		</div>
 		<div class="form-group">
