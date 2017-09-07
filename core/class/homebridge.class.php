@@ -42,7 +42,8 @@ class homebridge extends eqLogic {
 			'DEFECT' => array('name' => 'Statut Defectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_SET_VOLUME' => array('name' => 'Haut-Parleur Volume (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_SET_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
