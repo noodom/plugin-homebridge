@@ -60,6 +60,19 @@ class homebridge extends eqLogic {
 		return $PluginCustomisable;
 	}
 	
+	public static function PluginAutoConfig(){
+		$PluginAutoConfig = ['sonos3'=>	[
+										'mute'=>'SPEAKER_MUTE_ON',
+										'unmute'=>'SPEAKER_MUTE_OFF',
+										'mute_state'=>'SPEAKER_MUTE',
+										'volume'=>'SPEAKER_VOLUME',
+										'setVolume'=>'SPEAKER_SET_VOLUME'
+										]
+							];
+		
+		return $PluginAutoConfig;
+	}
+	
 	public static function DisallowedPIN() {
 		$DisallowedPIN = ['000-00-000','111-11-111','222-22-222','333-33-333','444-44-444','555-55-555','666-66-666','777-77-777','888-88-888','999-99-999','123-45-678','876-54-321'];
 		return $DisallowedPIN;
