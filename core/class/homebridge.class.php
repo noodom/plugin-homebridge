@@ -66,7 +66,10 @@ class homebridge extends eqLogic {
 										'unmute'=>'SPEAKER_MUTE_OFF',
 										'mute_state'=>'SPEAKER_MUTE',
 										'volume'=>'SPEAKER_VOLUME',
-										'setVolume'=>'SPEAKER_SET_VOLUME'
+										'setVolume'=>'SPEAKER_SET_VOLUME',
+										'track_artist'=>'GENERIC_INFO',
+										'track_title'=>'GENERIC_INFO',
+										'track_album'=>'GENERIC_INFO'
 										]
 							];
 		
