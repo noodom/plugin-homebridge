@@ -259,13 +259,13 @@ function listAlarmSetModes($id,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd->getDisplay('generic_type') || $info['key'] == $customCMDValuesArr['generic_type']){
+																if($info['key'] == $cmd->getDisplay('generic_type') || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
 																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
 																		$isCustomisable = $info['key'];
 																	}
 																	$selected=' selected';
 																}
-																echo '<option value="' . (($info['homebridge_type'])?'HB|':'') . $info['key'] . '"'.$selected.'>' . $info['type'] . ' / ' . $info['name'] .'</option>';
+																echo '<option value="' . ((isset($info['homebridge_type']) && $info['homebridge_type'])?'HB|':'') . $info['key'] . '"'.$selected.'>' . $info['type'] . ' / ' . $info['name'] .'</option>';
 															}
 															echo '</optgroup>';
 														}
