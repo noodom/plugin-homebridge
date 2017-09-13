@@ -681,7 +681,7 @@ class homebridge extends eqLogic {
 								}
 								$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
 							}
-							if ($cmd_array['value'] !== null || $cmd_array['value'] != ""){
+							if ($cmd_array['value'] !== null && $cmd_array['value'] != ""){
 								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 							}
 							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
