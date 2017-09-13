@@ -114,7 +114,6 @@ class homebridge extends eqLogic {
 				continue;
 			}*/
 		}
-		log::add('homebridge','debug',$PluginToSend);
 		return $PluginToSend;
 		
 	}
