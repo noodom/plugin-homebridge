@@ -681,7 +681,7 @@ class homebridge extends eqLogic {
 								}
 								$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
 							}
-							if ($cmd_array['value'] !== null && $cmd_array['value'] != ""){
+							if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
 								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 							}
 							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
@@ -755,7 +755,7 @@ class homebridge extends eqLogic {
 				$nbr_keys = count($keys);
 				$j = 0;
 				while($j < $nbr_keys){
-					if($cmds[$keys[$j]]['value'] == $cmds[$plage_cmd[$i]]['id'] && $cmds[$keys[$j]]['type'] == 'action'){
+					if(isset($cmds[$keys[$j]]['value']) && $cmds[$keys[$j]]['value'] == $cmds[$plage_cmd[$i]]['id'] && $cmds[$keys[$j]]['type'] == 'action'){
 						log::add('homebridge', 'info', 'Changement de l\'action > '.$cmds[$keys[$j]]['id']);
 						$cmds[$keys[$j]]['eqLogic_id'] = $new_eqLogic_id;
 					}
