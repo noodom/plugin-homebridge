@@ -180,45 +180,6 @@ sendVarToJS('eqType', 'homebridge');
 					?>
 				</div>
 			</div>
-			<div role="tabpanel" class="tab-pane" id="alarmstab">
-				<legend><i class="icon jeedom-sirene"></i>  {{Les Alarmes}}</legend>
-				<div class="eqLogicThumbnailContainer">
-					<?php
-						$pluginAlarm = plugin::byId('alarm');
-						$eqLogicsAlarm = eqLogic::byType($pluginAlarm->getId());
-
-						foreach ($eqLogicsAlarm as $eqLogicAlarm) {
-							$opacity = ($eqLogicAlarm->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-							echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogicAlarm->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
-							echo "<center>";
-							echo '<img src="' . $pluginAlarm->getPathImgIcon() . '" height="105" width="95" />';
-							echo "</center>";
-							echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogicAlarm->getHumanName(true, true) . '</center></span>';
-							echo '</div>';
-						}
-					?>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="thermotab">
-				<legend><i class="icon jeedom-thermometre-celcius"></i>  {{Les Thermostats}}</legend>
-				<div class="eqLogicThumbnailContainer">
-					<?php
-						$allScenario = scenario::all();
-						foreach ($allScenario as $scenario) {
-							$opacity = '';
-							if ($scenario->getDisplay('sendToApp', 1) == 0) {
-								$opacity = 'opacity:0.3;';
-							}
-							echo '<div class="scenarioDisplayCard cursor" data-scenario_id="' . $scenario->getId() . '" data-type="' . $scenario->getType() . '" onclick="clickscenario(\''. $scenario->getId(). '\',\''. $scenario->getName() .'\')" style="background-color : #ffffff; height : 140px;margin-bottom : 35px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
-							echo "<center>";
-							echo '<img src="core/img/scenario.png" height="90" width="85" />';
-							echo "</center>";
-							echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $scenario->getHumanName(true, true,true,true) . '</center></span>';
-							echo '</div>';
-						}
-					?>
-				</div>
-			</div>
 			<div role="tabpanel" class="tab-pane" id="scenariotab">
 				<legend><i class="icon jeedom-clap_cinema"></i>  {{Les Scénarios}}</legend>
 				<div class="eqLogicThumbnailContainer">
