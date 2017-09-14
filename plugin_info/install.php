@@ -134,12 +134,14 @@ function homebridge_install(){
 	exec('echo "`date +"[%Y-%m-%d %T]"` Installation des dépendances" >> '.log::getPathToLog('homebridge'));
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
+	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
 }
 
 function homebridge_update(){
 	exec('echo "`date +"[%Y-%m-%d %T]"` Mise à jour du Plugin Homebridge" >> '.log::getPathToLog('homebridge'));
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
+	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
 }
 
 function homebridge_remove(){
