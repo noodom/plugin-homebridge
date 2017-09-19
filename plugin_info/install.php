@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function homebridge_install(){
-	exec('echo "`date +"[%Y-%m-%d %T]"` Installation du Plugin Homebridge" >> '.log::getPathToLog('homebridge'));
+	log::add('homebridge', 'warn', 'Installation du Plugin Homebridge');
 	$mobileExists=true;
 	try {
 		$pluginMobile = plugin::byId('mobile');
@@ -131,21 +131,21 @@ function homebridge_install(){
 	}
 	
 	//homebridge::uninstallHomebridge(); // will be uninstalled if new nodejs version
-	exec('echo "`date +"[%Y-%m-%d %T]"` Installation des dépendances" >> '.log::getPathToLog('homebridge'));
+	log::add('homebridge', 'error', 'Lancement des dépendances de Homebridge, profitez-en pour lire la documentation ;)');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
 	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
 }
 
 function homebridge_update(){
-	exec('echo "`date +"[%Y-%m-%d %T]"` Mise à jour du Plugin Homebridge" >> '.log::getPathToLog('homebridge'));
+	log::add('homebridge', 'warn', 'Mise à jour du Plugin Homebridge');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();
 	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
 }
 
 function homebridge_remove(){
-	exec('echo "`date +"[%Y-%m-%d %T]"` Suppression du Plugin Homebridge (remove)" >> '.log::getPathToLog('homebridge'));
+	log::add('homebridge', 'warn', 'Suppression du Plugin Homebridge');
 	homebridge::uninstallHomebridge();
 }
 ?>
