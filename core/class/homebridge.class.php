@@ -61,16 +61,29 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function PluginAutoConfig(){
-		$PluginAutoConfig = ['sonos3'=>	[
-										'mute'=>'SPEAKER_MUTE_ON',
-										'unmute'=>'SPEAKER_MUTE_OFF',
-										'mute_state'=>'SPEAKER_MUTE',
-										'volume'=>'SPEAKER_VOLUME',
-										'setVolume'=>'SPEAKER_SET_VOLUME',
-										'track_artist'=>'GENERIC_INFO',
-										'track_title'=>'GENERIC_INFO',
-										'track_album'=>'GENERIC_INFO'
+		$PluginAutoConfig = [
+							'sonos3'=>	
+								[
+									'default'=>
+										[
+											'mute'=>'SPEAKER_MUTE_ON',
+											'unmute'=>'SPEAKER_MUTE_OFF',
+											'mute_state'=>'SPEAKER_MUTE',
+											'volume'=>'SPEAKER_VOLUME',
+											'setVolume'=>'SPEAKER_SET_VOLUME',
+											'track_artist'=>'GENERIC_INFO',
+											'track_title'=>'GENERIC_INFO',
+											'track_album'=>'GENERIC_INFO'
 										]
+								]/*,
+							'xiaomihome'=> 
+								[
+									'field'=>'model',
+									'color'=>
+										[
+											'status'=>'LIGHT_STATE_BOOL'
+										]
+								]*/
 							];
 		
 		return $PluginAutoConfig;
@@ -84,38 +97,13 @@ class homebridge extends eqLogic {
 	public static function PluginToSend() {
 		$PluginToSend=[];
 		$plugins = plugin::listPlugin(true);
-		/*$plugin_compatible = self::Pluginsuported();
-		$plugin_widget = self::PluginWidget();*/
 		foreach ($plugins as $plugin){
 			$plugId = $plugin->getId();
-			
-			if ($plugId == 'homebridge' || $plugId == 'mobile') {
-				continue;
-			} 
-			//shortcut
-			else {
+			if ($plugId != 'homebridge' && $plugId != 'mobile') {
 				array_push($PluginToSend, $plugId);
 			}
-			//shortcut
-			/*elseif (in_array($plugId,$plugin_widget)) {
-				array_push($PluginToSend, $plugId);
-			} elseif (in_array($plugId,$plugin_compatible) && !in_array($plugId,$plugin_widget) && config::byKey('sendToApp', $plugId, 1) == 1){
-				array_push($PluginToSend, $plugId);
-			} elseif (!in_array($plugId,$plugin_compatible) && config::byKey('sendToApp', $plugId, 0) == 1){
-				$subClasses = config::byKey('subClass', $plugId, '');
-				if ($subClasses != ''){
-					$subClassesList = explode(';',$subClasses);
-					foreach ($subClassesList as $subClass){
-						array_push($PluginToSend, $subClass);
-					}
-				}
-				array_push($PluginToSend, $plugId);
-			} else {
-				continue;
-			}*/
 		}
 		return $PluginToSend;
-		
 	}
 
 	/**************************************************************************************/
@@ -497,9 +485,7 @@ class homebridge extends eqLogic {
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
 					if(		$eqLogic->getObject_id() !== null // has room
-						//&&	$eqLogic->getIsEnable() == 1
 						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
-						//&& 	($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget())) // visible or supported
 						){
 						
 						$eqLogic_array = utils::o2a($eqLogic);
@@ -512,6 +498,7 @@ class homebridge extends eqLogic {
 						}
 						
 						
+
 						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
 							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
 						}
@@ -559,6 +546,7 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_cmd($plugin = [],$customCmds){
 		$return = [];
+		$PluginAutoConfig = self::PluginAutoConfig();
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
@@ -567,17 +555,40 @@ class homebridge extends eqLogic {
 					if(		$eqLogic->getObject_id() !== null // has room
 						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
 						){
+							
 						$cmds = $eqLogic->getCmd();
+						
+						$pluginId = $eqLogic->getEqType_name();
+						$specificField=null;
+						$specificValue=null;
+						if(isset($PluginAutoConfig[$pluginId])) {
+							$specificField = $PluginAutoConfig[$pluginId]['field'];
+							if(isset($specificField)) {
+								$specificValue = $eqLogic->getConfiguration($specificField);
+							}
+						}
+						
 						foreach ($cmds as $cmd) {
 							$cmd_array = $cmd->exportApi();
-								
-							foreach($customCmds as $custCmd) { // replace generic_type if custom type exists
+							
+							// replace generic_type if auto-config data exists
+							$logicalId = $cmd_array['logicalId'];
+							if(!isset($specificValue)) $specificValue = 'default';
+							if(	isset($PluginAutoConfig[$pluginId]) && 
+								isset($PluginAutoConfig[$pluginId][$specificValue]) && 
+								isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
+							
+								$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
+							}
+							
+							// replace generic_type if custom type exists							
+							foreach($customCmds as $custCmd) { 
 								if($cmd_array['id'] == $custCmd['id']) {
 									$cmd_array['generic_type'] = $custCmd['display']['generic_type'];
 									break;
 								}
 							}
-							
+
 							// we kept errors as it might be a custom but now we could ignore it
 							if(in_array($cmd_array['generic_type'],['GENERIC_ERROR','DONT'])) continue;
 							
