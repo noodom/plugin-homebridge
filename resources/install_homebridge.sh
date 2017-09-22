@@ -43,7 +43,7 @@ if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
 	fi
   fi
 fi
-
+sudo apt-get update
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
