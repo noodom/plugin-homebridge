@@ -19,7 +19,7 @@
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=health').dialog('open');
 });
  $('#info_app').on('click', function(){
-	$('#md_modal').dialog({title: "{{Informations Homebridge}}"});
+	$('#md_modal').dialog({title: "{{DebugInfo Homebridge}}"});
 	$('#md_modal').load('index.php?v=d&plugin=homebridge&modal=info_app.homebridge').dialog('open');
 });
 function clickplugin(id_plugin,name_plugin){
