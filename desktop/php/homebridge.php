@@ -51,7 +51,7 @@ sendVarToJS('eqType', 'homebridge');
 						<center>
 							<i class="fa fa-question-circle" style="font-size : 5em;color:#767676;"></i>
 						</center>
-						<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Information}}</center></span>
+						<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{DebugInfo}}</center></span>
 					</div>
 					<?php
 					endif;
