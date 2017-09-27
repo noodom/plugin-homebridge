@@ -33,7 +33,11 @@ function listAlarmSetModes($id,$selected) {
 	return $opt;
 }
 ?>
-
+<style>
+	.orange {
+		color:black !important;
+	}
+</style>
 <div class="row">
 	<div>
 		<center>
@@ -265,7 +269,7 @@ function listAlarmSetModes($id,$selected) {
 																	}
 																	$selected=' selected';
 																}
-																echo '<option value="' . ((isset($info['homebridge_type']) && $info['homebridge_type'])?'HB|':'') . $info['key'] . '"'.$selected.'>' . $info['type'] . ' / ' . $info['name'] .'</option>';
+																echo '<option value="' . ((isset($info['homebridge_type']) && $info['homebridge_type'])?'HB|':'') . $info['key'] . '" '.((isset($info['homebridge_type']) && $info['homebridge_type'])?'class="orange"':'').$selected.'>' . $info['type'] . ' / ' . $info['name'] . '</option>';
 															}
 															echo '</optgroup>';
 														}
