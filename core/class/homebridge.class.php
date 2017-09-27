@@ -125,6 +125,9 @@ class homebridge extends eqLogic {
 		$return = [];
 		$return['log'] = 'homebridge_dep';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
+		$ver = self::getVersion();
+		//log::add('homebridge','info',"versionD:".$ver.'/'.$ver['version'].'/'.$ver['serial']);
+		
 		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
 			$return['state'] = 'ok';
 		} else {
@@ -143,6 +146,21 @@ class homebridge extends eqLogic {
         return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
+	
+	public static function getVersion() {
+		$npmRoot = trim(shell_exec('npm -g root'));
+		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
+			$version = "0";
+			$serial  = "0";
+		} else {
+			$packageJson = file_get_contents($npmRoot.'/homebridge-jeedom/package.json');
+			$packageJson = json_decode($packageJson,true);
+			$version = $packageJson['version'];
+			$serial = $packageJson['cust_serial'];
+		}
+		return ["version"=>$version,"serial"=>$serial];
+	}
+	
 	public static function getJSON(){
 		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
@@ -333,7 +351,7 @@ class homebridge extends eqLogic {
 		$return = [];
 		$return['log'] = 'homebridge';
 		$return['state'] = 'nok';
-
+		
 		$result = exec("ps -eo pid,command | grep ' homebridge' | grep -v grep | awk '{print $1}'");
 		if ($result <> 0) {
             $return['state'] = 'ok';
