@@ -125,8 +125,10 @@ class homebridge extends eqLogic {
 		$return = [];
 		$return['log'] = 'homebridge_dep';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
-		$ver = self::getVersion();
-		//log::add('homebridge','info',"versionD:".$ver.'/'.$ver['version'].'/'.$ver['serial']);
+		$localVer = self::getLocalVersion();
+		$remoteVer = self::getRemoteVersion();
+		log::add('homebridge','debug',"localVer:".$localVer);
+		log::add('homebridge','debug',"remoteVer:".$remoteVer);
 		
 		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
 			$return['state'] = 'ok';
@@ -147,7 +149,7 @@ class homebridge extends eqLogic {
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
 	
-	public static function getVersion() {
+	public static function getLocalVersion() {
 		$npmRoot = trim(shell_exec('npm -g root'));
 		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
 			$version = "0";
@@ -155,10 +157,25 @@ class homebridge extends eqLogic {
 		} else {
 			$packageJson = file_get_contents($npmRoot.'/homebridge-jeedom/package.json');
 			$packageJson = json_decode($packageJson,true);
-			$version = $packageJson['version'];
+			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
 			$serial = $packageJson['cust_serial'];
 		}
-		return ["version"=>$version,"serial"=>$serial];
+		return $version.'.'.$serial;
+	}
+	
+	public static function getRemoteVersion() {
+		$BRANCH = ((file_exists(dirname(__FILE__) . '/../../beta'))?'beta':'master');
+		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".$BRANCH."/package.json";
+		$packageJson = @file_get_contents($remotePackage);
+		if ( $packageJson === false) {
+			$version = "0";
+			$serial  = "0";
+		} else {
+			$packageJson = json_decode($packageJson,true);
+			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
+			$serial = $packageJson['cust_serial'];
+		}
+		return $version.'.'.$serial;
 	}
 	
 	public static function getJSON(){
