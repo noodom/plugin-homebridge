@@ -107,7 +107,11 @@ sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge.git#maste
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
-sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-jeedom.git#beta
+if [ -n $2 ]; then
+	BRANCH=$2
+	echo "Sur la branche ${BRANCH}"
+fi
+sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-jeedom.git#${BRANCH}
 echo "Installation de Homebridge-Camera-FFMPEG..."
 sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-camera-ffmpeg.git#master
 echo 80 > ${PROGRESS_FILE}
