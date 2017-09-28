@@ -127,10 +127,13 @@ class homebridge extends eqLogic {
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
 		$localVer = self::getLocalVersion();
 		$remoteVer = self::getRemoteVersion();
-		log::add('homebridge','debug',"localVer:".$localVer);
-		log::add('homebridge','debug',"remoteVer:".$remoteVer);
 		
-		if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
+		log::add('homebridge','debug',"version locale:".$localVer."\t"."version en ligne(".self::getBranch()."):".$remoteVer);
+		log::add('homebridge','debug',"locale >= en ligne:".((version_compare($localVer,$remoteVer,'>='))?'ok':'ko'));
+		log::add('homebridge','debug',"/usr/bin/homebridge existe:".((file_exists('/usr/bin/homebridge'))?'oui':'non'));
+		log::add('homebridge','debug',"/usr/local/bin/homebridge existe:".((file_exists('/usr/local/bin/homebridge'))?'oui':'non'));
+		
+		if ((file_exists('/usr/bin/homebridge') || file_exists('/usr/local/bin/homebridge')) && version_compare($localVer,$remoteVer,'>=')) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
@@ -145,7 +148,7 @@ class homebridge extends eqLogic {
 		log::remove(__CLASS__ . '_dep');
 		self::generate_file();
 		
-        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
+        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch(),
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
 	
@@ -160,12 +163,11 @@ class homebridge extends eqLogic {
 			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
 			$serial = $packageJson['cust_serial'];
 		}
-		return $version.'.'.$serial;
+		return $version.(($serial)?'.'.$serial:'');
 	}
 	
 	public static function getRemoteVersion() {
-		$BRANCH = ((file_exists(dirname(__FILE__) . '/../../beta'))?'beta':'master');
-		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".$BRANCH."/package.json";
+		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".self::getBranch()."/package.json";
 		$packageJson = @file_get_contents($remotePackage);
 		if ( $packageJson === false) {
 			$version = "0";
@@ -175,7 +177,15 @@ class homebridge extends eqLogic {
 			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
 			$serial = $packageJson['cust_serial'];
 		}
-		return $version.'.'.$serial;
+		return $version.(($serial)?'.'.$serial:'');
+	}
+	
+	public static function getBranch() {
+		$branch = trim(file_get_contents(dirname(__FILE__) . '/../../branch'));
+		if(!$branch) {
+			$branch = 'beta';
+		}
+		return $branch;
 	}
 	
 	public static function getJSON(){
