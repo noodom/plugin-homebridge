@@ -125,15 +125,13 @@ class homebridge extends eqLogic {
 		$return = [];
 		$return['log'] = 'homebridge_dep';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
-		$localVer = self::getLocalVersion();
-		$remoteVer = self::getRemoteVersion();
 		
-		log::add('homebridge','debug',"version locale:".$localVer."\t"."version en ligne(".self::getBranch()."):".$remoteVer);
-		log::add('homebridge','debug',"locale >= en ligne:".((version_compare($localVer,$remoteVer,'>='))?'ok':'ko'));
+		/*log::add('homebridge','debug',"version locale:".self::getLocalVersion()."\t"."version en ligne(".self::getBranch()."):".self::getRemoteVersion());
+		log::add('homebridge','debug',"locale >= en ligne:".((version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>='))?'ok':'ko'));
 		log::add('homebridge','debug',"/usr/bin/homebridge existe:".((file_exists('/usr/bin/homebridge'))?'oui':'non'));
-		log::add('homebridge','debug',"/usr/local/bin/homebridge existe:".((file_exists('/usr/local/bin/homebridge'))?'oui':'non'));
+		log::add('homebridge','debug',"/usr/local/bin/homebridge existe:".((file_exists('/usr/local/bin/homebridge'))?'oui':'non'));*/
 		
-		if ((file_exists('/usr/bin/homebridge') || file_exists('/usr/local/bin/homebridge')) && version_compare($localVer,$remoteVer,'>=')) {
+		if ((file_exists('/usr/bin/homebridge') || file_exists('/usr/local/bin/homebridge')) && version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>=')) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
@@ -155,8 +153,8 @@ class homebridge extends eqLogic {
 	public static function getLocalVersion() {
 		$npmRoot = trim(shell_exec('npm -g root'));
 		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
-			$version = "0";
-			$serial  = "0";
+			$version = '0';
+			$serial  = '';
 		} else {
 			$packageJson = file_get_contents($npmRoot.'/homebridge-jeedom/package.json');
 			$packageJson = json_decode($packageJson,true);
@@ -169,9 +167,9 @@ class homebridge extends eqLogic {
 	public static function getRemoteVersion() {
 		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".self::getBranch()."/package.json";
 		$packageJson = @file_get_contents($remotePackage);
-		if ( $packageJson === false) {
-			$version = "0";
-			$serial  = "0";
+		if ($packageJson === false) {
+			$version = '0';
+			$serial  = '';
 		} else {
 			$packageJson = json_decode($packageJson,true);
 			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
