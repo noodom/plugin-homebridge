@@ -4,9 +4,11 @@
 
 include::presentationHomebridge.asciidoc[]
 
-include::demonHomebridge.asciidoc[]
+include::installationPluginHB.asciidoc[]
 
 include::configurationHomebridge.asciidoc[]
+
+include::migration.asciidoc[]
 
 == Troubleshooting
 

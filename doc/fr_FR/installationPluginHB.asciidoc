@@ -1,0 +1,61 @@
+== Installation et activation du plugin Homebridge
+
+Le plugin Homebridge doit être installé via le market jeedom. *Le plugin mobile officiel n'est pas indispensable.*
+
+*Pour les migrations depuis le plugin mobile officiel, il est important de pas désactiver le plugin mobile. Reportez vous dans la rubrique "migration depuis le plugin mobile".* 
+
+image::../images/pluginHB.png[]
+
+Un fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
+
+image::../images/activationHB.png[]
+
+===  Installation des dépendances
+
+Les dépendances sont installées automatiquement. Elles seront également réinstallées lors d'une mise à jour du plugin.
+
+image::../images/installationDep.png[]
+
+*Le temps d'installation des dépendances peut varier en fonction du matériel utilisé.*
+
+*Systèmes compatibles avec homebridge :*
+
+* Raspberry Pi 2 et 3 (Le Pi 3 est conseillé)
+
+* Box jeedom Mini +
+
+* Box jeedom pro
+
+* Box jeedom smart
+
+* Box jeedom pro V2
+
+* Tout système basé sur débian 8
+
+[IMPORTANT]
+*Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.*
+
+Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", cliquez sur "redémarrer".
+
+image::../images/demon-homebridge.png[]
+
+
+=== Mise à jour manuelle des dépendances
+
+Pour mettre à jour manuellement les dépendances, il faut cliquer sur "relancer".
+
+image::../images/dependances-homebridge.png[]
+
+=== Fichier LOG
+
+Les fichiers log permettent d'analyser pas à pas l'activité interne du processus et ses interactions avec son environnement.
+
+Ces fichiers peuvent necessaires en cas de disfonctionenement du plugin.
+
+image::../images/log.png[]
+
+* Homebridge : Historise toutes les communications avec le demon homebridge.
+
+* Homebridge_daemon : Historise les actions effectués par homebridge (par exemple si un accessoire est envoyé à homebridge mais n'apparait pas dans l'application domicile, c'est ici qu'il faut aller voir).
+
+* Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le demon refuse de démarrer par exemple, un coup d'oeil peut vous aider).

@@ -1,0 +1,35 @@
+==== Exemple de configuration
+
+===== Lumière
+
+Type d'accessoire : Dimmer 2 de fibaro (zwave)
+
+image::../images/lumiere.png[]
+
+Type d'accessoire : Doucle contact de Nodon (enocean)
+
+image::../images/lumiere-2.png[]
+
+===== Température et hydrométrie
+
+Type d'accessoire : Sonde oregon (RfxCom)
+
+image::../images/temperature.png[]
+
+===== Détecteur d'ouverture
+
+Type d'accéssoire : Détecteur fibaro (zwave)
+
+Fenêtre : 
+
+image::../images/fenetre.png[]
+
+Porte : 
+
+image::../images/porte.png[]
+
+===== Détecteur de fuite
+
+Type d'accéssoire : Détecteur fibaro (zwave)
+
+image::../images/fuite.png[]

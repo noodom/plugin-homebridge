@@ -6,18 +6,18 @@
     * Plugin séparé de mobile.
     * Récupération de la configuration du plugin mobile s'il est installé.
     * Meilleure réparation et installation plus poussée pour éviter des problèmes divers
-    * (Installation de NodeJS 6 LTS sur toutes les architectures) ... (pas encore, quand les autres dev se seront mis à jour...)
+    * (Installation de NodeJS 6 LTS sur toutes les architectures) ... quand les autres dev se seront mis à jour...
     * Type "Info/Générique" supporté pour les infos Jeedom de type Numerique, Binaire, Autre dans l'application Eve uniquement (pas encore disponnible dans "Maison")
 [IMPORTANT]
 ne pas modifier ce type dans Jeedom pendant que homebridge fonctionne
-    * Les types génériques "Info/Choc", "Info/Vent (direction)", "Info/Vent (vitesse)", "Info/Pluie (mm/h)", "Info/Pluie (accumulation)", "Info/Pression", "Info/Son (dB)" sont gérés comme des "Info/Génériques" et affichés dans Eve.
+    * Les types génériques "Info/Choc", "Info/Vent (direction)", "Info/Vent (vitesse)", "Info/Pluie (mm/h)", "Info/Pluie (accumulation)", "Info/Pression", "Info/Son (dB)", "Info/CO2" sont gérés comme des "Info/Génériques" et affichés dans Eve.
     * Lumières : corrigé, du simple interrupteur, avec luminosité seulement ou RGB, toutes fonctionnent. (pas encore... dépend du plugin)
 [TIP]
 Si vous aviez un pont Philips Hue v1, vous avez maintenant accès à HomeKit :)
     * Alarme : les modes sont liable aux modes HomeKit : Absent, Nuit, Présent, Désactivé. Fonctionne en consultation ET action.
     * Nouveau design du plugin, simplification, plus besoin de choisir les plugins.
-    * Fenêtre "DebugInfo" (en niveau de log "info" ou "debug") pour donner des éléments importants de votre configuration en cas de demande d'aide sur le forum (à la demande)
-    * Périphériques invisibles ajoutés à homebridge, tant que "Envoyer dans homebridge" est coché.
+    * Fenêtre "Information" (en niveau de log "info" ou "debug") pour donner des éléments importants de votre configuration en cas de demande d'aide sur le forum (à la demande)
+    * Debug des périphériques en non visible ou désactivés dans les logs
     * Temporisation des Slider des lumières et des volets et volumes, sinon toutes les valeurs sont envoyées à Jeedom, maintenant elle ne le sont que si le slider dans Maison ne bouge plus depuis 500ms
     * Type Générique officiel Sabotage supporté (binaire)
     * Possibilité de personnaliser les etats des Portes de Garage (Ouvert (255), En Ouverture (254), Stopé (253), En Fermeture (252), Fermé (0)) avec d'autres valeurs.
@@ -139,5 +139,19 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
     * Au démarrage du daemon, vérification si avahi-daemon et dbus sont bien lancés, sinon, les démarrer.
     * A l'install des dépendances, passer avahi-daemon et dbus à enabled si pas le cas.
     * Corrections diverses, simplifications et optimisations.
-    
-    
+
+
+== Bugs Connus
+  * Le plugin Alarme n'est pas encore complêtement supporté car vous pouvez créer des "modes" dynamiquement et les modes de HomeKit sont statique, je dois trouver un moyen sympa de les "mapper" entre eux.
+  * Le plugin Thermostat est resté au même point aussi.
+  * Redémarrage à la sauvage pendant le démarrage du plugin (du daemon) : vous crachez tout votre homebridge -> Réparation.
+  * Les ampoules couleur... elle ne fonctionnaient pas bien, ce n'est toujours pas réglé (je dois réécrire cette partie) (toute ampoules en fait)
+  * Possibles problèmes sur certains types génériques plus rares.
+  
+== TODO | ROADMAP
+  * Corriger un bug dans les lightbulbs, set à false la color (pré-existant).
+  * Ajouter des accessoires supportés (Qualité d'air, double relay, etc)
+  * Comme les pièces ne sont pas portée dans Maison, donner l'option d'un préfix ou sufix nom de la pièce pour avoir facile à les ranger dans Maison (mais il faut renommer pour siri... donc on laisse le choix)
+  * Investiguer pour recharger les accessoires sans relancer le daemon.
+  * la vérification du status de dépendances homebridge doit inclure la version homebridge required et HAP-NodeJS etc
+  * ...
