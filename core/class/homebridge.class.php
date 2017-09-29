@@ -45,7 +45,8 @@ class homebridge extends eqLogic {
 			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_MUTE_TOGGLE' => array('name' => 'Haut-Parleur Toggle Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_MUTE_ON' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -81,6 +82,12 @@ class homebridge extends eqLogic {
 									'field'=>'model',
 									'color'=>
 										[
+											'online'=>'ACTIVE',
+											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'mono'=>
+										[
+											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
 										]
 								]*/
@@ -179,7 +186,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getBranch() {
-		$branch = trim(file_get_contents(dirname(__FILE__) . '/../../branch'));
+		$branch = strtolower(trim(file_get_contents(dirname(__FILE__) . '/../../branch')));
 		if(!$branch) {
 			$branch = 'beta';
 		}
@@ -187,22 +194,22 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getJSON(){
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		return file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 	}
 	public static function saveJSON($file){
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
 		return (($ret===false)?false:true);
 	}
 	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
 		if(!$content) $content = '';
 		$content = json_decode($content,true);
@@ -262,11 +269,11 @@ class homebridge extends eqLogic {
 		return (($ret===false)?false:true);
 	}
 	public static function getCustomData(){
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		exec('touch ' . dirname(__FILE__) . '/../../data/customData.json');
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
 		$content = json_decode($content,true);
 		return $content;
@@ -313,18 +320,18 @@ class homebridge extends eqLogic {
 		$plateform['name'] = "Jeedom";
 		$plateform['url'] = network::getNetworkAccess('internal');
 		$plateform['apikey'] = $apikey;
-		$plateform['pollerperiod'] = 0.5;
+		$plateform['pollerperiod'] = 0.05;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
 		$plateform['myPlugin'] = 'homebridge';
 		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . ' chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$jsonFile = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
@@ -362,8 +369,8 @@ class homebridge extends eqLogic {
 			}
 		}
 		
-		exec(system::getCmdSudo() . ' mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
-		exec(system::getCmdSudo() . ' chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
+		exec(system::getCmdSudo() . 'mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
 		fclose($fp);
@@ -395,7 +402,7 @@ class homebridge extends eqLogic {
 		}
 
 		// check avahi-daemon started, if not, start
-		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . ' systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
+		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		
 		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .'homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
@@ -417,7 +424,7 @@ class homebridge extends eqLogic {
 		log::add('homebridge', 'info', 'Démon homebridge lancé');
 		
 		// Check if multiple IP's -> warning because could cause problems with mdns https://github.com/nfarina/homebridge/issues/1351
-		$cmd = 'if [ $(' . system::getCmdSudo() . ' ip addr | grep "inet " | grep -v " tun" | grep -v " lo" | wc -l) -gt 1 ]; then echo "WARNING : Vous avez plusieurs IP de configurées, cela peut poser problème avec Homebridge et mDNS"; fi';
+		$cmd = 'if [ $(' . system::getCmdSudo() . 'ip addr | grep "inet " | grep -v " tun" | grep -v " lo" | wc -l) -gt 1 ]; then echo "WARNING : Vous avez plusieurs IP de configurées, cela peut poser problème avec Homebridge et mDNS"; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		return true;
 	}
@@ -456,28 +463,28 @@ class homebridge extends eqLogic {
 	
 	public static function uninstallHomebridge() {
 		log::add('homebridge', 'info', 'Suppression homebridge-camera-ffmpeg...');
-		$cmd = system::getCmdSudo() . ' npm rm -g homebridge-camera-ffmpeg --save';
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge-camera-ffmpeg --save';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Suppression homebridge-jeedom...');
-		$cmd = system::getCmdSudo() . ' npm rm -g homebridge-jeedom --save';
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge-jeedom --save';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Suppression homebridge...');
-		$cmd = system::getCmdSudo() . ' npm rm -g homebridge --save';
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge --save';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Suppression request...');
-		$cmd = system::getCmdSudo() . ' npm rm -g request --save';
+		$cmd = system::getCmdSudo() . 'npm rm -g request --save';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Suppression node-gyp...');
-		$cmd = system::getCmdSudo() . ' npm rm -g node-gyp --save';
+		$cmd = system::getCmdSudo() . 'npm rm -g node-gyp --save';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Rebuild...');
-		$cmd = 'cd `npm root -g`;' . system::getCmdSudo() . ' npm rebuild;';
+		$cmd = 'cd `npm root -g`;' . system::getCmdSudo() . 'npm rebuild;';
 		exec($cmd);
 		
 		log::add('homebridge', 'info', 'Suppression bin homebridge');
-		$cmd = system::getCmdSudo() . ' rm -f /usr/bin/homebridge >/dev/null 2>&1';
+		$cmd = system::getCmdSudo() . 'rm -f /usr/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
-		$cmd = system::getCmdSudo() . ' rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
+		$cmd = system::getCmdSudo() . 'rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
 		log::add('homebridge', 'info', 'Homebridge supprimé');
 	}
@@ -488,9 +495,9 @@ class homebridge extends eqLogic {
 		log::add('homebridge', 'info', 'Procedure de réparation');
 		$pluginHomebridge->deamon_stop();
 		log::add('homebridge', 'info', 'suppression des accessoires et du persist');
-		$cmd = system::getCmdSudo() . ' rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
+		$cmd = system::getCmdSudo() . 'rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
 		exec($cmd);
-		$cmd = system::getCmdSudo() . ' rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
+		$cmd = system::getCmdSudo() . 'rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
 		exec($cmd);
 		if($reinstall) {
 			homebridge::uninstallHomebridge();
@@ -505,7 +512,7 @@ class homebridge extends eqLogic {
 			$pluginHomebridge->dependancy_install();
 		}
 		
-		exec(system::getCmdSudo() . ' systemctl restart avahi-daemon');
+		exec(system::getCmdSudo() . 'systemctl restart avahi-daemon');
 		$return['mac_homebridge']=$mac_homebridge;
 		$return['name_homebridge']=$name_homebridge;
 		return $return;
