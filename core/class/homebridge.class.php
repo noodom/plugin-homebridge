@@ -188,9 +188,9 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getBranch() {
-		$branch = strtolower(trim(file_get_contents(dirname(__FILE__) . '/../../branch')));
+		$branch = @strtolower(@trim(@file_get_contents(dirname(__FILE__) . '/../../branch')));
 		if(!$branch) {
-			$branch = 'beta';
+			$branch = 'master';
 		}
 		return $branch;
 	}
