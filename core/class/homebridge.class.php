@@ -46,7 +46,9 @@ class homebridge extends eqLogic {
 			'SPEAKER_MUTE_TOGGLE' => array('name' => 'Haut-Parleur Toggle Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_MUTE_ON' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
+			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
