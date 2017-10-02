@@ -147,5 +147,7 @@ function homebridge_update(){
 function homebridge_remove(){
 	log::add('homebridge', 'warn', 'Suppression du Plugin Homebridge');
 	homebridge::uninstallHomebridge();
+	log::add('homebridge', 'warn', 'Réactivation de avahi');
+	exec(system::getCmdSudo() . "systemctl enable avahi-daemon >/dev/null 2>&1");
 }
 ?>
