@@ -147,7 +147,7 @@ function homebridge_update(){
 function homebridge_remove(){
 	log::add('homebridge', 'warn', 'Suppression du Plugin Homebridge');
 	homebridge::uninstallHomebridge();
-	log::add('homebridge', 'warn', 'Réactivation de avahi');
+	log::add('homebridge', 'warn', 'Réactivation de avahi-daemon au démarrage...(il démarrera avec le système (risque d\'un bug sur la Smart du 1 jan 1970))');
 	exec(system::getCmdSudo() . "systemctl enable avahi-daemon >/dev/null 2>&1");
 }
 ?>
