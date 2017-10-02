@@ -12,16 +12,16 @@ if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
   if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge ]; then
     echo "mais on l'a déjà désactivé..."
   else
-	if [ -f /etc/apt/sources.list.d/deb-multimedia.list ]; then
-	  echo "Désactivation de la source deb-multimedia !"
+    if [ -f /etc/apt/sources.list.d/deb-multimedia.list ]; then
+      echo "Désactivation de la source deb-multimedia !"
       sudo mv /etc/apt/sources.list.d/deb-multimedia.list /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge
-	else
-	  if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabled ]; then
+    else
+      if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabled ]; then
         echo "mais il est déjà désactivé..."
-	  else
-	    echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
-	  fi
-	fi
+      else
+        echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
+      fi
+    fi
   fi
 fi
 
@@ -31,16 +31,16 @@ if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
   if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
     echo "mais on l'a déjà désactivé..."
   else
-	if [ -f /etc/apt/sources.list.d/jeedom.list ]; then
-	  echo "Désactivation de la source repo.jeedom.com !"
+    if [ -f /etc/apt/sources.list.d/jeedom.list ]; then
+      echo "Désactivation de la source repo.jeedom.com !"
       sudo mv /etc/apt/sources.list.d/jeedom.list /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge
-	else
-	  if [ -f /etc/apt/sources.list.d/jeedom.list.disabled ]; then
+    else
+      if [ -f /etc/apt/sources.list.d/jeedom.list.disabled ]; then
         echo "mais il est déjà désactivé..."
-	  else
-	    echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
-	  fi
-	fi
+      else
+        echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
+      fi
+    fi
   fi
 fi
 sudo apt-get update
@@ -50,7 +50,7 @@ echo "--10%"
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
 
-if [[ $actual == *"4."* || $actual == *"5."* ]]
+if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* ]]
 then
   echo "Ok, version suffisante";
 else
@@ -73,7 +73,7 @@ else
   echo "--30%"
   if [[ `arch` == "aarch64" ]]
   then
-	echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
+    echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
     sudo dpkg -i nodejs_5-1_arm64.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -84,8 +84,11 @@ else
     sudo apt-key update
     sudo apt-get install -y nodejs  
   fi
-  
-  
+#  echo "Utilisation du dépot officiel"
+#  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+#  sudo apt-key update
+#  sudo apt-get install -y nodejs  
+
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
 fi
