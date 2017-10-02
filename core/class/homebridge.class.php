@@ -555,6 +555,7 @@ class homebridge extends eqLogic {
 							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
 						}
 						
+						//Alarm
 						if(isset($eqLogic_array["customConfiguration"]['SetModeAbsent'])){
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
 							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["customConfiguration"]['SetModeAbsent'];
@@ -567,6 +568,21 @@ class homebridge extends eqLogic {
 							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
 							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["customConfiguration"]['SetModeNuit'];
 						}
+						
+						//Thermostat
+						if(isset($eqLogic_array["customConfiguration"]['Chauf'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Chauf"] = $eqLogic_array["customConfiguration"]['Chauf'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['Clim'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Clim"] = $eqLogic_array["customConfiguration"]['Clim'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['Off'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Off"] = $eqLogic_array["customConfiguration"]['Off'];
+						}
+						
 						if(isset($eqLogic_array["customConfiguration"]['customValues'])){
 							if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
 							$tempArray['OPEN'] = $eqLogic_array["customConfiguration"]['OPEN'];
