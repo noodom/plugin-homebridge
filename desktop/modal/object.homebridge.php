@@ -32,6 +32,20 @@ function listAlarmSetModes($id,$selected) {
 	}
 	return $opt;
 }
+function listThermoSetModes($id,$selected) {
+	$cmds = cmd::byEqLogicId($id);
+	$opt = "<option value='NOT'>Aucun</option>";
+	foreach ($cmds as $cmd) {
+		if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+			$val = $cmd->getid().'|'.$cmd->getName();
+			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+		}
+		if($cmd->getName() == 'Off' && $selected == 'Off') {
+			return '<input class="eqLogicAttrThermo configuration hidden" data-l1key="configuration" data-l2key="Off" value="'.$cmd->getid().'|'.$cmd->getName().'" />';
+		}
+	}
+	return $opt;
+}
 ?>
 <style>
 	.orange {
@@ -159,6 +173,50 @@ function listAlarmSetModes($id,$selected) {
 									</table>
 								<?php
 								break;
+								case "netatmoThermostat":
+								case "thermostat" :
+									if(isset($customEQValuesArr['configuration'])) {
+										$Chauf = (($customEQValuesArr['configuration']['Chauf'])?$customEQValuesArr['configuration']['Chauf']:'NOT');
+										$Clim  = (($customEQValuesArr['configuration']['Clim'])?$customEQValuesArr['configuration']['Clim']:'NOT');
+									}
+									else {
+										$Chauf = 'NOT';
+										$Clim  = 'NOT';
+									}
+							?>
+									<span class="form-control eqLogicAttrThermo" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
+									<?=listThermoSetModes($eql_id,'Off')?>
+									<table class="table">
+										<tr class="cmdLine">
+											<th>{{Mode app Maison}}</th>
+											<th>{{Mode app Eve}}</th>
+											<th>{{Mode Jeedom}}</th>
+										</tr>
+										<tr class="cmdLine">
+											<td>{{Chauffer}}</td><td>{{CHAUF.}}</td>
+											<td>
+												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Chauf">
+													<?=listThermoSetModes($eql_id,$Chauf)?>
+												</select>
+											</td>
+										</tr>
+										<tr class="cmdLine">
+											<td>{{Refroidir}}</td><td>{{CLIM.}}</td>
+											<td>
+												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Clim">
+													<?=listThermoSetModes($eql_id,$Clim)?>
+												</select>
+											</td>
+										</tr>
+										<tr class="cmdLine">
+											<td></td><td></td>
+											<td>
+												<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+											</td>
+										</tr>
+									</table>
+								<?php
+								break;
 								case "weather" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Plugin Météo non supporté pour l'instant}}</span>
@@ -172,12 +230,6 @@ function listAlarmSetModes($id,$selected) {
 								case "camera" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge}}</span>
-								<?php
-								break;
-								case "netatmoThermostat" :
-								case "thermostat" :
-								?>
-									<span class="cmdAttr" data-l1key="id">{{Plugin Thermostat en mode limité seulement pour l'instant}}</span>
 								<?php
 								break;
 								default :
@@ -235,8 +287,8 @@ function listAlarmSetModes($id,$selected) {
 																continue;
 															} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
 																continue;
-															} elseif (isset($info['family']) && $info['family'] == 'Thermostat') { // display ignored types
-																continue;
+														/*	} elseif (isset($info['family']) && $info['family'] == 'Thermostat') { // display ignored types
+																continue;*/
 															} elseif (isset($info['family']) && $info['family'] == 'Caméra') { // display ignored types
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Alarme') { // display ignored types
@@ -389,6 +441,11 @@ $('.eqLogicAttr').on('change click',function(){
 });
 $('.eqLogicAttrAlarm').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
+	console.log(eqLogic.id,eqLogic.configuration);
+	eqLogicsCustoms.push(eqLogic);
+});
+$('.eqLogicAttrThermo').on('change',function(){
+	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrThermo')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsCustoms.push(eqLogic);
 });
