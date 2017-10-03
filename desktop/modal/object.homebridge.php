@@ -21,8 +21,7 @@ if (!isConnect('admin')) {
 
 $object = object::byId($_GET['object_id']);
 sendVarToJS('object', $_GET['object_id']);
-function listAlarmSetModes($id,$selected) {
-	$cmds = cmd::byEqLogicId($id);
+function listAlarmSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
 		if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
@@ -32,8 +31,7 @@ function listAlarmSetModes($id,$selected) {
 	}
 	return $opt;
 }
-function listThermoSetModes($id,$selected) {
-	$cmds = cmd::byEqLogicId($id);
+function listThermoSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
 		if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
@@ -103,6 +101,7 @@ function listThermoSetModes($id,$selected) {
 						break;
 					}
 				}
+				$eql_cmds = cmd::byEqLogicId($eql_id);
 			?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -144,7 +143,7 @@ function listThermoSetModes($id,$selected) {
 											<td>{{Domicile}}</td><td>{{Présence}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-													<?=listAlarmSetModes($eql_id,$SetModePresent)?>
+													<?=listAlarmSetModes($eql_cmds,$SetModePresent)?>
 												</select>
 											</td>
 										</tr>
@@ -152,7 +151,7 @@ function listThermoSetModes($id,$selected) {
 											<td>{{À distance}}</td><td>{{Absence}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-													<?=listAlarmSetModes($eql_id,$SetModeAbsent)?>
+													<?=listAlarmSetModes($eql_cmds,$SetModeAbsent)?>
 												</select>
 											</td>
 										</tr>
@@ -160,7 +159,7 @@ function listThermoSetModes($id,$selected) {
 											<td>{{Nuit}}</td><td>{{Nuit}}</td>
 											<td>
 												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-													<?=listAlarmSetModes($eql_id,$SetModeNuit)?>
+													<?=listAlarmSetModes($eql_cmds,$SetModeNuit)?>
 												</select>	
 											</td>
 										</tr>
@@ -185,7 +184,7 @@ function listThermoSetModes($id,$selected) {
 									}
 							?>
 									<span class="form-control eqLogicAttrThermo" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
-									<?=listThermoSetModes($eql_id,'Off')?>
+									<?=listThermoSetModes($eql_cmds,'Off')?>
 									<table class="table">
 										<tr class="cmdLine">
 											<th>{{Mode app Maison}}</th>
@@ -196,7 +195,7 @@ function listThermoSetModes($id,$selected) {
 											<td>{{Chauffer}}</td><td>{{CHAUF.}}</td>
 											<td>
 												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Chauf">
-													<?=listThermoSetModes($eql_id,$Chauf)?>
+													<?=listThermoSetModes($eql_cmds,$Chauf)?>
 												</select>
 											</td>
 										</tr>
@@ -204,7 +203,7 @@ function listThermoSetModes($id,$selected) {
 											<td>{{Refroidir}}</td><td>{{CLIM.}}</td>
 											<td>
 												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Clim">
-													<?=listThermoSetModes($eql_id,$Clim)?>
+													<?=listThermoSetModes($eql_cmds,$Clim)?>
 												</select>
 											</td>
 										</tr>
@@ -225,6 +224,11 @@ function listThermoSetModes($id,$selected) {
 								case "mode" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Plugin Mode non supporté pour l'instant}}</span>
+								<?php
+								break;
+								case "jeelink" :
+								?>
+									<span class="cmdAttr" data-l1key="id">{{Plugin Jeelink non supporté pour l'instant}}</span>
 								<?php
 								break;
 								case "camera" :
