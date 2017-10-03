@@ -100,6 +100,13 @@ Prefix Global : <?=shell_exec("npm prefix -g")?>
 Root Global : <?=shell_exec("npm root -g")?>
 Architecture : <?=shell_exec("arch")?>
 Linux : <?=shell_exec("lsb_release -d -s")?>
+Homebridge : <?=homebridge::getLocalVersion('homebridge')?>
+
+HAP-NodeJS : <?=homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs')?>
+
+Homebridge-Jeedom locale : <?=homebridge::getLocalVersion()?>
+
+Homebridge-Jeedom en ligne : <?=homebridge::getRemoteVersion()?>
 </pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
