@@ -6,8 +6,9 @@ echo "--0%"
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
 sudo killall homebridge 2>/dev/null
 
-echo "Vérification si la source deb-multimedia existe (bug lors du apt-get update si c'est le cas)"
+
 if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
+  echo "Vérification si la source deb-multimedia existe (bug lors du apt-get update si c'est le cas)"
   echo "deb-multimedia existe !"
   if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge ]; then
     echo "mais on l'a déjà désactivé..."
@@ -43,6 +44,8 @@ if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
     fi
   fi
 fi
+echo 5 > ${PROGRESS_FILE}
+echo "--5%"
 sudo apt-get update
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
@@ -50,6 +53,8 @@ echo "--10%"
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
 
+#testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
+#if [[ $testVer == "1" ]]
 #if [[ $actual == *"6."* || $actual == *"8."* ]]
 if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* ]]
 then
