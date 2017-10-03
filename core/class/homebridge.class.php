@@ -129,6 +129,9 @@ class homebridge extends eqLogic {
 		}
 		return $ios;
 	}*/
+	public static function cronDaily() {
+		self::cleanCustomData();
+	}
 	
 	public static function dependancy_info() {
 		$return = [];
@@ -209,6 +212,7 @@ class homebridge extends eqLogic {
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
 		return (($ret===false)?false:true);
 	}
+	
 	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
@@ -280,6 +284,42 @@ class homebridge extends eqLogic {
 		$content = json_decode($content,true);
 		return $content;
 	}
+	public static function cleanCustomData(){
+		log::add('homebridge','debug','Nettoyage journalier des eqLogics & cmds n\'existant plus dans Jeedom mais toujours dans notre config');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
+		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
+		$found=false;
+		foreach ($content['eqLogic'] as $keyEqLogicCustom => $eqLogicCustom) {
+			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
+			if (!is_object($eqLogicExists)) {
+				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].' n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
+				array_splice($content['eqLogic'],$keyEqLogicCustom);
+				$found=true;
+			}
+		}
+		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
+			$cmdExists = cmd::byId($cmdCustom['id']);
+			if (!is_object($cmdExists)) {
+				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].' n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
+				array_splice($content['cmd'],$keyCmdCustom);
+				$found=true;
+			}
+		}
+		if($found) {
+			$content = json_encode($content);
+			$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+			return (($ret===false)?false:true);
+		}
+		return true;
+	}
+	
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
