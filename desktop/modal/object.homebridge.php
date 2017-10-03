@@ -226,11 +226,6 @@ function listThermoSetModes($cmds,$selected) {
 									<span class="cmdAttr" data-l1key="id">{{Plugin Mode non supporté pour l'instant}}</span>
 								<?php
 								break;
-								case "jeelink" :
-								?>
-									<span class="cmdAttr" data-l1key="id">{{Plugin Jeelink non supporté pour l'instant}}</span>
-								<?php
-								break;
 								case "camera" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge}}</span>
