@@ -75,7 +75,7 @@ $PluginToSend = homebridge::PluginToSend();
 <button id="copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>
 
 <h3>{{Environnement NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:200px;'>
+<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:220px;'>
 <?php
 	$nodeVer=shell_exec("node -v");
 	$nodejsVer=shell_exec("nodejs -v");
@@ -94,6 +94,9 @@ ls -l nodejs : <?=shell_exec("ls -l `which nodejs`")?>
 </span>
 <?php
 	endif;
+	$localVer =homebridge::getLocalVersion();
+	$remoteVer=homebridge::getRemoteVersion();
+	$diffVer  =version_compare($localVer,$remoteVer,'<');
 ?>
 Version NPM : <?=shell_exec("npm -v")?>
 Prefix Global : <?=shell_exec("npm prefix -g")?>
@@ -104,9 +107,11 @@ Homebridge : <?=homebridge::getLocalVersion('homebridge')?>
 
 HAP-NodeJS : <?=homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs')?>
 
-Homebridge-Jeedom locale : <?=homebridge::getLocalVersion()?>
+<?php if($diffVer) {echo "<span style='color:red'>{{Relancez les dépendances}}</br>";} ?>
+Homebridge-Jeedom locale : <?=$localVer?>
 
-Homebridge-Jeedom en ligne : <?=homebridge::getRemoteVersion()?>
+Homebridge-Jeedom en ligne : <?=$remoteVer?>
+<?php if($diffVer) {echo "</span>";} ?>
 </pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
