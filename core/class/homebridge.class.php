@@ -159,13 +159,13 @@ class homebridge extends eqLogic {
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
 	
-	public static function getLocalVersion() {
+	public static function getLocalVersion($plugin='homebridge-jeedom') {
 		$npmRoot = trim(shell_exec('npm -g root'));
 		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
 			$version = '0';
 			$serial  = '';
 		} else {
-			$packageJson = file_get_contents($npmRoot.'/homebridge-jeedom/package.json');
+			$packageJson = file_get_contents($npmRoot.'/'.$plugin.'/package.json');
 			$packageJson = json_decode($packageJson,true);
 			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
 			$serial = $packageJson['cust_serial'];
