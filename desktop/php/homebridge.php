@@ -161,7 +161,7 @@ sendVarToJS('eqType', 'homebridge');
 				</div>
 			</div>-->
 			<!--<div role="tabpanel" class="tab-pane" id="objecttab">-->
-				<legend><i class="icon maison-modern13"></i>  {{Les Pièces}}</legend>
+				<legend><i class="icon maison-modern13"></i>  {{Types Génériques par Pièce}}</legend>
 				<div class="eqLogicThumbnailContainer">
 					<?php
 						$allObject = object::buildTree(null, false);
