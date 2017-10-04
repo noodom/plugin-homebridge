@@ -6,15 +6,18 @@ Type d'accessoire : Dimmer 2 de fibaro (zwave)
 
 image::../images/lumiere.png[]
 
-Type d'accessoire : Doucle contact de Nodon (enocean)
+Type d'accessoire : Double contact de Nodon (enocean)
 
 image::../images/lumiere-2.png[]
+
+Si les deux contacts sont utilisés, copiez-coller les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
 
 ===== Température et hydrométrie
 
 Type d'accessoire : Sonde oregon (RfxCom)
 
 image::../images/temperature.png[]
+
 
 ===== Détecteur d'ouverture
 
@@ -24,12 +27,34 @@ Fenêtre :
 
 image::../images/fenetre.png[]
 
+Si un un capteur de température est utilisé, mettre Info/Température sur le nom de la commande température.
+
 Porte : 
 
 image::../images/porte.png[]
+
+Si un un capteur de température est utilisé, mettre Info/Température sur le nom de la commande température.
 
 ===== Détecteur de fuite
 
 Type d'accéssoire : Détecteur fibaro (zwave)
 
 image::../images/fuite.png[]
+
+===== Détecteur de fumées
+
+Type d'accéssoire : Détecteur fibaro (zwave)
+
+image::../images/fumee.png[]
+
+===== Volets roulants 
+
+Type d'accéssoire : Détecteur fibaro FRG-222 (zwave)
+
+image::../images/volet.png[]
+
+===== Porte de garage
+
+Type d'accéssoire : Aeotec - Contrôleur de porte de garage (GEN5) (zwave)
+
+image::../images/garage.png[]

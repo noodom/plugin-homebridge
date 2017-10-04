@@ -37,7 +37,7 @@ A n'effectuer que sur conseil d'un membre du forum et il faut retirer le bridge 
 [IMPORTANT]
 Réservé à un public averti. Il n'y aura aucun support pour cette partie. (permet par exemple d'ajouter des cameras à Homebridge)
 
-Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, finaliser la configuration en cliquant sur **sauvegarder**. Le démon redémarre.
+Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, finalisez la configuration en cliquant sur **sauvegarder**. Le démon redémarre.
 
 === Ajout des accéssoires dans homebridge
 
@@ -52,6 +52,8 @@ image::../images/choix-acc.png[]
 Afin d'ajouter un accéssoire à homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour finir, cliquez sur la disquette verte pour sauvegarder.
 
 ==== Configuration des type génériques
+
+===== Généralités
 
 En cliquant sur l'équipement, vous verrez les types génériques utilisés pour la communication entre votre jeedom et Homebridge.
 
