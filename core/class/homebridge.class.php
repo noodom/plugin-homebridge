@@ -92,7 +92,21 @@ class homebridge extends eqLogic {
 											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
 										]
-								]*/
+								]*/,
+								'ikealight'=>
+								[
+									//'field'=>'model',
+									'default'=>
+										[
+											'state'=>'LIGHT_STATE_BOOL',
+											'on'=>'LIGHT_ON',
+											'off'=>'LIGHT_OFF',
+											'dimInfo'=>'LIGHT_STATE',
+											'dim'=>'LIGHT_SLIDER',
+											'kelvinInfo'=>'LIGHT_COLOR_TEMP',
+											'kelvin'=>'LIGHT_SET_COLOR_TEMP'
+										]
+								]
 							];
 		
 		return $PluginAutoConfig;
