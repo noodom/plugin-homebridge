@@ -58,3 +58,5 @@ image::../images/volet.png[]
 Type d'accéssoire : Aeotec - Contrôleur de porte de garage (GEN5) (zwave)
 
 image::../images/garage.png[]
+
+include::exemple_config_camera.asciidoc[]
