@@ -2,7 +2,7 @@
 
 Le plugin Homebridge doit être installé via le market jeedom. *Le plugin mobile officiel n'est pas indispensable.*
 
-*Pour les migrations depuis le plugin mobile officiel, il est important de pas désactiver le plugin mobile. Reportez vous dans la rubrique "migration depuis le plugin mobile".* 
+*Pour les migrations depuis le plugin mobile officiel, il est important de pas désactiver le plugin mobile. Une rubrique "importation depuis le plugin mobile" est disponible dans la documention.* 
 
 image::../images/pluginHB.png[]
 
@@ -35,7 +35,7 @@ image::../images/installationDep.png[]
 [IMPORTANT]
 *Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.*
 
-Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", cliquez sur "redémarrer".
+Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", il faut cliquer sur "redémarrer".
 
 image::../images/demon-homebridge.png[]
 
@@ -50,12 +50,12 @@ image::../images/dependances-homebridge.png[]
 
 Les fichiers log permettent d'analyser pas à pas l'activité interne du processus et ses interactions avec son environnement.
 
-Ces fichiers peuvent necessaires en cas de disfonctionenement du plugin.
+Ces fichiers peuvent être necessaires en cas de disfonctionenement du plugin.
 
 image::../images/log.png[]
 
 * Homebridge : Historise toutes les communications avec le demon homebridge.
 
-* Homebridge_daemon : Historise les actions effectués par homebridge (par exemple si un accessoire est envoyé à homebridge mais n'apparait pas dans l'application domicile, c'est ici qu'il faut aller voir).
+* Homebridge_daemon : Historise les actions effectuées par homebridge (par exemple si un accessoire est envoyé à homebridge mais n'apparait pas dans l'application domicile, c'est ici qu'il faut aller voir).
 
-* Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le demon refuse de démarrer par exemple, un coup d'oeil peut vous aider).
+* Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le demon refuse de démarrer par exemple, un coup d'oeil peut aider).

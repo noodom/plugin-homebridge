@@ -2,64 +2,64 @@
 
 === Création du pont homebridge
 
-Dans la rubrique "gestion", cliquez sur "configuration".
+Pour créer le pont homebridge, il faut aller dans la rubrique "gestion", et cliquer sur "configuration".
 
 image::../images/gestion.png[]
 
-Pour créer le pont homekit, il suffit de lui donner un nom et un code "PIN".
+Pour créer le pont, il suffit de lui donner un nom et un code "PIN".
 
 image::../images/config-pluginhb.png[]
 
-* *Utilisateur* : Permet à Homebridge d'utiliser l'ApiKey d'un utilisateur de votre Jeedom.
+* *Utilisateur* : Permet à Homebridge d'utiliser l'ApiKey d'un utilisateur d'une box Jeedom.
 
-* *Nom Homebridge* : Permet de nommer votre pont Homebridge. 
+* *Nom Homebridge* : Permet de nommer le pont Homebridge. 
 
 [IMPORTANT]
-Le changement de nom Homebridge vous obligera à reconfigurer vos applications Homekit.
+Le changement de nom Homebridge obligera à reconfigurer les applications Homekit.
 
 * *PIN Homebridge* : Permet de personnaliser le code PIN Homebridge.
 
 [IMPORTANT]
-Les PIN suivants ne sont pas accéptés par Apple : 000-00-000, 111-11-111, 222-22-222 -> 999-99-999, 123-45-678, 876-54-321. Son changement vous obligera à reconfigurer vos applications Homekit
+Les PIN suivants ne sont pas accéptés par Apple : 000-00-000, 111-11-111, 222-22-222 -> 999-99-999, 123-45-678, 876-54-321. Son changement obligera la reconfiguration de vos applications Homekit.
 
 * *Réparer* :  Permet une réparation de Homebridge en modifiant les identifiants. 
 
 [IMPORTANT]
-Il faut retirer le bridge de votre application "Maison" avant et l'y remettre ensuite.
+Il faut retirer le bridge de l'application "Maison".
 
 * *Réparer & réinstaller* : Supprime et réinstalle complètement Homebridge. 
 
 [IMPORTANT]
-A n'effectuer que sur conseil d'un membre du forum et il faut retirer le bridge de votre application "Maison" avant et l'y remettre ensuite.
+A n'effectuer que sur conseil d'un membre du forum et il faut retirer le pont de l'application "Maison".
 
 * *Plateforme Homebridge supplémentaire* : Permet de rajouter manuellement un équipement.
 
 [IMPORTANT]
 Réservé à un public averti. Il n'y aura aucun support pour cette partie. (permet par exemple d'ajouter des cameras à Homebridge)
 
-Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, finalisez la configuration en cliquant sur **sauvegarder**. Le démon redémarre.
+Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, la configuration se finalise en cliquant sur **sauvegarder**. Le démon redémarre.
 
 === Ajout des accéssoires dans homebridge
 
-Vous devez sélectionner les équipements que vous souhaitez utiliser avec Homebridge.
+Les équipements seront à ajouter manuellement. 
 
 image::../images/config-piece.png[]
 
-Vous devez cliquer sur la pièce de votre choix.
+Afin d'intégrer un accessoire dans homebridge, il faut selectionner la pièce où il se trouve.
 
 image::../images/choix-acc.png[]
 
-Afin d'ajouter un accéssoire à homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour finir, cliquez sur la disquette verte pour sauvegarder.
+Afin d'ajouter un accéssoire à homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
 
 ==== Configuration des type génériques
 
 ===== Généralités
 
-En cliquant sur l'équipement, vous verrez les types génériques utilisés pour la communication entre votre jeedom et Homebridge.
+En cliquant sur l'équipement, les types génériques utilisés pour la communication entre votre jeedom et Homebridge apparaissent.
 
 image::../images/typegen-1.png[]
 
-La majorité des types génériques est déjà renseignée. Dans certains cas, vous devrez les configurer manuellement (pour le plugin Virtuel par exemple).
+La majorité des types génériques est déjà renseignée. Dans certains cas, une configuration manuelle est necessaire (pour le plugin Virtuel par exemple).
 
 Voici les types génériques disponibles : 
 
@@ -75,48 +75,46 @@ include::configurationHomebridgeTypeGenerique.asciidoc[]
 
 include::exemple_config_TG.asciidoc[]
 
-Pour valider, retournez dans la configuration du plugin et relancer le démon homebridge en cliquant sur "(Re)Démarrer".
+Pour valider, il faut aller dans la configuration du plugin et relancer le démon homebridge en cliquant sur "(Re)Démarrer".
 
 image::../images/demon-homebridge.png[]
 
 ==== Ajout de jeedom dans homekit
 
-Il existe plusieurs applications sur l'appstore compatible homekit. Nous allons utiliser l'application "Maison".
+Il existe plusieurs applications sur l'appstore compatible homekit. L'application "maison" d'Apple sera utilisée pour la rédaction de la documentation.
+
 
 image::../images/app-domicile.jpg[]
 
-Pour inclure jeedom, ouvrir l'application "Maison" et cliquez sur "ajouter un accessoire".
+L'inclusion de jeedom dans homekit, se fait en ouvrant l'application "maison" et en cliquant sur "ajouter un accessoire".
 
 image::../images/home-1.jpg[]
 
 [TIP]
-Dans notre exemple, notre domicile s'appelle "Test", vous pouvez lui donner le nom que vous souhaitez et le modifiant dans les paramètres de l'appication. 
+Dans notre exemple, notre domicile s'appelle "Test". Son nom peut modifier en allant dans les réglages de l'application.
 
 Scannez le code PIN 
 
 image::../images/home-2.jpg[]
 
 [TIP]
-*Vous pouvez également rentrer manuellement le code PIN en cliquant sur "Code absent ou impossible à scanner".*
+*Le code PIN peut être également rentré manuelement en cliquant sur "Code absent ou impossible à scanner".*
 
-Sélectionnez votre jeedom
+Sélectionnez le pont à inclure.
 
 image::../images/home-3.jpg[]
 
 
-image::../images/home-4.png
-[]
-
 [IMPORTANT]
-Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message vous indique que l'accessoire n'est pas cetifié.  Cliquez sur "poursuivre l'ajout".
+Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message indique que l'accessoire n'est pas cetifié il faut valider l'inclusion en cliquant sur "poursuivre l'ajout".
 
-image::../images/home-04.jpg[]
+image::../images/home-4.png[]
 
-*Votre jeedom est maintenant intégré à homekit.*
+*Le pont jeedom est maintenant intégré à homekit.*
 
 ==== Rangement des accessoires dans homekit
 
-Vous devez maintenant ranger vos accessoires correctement dans homekit. Vous devrez créer des pièces et y intégrer vos accessoires.
+Les accessoires doivent être rangés correctement dans homekit. Il faudra créer des pièces et y intégrer les accessoires.
 
 [IMPORTANT]
 *Les pièces dans jeedom ne sont pas importées dans Homebridge. Ceci n'est pas dû à jeedom mais à la gestion des pièces par Apple.*
@@ -125,17 +123,15 @@ Le premier accessoires à "ranger" est le pont jeedom.
 
 image::../images/home-5.jpg[]
 
-Vous devez sélectionner la pièce où sera installée le pont. Si elle n'existe pas, vous pouvez la créer en cliquant sur "Créer".
+Il faut sélectionner la pièce où sera installée le pont. Si elle n'existe pas, il faudra la créer en cliquant sur "Créer".
 
 image::../images/home-05.jpg[]
 
-Définissez le nom de la nouvelle pièce. Vous pouvez également lui attribuer un fond d'écran dédié. Cliquez sur "Enregistrer" pour finaliser la création de la pièce.
+Définir le nom de la nouvelle pièce. Il est également possible de lui attribuer un fond d'écran dédié. Pour finaliser la création de la pièce, il faut cliquer sur "enregistrer".
 
 image::../images/home-051.jpg[]
 
-Cliquez sur suivant pour continuer. 
-
-Maintenant, il ne vous reste plus qu'a ranger tous vos accessoires. 
+Maintenant, il ne vous reste plus qu'a ranger tous les accessoires. 
 
 image::../images/home-052.jpg[]
 
@@ -144,6 +140,6 @@ image::../images/home-052.jpg[]
 
 image::../images/home-053.jpg[]
 
-*Vous devez ajouter un à un les accessoires. Si vous en avez beaucoup, cette partie prendra du temps*.
+*Les accessoires doivent être "rangés" un par un. Si il y en a beaucoup, cette partie prendra du temps*.
 
-Vous pouvez retrouver https://support.apple.com/fr-fr/HT204893[ici] la documentation complète de l'application "Maison" d'Apple.
+La documentation complète de l'application "Maison" d'Apple est disponible https://support.apple.com/fr-fr/HT204893[ici].

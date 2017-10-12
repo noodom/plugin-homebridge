@@ -1,6 +1,6 @@
 === Présentation Homebridge
 
-*Le plugin Homebridge* est un demon qui permet d’interagir avec votre domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Home. 
+*Le plugin Homebridge* est un demon qui permet d’interagir avec un système domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Home. 
 
 image::../images/homekit-logo.jpg[]
 
@@ -25,7 +25,7 @@ Un bon nombre d'accessoires sont pris en charge.
 
 image::../images/garage-homekit.png[]
 
-Siri peut aussi interagir. Vous pouvez lui poser des questions : 
+Siri peut aussi interagir. Il répond aux questions : 
 
 
 image::../images/siri-01.jpg[]
