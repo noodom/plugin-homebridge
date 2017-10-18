@@ -73,7 +73,7 @@ image::../images/ypegeaction.png[]
 
 include::configurationHomebridgeTypeGenerique.asciidoc[]
 
-include::exemple_config_TG.asciidoc[]
+*Des exemples de configurations sont disponibles à la fin de la documentation*
 
 Pour valider, il faut aller dans la configuration du plugin et relancer le démon homebridge en cliquant sur "(Re)Démarrer".
 

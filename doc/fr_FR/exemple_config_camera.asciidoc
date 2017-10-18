@@ -1,12 +1,28 @@
-===== Caméra
+=== Caméra
+
+Homebrige prend en charge les caméras.
+
+image::../images/camera2.png[]
+
+En touchant la capture de la caméra souhaitée, elle s'affiche en plein écran et en live !
+
+image::../images/camera3.png[]
+
+Suivant les configurations matèriels, la qualité de la transmition peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
+
+Celles-ci peuvent afficher une notification lorsque un mouvement est détecté par une capteur de présence. Il faut que la caméra et le capteur soient configurés dans la même pièce et que les notifications du capteurs soient activées.
+
+image::../images/notif.jpg[]
 
 Les caméras décritent ci dessous ont été testées. Elles sont donc fonctionnelle dans homebridge.
+
+
 
 L'intégration des caméras se fait via la bouton rouge "plateforme homebridge suplémentaire".
 
 image::../images/plateforme-hb.png[]
 
-====== Foscam C1
+==== Foscam C1
 
 [source,]
 ----
@@ -31,7 +47,7 @@ image::../images/plateforme-hb.png[]
 
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par le login de connexion à la caméra et password par le mot de passe de connexion à la caméra.
 
-====== Foscam C1 V2
+==== Foscam C1 V2
 
 [source,]
 ----
@@ -56,7 +72,7 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par 
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par le login de connexion à la caméra et password par le mot de passe de connexion à la caméra.
 
 
-====== Foscam FI9821P 
+==== Foscam FI9821P 
 
 [source,]
 ----
@@ -100,7 +116,7 @@ Foscam FI9803 V3
 }
 ----
 
-====== wanscam rtsp HWXXX
+==== wanscam rtsp HWXXX
 
 [source,]
 ----
@@ -125,7 +141,7 @@ Foscam FI9803 V3
 
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par le login de connexion à la caméra et password par le mot de passe de connexion à la caméra.
 
-====== Dlink DCS-5020L
+==== Dlink DCS-5020L
 
 [source,]
 ----
@@ -150,7 +166,7 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par 
 
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par le login de connexion à la caméra et password par le mot de passe de connexion à la caméra.
 
-====== Netatmo Welcome
+==== Netatmo Welcome
 
 Cette caméra deviendra officielement compatible homekit en fin d'année 2017. 
 Son intégration dans homebridge est néanmoins possible.

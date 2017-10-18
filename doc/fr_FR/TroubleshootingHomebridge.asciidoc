@@ -14,7 +14,7 @@ image::../images/config-pluginhb.png[]
 
 TIP: Vérifiez que vous disposez de la dernière version des dépendances. En cas de doute, il est possible de les réinstaller en cliquant sur "relancer". Si la réinstallation des dépendances ne fonctionne pas ou indique une erreur dans le log des dépendances, cliquez sur "Réparer et Réinstaller".
 
-image::../images/dépendances-homebridge.png[]
+image::../images/dependances-homebridge.png[]
 
 *-> Mon équipement n'apparait pas dans homebridge !*
 

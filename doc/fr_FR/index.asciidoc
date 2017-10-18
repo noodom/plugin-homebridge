@@ -16,5 +16,12 @@ include::TroubleshootingHomebridge.asciidoc[]
 
 include::logHomebridge.asciidoc[]
 
+== Exemple de configuration
+
+include::exemple_config_TG.asciidoc[]
+
+== Changelog
+
 include::changelog.asciidoc[]
+
 

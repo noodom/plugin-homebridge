@@ -66,4 +66,4 @@ sh: 1: homebridge: not found
 [TIP]
 Les dépendances homebridge ne sont pas installées ou certains fichiers sont manquants. Cliquez sur relancer.
 
-image::../images/dépendances-homebridge.png[]
+image::../images/dependances-homebridge.png[]
