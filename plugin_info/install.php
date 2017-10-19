@@ -134,7 +134,7 @@ function homebridge_install(){
 /*	log::add('homebridge', 'error', 'Lancement des dépendances de Homebridge, profitez-en pour lire la documentation ;)');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();*/
-	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, consultez les notes de release (dans le Forum > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
+	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
 
 function homebridge_update(){
@@ -142,7 +142,7 @@ function homebridge_update(){
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();*/
 	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
-	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, consultez les notes de release (dans le Forum > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
+	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
 
 function homebridge_remove(){
