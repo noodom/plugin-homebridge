@@ -38,17 +38,17 @@ class homebridge extends eqLogic {
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
-			'ACTIVE' => array('name' => 'Statut Actif', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'DEFECT' => array('name' => 'Statut Défectueux', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_SET_VOLUME' => array('name' => 'Haut-Parleur Volume (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE_TOGGLE' => array('name' => 'Haut-Parleur Toggle Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE_ON' => array('name' => 'Haut-Parleur Mute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (alpha)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_SET_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_TOGGLE' => array('name' => 'Haut-Parleur Toggle Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_ON' => array('name' => 'Haut-Parleur Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire) (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
