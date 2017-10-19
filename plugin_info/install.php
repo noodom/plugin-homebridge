@@ -142,6 +142,7 @@ function homebridge_update(){
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();*/
 	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
+	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, <a href="https://github.com/jeedom/homebridge-jeedom/blob/beta/releasenotes.asciidoc">consultez ces notes</a> avant utilisation svp');
 }
 
 function homebridge_remove(){
