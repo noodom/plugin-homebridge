@@ -313,7 +313,7 @@ class homebridge extends eqLogic {
 		foreach ($content['eqLogic'] as $keyEqLogicCustom => $eqLogicCustom) {
 			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
 			if (!is_object($eqLogicExists)) {
-				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].' n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
+				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
 				//array_splice($content['eqLogic'],$keyEqLogicCustom);
 				$found=true;
 			}
@@ -321,7 +321,7 @@ class homebridge extends eqLogic {
 		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
 			$cmdExists = cmd::byId($cmdCustom['id']);
 			if (!is_object($cmdExists)) {
-				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].' n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
+				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
 				//array_splice($content['cmd'],$keyCmdCustom);
 				$found=true;
 			}
