@@ -13,7 +13,7 @@ Le plugin Homebridge de jeedom permet donc d’exposer des équipements jeedom q
 
 Homebridge peut s'utiliser avec une application compatible Homekit ou avec l'assistant vocal Siri.
 
-Depuis IOS10, l'application Domicile (inclue par défaut avec IOS) permet le pilotage d'équipement compatible Homekit. 
+Depuis IOS10, l'application Domicile (inclue par défaut avec IOS) permet le pilotage d'équipements compatibles Homekit. 
 
 image::../images/cuisine-homekit.jpg[]
 
@@ -21,7 +21,7 @@ Les équipements peuvent être classés par pièce.
 
 image::../images/piece-homekit.jpg[]
 
-Un bon nombre d'accessoires sont pris en charge.
+Beaucoup d'accessoires sont pris en charge.
 
 image::../images/garage-homekit.png[]
 
@@ -35,11 +35,11 @@ Siri peut également faire des actions :
 image::../images/siri-02.jpg[]
 
 Homekit à l'avantage d'être utilisable à l'extérieur du domicile. Seule condition, il faut disposer d'un concentrateur. 
-L'iPad et l'AppleTV (et bientot le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
 
 
 [TIP]
-*Homekit est le nom officiel du protocole développé par Apple. HomeBridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'HomeBridge.*
+*Homekit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.*
 
 ====  Type d'accessoire compatible avec homebridge
 
