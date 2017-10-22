@@ -7,11 +7,11 @@ Lorsque l'importation est terminée, la rubrique homebridge disparait des param�
 
 image::./images/plugnmobilesanshb.png[]
 
-Homebridge est complètement déssolidarisée du plugin mobile. Il fonctionne maintenant de manière autonome.
+Homebridge est complètement déssolidarisé du plugin mobile. Il fonctionne maintenant de manière autonome.
 
 Lors de l'installation du plugin homebridge, tous les accéssoires vont être indisponibles. C'est normal.
 
 image::./images/migration1.png[]
 
-Dès que l'installation des dépendances est terminée, tous les accessoires reviendront.
+Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveaux disponibles.
 
