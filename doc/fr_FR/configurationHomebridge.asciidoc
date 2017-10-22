@@ -20,7 +20,7 @@ Le changement de nom Homebridge obligera à reconfigurer les applications Homeki
 * *PIN Homebridge* : Permet de personnaliser le code PIN Homebridge.
 
 [IMPORTANT]
-Les PIN suivants ne sont pas accéptés par Apple : 000-00-000, 111-11-111, 222-22-222 -> 999-99-999, 123-45-678, 876-54-321. Son changement obligera la reconfiguration de vos applications Homekit.
+Les PIN suivants ne sont pas accéptés par Apple : 000-00-000, 111-11-111, 222-22-222 -> 999-99-999, 123-45-678, 876-54-321. Son changement obligera la reconfiguration des applications Homekit.
 
 * *Réparer* :  Permet une réparation de Homebridge en modifiant les identifiants. 
 
@@ -59,7 +59,7 @@ En cliquant sur l'équipement, les types génériques utilisés pour la communic
 
 image::../images/typegen-1.png[]
 
-La majorité des types génériques est déjà renseignée. Dans certains cas, une configuration manuelle est necessaire (pour le plugin Virtuel par exemple).
+La majorité des types génériques est déjà renseignée. Dans certains cas, une configuration manuelle sera necessaire (pour le plugin Virtuel par exemple).
 
 Voici les types génériques disponibles : 
 
@@ -81,7 +81,7 @@ image::../images/demon-homebridge.png[]
 
 ==== Ajout de jeedom dans homekit
 
-Il existe plusieurs applications sur l'appstore compatible homekit. L'application "maison" d'Apple sera utilisée pour la rédaction de la documentation.
+Il existe plusieurs applications sur l'appstore compatibles homekit. L'application "maison" d'Apple sera utilisée pour la rédaction de la documentation.
 
 
 image::../images/app-domicile.jpg[]
@@ -91,22 +91,22 @@ L'inclusion de jeedom dans homekit, se fait en ouvrant l'application "maison" et
 image::../images/home-1.jpg[]
 
 [TIP]
-Dans notre exemple, notre domicile s'appelle "Test". Son nom peut modifier en allant dans les réglages de l'application.
+Dans l'exemple, le domicile s'appelle "Test". Son nom peut être modifié en allant dans les réglages de l'application.
 
-Scannez le code PIN 
+Il faut scanner le code PIN 
 
 image::../images/home-2.jpg[]
 
 [TIP]
 *Le code PIN peut être également rentré manuelement en cliquant sur "Code absent ou impossible à scanner".*
 
-Sélectionnez le pont à inclure.
+Il faut sélectionner le pont à inclure.
 
 image::../images/home-3.jpg[]
 
 
 [IMPORTANT]
-Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message indique que l'accessoire n'est pas cetifié il faut valider l'inclusion en cliquant sur "poursuivre l'ajout".
+Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message indique que l'accessoire n'est pas certifié il faut valider l'inclusion en cliquant sur "poursuivre l'ajout".
 
 image::../images/home-4.png[]
 
@@ -114,16 +114,16 @@ image::../images/home-4.png[]
 
 ==== Rangement des accessoires dans homekit
 
-Les accessoires doivent être rangés correctement dans homekit. Il faudra créer des pièces et y intégrer les accessoires.
+Les accessoires doivent être rangés correctement dans homekit. Il faudra créer des pièces pour y intégrer les accessoires.
 
 [IMPORTANT]
 *Les pièces dans jeedom ne sont pas importées dans Homebridge. Ceci n'est pas dû à jeedom mais à la gestion des pièces par Apple.*
 
-Le premier accessoires à "ranger" est le pont jeedom. 
+Le premier accessoire à "ranger" est le pont jeedom. 
 
 image::../images/home-5.jpg[]
 
-Il faut sélectionner la pièce où sera installée le pont. Si elle n'existe pas, il faudra la créer en cliquant sur "Créer".
+Il faut sélectionner la pièce où sera installé le pont. Si elle n'existe pas, il faudra la créer en cliquant sur "Créer".
 
 image::../images/home-05.jpg[]
 
@@ -131,7 +131,7 @@ Définir le nom de la nouvelle pièce. Il est également possible de lui attribu
 
 image::../images/home-051.jpg[]
 
-Maintenant, il ne vous reste plus qu'a ranger tous les accessoires. 
+Maintenant, il reste plus qu'à ranger tous les accessoires. 
 
 image::../images/home-052.jpg[]
 
