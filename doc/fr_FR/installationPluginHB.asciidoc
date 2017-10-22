@@ -1,6 +1,6 @@
 == Installation et activation du plugin Homebridge
 
-Le plugin Homebridge doit être installé via le market jeedom. *Le plugin mobile officiel n'est pas indispensable.*
+Le plugin Homebridge doit être installé via le market jeedom. *Le plugin mobile officiel n'est plus indispensable.*
 
 *Pour les migrations depuis le plugin mobile officiel, il est important de pas désactiver le plugin mobile. Une rubrique "importation depuis le plugin mobile" est disponible dans la documention.* 
 
