@@ -1,48 +1,48 @@
 === Aide Homebridge
 
-*-> Je n'arrive pas à inclure jeedom dans homekit !*
+*-> Je n'arrive pas à inclure Jeedom dans HomeKit !*
 
 TIP: Vérifier que le statut du démon Homebridge est sur OK.
 
 image::../images/demonHB.png[]
 
-TIP: Pour inclure votre jeedom dans homekit, via une application compatible (par exemple Domicile ou Eve), vérifiez que appareil IOS est connecté au même réseau que votre jeedom.
+TIP: Pour inclure votre Jeedom dans HomeKit, via une application compatible (par exemple Maison ou Eve), vérifiez que votre appareil iOS est connecté au même réseau que votre Jeedom.
 
 image::../images/config-pluginhb.png[]
 
 *-> Le démon Homebridge ne veut pas démarrer !*
 
-TIP: Vérifiez que vous disposez de la dernière version des dépendances. En cas de doute, il est possible de les réinstaller en cliquant sur "relancer". Si la réinstallation des dépendances ne fonctionne pas ou indique une erreur dans le log des dépendances, cliquez sur "Réparer et Réinstaller".
+TIP: Vérifiez que vous disposez de la dernière version des dépendances. En cas de doute, il est possible de les réinstaller en cliquant sur "Relancer". Si la réinstallation des dépendances ne fonctionne pas ou indique une erreur dans le log des dépendances, cliquez sur "Réparer et Réinstaller".
 
 image::../images/dependances-homebridge.png[]
 
-*-> Mon équipement n'apparait pas dans homebridge !*
+*-> Mon équipement n'apparait pas dans Homebridge !*
 
-TIP: Vérifiez que la case "envoyer à Homebridge" soit cochée dans la configuration du plugin mobile.
+TIP: Vérifiez que la case "Envoyer à Homebridge" est cochée dans la configuration du plugin App Mobile.
 
-*-> La case "envoyer à homebridge est bien cochée" mais mon équipement n'apparait toujours pas !*
+*-> La case "Envoyer à Homebridge" est bien cochée mais mon équipement n'apparait toujours pas !*
 
-TIP: Vérifiez dans la configuration de votre équipement que celui-ci soit activé et visible.
+TIP: Vérifiez dans la configuration de votre équipement que celui-ci est activé et visible.
 
-TIP: Vérifiez que les types génériques soient bien configurés et que la commande ou l'info soit visible. Chaque équipement envoyé à homebridge doit au moins avoir un type générique "Etat".
+TIP: Vérifiez que les types génériques sont bien configurés et que la commande ou l'info est visible. Chaque équipement envoyé à Homebridge doit avoir au moins un type générique "Etat".
 
 image::../images/ypegelumi.png[]
 
 *-> J'ai mon Homebridge qui n'exécute pas les commandes !*
 
-TIP: Il faut bien mettre à jour le plugin App Mobile, puis dans la configuration des dépendances, il suffit de renseigner un utilisateur avec des droits d'exécutions sur les commandes.
+TIP: Il faut bien mettre à jour le plugin App Mobile, puis dans la configuration des dépendances, il suffit de renseigner un utilisateur avec des droits d'exécution sur les commandes.
 
 *-> J'ai bien le retour d'état d'un équipement mais impossible de le piloter !*
 
-TIP: Vérifiez que les types génériques soient bien configurés. Il doit avoir une cohérence entre les types. Si vous avez le type "info lumière" vérifiez que les actions soient de types "Action lumière bouton ON" etc...
+TIP: Vérifiez que les types génériques sont bien configurés. Il doit y avoir une cohérence entre les types. Si vous avez le type "Info Lumière Etat", vérifiez que les actions sont de types "Action / Lumière Bouton On" etc...
 
-*-> Le message "sans réponse" apparait dans l'app domicile ou Eve*
+*-> Le message "sans réponse" apparait dans l'application Maison ou Eve*
 
 image::../images/sans-reponse.jpg[]
 
-1. Si vous n'avez pas de concentrateur Homekit (iPad ou Apple TV) vérifiez que vous êtes connectés dans le même réseau que votre jeedom. 
+1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connectés au même réseau que votre Jeedom. 
 2. Vérifiez que le démon est activé. Si ce n'est pas le cas, redémarrez le.
-3. Relancez votre box
+3. Relancez votre box.
 4. Si malgré tout vous avez toujours ces états, lancez une réparation.
 
-TIP: Beaucoup d'informations se trouvent dans les logs, le prochain chapitre vous expliquera comment les analyser
+TIP: Beaucoup d'informations se trouvent dans les logs, le prochain chapitre vous expliquera comment les analyser.
