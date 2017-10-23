@@ -1,59 +1,59 @@
 === Lumière
 
-Type d'accessoire : Dimmer 2 de fibaro (zwave)
+Type d'accessoire : Dimmer 2 de Fibaro (Z-Wave)
 
 image::../images/lumiere.png[]
 
-Type d'accessoire : Double contact de Nodon (enocean)
+Type d'accessoire : Double contact de Nodon (EnOcean)
 
 image::../images/lumiere-2.png[]
 
-Si les deux contacts sont utilisés, copiez-coller les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
+Si les deux contacts sont utilisés, copier-coller les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
 
 === Température et hydrométrie
 
-Type d'accessoire : Sonde oregon (RfxCom)
+Type d'accessoire : Sonde Oregon (RfxCom)
 
 image::../images/temperature.png[]
 
 
 === Détecteur d'ouverture
 
-Type d'accéssoire : Détecteur fibaro (zwave)
+Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
 Fenêtre : 
 
 image::../images/fenetre.png[]
 
-Si un un capteur de température est utilisé, mettre Info/Température sur le nom de la commande température.
+Si un capteur de température est utilisé, mettre "Info / Température" sur le nom de la commande Température.
 
 Porte : 
 
 image::../images/porte.png[]
 
-Si un un capteur de température est utilisé, mettre Info/Température sur le nom de la commande température.
+Si un capteur de température est utilisé, mettre "Info / Température" sur le nom de la commande Température.
 
 === Détecteur de fuite
 
-Type d'accéssoire : Détecteur fibaro (zwave)
+Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
 image::../images/fuite.png[]
 
 === Détecteur de fumées
 
-Type d'accéssoire : Détecteur fibaro (zwave)
+Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
 image::../images/fumee.png[]
 
 === Volets roulants 
 
-Type d'accéssoire : Détecteur fibaro FRG-222 (zwave)
+Type d'accessoire : Détecteur Fibaro FGR-222 (Z-Wave)
 
 image::../images/volet.png[]
 
 === Porte de garage
 
-Type d'accéssoire : Aeotec - Contrôleur de porte de garage (GEN5) (zwave)
+Type d'accessoire : Aeotec - Contrôleur de porte de garage (GEN5) (Z-Wave)
 
 image::../images/garage.png[]
 
