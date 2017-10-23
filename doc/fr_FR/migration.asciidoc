@@ -1,15 +1,15 @@
-== Migration depuis le plugin mobile
+== Migration depuis le plugin App Mobile
 
-Le nouveau plugin homebridge importe automatiquement la configuration homebridge du plugin mobile. Il n'y a aucune opération à faire. 
+Le nouveau plugin Homebridge importe automatiquement la configuration Homebridge du plugin App Mobile. Il n'y a aucune opération à faire. 
 
-Lorsque l'importation est terminée, la rubrique homebridge disparait des paramètres du plugin mobile. 
+Lorsque l'importation est terminée, la rubrique Homebridge disparait des paramètres du plugin App Mobile. 
 
 
 image::./images/plugnmobilesanshb.png[]
 
-Homebridge est complètement déssolidarisé du plugin mobile. Il fonctionne maintenant de manière autonome.
+Homebridge est complètement dessolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
 
-Lors de l'installation du plugin homebridge, tous les accéssoires vont être indisponibles. C'est normal.
+Lors de l'installation du plugin Homebridge, tous les accessoires vont être indisponibles. C'est normal.
 
 image::./images/migration1.png[]
 
