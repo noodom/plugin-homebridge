@@ -1,8 +1,8 @@
 == Installation et activation du plugin Homebridge
 
-Le plugin Homebridge doit être installé via le market jeedom. *Le plugin mobile officiel n'est plus indispensable.*
+Le plugin Homebridge doit être installé via le market Jeedom. *Le plugin App Mobile officiel n'est plus indispensable.*
 
-*Pour les migrations depuis le plugin mobile officiel, il est important de pas désactiver le plugin mobile. Une rubrique "importation depuis le plugin mobile" est disponible dans la documention.* 
+*Pour les migrations depuis le plugin App Mobile officiel, il est important de ne pas désactiver le plugin App Mobile. Une rubrique "Migration depuis le plugin App Mobile" est disponible dans la documentation.* 
 
 image::../images/pluginHB.png[]
 
@@ -18,44 +18,44 @@ image::../images/installationDep.png[]
 
 *Le temps d'installation des dépendances peut varier en fonction du matériel utilisé.*
 
-*Systèmes compatibles avec homebridge :*
+*Systèmes compatibles avec Homebridge :*
 
 * Raspberry Pi 2 et 3 (Le Pi 3 est conseillé)
 
-* Box jeedom Mini +
+* Box Jeedom Mini +
 
-* Box jeedom pro
+* Box Jeedom pro
 
-* Box jeedom smart
+* Box Jeedom smart
 
-* Box jeedom pro V2
+* Box Jeedom pro V2
 
-* Tout système basé sur débian 8
+* Tout système basé sur Debian 8
 
 [IMPORTANT]
 *Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.*
 
-Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", il faut cliquer sur "redémarrer".
+Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
 
 image::../images/demon-homebridge.png[]
 
 
 === Mise à jour manuelle des dépendances
 
-Pour mettre à jour manuellement les dépendances, il faut cliquer sur "relancer".
+Pour mettre à jour manuellement les dépendances, il faut cliquer sur "Relancer".
 
 image::../images/dependances-homebridge.png[]
 
-=== Fichier LOG
+=== Fichiers LOG
 
 Les fichiers log permettent d'analyser pas à pas l'activité interne du processus et ses interactions avec son environnement.
 
-Ces fichiers peuvent être necessaires en cas de disfonctionenement du plugin.
+Ces fichiers peuvent être nécessaires en cas de disfonctionnement du plugin.
 
 image::../images/log.png[]
 
 * Homebridge : Historise toutes les communications avec le démon homebridge.
 
-* Homebridge_daemon : Historise les actions effectuées par homebridge (par exemple si un accessoire est envoyé à homebridge mais n'apparait pas dans l'application domicile, c'est ici qu'il faut aller voir).
+* Homebridge_daemon : Historise les actions effectuées par Homebridge (par exemple si un accessoire est envoyé à Homebridge mais n'apparait pas dans l'application Maison, c'est ici qu'il faut aller voir).
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
