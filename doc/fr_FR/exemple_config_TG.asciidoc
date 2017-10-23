@@ -8,7 +8,7 @@ Type d'accessoire : Double contact de Nodon (EnOcean)
 
 image::../images/lumiere-2.png[]
 
-Si les deux contacts sont utilisés, copiez-collez les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
+Si les deux contacts sont utilisés, copier-coller les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
 
 === Température et hydrométrie
 
