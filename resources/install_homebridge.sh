@@ -3,6 +3,8 @@ PROGRESS_FILE=/tmp/jeedom/homebridge/dependance
 touch ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
 echo "--0%"
+BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
 sudo killall homebridge 2>/dev/null
 
@@ -139,10 +141,9 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then
   sudo rm -f /usr/bin/ffmpeg
   echo "Réinstallez ffmpeg s'il était installé"; 
 fi 
-pwd
-BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper
-sudo chmod +x ../../resources/ffmpeg-wrapper
+
+sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper >/dev/null 2>&1
+sudo chmod +x ../../resources/ffmpeg-wrapper >/dev/null 2>&1
 sudo chmod +x ${BASEDIR}/ffmpeg-wrapper
 
 echo 90 > ${PROGRESS_FILE}
