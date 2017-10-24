@@ -140,8 +140,10 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then
   echo "Réinstallez ffmpeg s'il était installé"; 
 fi 
 pwd
+BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper
 sudo chmod +x ../../resources/ffmpeg-wrapper
+sudo chmod +x ${BASEDIR}/ffmpeg-wrapper
 
 echo 90 > ${PROGRESS_FILE}
 echo "--90%"
