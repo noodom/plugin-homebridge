@@ -139,8 +139,9 @@ if [[ `file -bi /usr/bin/ffmpeg` == *"text/x-shellscript"* ]]; then
   sudo rm -f /usr/bin/ffmpeg
   echo "Réinstallez ffmpeg s'il était installé"; 
 fi 
-sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper >/dev/null 2>&1
-sudo chmod +x ../../resources/ffmpeg-wrapper >/dev/null 2>&1
+pwd
+sudo chmod +x ../../plugins/homebridge/resources/ffmpeg-wrapper
+sudo chmod +x ../../resources/ffmpeg-wrapper
 
 echo 90 > ${PROGRESS_FILE}
 echo "--90%"
