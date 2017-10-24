@@ -57,4 +57,12 @@ Type d'accessoire : Aeotec - Contrôleur de porte de garage (GEN5) (Z-Wave)
 
 image::../images/garage.png[]
 
+=== Virtuel
+
+Type d'accessoire : Interrupteur bistable avec le plugin virtuel
+
+image::../images/virtuel.png[]
+
+image::../images/virtuel-tg.png[]
+
 include::exemple_config_camera.asciidoc[]

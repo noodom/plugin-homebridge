@@ -1,0 +1,19 @@
+=== Plugin spécifique
+
+==== Plugin thermostat
+
+===== Configuration
+
+Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" et "Automatique". 
+
+Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
+
+image::../images/thermostat1.png[]
+
+Seuls les modes "Chauffer" et "refroidir" sont à configurer. Il faut attribuer un mode du plugin thermostat à un mode de HomeKit.
+
+image::../images/thermostat.png[]
+
+===== Utilisation
+
+

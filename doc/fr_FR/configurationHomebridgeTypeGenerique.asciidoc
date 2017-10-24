@@ -1,5 +1,14 @@
 ===== Lumières
-Support des couleurs basique et buggé, doit être réécrit et documenté
+[options="header",cols=",^m,"]
+|===
+| Type générique | Obligatoire | Valeurs possibles 
+| Info/Prise Etat | OUI | 0 = Eteint 
+
+1 = Allumé
+| Action/Prise Bouton On | OUI | Référence vers l'Etat
+| Action/Prise Bouton Off | OUI | Référence vers l'Etat
+| Action/Prise Slider | NON Utilisé | N/A
+|===
 
 ===== Prises
 [options="header",cols=",^m,"]
@@ -139,8 +148,3 @@ mise à jour après slide vers le bas
 
 |===
 
-
-[IMPORTANT]
-Les références vers l'état dans les actions est primordiale !! sinon pas de lien entre l'état et ses actions possibles.
-
-image::../images/reference-etat.png[]

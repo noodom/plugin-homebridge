@@ -20,6 +20,8 @@ include::logHomebridge.asciidoc[]
 
 include::exemple_config_TG.asciidoc[]
 
+include::plugin-specifique.asciidoc[]
+
 == Changelog
 
 include::changelog.asciidoc[]

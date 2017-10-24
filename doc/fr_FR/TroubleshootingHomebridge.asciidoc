@@ -1,5 +1,10 @@
 === Aide Homebridge
 
+[IMPORTANT]
+Les références vers l'état dans les actions est primordiale !! sinon pas de lien entre l'état et ses actions possibles.
+
+image::../images/reference-etat.png[]
+
 *-> Je n'arrive pas à inclure Jeedom dans HomeKit !*
 
 TIP: Vérifier que le statut du démon Homebridge est sur OK.
