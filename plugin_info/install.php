@@ -134,6 +134,7 @@ function homebridge_install(){
 /*	log::add('homebridge', 'error', 'Lancement des dépendances de Homebridge, profitez-en pour lire la documentation ;)');
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();*/
+	exec(system::getCmdSudo() . 'chmod +x ' . dirname(__FILE__) . '/../resources/ffmpeg-wrapper');
 	log::add('homebridge', 'error', 'Homebridge - Merci pour l\'installation de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
 
