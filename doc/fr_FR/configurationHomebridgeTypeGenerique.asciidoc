@@ -90,7 +90,25 @@ N'existe pas en HomeKit
 N'existe pas en HomeKit
 
 ===== Thermostats
-Support basique, aucune configuration
+[options="header",cols=",^m,"]
+|===
+| Type générique | Obligatoire | Valeurs possibles 
+| Info/Thermostat Etat (BINAIRE) | NON | 0 = Eteint 
+
+1 = Allumé
+| Info/Thermostat Etat (HUMAIN) | NON | chaine
+| Info/Thermostat Mode | OUI si associé mode homekit | chaine
+| Action/Thermostat Mode | NON | Peut être associé mode homekit
+| Info/Thermostat Température Extérieur| NON utilisé | N/A
+| Info/Thermostat Température ambiante| NON | -50 -> 100
+| Info/Thermostat Consigne| OUI | 10 -> 38
+| Action/Thermostat Consigne| OUI | 10 -> 38
+| Info/Thermostat Verrouillage| NON | 0 = Non Verrouillé 
+
+1 = Verrouillé
+| Action/Thermostat Verrouillage| OUI si Info/Verrouillage | N/A
+| Action/Thermostat Déverrouillage| OUI si Info/Verrouillage | N/A
+|===
 
 ===== Cameras
 Support par "Plateforme Homebridge supplémentaire"
