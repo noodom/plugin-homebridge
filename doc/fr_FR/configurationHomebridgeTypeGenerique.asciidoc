@@ -25,23 +25,23 @@ autre que 0 = Allumé
 | Action/Lumière Slider
 
 (Luminosité)
-| OUI | Référence vers l'Etat
-| Action/Lumière Bouton On | OUI | Référence vers l'Etat :
+| OUI | Réf. vers Lumière Etat
+| Action/Lumière Bouton On | OUI | Réf. vers Lumière Etat :
 
 - Binaire s'il est présent
 
 - Etat sinon
-| Action/Lumière Bouton Off | OUI | Référence vers l'Etat :
+| Action/Lumière Bouton Off | OUI | Réf. vers Lumière Etat :
 
 - Binaire s'il est présent
 
 - Etat sinon
 | Info/Lumière Couleur| NON | Format #RRGGBB
-| Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
+| Action/Lumière Couleur| Si Info/Lumière Couleur | Réf. vers Info/Lumière Couleur
 | Info/Lumière Température Couleur| NON | Numérique
 
 (en fonction du min-max de Action/Lumière Température Couleur)
-| Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Numérique
+| Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Réf. vers Info/Lumière Température Couleur
 
 | Action/Lumière Toggle | NON Utilisé | N/A
 | Action/Lumière Mode | NON Utilisé | N/A
@@ -54,8 +54,8 @@ autre que 0 = Allumé
 | Info/Prise Etat | OUI | 0 = Eteint 
 
 1 = Allumé
-| Action/Prise Bouton On | OUI | Référence vers l'Etat
-| Action/Prise Bouton Off | OUI | Référence vers l'Etat
+| Action/Prise Bouton On | OUI | Réf. vers Info/Prise Etat
+| Action/Prise Bouton Off | OUI | Réf. vers Info/Prise Etat
 | Action/Prise Slider | NON Utilisé | N/A
 |===
 
@@ -66,10 +66,10 @@ autre que 0 = Allumé
 | Info/Volet Etat | OUI | 0 = Fermé 
 
 >95 = Ouvert
-| Action/Volet Bouton Monter | Si Descendre | Référence vers l'Etat
-| Action/Volet Bouton Descendre | Si Monter | Référence vers l'Etat
+| Action/Volet Bouton Monter | Si Descendre | Réf. vers Info/Volet Etat
+| Action/Volet Bouton Descendre | Si Monter | Réf. vers Info/Volet Etat
 | Action/Volet Bouton Stop | NON Utilisé | N/A
-| Action/Volet Bouton Slider | Si Seul | Référence vers l'Etat
+| Action/Volet Bouton Slider | Si Seul | Réf. vers Info/Volet Etat
 |===
 
 ===== Volets BSO
@@ -85,8 +85,8 @@ N'existe pas en HomeKit
 | Info/Serrure Etat | OUI | pas 1 = Non Sécurisée 
 
 1 = Sécurisée
-| Action/Serrure Bouton Ouvrir | OUI | Référence vers l'Etat
-| Action/Serrure Bouton Fermer | OUI | Référence vers l'Etat
+| Action/Serrure Bouton Ouvrir | OUI | Réf. vers Info/Serrure Etat
+| Action/Serrure Bouton Fermer | OUI | Réf. vers Info/Serrure Etat
 |===
 
 ===== Sirènes
@@ -132,7 +132,11 @@ Info/Garage état ouvrant
 255 = Ouvert
 
 (Configurable)
-| Action/Portail ou garage bouton toggle | OUI | Référence vers l'Etat
+| Action/Portail ou garage bouton toggle | OUI | Réf. vers Info/Portail état ouvrant
+
+ou
+
+Réf. vers Info/Garage état ouvrant
 | Action/Portail ou garage bouton d'ouverture | NON Utilisé | N/A
 | Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
 |===
@@ -144,11 +148,11 @@ Info/Garage état ouvrant
 | Info/Haut-Parleur Mute | OUI | 1 = Pas de son 
 
 0 = Son
-| Action/Haut-Parleur Mute | OUI | Référence vers l'Etat
-| Action/Haut-Parleur UnMute | OUI | Référence vers l'Etat
-| Action/Haut-Parleur Toggle Mute | Si seul | Référence vers l'Etat
+| Action/Haut-Parleur Mute | OUI | Réf. vers Info/Haut-Parleur Mute
+| Action/Haut-Parleur UnMute | OUI | Réf. vers Info/Haut-Parleur Mute
+| Action/Haut-Parleur Toggle Mute | Si seul | Réf. vers Info/Haut-Parleur Mute
 | Info/Haut-Parleur Volume | NON | %
-| Action/Haut-Parleur Volume | OUI si Info/HP Volume | Référence vers l'Etat
+| Action/Haut-Parleur Volume | OUI si Info/HP Volume | Réf. vers Info/Haut-Parleur Volume
 |===
 
 ===== Generic
