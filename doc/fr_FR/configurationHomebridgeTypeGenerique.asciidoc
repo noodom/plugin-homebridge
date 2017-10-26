@@ -203,9 +203,9 @@ mise à jour après slide vers le bas
 | Action/Générique 
 
 (N'existe pas en HomeKit)| NON | N/A
-| Pluie (accumulation) | NON | Générique (Eve Seulement)
-| Pluie (mm/h) | NON | Générique (Eve Seulement)
-| Vent (direction) | NON | Générique (Eve Seulement)
-| Vent (vitesse) | NON | Générique (Eve Seulement)
+| Info/Pluie (accumulation) | NON | Générique (Eve Seulement)
+| Info/Pluie (mm/h) | NON | Générique (Eve Seulement)
+| Info/Vent (direction) | NON | Générique (Eve Seulement)
+| Info/Vent (vitesse) | NON | Générique (Eve Seulement)
 |===
 
