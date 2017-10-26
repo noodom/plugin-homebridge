@@ -96,8 +96,8 @@ N'existe pas en HomeKit
 | Info/Thermostat Etat (BINAIRE) | NON | 0 = Eteint 
 
 1 = Allumé
-| Info/Thermostat Etat (HUMAIN) | NON | chaine
-| Info/Thermostat Mode | OUI si associé mode homekit | chaine
+| Info/Thermostat Etat (HUMAIN) | NON | Générique (Eve Seulement)
+| Info/Thermostat Mode | OUI si associé mode homekit | Générique (Eve Seulement)
 | Action/Thermostat Mode | NON | Peut être associé mode homekit
 | Info/Thermostat Température Extérieur| NON utilisé | N/A
 | Info/Thermostat Température ambiante| NON | -50 -> 100
@@ -178,23 +178,23 @@ Info/Fenêtre
 | Info/Sabotage | NON | 1 = Pas de sabotage
 
 0 = Sabotage
-| Info/Choc | NON | Générique
-| Info/Pression | NON | Générique
-| Info/Son (dB) | NON | Générique
-| Info/UV | NON | Générique
+| Info/Choc | NON | Générique (Eve Seulement)
+| Info/Pression | NON | Générique (Eve Seulement)
+| Info/Son (dB) | NON | Générique (Eve Seulement)
+| Info/UV | NON | Générique (Eve Seulement)
 | Info/Générique | NON | Valeur <64 charactères 
 
 avec Unité indiquée ou pas
 
-dans Eve uniquement
+(Eve Seulement)
 
 mise à jour après slide vers le bas
 | Action/Générique 
 
 (N'existe pas en HomeKit)| NON | N/A
-| Pluie (accumulation) | NON | Générique
-| Pluie (mm/h) | NON | Générique
-| Vent (direction) | NON | Générique
-| Vent (vitesse) | NON | Générique
+| Pluie (accumulation) | NON | Générique (Eve Seulement)
+| Pluie (mm/h) | NON | Générique (Eve Seulement)
+| Vent (direction) | NON | Générique (Eve Seulement)
+| Vent (vitesse) | NON | Générique (Eve Seulement)
 |===
 
