@@ -2,6 +2,15 @@
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
+| Info/Lumière Etat (Binaire)| NON | Ajout pour les lumières
+
+dont la luminosité ne change pas
+
+lorsqu'elle est éteinte
+
+0 = Eteint 
+
+autre que 0 = Allumé
 | Info/Lumière Etat | OUI | Luminosité
 
 0-100 ou 0-99 ou 0-255
@@ -13,21 +22,6 @@ ou Binaire
 0 = Eteint
 
 autre que 0 = Allumé 
-| Info/Lumière Etat (Binaire)| NON | Ajout pour les lumières
-
-dont la luminosité ne change pas
-
-lorsqu'elle est éteinte
-
-0 = Eteint 
-
-autre que 0 = Allumé
-| Info/Lumière Couleur| NON | Format #RRGGBB
-| Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
-| Info/Lumière Température Couleur| NON | Numérique
-
-(en fonction du max de Action/Lumière Température Couleur)
-| Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Numérique
 | Action/Lumière Slider | OUI | Référence vers l'Etat
 | Action/Lumière Bouton On | OUI | Référence vers l'Etat
 
@@ -39,6 +33,13 @@ Etat sinon
 Binaire s'il est présent
 
 Etat sinon
+| Info/Lumière Couleur| NON | Format #RRGGBB
+| Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
+| Info/Lumière Température Couleur| NON | Numérique
+
+(en fonction du max de Action/Lumière Température Couleur)
+| Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Numérique
+
 | Action/Lumière Toggle | NON Utilisé | N/A
 | Action/Lumière Mode | NON Utilisé | N/A
 |===
