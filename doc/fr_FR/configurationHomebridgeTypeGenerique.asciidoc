@@ -110,18 +110,6 @@ N'existe pas en HomeKit
 | Action/Thermostat Déverrouillage| OUI si Info/Verrouillage | N/A
 |===
 
-===== Cameras
-Support par "Plateforme Homebridge supplémentaire"
-
-===== Modes
-N'existe pas en HomeKit
-
-===== Alarme
-Plugin Officiel pris en charge, Modes associables aux modes HomeKit
-
-===== Météo
-Pas encore supporté (certains éléments existent en HomeKit mais pas tous)
-
 ===== Portails ou Garages
 [options="header",cols=",^m,"]
 |===
@@ -142,6 +130,20 @@ Info/Garage état ouvrant
 | Action/Portail ou garage bouton toggle | OUI | Référence vers l'Etat
 | Action/Portail ou garage bouton d'ouverture | NON Utilisé | N/A
 | Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
+|===
+
+===== Haut-Parleurs
+[options="header",cols=",^m,"]
+|===
+| Type générique | Obligatoire | Valeurs possibles 
+| Info/Haut-Parleur Mute | OUI | 1 = Pas de son 
+
+0 = Son
+| Action/Haut-Parleur Mute | OUI | Référence vers l'Etat
+| Action/Haut-Parleur UnMute | OUI | Référence vers l'Etat
+| Action/Haut-Parleur Toggle Mute | Si seul | Référence vers l'Etat
+| Info/Haut-Parleur Volume | NON | 0 -> 100
+| Action/Haut-Parleur Volume | OUI si Info/HP Volume | Référence vers l'Etat
 |===
 
 ===== Generic
