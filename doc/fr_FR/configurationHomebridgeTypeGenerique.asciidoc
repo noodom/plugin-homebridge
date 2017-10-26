@@ -26,16 +26,16 @@ autre que 0 = Allumé
 
 (Luminosité)
 | OUI | Référence vers l'Etat
-| Action/Lumière Bouton On | OUI | Référence vers l'Etat
+| Action/Lumière Bouton On | OUI | Référence vers l'Etat :
 
-Binaire s'il est présent
+- Binaire s'il est présent
 
-Etat sinon
-| Action/Lumière Bouton Off | OUI | Référence vers l'Etat
+- Etat sinon
+| Action/Lumière Bouton Off | OUI | Référence vers l'Etat :
 
-Binaire s'il est présent
+- Binaire s'il est présent
 
-Etat sinon
+- Etat sinon
 | Info/Lumière Couleur| NON | Format #RRGGBB
 | Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
 | Info/Lumière Température Couleur| NON | Numérique
