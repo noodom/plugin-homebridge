@@ -6,7 +6,7 @@
 
 dont la luminosité ne change pas
 
-lorsqu'elle est éteinte
+lorsqu'elle est éteinte (Yeelight, Ikea, ...)
 
 0 = Eteint 
 
