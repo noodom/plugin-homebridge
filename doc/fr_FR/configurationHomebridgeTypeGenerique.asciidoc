@@ -38,7 +38,7 @@ autre que 0 = Allumé
 - Etat sinon
 | Info/Lumière Couleur| NON | Format #RRGGBB
 | Action/Lumière Couleur| Si Info/Lumière Couleur | Réf. vers Info/Lumière Couleur
-| Info/Lumière Température Couleur| NON | Numérique
+| Info/Lumière Température Couleur| NON | Numérique (Kelvin)
 
 (en fonction du min-max de Action/Lumière Température Couleur)
 | Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Réf. vers Info/Lumière Température Couleur
