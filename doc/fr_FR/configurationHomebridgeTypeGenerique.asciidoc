@@ -2,17 +2,17 @@
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
-| Info/Lumière Etat | OUI | Luminosité ou binaire
+| Info/Lumière Etat | OUI | Luminosité
 
-0-100
+0-100 ou 0-99 ou 0-255
 
-0-99
+(en fonction du max de Action/Lumière Slider)
 
-0-255
+ou Binaire
 
-0 = Eteint (si pas l'etat binaire)
+0 = Eteint
 
-autre -> Allumé (si pas l'etat binaire)
+autre que 0 = Allumé 
 | Info/Lumière Etat (Binaire)| NON | Ajout pour les lumières
 
 dont la luminosité ne change pas
@@ -21,13 +21,14 @@ lorsqu'elle est éteinte
 
 0 = Eteint 
 
-1 = Allumé
+autre que 0 = Allumé
 | Info/Lumière Couleur| NON | Format #RRGGBB
 | Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
-| Action/Lumière Slider | OUI
+| Info/Lumière Température Couleur| NON | Numérique
 
-n'est pas binaire
-| N/A
+(en fonction du max de Action/Lumière Température Couleur)
+| Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Numérique
+| Action/Lumière Slider | OUI | Référence vers l'Etat
 | Action/Lumière Bouton On | OUI | Référence vers l'Etat
 
 Binaire s'il est présent
@@ -39,6 +40,7 @@ Binaire s'il est présent
 
 Etat sinon
 | Action/Lumière Toggle | NON Utilisé | N/A
+| Action/Lumière Mode | NON Utilisé | N/A
 |===
 
 ===== Prises
