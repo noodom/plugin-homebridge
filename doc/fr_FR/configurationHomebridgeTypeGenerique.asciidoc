@@ -121,14 +121,6 @@ Plugin Officiel pris en charge, Modes associables aux modes HomeKit
 
 ===== Météo
 Pas encore supporté (certains éléments existent en HomeKit mais pas tous)
-[options="header",cols=",^m,"]
-|===
-| Type générique | Obligatoire | Valeurs possibles 
-| Pluie (accumulation) | NON | Générique
-| Pluie (mm/h) | NON | Générique
-| Vent (direction) | NON | Générique
-| Vent (vitesse) | NON | Générique
-|===
 
 ===== Portails ou Garages
 [options="header",cols=",^m,"]
@@ -200,6 +192,9 @@ mise à jour après slide vers le bas
 | Action/Générique 
 
 (N'existe pas en HomeKit)| NON | N/A
-
+| Pluie (accumulation) | NON | Générique
+| Pluie (mm/h) | NON | Générique
+| Vent (direction) | NON | Générique
+| Vent (vitesse) | NON | Générique
 |===
 
