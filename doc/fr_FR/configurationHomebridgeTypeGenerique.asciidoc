@@ -37,7 +37,7 @@ Etat sinon
 | Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
 | Info/Lumière Température Couleur| NON | Numérique
 
-(en fonction du max de Action/Lumière Température Couleur)
+(en fonction du min-max de Action/Lumière Température Couleur)
 | Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Numérique
 
 | Action/Lumière Toggle | NON Utilisé | N/A
@@ -116,11 +116,19 @@ Support par "Plateforme Homebridge supplémentaire"
 ===== Modes
 N'existe pas en HomeKit
 
-===== Alarmes
-Support en lecture d'état, changement d'état à venir
+===== Alarme
+Plugin Officiel pris en charge, Modes associables aux modes HomeKit
 
 ===== Météo
 Pas encore supporté (certains éléments existent en HomeKit mais pas tous)
+[options="header",cols=",^m,"]
+|===
+| Type générique | Obligatoire | Valeurs possibles 
+| Pluie (accumulation) | NON | Générique
+| Pluie (mm/h) | NON | Générique
+| Vent (direction) | NON | Générique
+| Vent (vitesse) | NON | Générique
+|===
 
 ===== Portails ou Garages
 [options="header",cols=",^m,"]
@@ -157,12 +165,8 @@ Info/Garage état ouvrant
 | Info/Présence | NON | 0 = Pas de mouvement
 
 1 = Mouvement
-| Info/Batterie
-
-(caché)| NON | %
-| Info/Batterie en charge
-
-(caché, à venir)| NON | 0 = NON
+| Info/Batterie| NON | %
+| Info/Batterie en charge| NON | 0 = NON
 
 pas 0 = OUI
 | Info/Détection de fumée | NON | pas 1 = Pas de fumée détectée
@@ -179,14 +183,13 @@ Info/Fenêtre
 (même traitement)| NON | pas 1 = Contact
 
 1 = Pas de contact
-| Info/Sabotage 
+| Info/Sabotage | NON | 1 = Pas de sabotage
 
-(à venir)| NON | 0 = Pas de sabotage
-
-pas 0 = Sabotage
-| Info/Choc 
-
-(N'existe pas en HomeKit)| NON | N/A
+0 = Sabotage
+| Info/Choc | NON | Générique
+| Info/Pression | NON | Générique
+| Info/Son (dB) | NON | Générique
+| Info/UV | NON | Générique
 | Info/Générique | NON | Valeur <64 charactères 
 
 avec Unité indiquée ou pas
