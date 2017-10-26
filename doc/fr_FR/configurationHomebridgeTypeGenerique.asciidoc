@@ -127,6 +127,8 @@ Info/Garage état ouvrant
 254 = Ouverture en cours
 
 255 = Ouvert
+
+(Configurable)
 | Action/Portail ou garage bouton toggle | OUI | Référence vers l'Etat
 | Action/Portail ou garage bouton d'ouverture | NON Utilisé | N/A
 | Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
@@ -142,7 +144,7 @@ Info/Garage état ouvrant
 | Action/Haut-Parleur Mute | OUI | Référence vers l'Etat
 | Action/Haut-Parleur UnMute | OUI | Référence vers l'Etat
 | Action/Haut-Parleur Toggle Mute | Si seul | Référence vers l'Etat
-| Info/Haut-Parleur Volume | NON | 0 -> 100
+| Info/Haut-Parleur Volume | NON | %
 | Action/Haut-Parleur Volume | OUI si Info/HP Volume | Référence vers l'Etat
 |===
 
