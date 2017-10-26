@@ -22,7 +22,10 @@ ou Binaire
 0 = Eteint
 
 autre que 0 = Allumé 
-| Action/Lumière Slider | OUI | Référence vers l'Etat
+| Action/Lumière Slider
+
+(Luminosité)
+| OUI | Référence vers l'Etat
 | Action/Lumière Bouton On | OUI | Référence vers l'Etat
 
 Binaire s'il est présent
