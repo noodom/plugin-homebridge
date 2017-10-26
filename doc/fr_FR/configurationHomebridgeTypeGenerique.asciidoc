@@ -41,8 +41,11 @@ autre que 0 = Allumé
 | Info/Lumière Température Couleur| NON | Numérique (Kelvin)
 
 (en fonction du min-max de Action/Lumière Température Couleur)
+
+
 | Action/Lumière Température Couleur| Si Info/Lumière Température Couleur | Réf. vers Info/Lumière Température Couleur
 
+(Eve Seulement)
 | Action/Lumière Toggle | NON Utilisé | N/A
 | Action/Lumière Mode | NON Utilisé | N/A
 |===
