@@ -2,12 +2,43 @@
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
-| Info/Prise Etat | OUI | 0 = Eteint 
+| Info/Lumière Etat | OUI | Luminosité ou binaire
+
+0-100
+
+0-99
+
+0-255
+
+0 = Eteint (si pas l'etat binaire)
+
+autre -> Allumé (si pas l'etat binaire)
+| Info/Lumière Etat (Binaire)| NON | Ajout pour les lumières
+
+dont la luminosité ne change pas
+
+lorsqu'elle est éteinte
+
+0 = Eteint 
 
 1 = Allumé
-| Action/Prise Bouton On | OUI | Référence vers l'Etat
-| Action/Prise Bouton Off | OUI | Référence vers l'Etat
-| Action/Prise Slider | NON Utilisé | N/A
+| Info/Lumière Couleur| NON | Format #RRGGBB
+| Action/Lumière Couleur| Si Info/Lumière Couleur | Format #RRGGBB
+| Action/Lumière Slider | OUI
+
+n'est pas binaire
+| N/A
+| Action/Lumière Bouton On | OUI | Référence vers l'Etat
+
+Binaire s'il est présent
+
+Etat sinon
+| Action/Lumière Bouton Off | OUI | Référence vers l'Etat
+
+Binaire s'il est présent
+
+Etat sinon
+| Action/Lumière Toggle | NON Utilisé | N/A
 |===
 
 ===== Prises
