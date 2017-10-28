@@ -2265,6 +2265,18 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <h3 id="trueplugin-sp-cifique"><a class="anchor" href="#trueplugin-sp-cifique"></a>Plugin spécifique</h3>
 <div class="sect3">
 <h4 id="trueplugin-thermostat"><a class="anchor" href="#trueplugin-thermostat"></a>Plugin thermostat</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+La fonctionnalité du thermostat dans HomeBridge est compatible uniquement (pour l&#8217;intant) avec le plugin jeedom thermostat. Pour configurer le plugin thermostat, il faut se référer à la <a href="http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html">documentation du plugin.</a>.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect4">
 <h5 id="trueconfiguration"><a class="anchor" href="#trueconfiguration"></a>Configuration</h5>
 <div class="paragraph">
@@ -2287,7 +2299,7 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <p><strong>Mode</strong> : Sélection du mode du thermostat</p>
 </li>
 <li>
-<p><strong>Protection enfants</strong> : Permet de verouiller les réglages du thermostat</p>
+<p><strong>Protection enfants</strong> : Permet de verrouiller les réglages du thermostat</p>
 </li>
 <li>
 <p><strong>Statut</strong> : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.</p>
@@ -2306,7 +2318,7 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <div class="sect4">
 <h5 id="trueutilisation"><a class="anchor" href="#trueutilisation"></a>Utilisation</h5>
 <div class="paragraph">
-<p>Seuls les modes "CHAUF" et "CLIM" fonctionneront. Les Modes "ETEINT" et "AUTO" sont non fonctionnelles.</p>
+<p>Seuls les modes "CHAUF", "CLIM" et "ETEINT" fonctionneront. Le Mode "AUTO" est non fonctionnelle. Pour mettre à l&#8217;arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ETEINT".</p>
 </div>
 <div class="paragraph">
 <p><span class="underline">Mise en route du chauffage</span></p>
@@ -2327,7 +2339,7 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <p>La température cible passe automatique à la température de consigne réglée dans le plugin thermostat.</p>
 </div>
 <div class="paragraph">
-<p>Le mode passe en "chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C&#8217;est juste que le système de chauffage est route. Le statut indique si le radiateur emet de la chaleur.</p>
+<p>Le mode passe en "chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C&#8217;est juste que le système de chauffage est route. Le statut indique si le radiateur émet de la chaleur.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2338,17 +2350,59 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <p>*Statut arrêté" : Le radiateur n'émet pas de chaleur.</p>
 </div>
 <div class="paragraph">
-<p>*Statut achauffage" : Le radiateur émet de chaleur.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>CLIM</strong> : Active le mode du plugin thermostat du plugin jeedom pour la partie climatisation.</p>
-</li>
-</ul>
+<p>*Statut chauffage" : Le radiateur émet de chaleur.</p>
 </div>
 <div class="paragraph">
-<p>Il également possible de régler manuelement la température de consigne. Dans ce cas,</p>
+<p>Il est également possible de régler une température de consigne directement depuis l&#8217;application Eve ou via Siri.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/sirichauff.png" alt="sirichauff.png">
+</div>
+</div>
+<div class="paragraph">
+<p>Le chauffage passe en mode manuel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/forcechauff.png" alt="forcechauff.png">
+</div>
+</div>
+<div class="paragraph">
+<p>Le mode passe en "Désactivé", c&#8217;est normal. Dans certain cas, il peut rester dans la position où il était avant la demande de changement de la température de consigne.</p>
+</div>
+<div class="paragraph">
+<p>La température de consigne passe bien à la valeur demandée. Si la température ambiante est infèrieure à la température de consigne, le chauffage se mettra en route. Le statut passera donc en "Chauffage".</p>
+</div>
+<div class="paragraph">
+<p><span class="underline">Mise en route de la climatisation</span></p>
+</div>
+<div class="paragraph">
+<p>Le fonctionnement de la climatisation est indentique au fonctionnement du chauffage.</p>
+</div>
+<div class="paragraph">
+<p>En cliquant sur "CLIM", on active le mode de climatisation réglé dans le plugin thermostat.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/clim.png" alt="clim.png">
+</div>
+</div>
+<div class="paragraph">
+<p>On peut modifier la température de consigne.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/siriclim.png" alt="siriclim.png">
+</div>
+</div>
+<div class="paragraph">
+<p>Le fonctionnement de la climatisation passe en mode manuel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/climforce.png" alt="climforce.png">
+</div>
 </div>
 </div>
 </div>
@@ -2794,7 +2848,7 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-28 10:56:15 CEST
+Last updated 2017-10-28 21:11:25 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
