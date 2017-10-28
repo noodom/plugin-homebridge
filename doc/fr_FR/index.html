@@ -1571,6 +1571,14 @@ Comme expliqué plus haut dans la doc, Homebridge n&#8217;est pas reconnu offici
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="trueaide-homebridge"><a class="anchor" href="#trueaide-homebridge"></a>Aide Homebridge</h3>
+<div class="sect3">
+<h4 id="truesupport"><a class="anchor" href="#truesupport"></a>Support</h4>
+<div class="paragraph">
+<p><strong>Merci de passer par le forum, de créer un sujet par demande et de lire les autres sujets s&#8217;ils ressemblent au votre (ceux créés après la sortie de ce plugin, c&#8217;est logique :-)) Pour être certain que vous avez lu ceci jusqu&#8217;au bout précédez votre titre de sujet par [HB-VotreNom] sinon le sujet sera effacé sans réponse.</strong></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="truepoint-important"><a class="anchor" href="#truepoint-important"></a>Point important</h4>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1578,7 +1586,7 @@ Comme expliqué plus haut dans la doc, Homebridge n&#8217;est pas reconnu offici
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Les références vers l'état dans les actions est primordiale !! sinon pas de lien entre l'état et ses actions possibles.
+Les références vers l'état dans les actions sont primordiales !! Sinon pas de lien entre l'état et ses actions possibles.
 </td>
 </tr>
 </table>
@@ -1587,6 +1595,24 @@ Les références vers l'état dans les actions est primordiale !! sinon pas de l
 <div class="content">
 <img src="../images/reference-etat.png" alt="reference etat.png">
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="truefaq"><a class="anchor" href="#truefaq"></a>FAQ</h4>
+<div class="paragraph">
+<p><strong>&#8594; Le pont HomeBridge n&#8217;apparait pas dans l&#8217;application Maison !</strong></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Vérifiez que vous êtes connecté au même sous réseau le pont HomeBridge que les fonctions Igmp snooping ou dns multicast sont activées sur votre box, routeur ou switch.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>&#8594; Je n&#8217;arrive pas à inclure Jeedom dans HomeKit !</strong></p>
@@ -1757,6 +1783,7 @@ Beaucoup d&#8217;informations se trouvent dans les logs, le prochain chapitre vo
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2241,7 +2268,7 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <div class="sect4">
 <h5 id="trueconfiguration"><a class="anchor" href="#trueconfiguration"></a>Configuration</h5>
 <div class="paragraph">
-<p>Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" et "Automatique".</p>
+<p>Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" "Limatisation" et "Automatique".</p>
 </div>
 <div class="paragraph">
 <p>Pour utiliser le thermostat dans HomeKit, l&#8217;application Eve est beaucoup plus fonctionnelle que l&#8217;application Maison. Il est d&#8217;ailleur conseillé de l&#8217;utiliser.</p>
@@ -2250,6 +2277,22 @@ Son intégration dans homebridge est néanmoins possible.</p>
 <div class="content">
 <img src="../images/thermostat1.png" alt="thermostat1.png">
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Température cible</strong> : Température de consigne</p>
+</li>
+<li>
+<p><strong>Mode</strong> : Sélection du mode du thermostat</p>
+</li>
+<li>
+<p><strong>Protection enfants</strong> : Permet de verouiller les réglages du thermostat</p>
+</li>
+<li>
+<p><strong>Statut</strong> : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Seuls les modes "Chauffer" et "refroidir" sont à configurer. Il faut attribuer un mode du plugin thermostat à un mode de HomeKit.</p>
@@ -2262,7 +2305,51 @@ Son intégration dans homebridge est néanmoins possible.</p>
 </div>
 <div class="sect4">
 <h5 id="trueutilisation"><a class="anchor" href="#trueutilisation"></a>Utilisation</h5>
-
+<div class="paragraph">
+<p>Seuls les modes "CHAUF" et "CLIM" fonctionneront. Les Modes "ETEINT" et "AUTO" sont non fonctionnelles.</p>
+</div>
+<div class="paragraph">
+<p><span class="underline">Mise en route du chauffage</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CHAUF</strong> : Active le mode du plugin thermostat jeedom pour la partie chauffage.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/chauffe.png" alt="chauffe.png">
+</div>
+</div>
+<div class="paragraph">
+<p>La température cible passe automatique à la température de consigne réglée dans le plugin thermostat.</p>
+</div>
+<div class="paragraph">
+<p>Le mode passe en "chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C&#8217;est juste que le système de chauffage est route. Le statut indique si le radiateur emet de la chaleur.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/statut.png" alt="statut.png">
+</div>
+</div>
+<div class="paragraph">
+<p>*Statut arrêté" : Le radiateur n'émet pas de chaleur.</p>
+</div>
+<div class="paragraph">
+<p>*Statut achauffage" : Le radiateur émet de chaleur.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CLIM</strong> : Active le mode du plugin thermostat du plugin jeedom pour la partie climatisation.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il également possible de régler manuelement la température de consigne. Dans ce cas,</p>
+</div>
 </div>
 </div>
 </div>
@@ -2707,7 +2794,7 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-28 09:00:09 CEST
+Last updated 2017-10-28 10:56:15 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

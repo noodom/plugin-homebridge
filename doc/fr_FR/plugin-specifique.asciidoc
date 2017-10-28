@@ -4,11 +4,19 @@
 
 ===== Configuration
 
-Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" et "Automatique". 
+Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" "Limatisation" et "Automatique". 
 
 Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
 
 image::../images/thermostat1.png[]
+
+* *Température cible* : Température de consigne
+
+* *Mode* : Sélection du mode du thermostat
+
+* *Protection enfants* : Permet de verouiller les réglages du thermostat
+
+* *Statut* : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.
 
 Seuls les modes "Chauffer" et "refroidir" sont à configurer. Il faut attribuer un mode du plugin thermostat à un mode de HomeKit.
 
@@ -16,4 +24,26 @@ image::../images/thermostat.png[]
 
 ===== Utilisation
 
+Seuls les modes "CHAUF" et "CLIM" fonctionneront. Les Modes "ETEINT" et "AUTO" sont non fonctionnelles.
 
+[underline]#Mise en route du chauffage#
+
+* *CHAUF* : Active le mode du plugin thermostat jeedom pour la partie chauffage.
+
+image::../images/chauffe.png[]
+
+La température cible passe automatique à la température de consigne réglée dans le plugin thermostat.
+
+Le mode passe en "chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C'est juste que le système de chauffage est route. Le statut indique si le radiateur emet de la chaleur.
+
+image::../images/statut.png[]
+
+*Statut arrêté" : Le radiateur n'émet pas de chaleur.
+
+*Statut achauffage" : Le radiateur émet de chaleur.
+
+
+
+* *CLIM* : Active le mode du plugin thermostat du plugin jeedom pour la partie climatisation.
+
+Il également possible de régler manuelement la température de consigne. Dans ce cas, 
