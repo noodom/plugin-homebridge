@@ -1,6 +1,4 @@
-== Changelog
-
-=== Homebridge
+=== Plugin HomeBridge
 
 ==== v1.3
     * Plugin séparé du plugin App Mobile.
