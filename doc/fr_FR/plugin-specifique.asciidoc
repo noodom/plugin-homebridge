@@ -8,7 +8,7 @@ La fonctionnalité du thermostat dans HomeBridge est compatible uniquement (pour
 
 ===== Configuration
 
-Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "chauffer" "Limatisation" et "Automatique". 
+Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "Chauffer" "Climatiser" et "Automatique". 
 
 Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
 
