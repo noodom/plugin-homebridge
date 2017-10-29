@@ -90,6 +90,7 @@ Depuis l'application Maison :
 image::../images/alarme.png[]
 
 Depuis l'application Eve : 
+
 image::../images/alarmeeve.png[]
 
 Le mode "désactivé", inhibe l'ensemble des modes d'alarme du plugin "Alarme". Les actions de l'onglet "désactivation OK" sont lancé (en fonction du mode de sortie).
