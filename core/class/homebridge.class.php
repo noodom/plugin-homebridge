@@ -314,7 +314,7 @@ class homebridge extends eqLogic {
 			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
 			if (!is_object($eqLogicExists)) {
 				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
-				//array_splice($content['eqLogic'],$keyEqLogicCustom);
+				array_splice($content['eqLogic'],$keyEqLogicCustom);
 				$found=true;
 			}
 		}
@@ -322,7 +322,7 @@ class homebridge extends eqLogic {
 			$cmdExists = cmd::byId($cmdCustom['id']);
 			if (!is_object($cmdExists)) {
 				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
-				//array_splice($content['cmd'],$keyCmdCustom);
+				array_splice($content['cmd'],$keyCmdCustom);
 				$found=true;
 			}
 		}
