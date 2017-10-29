@@ -74,3 +74,4 @@ Le fonctionnement de la climatisation passe en mode manuel.
 
 image::../images/climforce.png[]
 
+==== Plugin alarme
