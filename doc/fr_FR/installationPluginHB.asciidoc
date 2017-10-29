@@ -12,7 +12,7 @@ image::../images/activationHB.png[]
 
 ===  Installation des dépendances
 
-Les dépendances sont installées automatiquement. Elles seront également réinstallées lors d'une mise à jour du plugin.
+Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Elles seront également réinstallées lors d'une mise à jour du plugin si b.
 
 image::../images/installationDep.png[]
 
@@ -30,12 +30,12 @@ image::../images/installationDep.png[]
 
 * Box Jeedom pro V2
 
-* Tout système basé sur Debian 8
+* Tout système basé sur Debian 8 ou 9
 
 [IMPORTANT]
 *Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.*
 
-Une fois les dépendances installées, le démon se lance. Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
+Une fois les dépendances installées, le démon se lance (dans les 5 min). Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
 
 image::../images/demon-homebridge.png[]
 
