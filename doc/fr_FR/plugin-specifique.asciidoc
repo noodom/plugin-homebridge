@@ -75,3 +75,72 @@ Le fonctionnement de la climatisation passe en mode manuel.
 image::../images/climforce.png[]
 
 ==== Plugin alarme
+
+[IMPORTANT]
+La fonctionnalité de l'alarme dans HomeBridge est compatible uniquement (pour l'intant) avec le plugin jeedom "Alarme". Pour configurer le plugin alarme, il faut se référer à la http://https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin.].
+
+*Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
+
+===== Configuration
+
+Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "désactivée", "Nuit", "A distance" et "Domicile".
+
+Depuis l'application Maison : 
+
+image::../images/alarme.png[]
+
+Depuis l'application Eve : 
+
+image::../images/alarmeeve.png[]
+
+Le mode "désactivé", inhibe l'ensemble des modes d'alarme du plugin "Alarme". Les actions de l'onglet "désactivation OK" sont lancé (en fonction du mode de sortie).
+
+image::../images/inhibe.png[]
+
+Les 3 autres modes, sont a définir dans la configuration du plugin HomeBridge.
+
+image::../images/configalarme.png[]
+
+[IMPORTANT]
+
+Le "mode jeedom" correspond aux modes du plugin "alarme".
+
+image::../images/modealarme.png[]
+
+Il suffit d'affecter le mode jeedom au mode HomeBridge choisi.
+
+===== Utilisation
+
+Il suffit de cliquer sur l'icone 'Alarme" dans l'application Maison.
+
+image::../images/iconealarme.png[]
+
+Et de sélectionner le mode.
+
+image::../images/selmodealarme.png[]
+
+L'alarme est activée.
+
+Sur le dashboard : 
+
+image::../images/alarmeactive.png[]
+
+Sur l'application Maison : 
+
+image::../images/alarmeactive2.png[]
+
+Pour la désactiver, il suffit de sélectionner "Désactivée". Les actions définies dans la partie "désactivation OK" du plugin "alarme" vont s'exécuter.
+
+image::../images/desactivationok.png[]
+
+En cas de déclenchement de l'alarme, une notification apparait sur le téléphone.
+
+image::../images/alarmedeclanchee.png[]
+
+Pour la désarmer, il faut cliquer sur l'icone "alarme" et selectionner "Désactivée".
+
+image::../images/reinitialiseralarme.png[]
+
+Les actions définies dans la partie "réinitialisation" du plugin "alarme" vont s'exécuter.
+
+image::../images/reinitialisation.png[]

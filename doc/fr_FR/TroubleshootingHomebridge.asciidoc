@@ -9,7 +9,13 @@
 [IMPORTANT]
 Les références vers l'état dans les actions sont primordiales !! Sinon pas de lien entre l'état et ses actions possibles.
 
+Pour un "virtuel" : 
+
 image::../images/reference-etat.png[]
+
+Pour un accessoire physique (dimmer 2 de fibaro par l'exemple) : 
+
+image::../images/ref2.png[]
 
 ==== FAQ
 
