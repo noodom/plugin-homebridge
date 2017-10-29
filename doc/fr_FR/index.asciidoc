@@ -1,6 +1,4 @@
-= Plugin Homebridge
-
-== Homebridge
+= Plugin HomeBridge
 
 include::presentationHomebridge.asciidoc[]
 
