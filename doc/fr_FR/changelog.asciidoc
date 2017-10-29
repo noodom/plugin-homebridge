@@ -1,6 +1,6 @@
 === Plugin HomeBridge
 
-==== v1.3
+==== v1.3 (30-10-2017)
     * Plugin séparé du plugin App Mobile.
     * Récupération de la configuration du plugin App Mobile s'il est installé.
     * Meilleure réparation et installation plus poussée pour éviter des problèmes divers.
