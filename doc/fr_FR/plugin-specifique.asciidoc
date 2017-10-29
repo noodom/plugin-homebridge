@@ -121,4 +121,26 @@ image::../images/selmodealarme.png[]
 
 L'alarme est activée.
 
+Sur le dashboard : 
+
 image::../images/alarmeactive.png[]
+
+Sur l'application Maison : 
+
+image::../images/alarmeactive2.png[]
+
+Pour la désactiver, il suffit de sélectionner "Désactivée". Les actions définies dans la partie "désactivation OK" du plugin "alarme" vont s'exécuter.
+
+image::../images/desactivationok.png[]
+
+En cas de déclenchement de l'alarme, une notification apparait sur le téléphone.
+
+image::../images/alarmedeclanchee.png[]
+
+Pour la désarmer, il faut cliquer sur l'icone "alarme" et selectionner "Désactivée".
+
+image::../images/reinitialiseralarme.png[]
+
+Les actions définies dans la partie "réinitialisation" du plugin "alarme" vont s'exécuter.
+
+image::../images/reinitialisation.png[]
