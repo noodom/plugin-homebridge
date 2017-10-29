@@ -201,8 +201,6 @@ Info/Fenêtre
 avec Unité indiquée ou pas
 
 (Eve Seulement)
-
-mise à jour après slide vers le bas
 | Action/Générique 
 
 (N'existe pas en HomeKit)| NON | N/A
