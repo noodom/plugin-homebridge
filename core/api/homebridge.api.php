@@ -29,12 +29,15 @@ $PluginToSend = homebridge::PluginToSend();
 //$filename = dirname(__FILE__) . '/../../../../tmp/syncHomebridge.txt';
 
 if ($jsonrpc->getMethod() == 'sync') {
-	log::add('homebridge', 'debug', 'Demande de Sync');
+	log::add('homebridge', 'info', 'Demande de Sync');
 }
 
 if ($jsonrpc->getMethod() == 'sync_homebridge') {
-	log::add('homebridge', 'debug', 'Demande de Sync Homebridge');
-	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend),homebridge::discovery_eqLogic($PluginToSend));
+	log::add('homebridge', 'info', 'Demande de Sync Homebridge');
+			
+	$customValues=homebridge::getCustomData();
+
+	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend,$customValues['cmd']),homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
 	$eqLogics = $sync_new[1]['eqLogics'];
 	$cmds = $sync_new[0];
     $eqLogics = array_values($eqLogics);
@@ -48,16 +51,16 @@ if ($jsonrpc->getMethod() == 'sync_homebridge') {
 		//'scenarios' => homebridge::discovery_scenario(),
 		'config' => array('datetime' => getmicrotime()),
 	);
-	
-	log::add('homebridge', 'debug', 'Demande de Sync Homebridge');
+
 	$jsonrpc->makeSuccess($sync_array);
 }
 
 // HOMEBRIDGE API
 // Eqlogic byId
 if ($jsonrpc->getMethod() == 'cmdsbyEqlogicID') {
-	log::add('homebridge', 'debug', 'Interogation du module id:'.$params['id'].' Pour les cmds');
-	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend),homebridge::discovery_eqLogic($PluginToSend));
+	log::add('homebridge', 'info', 'Interrogation du module id:'.$params['id'].' Pour les cmds');
+	$customValues=homebridge::getCustomData();
+	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend,$customValues['cmd']),homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
 	$cmds = $sync_new[0];
 	$i = 0;
 	$commandes = $cmds['cmds'];
@@ -93,4 +96,3 @@ if ($jsonrpc->getMethod() == 'event') {
 }
 
 throw new Exception(__('Aucune demande', __FILE__));
-?>

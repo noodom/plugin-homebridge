@@ -1,4 +1,4 @@
-== Interprétation des LOGS Homebridge
+=== Interprétation des LOGS Homebridge
 
 [source,]
 ----
@@ -10,7 +10,7 @@
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
 [TIP]
-L'Accessoire 1 est visible mais la case "Envoyer vers Homebridge" n'est pas cochée. L'accessoire ne sera donc pas ajouté dans homebridge.
+L'Accessoire 1 est visible mais la case "Envoyer vers Homebridge" n'est pas cochée. L'accessoire ne sera donc pas ajouté dans Homebridge.
 
 
 [source,]
@@ -25,7 +25,7 @@ L'Accessoire 1 est visible mais la case "Envoyer vers Homebridge" n'est pas coch
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
 [TIP]
-L'Accessoire 2 est visible et la case "Envoyer vers Homebridge" est cochée. L'accessoire sera donc ajouté dans homebridge.
+L'Accessoire 2 est visible et la case "Envoyer vers Homebridge" est cochée. L'accessoire sera donc ajouté dans Homebridge.
 
 
 [source,]
@@ -39,7 +39,7 @@ L'Accessoire 2 est visible et la case "Envoyer vers Homebridge" est cochée. L'a
 [Mon Jul 17 2017 19:45:27 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
 [TIP]
-L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mais il n'y a pas de type générique "Etat" (ou celui-ci n'est pas visible). L'accessoire ne sera donc pas intégré dans Homebridge. Pour corriger ce problème, ajoutez le type générique "info/prise Etat" à l'accessoire (ou cochez la case "visible").
+L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mais il n'y a pas de type générique "Etat" (ou celui-ci n'est pas visible). L'accessoire ne sera donc pas intégré dans Homebridge. Pour corriger ce problème, ajoutez le type générique "Info / Prise Etat" à l'accessoire (ou cochez la case "visible").
 
 
 [source,]
@@ -64,6 +64,6 @@ Il y a une incohérence entre les types génériques. Les types "actions" ne cor
 sh: 1: homebridge: not found
 ----
 [TIP]
-Les dépendances homebridge ne sont pas installées ou certains fichiers sont manquants. Cliquez sur relancer.
+Les dépendances Homebridge ne sont pas installées ou certains fichiers sont manquants. Cliquez sur "Relancer".
 
-image::../images/dépendances-homebridge.png[]
+image::../images/dependances-homebridge.png[]

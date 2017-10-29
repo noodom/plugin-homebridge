@@ -30,14 +30,14 @@ var app_config = {
 					handleAjaxError(request, status, error, $('#div_confighomebridgeAlert'));
 				},
 				success: function (data) {
-					if (data['result']!=false) {
+					if (data.result!=false) {
                         $('#div_confighomebridgeAlert').showAlert({
                             message: '{{Sauvegarde de la configuration réussie. Relancez le demon}}',
                             level: 'success'
                         });
                     } else {
                         $('#div_confighomebridgeAlert').showAlert({
-                            message: '{{Echec de la sauvegarde de la configuration : }}' + data['data'],
+                            message: '{{Echec de la sauvegarde de la configuration : }}' + data.data,
                             level: 'danger'
                         });
                     }
@@ -57,11 +57,11 @@ var app_config = {
 				handleAjaxError(request, status, error, $('#div_confighomebridgeAlert'));
 			},
 			success: function (data) {
-				$("#platformFile").val(data['result']);
+				$("#platformFile").val(data.result);
 			}
 		});
     },
     hide: function () {
 
     }
-}
+};

@@ -1,0 +1,77 @@
+=== Plugin spécifique
+
+==== Plugin thermostat
+
+[IMPORTANT]
+La fonctionnalité du thermostat dans HomeBridge est compatible uniquement (pour l'intant) avec le plugin jeedom thermostat. Pour configurer le plugin thermostat, il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin.].
+
+
+===== Configuration
+
+Dans HomeKit, le thermostat est géré suivant 4 modes : "Eteint", "Chauffer" "Climatiser" et "Automatique". 
+
+Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
+
+image::../images/thermostat1.png[]
+
+* *Température cible* : Température de consigne
+
+* *Mode* : Sélection du mode du thermostat
+
+* *Protection enfants* : Permet de verrouiller les réglages du thermostat
+
+* *Statut* : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.
+
+Seuls les modes "Chauffer" et "refroidir" sont à configurer. Il faut attribuer un mode du plugin thermostat à un mode de HomeKit.
+
+image::../images/thermostat.png[]
+
+===== Utilisation
+
+Seuls les modes "CHAUF", "CLIM" et "ETEINT" fonctionneront. Le Mode "AUTO" est non fonctionnel. Pour mettre à l'arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ETEINT".
+
+[underline]#Mise en route du chauffage#
+
+* *CHAUF* : Active le mode du plugin thermostat jeedom pour la partie chauffage.
+
+image::../images/chauffe.png[]
+
+La température cible passe automatique à la température de consigne réglée dans le plugin thermostat.
+
+Le mode passe en "chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C'est juste que le système de chauffage est route. Le statut indique si le radiateur émet de la chaleur.
+
+image::../images/statut.png[]
+
+*Statut arrêté" : Le radiateur n'émet pas de chaleur.
+
+*Statut chauffage" : Le radiateur émet de chaleur.
+
+Il est également possible de régler une température de consigne directement depuis l'application Eve ou via Siri.
+
+image::../images/sirichauff.png[]
+
+Le chauffage passe en mode manuel.
+
+image::../images/forcechauff.png[]
+
+Le mode passe en "Désactivé", c'est normal. Dans certain cas, il peut rester dans la position où il était avant la demande de changement de la température de consigne.
+
+La température de consigne passe bien à la valeur demandée. Si la température ambiante est infèrieure à la température de consigne, le chauffage se mettra en route. Le statut passera donc en "Chauffage".
+
+[underline]#Mise en route de la climatisation#
+
+Le fonctionnement de la climatisation est indentique au fonctionnement du chauffage.
+
+En cliquant sur "CLIM", on active le mode de climatisation réglé dans le plugin thermostat.
+
+image::../images/clim.png[]
+
+On peut modifier la température de consigne.
+
+image::../images/siriclim.png[]
+
+Le fonctionnement de la climatisation passe en mode manuel.
+
+image::../images/climforce.png[]
+
+==== Plugin alarme

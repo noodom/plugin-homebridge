@@ -1,14 +1,14 @@
 {
 	"id" : "homebridge",
 	"name" : "Homebridge",
-	"description" : "Plugin pour homebridge",
-	"icon" : "fa fa-mobile",
 	"licence" : "AGPL",
-	"author" : "Jeedom",
+	"author" : "Nebz",
 	"require" : "3.0",
 	"installation" : "Aucune",
-	"hasDependency" : 1,
-	"hasOwnDeamon" : 1,
+	"hasDependency" : true,
+	"hasOwnDeamon" : true,
 	"category" : "communication",
-	"version" : "0.4"
+	"issue" : "https://github.com/jeedom/plugin-homebridge/issues",
+	"changelog" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/fr_FR/changelog.asciidoc",
+	"documentation" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/fr_FR/index.asciidoc"
 }

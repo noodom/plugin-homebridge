@@ -25,7 +25,7 @@ $plugin = plugin::byId($_GET['plugin_id']);
 sendVarToJS('pluginId', $_GET['plugin_id']);
 ?>
 
-<div class="row row-overflow">
+<div class="row">
 	<center>
 		<?php
 					if (file_exists(dirname(__FILE__) . '/../../../../' . $plugin->getPathImgIcon())) {
@@ -103,13 +103,13 @@ sendVarToJS('pluginId', $_GET['plugin_id']);
 		$checkHomebridge = '';
 		echo '<div class="panel-group" id="accordionConfiguration">';
 		foreach ($eqLogics as $eqLogic){
-			if(homebridge::check_ios() == 1){
+			//if(homebridge::check_ios() == 1){
 				$check = 'checked';
 				if ($eqLogic->getConfiguration('sendToHomebridge', 1) == 0) {
 					$check = 'unchecked';
 				}
 				$checkHomebridge = '<small><label style="cursor:default;margin-left:5px">{{  Envoyer à Homebridge  }}<input style="display:inline-block" type="checkbox" class="eqLogicAttr configuration" data-l1key="configuration" data-l2key="sendToHomebridge"' . $check .'/></label></small>';;
-			}
+			//}
 		echo '<div class="panel panel-default">';
 		if ($eqLogic->getEqType_name() != $_GET['plugin_id']){
 			$subClassName = ' (' . $eqLogic->getEqType_name() . ') ';

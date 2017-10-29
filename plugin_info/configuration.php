@@ -21,12 +21,12 @@ if(!isConnect()) {
 	die();
 }
 
-sendVarToJs('hasIos', homebridge::check_ios());
+//sendVarToJs('hasIos', homebridge::check_ios());
 ?>
 <style>
 @font-face {
   font-family: Scancardium;
-  src: url(/plugins/homebridge/plugin_info/Scancardium.ttf);
+  src: url(/plugins/homebridge/resources/Scancardium.ttf);
 }
 </style>
 <form class="form-horizontal">
@@ -81,7 +81,7 @@ sendVarToJs('hasIos', homebridge::check_ios());
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{PIN Homebridge (format : XXX-XX-XXX)}}</label>
 			<div class="col-lg-3" style="background-color:#fff !important;padding:15px">
-				<input id="input_pin_homebridge" class="configKey form-control" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
+				<input id="input_pin_homebridge" class="configKey form-control" maxlength="10" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -100,17 +100,17 @@ sendVarToJs('hasIos', homebridge::check_ios());
 </form>
 <script>
 	setTimeout(function() {
-		if (hasIos == 0) {
+	/*	if (hasIos == 0) {
 			$('#div_plugin_dependancy').closest('.panel').hide();
 			$('#div_plugin_deamon').closest('.panel').parent().removeClass('col-md-6');
 			$('#div_plugin_deamon').closest('.panel').hide();
 			$('#div_plugin_dependancy').closest('.panel').parent().removeClass('col-md-6');
 			$('#div_plugin_configuration').closest('.panel').hide();
 			$('#div_plugin_configuration').closest('.panel').parent().removeClass('col-md-6');
-		} else {
+		} else {*/
 			$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
 			$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
-		}
+		//}
 
 	}, 50);
 	$('input#input_pin_homebridge').on('keyup', function() {
@@ -193,7 +193,7 @@ sendVarToJs('hasIos', homebridge::check_ios());
 					success : function(data) {
 						$('#div_plugin_configuration').setValues(data.result, '.configKey');
 						$('#div_alert').showAlert({
-							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
+							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'à la fin de l'installation des dépendances}}",
 							level : 'success'
 						});
 					}

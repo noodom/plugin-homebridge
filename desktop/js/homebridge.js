@@ -17,11 +17,11 @@
  $('#bt_healthhomebridge').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé homebridge}}"});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=health').dialog('open');
-})
+});
  $('#info_app').on('click', function(){
-	$('#md_modal').dialog({title: "{{Informations envoyées à l'app}}"});
+	$('#md_modal').dialog({title: "{{DebugInfo Homebridge}}"});
 	$('#md_modal').load('index.php?v=d&plugin=homebridge&modal=info_app.homebridge').dialog('open');
-})
+});
 function clickplugin(id_plugin,name_plugin){
 	$('#md_modal').dialog({title: "{{Configuration homebridge du Plugin "+name_plugin+"}}"});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=plugin.homebridge&plugin_id=' +id_plugin).dialog('open');
@@ -33,7 +33,7 @@ function clickobject(id_object){
 }
 
 function clickscenario(id_scenario,name_scenario){
-	$('#md_modal').dialog({title: "{{Configuration homebridge du Scnéario "+name_scenario+"}}"});
+	$('#md_modal').dialog({title: "{{Configuration homebridge du Scénario "+name_scenario+"}}"});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=scenario.homebridge&scenario_id=' +id_scenario).dialog('open');
 }
 
@@ -49,37 +49,4 @@ if (hash) {
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
 });
-/*
- * Fonction pour l'ajout de commande, appellé automatiquement par plugin.template
- */
 
- function printEqLogic(_eqLogic){
-    $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // méthode de transmission des données au fichier php
-        url: "plugins/homebridge/core/ajax/homebridge.ajax.php", // url du fichier php
-        data: {
-            action: "getQrCode",
-            id: _eqLogic.id,
-        },
-        dataType: 'json',
-        global: false,
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) { // si l'appel a bien fonctionné
-        if (data.state != 'ok') {
-            $('#div_alert').showAlert({message: data.result, level: 'danger'});
-            return;
-        }
-	if (data.result == 'internalError') {
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'adresse interne (voir configuration de votre Jeedom !)}}');
-	}else if(data.result == 'externalError'){
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'adresse externe (voir configuration de votre Jeedom !)}}');
-	}else if(data.result == 'UserError'){
-		$('.qrCodeImg').empty().append('{{Erreur Pas d\'utilisateur selectionné}}');
-	}else{
-		$('.qrCodeImg').empty().append('<img src='+data.result+' />');
-	}
-    }
-});
-}

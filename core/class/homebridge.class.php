@@ -26,23 +26,90 @@ class homebridge extends eqLogic {
 
 	/*     * ***********************Methode static*************************** */
 
-	public static function Pluginsuported() {
+	/*public static function Pluginsuported() {
 		$Pluginsuported = ['openzwave','rfxcom','edisio','mpower', 'mySensors', 'Zibasedom', 'virtual', 'camera','weather','philipsHue','enocean','wifipower','alarm','mode','apcupsd', 'btsniffer','dsc','rflink','mysensors','relaynet','remora','unipi','eibd','thermostat','netatmoThermostat','espeasy','jeelink','teleinfo','tahoma','protexiom','lifx','wattlet','rfplayer','openenocean'];
 		return $Pluginsuported;
-	}
+	}*/
 	
-	public static function PluginWidget() {
+	/*public static function PluginWidget() {
 		$PluginWidget = ['alarm','camera','thermostat','netatmoThermostat','weather','mode'];	
-		return $PluginWidget;
+		return $PluginWidget; 
+	}*/
+
+	public static function getCustomGenerics(){
+		$CUSTOM_GENERIC_TYPE = array(
+			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_SET_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE' => array('name' => 'Haut-Parleur Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_TOGGLE' => array('name' => 'Haut-Parleur Toggle Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_ON' => array('name' => 'Haut-Parleur Mute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire) (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+		);
+		return $CUSTOM_GENERIC_TYPE;
 	}
 	
 	public static function PluginMultiInEqLogic(){
 		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE'];
 		return $PluginMulti;
 	}
+
+	public static function PluginCustomisable(){
+		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE'];
+		return $PluginCustomisable;
+	}
 	
-	public static function LienAWS() {
-		return 'http://195.154.56.168:8000/notif/';
+	public static function PluginAutoConfig(){
+		$PluginAutoConfig = [
+							'sonos3'=>	
+								[
+									'default'=>
+										[
+											'mute'=>'SPEAKER_MUTE_ON',
+											'unmute'=>'SPEAKER_MUTE_OFF',
+											'mute_state'=>'SPEAKER_MUTE',
+											'volume'=>'SPEAKER_VOLUME',
+											'setVolume'=>'SPEAKER_SET_VOLUME',
+											'track_artist'=>'GENERIC_INFO',
+											'track_title'=>'GENERIC_INFO',
+											'track_album'=>'GENERIC_INFO'
+										]
+								],
+							'xiaomihome'=> 
+								[
+									'field'=>'model',
+									'color'=>
+										[
+											'online'=>'ACTIVE',
+											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'mono'=>
+										[
+											'online'=>'ACTIVE',
+											'status'=>'LIGHT_STATE_BOOL'
+										]
+								],
+								'ikealight'=>
+								[
+									//'field'=>'model',
+									'default'=>
+										[
+											'state'=>'LIGHT_STATE_BOOL',
+											'on'=>'LIGHT_ON',
+											'off'=>'LIGHT_OFF',
+											'dimInfo'=>'LIGHT_STATE',
+											'dim'=>'LIGHT_SLIDER',
+											'kelvinInfo'=>'LIGHT_COLOR_TEMP',
+											'kelvin'=>'LIGHT_SET_COLOR_TEMP'
+										]
+								]
+							];
+		
+		return $PluginAutoConfig;
 	}
 	
 	public static function DisallowedPIN() {
@@ -53,31 +120,13 @@ class homebridge extends eqLogic {
 	public static function PluginToSend() {
 		$PluginToSend=[];
 		$plugins = plugin::listPlugin(true);
-		$plugin_compatible = homebridge::Pluginsuported();
-		$plugin_widget = homebridge::PluginWidget();
 		foreach ($plugins as $plugin){
 			$plugId = $plugin->getId();
-			if ($plugId == 'homebridge') {
-				continue;
-			} else if (in_array($plugId,$plugin_widget)) {
+			if ($plugId != 'homebridge' && $plugId != 'mobile') {
 				array_push($PluginToSend, $plugId);
-			} else if (in_array($plugId,$plugin_compatible) && !in_array($plugId,$plugin_widget) && config::byKey('sendToApp', $plugId, 1) == 1){
-				array_push($PluginToSend, $plugId);
-			} else if (!in_array($plugId,$plugin_compatible) && config::byKey('sendToApp', $plugId, 0) == 1){
-				$subClasses = config::byKey('subClass', $plugId, '');
-				if ($subClasses != ''){
-					$subClassesList = explode(';',$subClasses);
-					foreach ($subClassesList as $subClass){
-						array_push($PluginToSend, $subClass);
-					}
-				}
-				array_push($PluginToSend, $plugId);
-			} else {
-				continue;
 			}
 		}
 		return $PluginToSend;
-		
 	}
 
 	/**************************************************************************************/
@@ -85,7 +134,7 @@ class homebridge extends eqLogic {
 	/*                        Permet d'installer les dépendances                          */
 	/*                                                                                    */
 	/**************************************************************************************/
-	public static function check_ios() {
+	/*public static function check_ios() {
 		$ios = 0;
 		foreach (eqLogic::byType('homebridge') as $homebridge){
 			if($homebridge->getConfiguration('type_homebridge') == "ios"){
@@ -93,64 +142,200 @@ class homebridge extends eqLogic {
 			}
 		}
 		return $ios;
+	}*/
+	public static function cronDaily() {
+		self::cleanCustomData();
 	}
 	
 	public static function dependancy_info() {
-		$return = array();
-		$return['log'] = 'homebridge_update';
-		//$return['progress_file'] = '/tmp/homebridge_in_progress';
+		$return = [];
+		$return['log'] = 'homebridge_dep';
 		$return['progress_file'] = jeedom::getTmpFolder('homebridge') . '/dependance';
-		$state = '';
-		if(self::check_ios() == 0){
-			$state = 'ok';
-		}
-		else {
-			if (shell_exec('ls /usr/bin/homebridge 2>/dev/null | wc -l') == 1 || shell_exec('ls /usr/local/bin/homebridge 2>/dev/null | wc -l') == 1) {
-				$state = 'ok';
-			}else{
-				$state = 'nok';
-			}	
-		}
-		$return['state'] = $state;
+		
+		/*log::add('homebridge','debug',"version locale:".self::getLocalVersion()."\t"."version en ligne(".self::getBranch()."):".self::getRemoteVersion());
+		log::add('homebridge','debug',"locale >= en ligne:".((version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>='))?'ok':'ko'));
+		log::add('homebridge','debug',"/usr/bin/homebridge existe:".((file_exists('/usr/bin/homebridge'))?'oui':'non'));
+		log::add('homebridge','debug',"/usr/local/bin/homebridge existe:".((file_exists('/usr/local/bin/homebridge'))?'oui':'non'));*/
+		
+		if ((file_exists('/usr/bin/homebridge') || file_exists('/usr/local/bin/homebridge')) && version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>=')) {
+			$return['state'] = 'ok';
+		} else {
+			$return['state'] = 'nok';
+		}	
 		return $return;
 	}
 	
-	public static function dependancy_install($fromRepair = false) {
+	public static function dependancy_install() {
 		if (file_exists(jeedom::getTmpFolder('homebridge') . '/dependance')) {
 		    return;
 		}
-		if(self::check_ios() == 0){
-		    config::save('deamonAutoMode',0,'homebridge');
-		    return;
-		}
-		log::remove('homebridge_update');
+		log::remove(__CLASS__ . '_dep');
 		self::generate_file();
 		
-        $returnArray = array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip'),
-							 'log' => log::getPathToLog(__CLASS__ . '_homebridge_update'));
-							 
-        if($fromRepair) {
-			$cmd = 'sudo /bin/bash ' . $returnArray['script'];
-			$cmd .= ' >> ' . $returnArray['log'] . ' 2>&1 &';
-			exec($cmd);
-		}
-		return $returnArray;
+        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch(),
+					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
+	
+	public static function getLocalVersion($plugin='homebridge-jeedom') {
+		$npmRoot = trim(shell_exec('npm -g root'));
+		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
+			$version = '0';
+			$serial  = '';
+		} else {
+			$packageJson = file_get_contents($npmRoot.'/'.$plugin.'/package.json');
+			$packageJson = json_decode($packageJson,true);
+			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
+			$serial = $packageJson['cust_serial'];
+		}
+		return $version.(($serial)?'.'.$serial:'');
+	}
+	
+	public static function getRemoteVersion() {
+		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".self::getBranch()."/package.json";
+		$packageJson = @file_get_contents($remotePackage);
+		if ($packageJson === false) {
+			$version = '0';
+			$serial  = '';
+		} else {
+			$packageJson = json_decode($packageJson,true);
+			$version = (($packageJson['version'][0] != 'v')?$packageJson['version']:substr($packageJson['version'],1));
+			$serial = $packageJson['cust_serial'];
+		}
+		return $version.(($serial)?'.'.$serial:'');
+	}
+	
+	public static function getBranch() {
+		$branch = @strtolower(@trim(@file_get_contents(dirname(__FILE__) . '/../../branch')));
+		if(!$branch) {
+			$branch = 'master';
+		}
+		return $branch;
+	}
+	
 	public static function getJSON(){
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec('sudo chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec('sudo chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		return file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 	}
 	public static function saveJSON($file){
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec('sudo chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
 		return (($ret===false)?false:true);
 	}
+	
+	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
+		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
+		
+		foreach ($eqLogicToSave as $newVal) {
+			$found = false;
+			foreach ($content['eqLogic'] as $id => $eqLogic) {
+				if($eqLogic['id'] == $newVal['id']) {
+					if($newVal['configuration']) 
+						$content['eqLogic'][$id]['configuration'] = $newVal['configuration'];
+					if($newVal['display'])
+						$content['eqLogic'][$id]['display'] = $newVal['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['eqLogic'],$newVal);
+			}
+		}
+		//var_dump($content['cmd']);
+		foreach ($cmdOldValues as $oldValCmd) {
+			//echo "-oldValCmd:".$oldValCmd['id'];
+			for($i=0;$i< count($content['cmd']);$i++) {
+				//echo "--contentCmd:".$content['cmd'][$i]['id'];
+				if($content['cmd'][$i]['id'] == $oldValCmd['id']) {
+					//echo "---match ".$i;
+					array_splice($content['cmd'],$i);
+					break;
+				}
+			}
+		}			
+		//var_dump($content['cmd']);
+		foreach ($cmdToSave as $newValCmd) {
+			$found = false;
+			foreach ($content['cmd'] as $id => $cmd) {
+				if($cmd['id'] == $newValCmd['id']) {
+					if($newValCmd['configuration']) 
+						$content['cmd'][$id]['configuration'] = $newValCmd['configuration'];
+					if($newValCmd['display'])
+						$content['cmd'][$id]['display'] = $newValCmd['display'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['cmd'],$newValCmd);
+			}
+		}	
+		
+		$content = json_encode($content);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+		return (($ret===false)?false:true);
+	}
+	public static function getCustomData(){
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec('touch ' . dirname(__FILE__) . '/../../data/customData.json');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		$content = json_decode($content,true);
+		return $content;
+	}
+	public static function cleanCustomData(){
+		log::add('homebridge','debug','Nettoyage journalier des eqLogics & cmds n\'existant plus dans Jeedom mais toujours dans notre config');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
+		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
+		$found=false;
+		foreach ($content['eqLogic'] as $keyEqLogicCustom => $eqLogicCustom) {
+			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
+			if (!is_object($eqLogicExists)) {
+				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
+				array_splice($content['eqLogic'],$keyEqLogicCustom);
+				$found=true;
+			}
+		}
+		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
+			$cmdExists = cmd::byId($cmdCustom['id']);
+			if (!is_object($cmdExists)) {
+				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
+				array_splice($content['cmd'],$keyCmdCustom);
+				$found=true;
+			}
+		}
+		if($found) {
+			$content = json_encode($content);
+			$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+			return (($ret===false)?false:true);
+		}
+		return true;
+	}
+	
 	public static function generate_file(){
+		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
 		$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		config::save('user_homebridge',$user_homebridge,'homebridge');
@@ -160,6 +345,7 @@ class homebridge extends eqLogic {
 		}else{
 			$apikey = config::byKey('api');
 		}
+		//$apikey = jeedom::getApiKey('homebridge'); need to manage jeeHomebridge.php first
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
@@ -172,8 +358,8 @@ class homebridge extends eqLogic {
 			log::add('homebridge', 'error', 'Le PIN Homebridge n\'est pas autorisée par Apple : '.$pin_homebridge);	
 		}
 		
-		$response = array();
-		$response['bridge'] = array();
+		$response = [];
+		$response['bridge'] = [];
 		$response['bridge']['name'] = $name_homebridge;
 		$response['bridge']['username'] = $mac_homebridge;
 		$response['bridge']['port'] = 51826;
@@ -190,42 +376,70 @@ class homebridge extends eqLogic {
 		$plateform['name'] = "Jeedom";
 		$plateform['url'] = network::getNetworkAccess('internal');
 		$plateform['apikey'] = $apikey;
-		$plateform['pollerperiod'] = 0.5;
+		$plateform['pollerperiod'] = 0.05;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
-		$response['platforms'] = array();
+		$plateform['myPlugin'] = 'homebridge';
+		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec('sudo chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec('sudo chmod -R 775 ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$jsonFile = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
 		foreach ($jsonPlatforms as $jsonPlatform) {
-			$jsonArr = json_decode($jsonPlatform);
-			if($jsonArr !== null)
+			$jsonArr = json_decode($jsonPlatform,true);
+			if($jsonArr !== null) {
+				$pluginCameraExists=true;
+				try {
+					$pluginCamera = plugin::byId('camera');
+				} catch(Exception $e) {
+					$pluginCameraExists=false;
+				}
+				if($jsonArr['platform']=='Camera-ffmpeg') {
+					if($pluginCameraExists) {
+						$AVCONVexists = shell_exec('file -bi `which avconv`');
+						$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
+						
+						if (strpos($AVCONVexists, 'application') !== false) {
+							log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
+							$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+						} elseif (strpos($FFMPEGexists, 'application') !== false) {
+							log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
+							$jsonArr['videoProcessor'] = 'ffmpeg';
+						} else {
+							log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+							log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
+						}
+					}
+					else {
+						log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
+					}
+				}
 				$response['platforms'][] = $jsonArr;
+			}
 		}
 		
-		exec('sudo chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
+		exec(system::getCmdSudo() . 'mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
 		fwrite($fp, json_encode($response));
 		fclose($fp);
+		if(!file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
+			log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas : '.dirname(__FILE__) . '/../../resources/homebridge/config.json');
+		}
 	}
 	
 	public static function deamon_info() {
-		$return = array();
+		$return = [];
 		$return['log'] = 'homebridge';
 		$return['state'] = 'nok';
-		if(self::check_ios() == 0){
-			$return['state'] = 'ok';
-			$return['launchable'] = 'ok';
-			return $return;
-		}
+		
 		$result = exec("ps -eo pid,command | grep ' homebridge' | grep -v grep | awk '{print $1}'");
 		if ($result <> 0) {
             $return['state'] = 'ok';
@@ -240,23 +454,15 @@ class homebridge extends eqLogic {
 		self::generate_file();
 		$deamon_info = self::deamon_info();
 		if ($deamon_info['launchable'] != 'ok') {
-			if(self::check_ios() == 0){
-				return false;
-			}else{
-				throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
-			}
-		}else{
-			if(self::check_ios() == 0){
-				return false;
-			}
+			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
 
 		// check avahi-daemon started, if not, start
-		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then sudo systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
+		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		
 		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .'homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
-		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		exec($cmd . ' >> ' . log::getPathToLog('homebridge_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
 			$deamon_info = self::deamon_info();
@@ -274,7 +480,7 @@ class homebridge extends eqLogic {
 		log::add('homebridge', 'info', 'Démon homebridge lancé');
 		
 		// Check if multiple IP's -> warning because could cause problems with mdns https://github.com/nfarina/homebridge/issues/1351
-		$cmd = 'if [ $(sudo ip addr | grep "inet " | grep -v " tun" | grep -v " lo" | wc -l) -gt 1 ]; then echo "WARNING : Vous avez plusieurs IP de configurées, cela peut poser problème avec Homebridge et mDNS"; fi';
+		$cmd = 'if [ $(' . system::getCmdSudo() . 'ip addr | grep "inet " | grep -v " tun" | grep -v " lo" | wc -l) -gt 1 ]; then echo "WARNING : Vous avez plusieurs IP de configurées, cela peut poser problème avec Homebridge et mDNS"; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		return true;
 	}
@@ -290,7 +496,6 @@ class homebridge extends eqLogic {
         }
         system::kill('homebridge');
 		system::fuserk(51826);
-		//exec('sudo killall homebridge');		
 		
         $check = self::deamon_info();
         $retry = 0;
@@ -305,42 +510,53 @@ class homebridge extends eqLogic {
         return self::deamon_info();
 	}
 	
-	/**************************************************************************************/
-	/*                                                                                    */
-	/*            Permet de supprimer le cache Homebridge            		      */
-	/*                                                                                    */
-	/**************************************************************************************/
-	/*
-	public static function eraseHomebridgeCache() {
-		self::deamon_stop();
-		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
-		exec($cmd);
-		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
-		exec($cmd);
-		self::deamon_start();
-	}
-	*/
+
 	/**************************************************************************************/
 	/*                                                                                    */
 	/*            Permet de supprimer tout Homebridge                		      */
 	/*                                                                                    */
 	/**************************************************************************************/
 	
-	public static function repairHomebridge($reinstall=true) {
-		log::add('homebridge', 'info', 'Procedure de réparation');
-		homebridge::deamon_stop();
-		log::add('homebridge', 'info', 'suppression des accessoires et du persist');
-		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
+	public static function uninstallHomebridge() {
+		log::add('homebridge', 'info', 'Suppression homebridge-camera-ffmpeg...');
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge-camera-ffmpeg --save';
 		exec($cmd);
-		$cmd = 'sudo rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
+		log::add('homebridge', 'info', 'Suppression homebridge-jeedom...');
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge-jeedom --save';
+		exec($cmd);
+		log::add('homebridge', 'info', 'Suppression homebridge...');
+		$cmd = system::getCmdSudo() . 'npm rm -g homebridge --save';
+		exec($cmd);
+		log::add('homebridge', 'info', 'Suppression request...');
+		$cmd = system::getCmdSudo() . 'npm rm -g request --save';
+		exec($cmd);
+		log::add('homebridge', 'info', 'Suppression node-gyp...');
+		$cmd = system::getCmdSudo() . 'npm rm -g node-gyp --save';
+		exec($cmd);
+		log::add('homebridge', 'info', 'Rebuild...');
+		$cmd = 'cd `npm root -g`;' . system::getCmdSudo() . 'npm rebuild;';
+		exec($cmd);
+		
+		log::add('homebridge', 'info', 'Suppression bin homebridge');
+		$cmd = system::getCmdSudo() . 'rm -f /usr/bin/homebridge >/dev/null 2>&1';
+		exec($cmd);
+		$cmd = system::getCmdSudo() . 'rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
+		exec($cmd);
+		log::add('homebridge', 'info', 'Homebridge supprimé');
+	}
+	
+	
+	public static function repairHomebridge($reinstall=true) {
+		$pluginHomebridge = plugin::byId('homebridge');
+		log::add('homebridge', 'info', 'Procedure de réparation');
+		$pluginHomebridge->deamon_stop();
+		log::add('homebridge', 'info', 'suppression des accessoires et du persist');
+		$cmd = system::getCmdSudo() . 'rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/accessories';
+		exec($cmd);
+		$cmd = system::getCmdSudo() . 'rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
 		exec($cmd);
 		if($reinstall) {
-			log::add('homebridge', 'info', 'suppression homebridge-jeedom');
-			$cmd = 'npm uninstall homebridge-jeedom --save';
-			exec($cmd);
-			log::add('homebridge', 'info', 'suppression homebridge');
-			$cmd = 'npm uninstall homebridge --save';
-			exec($cmd);
+			homebridge::uninstallHomebridge();
 		}
 		$mac_homebridge = self::generateRandomMac();
 		log::add('homebridge', 'info', 'création d\'une nouvelle MAC adress : '.$mac_homebridge);
@@ -349,12 +565,10 @@ class homebridge extends eqLogic {
 		config::save('name_homebridge',$name_homebridge,'homebridge');
 		if($reinstall) {
 			log::add('homebridge', 'info', 'réinstallation des dependances');
-			homebridge::dependancy_install(true);
+			$pluginHomebridge->dependancy_install();
 		}
 		
-		exec('sudo systemctl restart avahi-daemon');
-		sleep(1);
-		homebridge::deamon_start();
+		exec(system::getCmdSudo() . 'systemctl restart avahi-daemon');
 		$return['mac_homebridge']=$mac_homebridge;
 		$return['name_homebridge']=$name_homebridge;
 		return $return;
@@ -370,18 +584,80 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 
-	public static function discovery_eqLogic($plugin = array(),$hash = null){
-		$return = array();
+	public static function discovery_eqLogic($plugin = [],$customEqLogics){
+		$return = [];
 		foreach ($plugin as $plugin_type) {
-			$eqLogics = eqLogic::byType($plugin_type, true);
+			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
-					if($eqLogic->getObject_id() !== null && object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 && $eqLogic->getIsEnable() == 1 && ($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
+					if(		$eqLogic->getObject_id() !== null // has room
+						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+						){
+						
 						$eqLogic_array = utils::o2a($eqLogic);
-						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
-							$eqLogic_array["sendToHomebridge"] = $eqLogic_array["configuration"]["sendToHomebridge"];
+						
+						foreach($customEqLogics as $custeqLogic) { // import customConfiguration
+							if($eqLogic_array['id'] == $custeqLogic['id']) {
+								$eqLogic_array['customConfiguration'] = $custeqLogic['configuration'];
+								break;
+							}
 						}
-						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
+						
+						
+
+						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
+							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
+						}
+						
+						//Alarm
+						if(isset($eqLogic_array["customConfiguration"]['SetModeAbsent'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["customConfiguration"]['SetModeAbsent'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['SetModePresent'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["customConfiguration"]['SetModePresent'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['SetModeNuit'])){
+							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["customConfiguration"]['SetModeNuit'];
+						}
+						
+						//Thermostat
+						if(isset($eqLogic_array["customConfiguration"]['Chauf'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Chauf"] = $eqLogic_array["customConfiguration"]['Chauf'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['Clim'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Clim"] = $eqLogic_array["customConfiguration"]['Clim'];
+						}
+						if(isset($eqLogic_array["customConfiguration"]['Off'])){
+							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+							$eqLogic_array["thermoModes"]["Off"] = $eqLogic_array["customConfiguration"]['Off'];
+						}
+						
+						if(isset($eqLogic_array["customConfiguration"]['customValues'])){
+							if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
+							$tempArray['OPEN'] = $eqLogic_array["customConfiguration"]['OPEN'];
+							$tempArray['OPEN'] = (($tempArray['OPEN'] !== '')?intval($tempArray['OPEN']):null);
+							$tempArray['OPENING'] = $eqLogic_array["customConfiguration"]['OPENING'];
+							$tempArray['OPENING'] = (($tempArray['OPENING'] !== '')?intval($tempArray['OPENING']):null);
+							$tempArray['STOPPED'] = $eqLogic_array["customConfiguration"]['STOPPED'];
+							$tempArray['STOPPED'] = (($tempArray['STOPPED'] !== '')?intval($tempArray['STOPPED']):null);
+							$tempArray['CLOSING'] = $eqLogic_array["customConfiguration"]['CLOSING'];
+							$tempArray['CLOSING'] = (($tempArray['CLOSING'] !== '')?intval($tempArray['CLOSING']):null);
+							$tempArray['CLOSED'] = $eqLogic_array["customConfiguration"]['CLOSED'];
+							$tempArray['CLOSED'] = (($tempArray['CLOSED'] !== '')?intval($tempArray['CLOSED']):null);
+							$eqLogic_array["customValues"] = $tempArray;
+						}
+						if (isset($eqLogic_array['isVisible'])){
+							$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
+						}
+						if (isset($eqLogic_array['isEnable'])){
+							$eqLogic_array['isEnable']=intval($eqLogic_array['isEnable']);
+						}
+						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'],$eqLogic_array['customConfiguration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
 						$return[] = $eqLogic_array;
 					}
 				}
@@ -390,30 +666,59 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	public static function discovery_cmd($plugin = array()){
-		$return = array();
-		$genericisvisible = array();
-		foreach (jeedom::getConfiguration('cmd::generic_type') as $key => $info) {
-		        if ($info['family'] !== 'Generic') {
-		            array_push($genericisvisible, $key);
-		        }
-		}
+	public static function discovery_cmd($plugin = [],$customCmds){
+		$return = [];
+		$PluginAutoConfig = self::PluginAutoConfig();
 		foreach ($plugin as $plugin_type) {
-			$eqLogics = eqLogic::byType($plugin_type, true);
+			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
 			if (is_array($eqLogics)) {
 				foreach ($eqLogics as $eqLogic) {
                   	$i = 0;
-                  if($eqLogic->getObject_id() !== null && object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 && $eqLogic->getIsEnable() == 1 && ($eqLogic->getIsVisible() == 1 || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
-					foreach ($eqLogic->getCmd() as $cmd) {
-                    	if($cmd->getDisplay('generic_type') != null && !in_array($cmd->getDisplay('generic_type'),['GENERIC_ERROR','DONT']) && ($cmd->getIsVisible() == 1 || in_array($cmd->getDisplay('generic_type'), $genericisvisible) || in_array($eqLogic->getEqType_name(), self::PluginWidget()))){
-                      		$cmd_array = $cmd->exportApi();
-                      					
+					if(		$eqLogic->getObject_id() !== null // has room
+						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+						){
+							
+						$cmds = $eqLogic->getCmd();
+						
+						$pluginId = $eqLogic->getEqType_name();
+						$specificField=null;
+						$specificValue=null;
+						if(isset($PluginAutoConfig[$pluginId])) {
+							$specificField = $PluginAutoConfig[$pluginId]['field'];
+							if(isset($specificField)) {
+								$specificValue = $eqLogic->getConfiguration($specificField);
+							}
+						}
+						
+						foreach ($cmds as $cmd) {
+							$cmd_array = $cmd->exportApi();
+							
+							// replace generic_type if auto-config data exists
+							$logicalId = $cmd_array['logicalId'];
+							if(!isset($specificValue)) $specificValue = 'default';
+							if(	isset($PluginAutoConfig[$pluginId]) && 
+								isset($PluginAutoConfig[$pluginId][$specificValue]) && 
+								isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
+							
+								$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
+							}
+							
+							// replace generic_type if custom type exists							
+							foreach($customCmds as $custCmd) { 
+								if($cmd_array['id'] == $custCmd['id']) {
+									$cmd_array['generic_type'] = $custCmd['display']['generic_type'];
+									break;
+								}
+							}
+
+							// we kept errors as it might be a custom but now we could ignore it
+							if(in_array($cmd_array['generic_type'],['GENERIC_ERROR','DONT'])) continue;
+							
 							//Variables
 							$maxValue = null;
 							$minValue = null;
 							$actionCodeAccess = null;
 							$actionConfirm = null;
-							$generic_type = null;
 							$icon = null;
 							$invertBinary = null;
 							$title_disable = null;
@@ -422,10 +727,10 @@ class homebridge extends eqLogic {
 								
 							if(isset($cmd_array['configuration'])){
 								$configuration = $cmd_array['configuration'];
-								if(isset($configuration['maxValue'])){
+								if(isset($configuration['maxValue']) && $configuration['maxValue'] != ""){
 									$maxValue = $configuration['maxValue'];
 								}
-								if(isset($configuration['minValue'])){
+								if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
 									$minValue = $configuration['minValue'];
 								}
 								if(isset($configuration['actionCodeAccess'])){
@@ -437,9 +742,6 @@ class homebridge extends eqLogic {
 							}
 							if(isset($cmd_array['display'])){
 								$display = $cmd_array['display'];
-								if(isset($display['generic_type'])){
-									$generic_type = $display['generic_type'];
-								}
 								if(isset($display['icon'])){
 									$icon = $display['icon'];
 								}
@@ -456,18 +758,21 @@ class homebridge extends eqLogic {
 									$message_placeholder = $display['message_placeholder'];
 								}
 							}
+							
 							unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
-							$cmd_array['configuration']['maxValue'] = $maxValue;
-							if ($minValue != null) {
-								$cmd_array['configuration']['minValue'] = $minValue;
+							
+							if ($maxValue != null) {
+								$cmd_array['configuration']['maxValue'] = floatval($maxValue);
 							}
-							$cmd_array['display']['generic_type'] = $generic_type;
+							if ($minValue != null) {
+								$cmd_array['configuration']['minValue'] = floatval($minValue);
+							}
 							if ($icon != null) {
 								$cmd_array['display']['icon'] = $icon;
 							}
 							if(isset($invertBinary)){
 								if ($invertBinary != null) {
-									$cmd_array['display']['invertBinary'] = $invertBinary;
+									$cmd_array['display']['invertBinary'] = intval($invertBinary);
 								}
 							}
 							if(isset($title_disable)){
@@ -502,23 +807,28 @@ class homebridge extends eqLogic {
 							if ($cmd_array['type'] == 'action'){
 								unset($cmd_array['currentValue']);
 							}
-							if ($cmd_array['value'] == null || $cmd_array['value'] == ""){
-								//unset($cmd_array['value']);
-								$cmd_array['value'] == "0";
-							}else{
+							if ($cmd_array['type'] == 'info'){
+								if ($cmd_array['value'] === null || $cmd_array['value'] == "") {
+									unset($cmd_array['value']);
+								}
+								$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
+							}
+							if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
 								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 							}
-							if ($cmd_array['unite'] == null || $cmd_array['unite'] == ""){
+							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
 								unset($cmd_array['unite']);
 							}
+							if (isset($cmd_array['isVisible'])){
+								$cmd_array['isVisible']=intval($cmd_array['isVisible']);
+							}
 							$cmds_array[] = $cmd_array;
-                      		$i++;
-                      	}
+							$i++;
+						}
+						if($i > 0){
+							$return = $cmds_array;
+						}
 					}
-                  	if($i > 0){
-                    	$return = $cmds_array;
-                    }
-				}
                 }
 			}
 		}
@@ -526,8 +836,8 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function discovery_multi($cmds) {
-		$array_final = array();
-		$tableData = homebridge::PluginMultiInEqLogic();
+		$array_final = [];
+		$tableData = self::PluginMultiInEqLogic();
 		foreach ($cmds as &$cmd) {
 			if(in_array($cmd['generic_type'], $tableData)){
 				$keys = array_keys(array_column($cmds,'eqLogic_id'), $cmd['eqLogic_id']);
@@ -541,8 +851,8 @@ class homebridge extends eqLogic {
 				
 			}
 		}
-		$dif = array();
-		$array_cmd_multi = array();
+		$dif = [];
+		$array_cmd_multi = [];
 		foreach ($array_final as &$array_fi){
 			if(!in_array($array_fi, $dif)){
 				array_push($dif, $array_fi);
@@ -554,14 +864,14 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function change_cmdAndeqLogic($cmds,$eqLogics){
-		$plage_cmd = homebridge::discovery_multi($cmds);
-		$eqLogic_array = array();
+		$plage_cmd = self::discovery_multi($cmds);
+		$eqLogic_array = [];
 		$nbr_cmd = count($plage_cmd);
-		log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
+		//log::add('homebridge', 'debug', 'plage cmd > '.json_encode($plage_cmd).' // nombre > '.$nbr_cmd);
 		if($nbr_cmd != 0){
 			$i = 0;
 			while($i < $nbr_cmd){
-				log::add('homebridge', 'info', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
+				log::add('homebridge', 'debug', 'nbr cmd > '.$i.' // id > '.$plage_cmd[$i]);
 				$eqLogic_id = $cmds[$plage_cmd[$i]]['eqLogic_id'];
 				$name_cmd = $cmds[$plage_cmd[$i]]['name'];
 				foreach ($eqLogics as &$eqLogic){
@@ -577,8 +887,8 @@ class homebridge extends eqLogic {
 				$nbr_keys = count($keys);
 				$j = 0;
 				while($j < $nbr_keys){
-					if($cmds[$keys[$j]]['value'] == $cmds[$plage_cmd[$i]]['id'] && $cmds[$keys[$j]]['type'] == 'action'){
-						log::add('homebridge', 'debug', 'Changement de l\'action > '.$cmds[$keys[$j]]['id']);
+					if(isset($cmds[$keys[$j]]['value']) && $cmds[$keys[$j]]['value'] == $cmds[$plage_cmd[$i]]['id'] && $cmds[$keys[$j]]['type'] == 'action'){
+						log::add('homebridge', 'info', 'Changement de l\'action > '.$cmds[$keys[$j]]['id']);
 						$cmds[$keys[$j]]['eqLogic_id'] = $new_eqLogic_id;
 					}
 					$j++;
@@ -596,6 +906,7 @@ class homebridge extends eqLogic {
 				array_push($eqLogics, $new_eqLogic);
 			}		
 		}
+		
 		$new_cmds = array('cmds' => $cmds);
 		$new_eqLogic = array('eqLogics' => $eqLogics);
 		$news = array($new_cmds,$new_eqLogic);
@@ -604,12 +915,18 @@ class homebridge extends eqLogic {
 	
 	public static function discovery_object() {
 		$all = utils::o2a(object::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$object){
 			if (isset($object['display']['sendToApp']) && $object['display']['sendToApp'] == "0") {
 				continue;
 			} else {
-				unset($object['configuration'],$object['display']['tagColor'], $object['display']['tagTextColor']);
+				unset($object['configuration'],$object['display']['tagColor'], $object['display']['tagTextColor'],$object['display']['summaryTextColor'],$object['display']['icon']);
+				if (isset($object['isVisible'])) {
+					$object['isVisible']=intval($object['isVisible']);
+				}
+				if (isset($object['display']['sendToApp'])) {
+					$object['display']['sendToApp']=intval($object['display']['sendToApp']);
+				}
 				$return[]=$object;
 			}
 		}
@@ -618,7 +935,7 @@ class homebridge extends eqLogic {
 	 
 	public static function discovery_scenario() {
 		$all = utils::o2a(scenario::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$scenario){
 			if (isset($scenario['display']['sendToApp']) && $scenario['display']['sendToApp'] == "0") {
 				continue;
@@ -636,27 +953,27 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	public static function discovery_message() {
+	/*public static function discovery_message() {
 		$all = utils::o2a(message::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$message){
 				$return[]=$message;	
 		}
 		return $return;
-	}
+	}*/
 	
-	public static function discovery_plan() {
+	/*public static function discovery_plan() {
 		$all = utils::o2a(planHeader::all());
-		$return = array();
+		$return = [];
 		foreach ($all as &$plan){
 				$return[]=$plan;	
 		}
 		return $return;
-	}
+	}*/
 
 
 	public static function delete_object_eqlogic_null($objectsATraiter,$eqlogicsATraiter){
-		$retour = array();
+		$retour = [];
 		foreach ($objectsATraiter as &$objectATraiter){
 			$id_object = $objectATraiter['id'];
 			foreach ($eqlogicsATraiter as &$eqlogicATraiter){
@@ -668,87 +985,7 @@ class homebridge extends eqLogic {
 		}
 		return $retour;
 	}
-	/**************************************************************************************/
-	/*                                                                                    */
-	/*                         Permet de creer le Json du QRCode                          */
-	/*                                                                                    */
-	/**************************************************************************************/
 
-	public function getQrCode() {
-		$interne = network::getNetworkAccess('internal');
-		$externe = network::getNetworkAccess('external');
-		$user = $this->getConfiguration('affect_user');
-		
-		if($interne == null || $interne == 'http://:80' || $interne == 'https://:80'){
-			$retour = 'internalError';
-		}else if($externe == null || $externe == 'http://:80' || $externe == 'https://:80'){
-			$retour = 'externalError';
-		}else if($user == ''){
-			$retour = 'UserError';
-		}else{
-			$key = $this->getLogicalId();
-			$request_qrcode = array(
-			'eqLogic_id' => $this->getId(),
-				'url_internal' => $interne,
-				'url_external' => $externe,
-				'Iq' => $key
-			);
-			if ($user != '') {
-				$username = user::byId($this->getConfiguration('affect_user'));
-				if (is_object($username)) {
-					$request_qrcode['username'] = $username->getLogin();
-					$request_qrcode['apikey'] = $username->getHash();
-				}
-			}
-			$retour = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl='.json_encode($request_qrcode);
-		}
-		return $retour;
-	}
-	
-	/**************************************************************************************/
-	/*                                                                                    */
-	/*                                 Pour les notifications                             */
-	/*                                                                                    */
-	/**************************************************************************************/
-	
-	public static function jsonPublish($os,$titre,$message,$badge = 'null'){
-		if($os == 'ios'){
-			if($badge == 'null'){
-				$publish = '{"default": "Erreur de texte de notification","APNS": "{\"aps\":{\"alert\": {\"title\":\"'.$titre.'\",\"body\":\"'.$message.'\"},\"badge\":'.$badge.',\"sound\":\"silence.caf\"}}"}';
-			}else{
-				$publish = '{"default": "test", "APNS": "{\"aps\":{\"alert\": {\"title\":\"'.$titre.'\",\"body\":\"'.$message.'\"},\"sound\":\"silence.caf\"}}"}';
-			}
-		}else if($os == 'android'){
-			$publish = '{"default": "Erreur de texte de notification", "GCM": "{ \"data\": {\"notificationId\":\"'.rand(3, 5).'\",\"title\":\"'.$titre.'\",\"text\":\"'.$message.'\",\"vibrate\":\"true\",\"lights\":\"true\" } }"}';
-		}else if($os == 'microsoft'){
-			
-		}
-		return $publish;
-	}
-	
-	public static function notification($arn,$os,$titre,$message,$badge = 'null'){
-		log::add('homebridge', 'debug', 'notification en cours !');
-		if($badge == 'null'){
-			$publish = homebridge::jsonPublish($os,$titre,$message,$badge);
-		}else{
-			$publish = homebridge::jsonPublish($os,$titre,$message);
-		}
-		log::add('homebridge', 'debug', 'JSON envoyé : '.$publish);
-		$post = [
-			'id' => '1',
-			'type' => $os,
-			'arn' => $arn,
-			'publish' => $publish 
-		];
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,homebridge::LienAWS());
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,$post);            
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
-        log::add('homebridge', 'debug', 'notification resultat > '.$server_output);
-	}
 	
 	/**************************************************************************************/
 	/*                                                                                    */
@@ -756,7 +993,7 @@ class homebridge extends eqLogic {
 	/*                                                                                    */
 	/**************************************************************************************/
 	
-	public function postInsert() {
+	/*public function postInsert() {
 		$key = config::genKey(32);
 		$this->setLogicalId($key);
 		$this->save();
@@ -781,7 +1018,7 @@ class homebridge extends eqLogic {
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
 
-    }
+    }*/
 	
 
 	/*     * *********************Méthodes d'instance************************* */
@@ -803,7 +1040,7 @@ class homebridgeCmd extends cmd {
 											}
 											 */
 
-	public function execute($_options = array()) {
+	/*public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
 		$arn = $eqLogic->getConfiguration('notificationArn', null);
 		$os = $eqLogic->getConfiguration('type_homebridge', null);
@@ -814,15 +1051,13 @@ class homebridgeCmd extends cmd {
 		if($this->getLogicalId() == 'notif') {
 			log::add('homebridge', 'debug', 'Commande de notification ', 'config');
 			if($arn != null && $os != null){
-				homebridge::notification($arn,$os,$_options['title'],$_options['message']);
+				self::notification($arn,$os,$_options['title'],$_options['message']);
 				log::add('homebridge', 'debug', 'Action : Envoi d\'une configuration ', 'config');
 			}else{
 				log::add('homebridge', 'debug', 'ARN non configuré ', 'config');	
 			}
 		};
-	}
+	}*/
 
 	/*     * **********************Getteur Setteur*************************** */
 }
-
-?>
