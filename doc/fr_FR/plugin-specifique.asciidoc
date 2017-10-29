@@ -28,7 +28,7 @@ image::../images/thermostat.png[]
 
 ===== Utilisation
 
-Seuls les modes "CHAUF", "CLIM" et "ETEINT" fonctionneront. Le Mode "AUTO" est non fonctionnelle. Pour mettre à l'arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ETEINT".
+Seuls les modes "CHAUF", "CLIM" et "ETEINT" fonctionneront. Le Mode "AUTO" est non fonctionnel. Pour mettre à l'arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ETEINT".
 
 [underline]#Mise en route du chauffage#
 
