@@ -8,7 +8,7 @@
 [IMPORTANT]
 ne pas modifier ce type dans Jeedom pendant que Homebridge fonctionne
     * Les types génériques "Info/Choc", "Info/Vent (direction)", "Info/Vent (vitesse)", "Info/Pluie (mm/h)", "Info/Pluie (accumulation)", "Info/Pression", "Info/Son (dB)" sont gérés comme des "Info/Générique" et affichés dans Eve.
-    * Lumières : Fonctionnement est corrigé pour certains plugins, Phillips Hue fonctionne, Lifx aussi, Z-Wave aussi, Ikea à venir, XiaomiHome (Yeelight) à venir. Support de la température de couleur.
+    * Lumières : Fonctionnement est corrigé pour certains plugins (voir annonce forum)
 [TIP]
 Si vous aviez un pont Philips Hue v1, vous avez maintenant accès à HomeKit :)
     * Alarme : les modes sont liables aux modes imposés d'HomeKit : Absent, Nuit, Présent, Désactivé. Fonctionne en consultation ET action.
