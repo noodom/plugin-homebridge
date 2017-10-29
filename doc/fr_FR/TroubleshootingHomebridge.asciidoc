@@ -13,7 +13,7 @@ Pour un "virtuel" :
 
 image::../images/reference-etat.png[]
 
-Pour un accessoire physique (dimmer 2 de fibaro par l'exemple) : 
+Pour un accessoire physique (dimmer 2 de fibaro par exemple) : 
 
 image::../images/ref2.png[]
 
