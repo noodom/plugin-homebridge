@@ -208,5 +208,11 @@ avec Unité indiquée ou pas
 | Info/Pluie (mm/h) | NON | Générique (Eve Seulement)
 | Info/Vent (direction) | NON | Générique (Eve Seulement)
 | Info/Vent (vitesse) | NON | Générique (Eve Seulement)
+| Info/Actif | NON | 0 = inactif
+
+1 = actif
+| Info/Defectueux | NON | 0 = non
+
+1 = oui
 |===
 
