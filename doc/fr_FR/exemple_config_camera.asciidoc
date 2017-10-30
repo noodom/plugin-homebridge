@@ -14,7 +14,7 @@ Celles-ci peuvent afficher une notification lorsque un mouvement est détecté p
 
 image::../images/notif.jpg[]
 
-Les caméras décritent ci dessous ont été testées. Elles sont donc fonctionnelle dans homebridge.
+Les caméras décritent ci dessous ont été testées. Elles sont donc fonctionnelles dans homebridge.
 
 
 
