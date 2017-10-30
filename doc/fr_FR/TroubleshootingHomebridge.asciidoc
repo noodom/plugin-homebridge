@@ -13,19 +13,19 @@ Pour un "virtuel" :
 
 image::../images/reference-etat.png[]
 
-Pour un accessoire physique (dimmer 2 de fibaro par exemple) : 
+Pour un accessoire physique (Dimmer 2 de Fibaro par exemple) : 
 
 image::../images/ref2.png[]
 
 ==== FAQ
 
-*-> Le pont HomeBridge n'apparait pas dans l'application Maison !*
+*-> Le pont Homebridge n'apparait pas dans l'application Maison !*
 
-TIP: Vérifiez que vous êtes connecté au même sous réseau le pont HomeBridge et que les fonctions Igmp snooping ou dns multicast sont activées sur votre box, routeur ou switch. Le protocole HomeKit n'est pas routable.
+TIP: Vérifiez que vous êtes connectés au même réseau que le pont Homebridge et que les fonctions Igmp snooping ou dns multicast sont activées sur votre box, routeur ou switch. Le protocole HomeKit n'est pas routable.
 
 *-> Je n'arrive pas à inclure Jeedom dans HomeKit !*
 
-TIP: Vérifier que le statut du démon Homebridge est sur OK.
+TIP: Vérifiez que le statut du démon Homebridge est sur OK.
 
 image::../images/demonHB.png[]
 

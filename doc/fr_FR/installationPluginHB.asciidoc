@@ -12,7 +12,7 @@ image::../images/activationHB.png[]
 
 ===  Installation des dépendances
 
-Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Elles seront également réinstallées lors d'une mise à jour du plugin si b.
+Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Elles seront également réinstallées lors d'une mise à jour du plugin si besoin.
 
 image::../images/installationDep.png[]
 
