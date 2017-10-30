@@ -8,17 +8,17 @@ En touchant la capture de la caméra souhaitée, elle s'affiche en plein écran 
 
 image::../images/camera3.png[]
 
-Suivant les configurations matèriels, la qualité de la transmition peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
+Suivant les configurations matérielles, la qualité de la transmition peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
 
-Celles-ci peuvent afficher une notification lorsque un mouvement est détecté par une capteur de présence. Il faut que la caméra et le capteur soient configurés dans la même pièce et que les notifications du capteurs soient activées.
+Celles-ci peuvent afficher une notification lorsqu'un mouvement est détecté par un capteur de présence. Il faut que la caméra et le capteur soient configurés dans la même pièce et que les notifications du capteur soient activées.
 
 image::../images/notif.jpg[]
 
-Les caméras décritent ci dessous ont été testées. Elles sont donc fonctionnelles dans homebridge.
+Les caméras décrites ci-dessous ont été testées. Elles sont donc fonctionnelles dans Homebridge.
 
 
 
-L'intégration des caméras se fait via la bouton rouge "plateforme homebridge suplémentaire".
+L'intégration des caméras se fait via la bouton rouge "Plateforme Homebridge suplémentaire".
 
 image::../images/plateforme-hb.png[]
 
@@ -168,8 +168,8 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par 
 
 ==== Netatmo Welcome
 
-Cette caméra deviendra officielement compatible homekit en fin d'année 2017. 
-Son intégration dans homebridge est néanmoins possible.
+Cette caméra deviendra officielement compatible HomeKit en fin d'année 2017. 
+Son intégration dans Homebridge est néanmoins possible.
 
 [source,]
 ----
@@ -191,6 +191,6 @@ Son intégration dans homebridge est néanmoins possible.
 }
 ----
 
-Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP la caméra et  <Local_Access_Key> -> voir dans le plugin caméra l'URL de capture /<Local_Access_Key>/live/snapshot_720.jpg.
+Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP la caméra et  <Local_Access_Key> -> voir dans le plugin Caméra l'URL de capture /<Local_Access_Key>/live/snapshot_720.jpg.
 
 image::../images/camera.png[]
