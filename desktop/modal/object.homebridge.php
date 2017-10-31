@@ -280,7 +280,8 @@ function listThermoSetModes($cmds,$selected) {
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
-														$generic_array = array_merge(jeedom::getConfiguration('cmd::generic_type'),homebridge::getCustomGenerics());
+														//$generic_array = array_merge(jeedom::getConfiguration('cmd::generic_type'),homebridge::getCustomGenerics());
+														$generic_array = jeedom::getConfiguration('cmd::generic_type') + homebridge::getCustomGenerics(); // merge without replace
 														foreach ($generic_array as $key => $info) {
 															if ($cmd->getType() == 'info' && $info['type'] == 'Action') {
 																continue;
