@@ -4,6 +4,7 @@
     * Plugin séparé du plugin App Mobile.
     * Récupération de la configuration du plugin App Mobile s'il est installé.
     * Meilleure réparation et installation plus poussée pour éviter des problèmes divers.
+    * Documentation complètement réécrite et adaptée par @bphoque, près de 60 pages A4 !!!
     * Type "Info/Générique" supporté pour les infos Jeedom de type Numérique, Binaire, Autre dans l'application Eve uniquement (pas encore disponnible dans "Maison").
 [IMPORTANT]
 ne pas modifier ce type dans Jeedom pendant que Homebridge fonctionne
