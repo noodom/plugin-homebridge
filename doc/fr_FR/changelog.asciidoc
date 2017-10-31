@@ -1,5 +1,9 @@
 === Plugin HomeBridge
 
+==== v1.3.1 (31-10-2017)
+    * Bug invertBinary sur présence sans inversion
+    * Mise à jour documentation
+
 ==== v1.3 (30-10-2017)
     * Plugin séparé du plugin App Mobile.
     * Récupération de la configuration du plugin App Mobile s'il est installé.
