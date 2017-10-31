@@ -3,6 +3,7 @@
 ==== v1.3.1 (31-10-2017)
     * Bug invertBinary sur présence sans inversion
     * Mise à jour documentation
+    * Compatibilité Serrure Nuki
 
 ==== v1.3 (30-10-2017)
     * Plugin séparé du plugin App Mobile.
