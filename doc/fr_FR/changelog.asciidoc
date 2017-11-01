@@ -1,5 +1,8 @@
 === Plugin HomeBridge
 
+==== v1.3.2 (02-11-2017)
+    * Essai de génération de documentation par le market de la nuit
+
 ==== v1.3.1 (31-10-2017)
     * Bug invertBinary sur présence sans inversion
     * Mise à jour documentation
