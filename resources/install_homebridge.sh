@@ -97,6 +97,8 @@ else
     #cd ..
     #rm -fR node-v5.12.0-linux-armv6l/
     #rm -f node-v5.12.0-linux-armv6l.tar.gz
+    #upgrade to recent npm
+    #sudo npm install -g npm
   fi
   
   if [[ `arch` == "aarch64" ]]
