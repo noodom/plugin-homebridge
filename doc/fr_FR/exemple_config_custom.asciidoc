@@ -2,6 +2,7 @@
 
 Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
 
+[IMPORTANT]
 *Seule l'application d'Elgato Eve est compatible avec ce type générique. Les équipements utilisant ce type générique n'apparaiteront pas dans l'application Maison d'Apple.*
 
 [IMPORTANT]
