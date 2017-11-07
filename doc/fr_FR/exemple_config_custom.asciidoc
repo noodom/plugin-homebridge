@@ -32,6 +32,10 @@ image::../images/custom-3.png[]
 
 image::../images/custom-4.png[]
 
+[IMPORTANT]
+*Si le champ unité a été indiqué dans jeedom, il remontra dans le type custom.*
+
+image::../images/custom-9.png[]
 
 ==== Utilisation avec le plugin vigilance méteo
 
