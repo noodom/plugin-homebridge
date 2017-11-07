@@ -2285,6 +2285,9 @@ Son intégration dans Homebridge est néanmoins possible.</p>
 <div class="paragraph">
 <p>Le type générique "Custom" permet de faire remonter n&#8217;importe quelles valeurs "info" de tous types dans Hombridge. <strong>Quelques exemples sont décris dans ce chapritre.</strong></p>
 </div>
+<div class="paragraph">
+<p><strong>L&#8217;information à remonter dans Homebridge ne doit pas dépasser 64 carractères.</strong></p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -2305,6 +2308,18 @@ Son intégration dans Homebridge est néanmoins possible.</p>
 </td>
 <td class="content">
 <strong>Les interractions avec Siri ainsi que les automations ne sont pas possible avec ce type générique</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>Il est n&#8217;est pas possible de renommer l&#8217;accessoire</strong>
 </td>
 </tr>
 </table>
@@ -2343,6 +2358,23 @@ Son intégration dans Homebridge est néanmoins possible.</p>
 <img src="../images/custom-4.png" alt="custom 4.png">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>Si le champ unité a été indiqué dans jeedom, il remontra dans le type custom.</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/custom-9.png" alt="custom 9.png">
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="trueutilisation-avec-le-plugin-vigilance-m-teo"><a class="anchor" href="#trueutilisation-avec-le-plugin-vigilance-m-teo"></a>Utilisation avec le plugin vigilance méteo</h4>
@@ -2355,18 +2387,6 @@ Son intégration dans Homebridge est néanmoins possible.</p>
 <div class="content">
 <img src="../images/custom-6.png" alt="custom 6.png">
 </div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<strong>Il est n&#8217;est pas possible de renommer l&#8217;accessoire</strong>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -3126,7 +3146,7 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 22:04:00 CET
+Last updated 2017-11-07 22:52:38 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
