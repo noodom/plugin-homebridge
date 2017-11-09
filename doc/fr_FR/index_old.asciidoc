@@ -1,6 +1,7 @@
 = Plugin HomeBridge
 
 include::presentationHomebridge.asciidoc[]
+
 include::installationPluginHB.asciidoc[]
 
 include::configurationHomebridge.asciidoc[]
