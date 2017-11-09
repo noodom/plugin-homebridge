@@ -9,6 +9,5 @@
 	"hasOwnDeamon" : true,
 	"category" : "communication",
 	"issue" : "https://github.com/jeedom/plugin-homebridge/issues",
-	"changelog" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/#language#/changelog.asciidoc",
-	"documentation" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/#language#/index.asciidoc"
+	"changelog" : "https://github.com/jeedom/plugin-homebridge/blob/master/doc/#language#/changelog.asciidoc"
 }
