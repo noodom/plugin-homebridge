@@ -79,6 +79,28 @@ else
   sudo apt-get -y --purge autoremove nodejs npm
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
+  
+  if [[ $arch == "armv6l" ]]
+  then
+    echo "Raspberry 1 détecté, utilisation du paquet pour armv6l"
+    sudo rm /etc/apt/sources.list.d/nodesource.list
+    wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+    sudo dpkg -i node_latest_armhf.deb
+    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
+    rm node_latest_armhf.deb
+    
+    #echo "Raspberry zéro détecté, utilisation du paquet pour armv6l"
+    #wget https://nodejs.org/dist/v5.12.0/node-v5.12.0-linux-armv6l.tar.gz
+    #tar -xvf node-v5.12.0-linux-armv6l.tar.gz
+    #cd node-v5.12.0-linux-armv6l
+    #sudo cp -R * /usr/local/
+    #cd ..
+    #rm -fR node-v5.12.0-linux-armv6l/
+    #rm -f node-v5.12.0-linux-armv6l.tar.gz
+    #upgrade to recent npm
+    #sudo npm install -g npm
+  fi
+  
   if [[ `arch` == "aarch64" ]]
   then
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
@@ -86,7 +108,10 @@ else
     sudo dpkg -i nodejs_5-1_arm64.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
     rm nodejs_5-1_arm64.deb
-  else
+  fi
+  
+  if [[ $arch != "aarch64" && $arch != "armv6l" ]]
+  then
     echo "Utilisation du dépot officiel"
     curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
     sudo apt-key update

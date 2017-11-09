@@ -144,7 +144,7 @@ Réf. vers Info/Garage état ouvrant
 | Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
 |===
 
-===== Haut-Parleurs
+===== Haut-Parleurs (Eve Seulement)
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
