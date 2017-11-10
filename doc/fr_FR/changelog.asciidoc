@@ -1,6 +1,6 @@
 === Plugin HomeBridge
 
-==== v1.3.2 (10-11-2017)
+==== v1.3.2 (09 et 10-11-2017)
     * Fichier fusionné pour la doc
     * Autre bug sur Inversion corrigé
     * Bug Siri "Ouvre tous les volets du salon" corrigé
