@@ -1097,8 +1097,8 @@ image::../images/reinitialisation.png[]
 
 === Plugin HomeBridge
 
-==== v1.3.2 (09-11-2017)
-    * Essai de génération de documentation par le market
+==== v1.3.2 (09 et 10-11-2017)
+    * Fichier fusionné pour la doc
     * Autre bug sur Inversion corrigé
     * Bug Siri "Ouvre tous les volets du salon" corrigé
 
