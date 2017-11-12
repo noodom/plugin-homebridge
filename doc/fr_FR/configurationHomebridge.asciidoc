@@ -83,8 +83,12 @@ image::../images/demon-homebridge.png[]
 
 Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'application "Maison" d'Apple sera utilisée pour la rédaction de la documentation.
 
-
 image::../images/app-domicile.jpg[]
+
+[IMPORTANT]
+*Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante : *
+
+image::../images/partage.png[]
 
 L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et en cliquant sur "Ajouter un accessoire".
 
