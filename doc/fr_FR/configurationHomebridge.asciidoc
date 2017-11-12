@@ -51,6 +51,9 @@ image::../images/choix-acc.png[]
 
 Afin d'ajouter un accessoire à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
 
+[IMPORTANT]
+*Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.*
+
 ==== Configuration des types génériques
 
 ===== Généralités
@@ -83,8 +86,12 @@ image::../images/demon-homebridge.png[]
 
 Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'application "Maison" d'Apple sera utilisée pour la rédaction de la documentation.
 
-
 image::../images/app-domicile.jpg[]
+
+[IMPORTANT]
+*Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante :*
+
+image::../images/partage.png[]
 
 L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et en cliquant sur "Ajouter un accessoire".
 
