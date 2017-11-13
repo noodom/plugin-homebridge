@@ -135,13 +135,21 @@ Info/Garage état ouvrant
 255 = Ouvert
 
 (Configurable)
-| Action/Portail ou garage bouton toggle | OUI | Réf. vers Info/Portail état ouvrant
+| Action/Portail ou garage bouton toggle | Si seul | Réf. vers Info/Portail état ouvrant
 
 ou
 
 Réf. vers Info/Garage état ouvrant
-| Action/Portail ou garage bouton d'ouverture | NON Utilisé | N/A
-| Action/Portail ou garage bouton de fermeture | NON Utilisé | N/A
+| Action/Portail ou garage bouton d'ouverture | Si pas Toggle | Réf. vers Info/Portail état ouvrant
+
+ou
+
+Réf. vers Info/Garage état ouvrant
+| Action/Portail ou garage bouton de fermeture | Si pas Toggle | Réf. vers Info/Portail état ouvrant
+
+ou
+
+Réf. vers Info/Garage état ouvrant
 |===
 
 ===== Haut-Parleurs (Eve Seulement)
@@ -151,8 +159,8 @@ Réf. vers Info/Garage état ouvrant
 | Info/Haut-Parleur Mute | OUI | 1 = Pas de son 
 
 0 = Son
-| Action/Haut-Parleur Mute | OUI | Réf. vers Info/Haut-Parleur Mute
-| Action/Haut-Parleur UnMute | OUI | Réf. vers Info/Haut-Parleur Mute
+| Action/Haut-Parleur Mute | Si pas Toggle | Réf. vers Info/Haut-Parleur Mute
+| Action/Haut-Parleur UnMute | Si pas Toggle | Réf. vers Info/Haut-Parleur Mute
 | Action/Haut-Parleur Toggle Mute | Si seul | Réf. vers Info/Haut-Parleur Mute
 | Info/Haut-Parleur Volume | NON | %
 | Action/Haut-Parleur Volume | OUI si Info/HP Volume | Réf. vers Info/Haut-Parleur Volume

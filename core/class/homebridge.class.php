@@ -542,8 +542,6 @@ class homebridge extends eqLogic {
 		exec($cmd);
 		$cmd = system::getCmdSudo() . 'rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
-		$cmd = system::getCmdSudo() . 'apt-get -y --purge autoremove nodejs npm';
-		exec($cmd);
 		log::add('homebridge', 'info', 'Homebridge supprimé');
 	}
 	
@@ -559,6 +557,8 @@ class homebridge extends eqLogic {
 		exec($cmd);
 		if($reinstall) {
 			homebridge::uninstallHomebridge();
+			$cmd = system::getCmdSudo() . 'apt-get -y --purge autoremove nodejs npm';
+			exec($cmd);
 		}
 		$mac_homebridge = self::generateRandomMac();
 		log::add('homebridge', 'info', 'création d\'une nouvelle MAC adress : '.$mac_homebridge);
