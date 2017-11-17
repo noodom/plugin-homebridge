@@ -48,7 +48,8 @@ class homebridge extends eqLogic {
 			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire) (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'AIRQUALITY_AQI' => array('name' => 'Qualité d\'air (Indice AQI) (Homebridge)', 'family' => 'Qualité D\'air', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -91,9 +92,15 @@ class homebridge extends eqLogic {
 										[
 											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'pm25'=>
+										[
+											'online'=>'ACTIVE',
+											'status::aqi'=>'AIRQUALITY_INDEX',
+											'status::battery'=>'BATTERY'
 										]
 								],
-								'ikealight'=>
+							'ikealight'=>
 								[
 									//'field'=>'model',
 									'default'=>
