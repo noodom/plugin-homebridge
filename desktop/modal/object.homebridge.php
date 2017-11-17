@@ -291,6 +291,8 @@ function listThermoSetModes($cmds,$selected) {
 																continue;*/
 															} elseif (isset($info['family']) && $info['family'] == 'Caméra') { // display ignored types
 																continue;
+															} elseif (isset($info['family']) && $info['family'] == 'Qualité D\'air') { // display ignored types
+																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Alarme') { // display ignored types
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Météo') { // display ignored types
