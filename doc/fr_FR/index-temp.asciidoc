@@ -1112,6 +1112,9 @@ image::../images/reinitialisation.png[]
 
 === Plugin HomeBridge
 
+==== v1.3.4 (??)
+    * Gestion automatique Xiaomi PM2.5
+
 ==== v1.3.3 (13-11-2017)
     * Modification documentation
     * Gestion des actions Ouvrir et Fermer pour les portes de garages.
