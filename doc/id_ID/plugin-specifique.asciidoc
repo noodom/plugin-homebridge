@@ -1,0 +1,146 @@
+=== Plugins spécifiques
+
+==== Plugin "Thermostat"
+
+[IMPORTANT]
+La fonctionnalité du thermostat dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Thermostat". Pour configurer le plugin "Thermostat", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
+
+
+===== Configuration
+
+Dans HomeKit, le thermostat est géré suivant 4 modes : "Éteint", "Chauffer" "Climatiser" et "Automatique". 
+
+Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
+
+image::../images/thermostat1.png[]
+
+* *Température cible* : Température de consigne;
+
+* *Mode* : Sélection du mode du thermostat;
+
+* *Protection enfants* : Permet de verrouiller les réglages du thermostat;
+
+* *Statut* : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.
+
+Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.
+
+image::../images/thermostat.png[]
+
+===== Utilisation
+
+Seuls les modes "CHAUF", "CLIM" et "ÉTEINT" fonctionneront. Le Mode "AUTO" est non fonctionnel. Pour mettre à l'arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ÉTEINT".
+
+[underline]#Mise en route du chauffage#
+
+* *CHAUF* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+image::../images/chauffe.png[]
+
+La température cible passe automatique à la température de consigne réglée dans le plugin "Thermostat".
+
+Le mode passe en "Chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C'est juste que le système de chauffage est en route. Le statut indique si le radiateur émet de la chaleur.
+
+image::../images/statut.png[]
+
+*Statut arrêté" : Le radiateur n'émet pas de chaleur.
+
+*Statut chauffage" : Le radiateur émet de la chaleur.
+
+Il est également possible de régler une température de consigne directement depuis l'application Eve ou via Siri.
+
+image::../images/sirichauff.png[]
+
+Le chauffage passe en mode manuel.
+
+image::../images/forcechauff.png[]
+
+Le mode passe en "Désactivé", c'est normal. Dans certain cas, il peut rester dans la position où il était avant la demande de changement de la température de consigne.
+
+La température de consigne passe bien à la valeur demandée. Si la température ambiante est infèrieure à la température de consigne, le chauffage se mettra en route. Le statut passera donc en "Chauffage".
+
+[underline]#Mise en route de la climatisation#
+
+Le fonctionnement de la climatisation est indentique au fonctionnement du chauffage.
+
+En cliquant sur "CLIM", on active le mode de climatisation réglé dans le plugin "Thermostat".
+
+image::../images/clim.png[]
+
+On peut modifier la température de consigne.
+
+image::../images/siriclim.png[]
+
+Le fonctionnement de la climatisation passe en mode manuel.
+
+image::../images/climforce.png[]
+
+==== Plugin "Alarme"
+
+[IMPORTANT]
+La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Alarme". Pour configurer le plugin "Alarme", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin].
+
+*Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
+
+===== Configuration
+
+Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "Désactivée", "Nuit", "A distance" et "Domicile".
+
+Depuis l'application Maison : 
+
+image::../images/alarme.png[]
+
+Depuis l'application Eve : 
+
+image::../images/alarmeeve.png[]
+
+Le mode "Désactivé", inhibe l'ensemble des modes d'alarme du plugin "Alarme". Les actions de l'onglet "Désactivation OK" sont lancées (en fonction du mode de sortie).
+
+image::../images/inhibe.png[]
+
+Les 3 autres modes, sont à définir dans la configuration du plugin Homebridge.
+
+image::../images/configalarme.png[]
+
+[IMPORTANT]
+
+Le "mode Jeedom" correspond aux modes du plugin "Alarme".
+
+image::../images/modealarme.png[]
+
+Il suffit d'affecter le "mode Jeedom" au mode Homebridge choisi.
+
+===== Utilisation
+
+Il suffit de cliquer sur l'icone "Alarme" dans l'application Maison.
+
+image::../images/iconealarme.png[]
+
+Et de sélectionner le mode.
+
+image::../images/selmodealarme.png[]
+
+L'alarme est activée.
+
+Sur le dashboard : 
+
+image::../images/alarmeactive.png[]
+
+Sur l'application Maison : 
+
+image::../images/alarmeactive2.png[]
+
+Pour la désactiver, il suffit de sélectionner "Désactivée". Les actions définies dans la partie "Désactivation OK" du plugin "Alarme" vont s'exécuter.
+
+image::../images/desactivationok.png[]
+
+En cas de déclenchement de l'alarme, une notification apparait sur le téléphone.
+
+image::../images/alarmedeclanchee.png[]
+
+Pour la désarmer, il faut cliquer sur l'icone "Alarme" et sélectionner "Désactivée".
+
+image::../images/reinitialiseralarme.png[]
+
+Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont s'exécuter.
+
+image::../images/reinitialisation.png[]

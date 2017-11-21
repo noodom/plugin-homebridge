@@ -1,27 +1,28 @@
-= Plugin Mobile
-
-Plugin permettant d'utiliser l'application Mobile Jeedom.
-
-include::configurationPlugin.asciidoc[]
-
-include::configurationMobile.asciidoc[]
-
-include::configurationTypeGenerique.asciidoc[]
-
-= Homebridge
+= Plugin HomeBridge
 
 include::presentationHomebridge.asciidoc[]
 
-include::demonHomebridge.asciidoc[]
+include::installationPluginHB.asciidoc[]
 
 include::configurationHomebridge.asciidoc[]
 
-= Troubleshooting
+include::migration.asciidoc[]
 
-include::TroubleshootingMobile.asciidoc[]
+== Troubleshooting
 
 include::TroubleshootingHomebridge.asciidoc[]
 
+include::logHomebridge.asciidoc[]
+
+== Exemple de configuration
+
+include::exemple_config_TG.asciidoc[]
+
+include::exemple_config_custom.asciidoc[]
+
+include::plugin-specifique.asciidoc[]
+
+== Changelog
+
 include::changelog.asciidoc[]
 
-En savoir plus sur l'avancement de l'application Mobile cliquez-ici > https://github.com/jeedom/issues/projects/2?fullscreen=true
