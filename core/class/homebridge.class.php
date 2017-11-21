@@ -219,18 +219,18 @@ class homebridge extends eqLogic {
 		return $branch;
 	}
 	
-	public static function getJSON(){
+	public static function getJSON($type = 'Platform'){
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
+		exec('touch ' . dirname(__FILE__) . '/../../data/other'.$type.'.json');
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		return file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
+		return file_get_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json');
 	}
-	public static function saveJSON($file){
+	public static function saveJSON($file,$type = 'Platform'){
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json',$file);
 		return (($ret===false)?false:true);
 	}
 	
@@ -390,12 +390,7 @@ class homebridge extends eqLogic {
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		$jsonFile = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
+		$jsonFile = homebridge::getJSON('Platform');
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
@@ -429,6 +424,17 @@ class homebridge extends eqLogic {
 					}
 				}
 				$response['platforms'][] = $jsonArr;
+			}
+		}
+		
+		$jsonFileAccessory = homebridge::getJSON('Accessory');
+		$jsonAccessories = explode('|',$jsonFileAccessory);
+		if(!$jsonAccessories)
+			$jsonAccessories = array($jsonFileAccessory);
+		foreach ($jsonAccessories as $jsonAccessory) {
+			$jsonArrAcc = json_decode($jsonAccessory,true);
+			if($jsonArrAcc !== null) {
+				$response['accessories'][] = $jsonArrAcc;
 			}
 		}
 		
