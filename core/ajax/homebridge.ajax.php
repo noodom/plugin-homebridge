@@ -43,11 +43,21 @@ try {
 		ajax::success();
 	}
 	if (init('action') == 'getJSON') {
-		$file = homebridge::getJSON();
+		if(init('type') == 'Platform')
+			$file = homebridge::getJSON('Platform');
+		elseif(init('type') == 'Accessory')
+			$file = homebridge::getJSON('Accessory');
+		else
+			$file = false;
 		ajax::success($file);
 	}
 	if (init('action') == 'saveJSON') {
-		$ret = homebridge::saveJSON(init('file'));
+		if(init('type') == 'Platform')
+			$ret = homebridge::saveJSON(init('file'),'Platform');
+		elseif(init('type') == 'Accessory')
+			$ret = homebridge::saveJSON(init('file'),'Accessory');
+		else
+			$ret = false;
 		ajax::success($ret);
 	}
 	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
