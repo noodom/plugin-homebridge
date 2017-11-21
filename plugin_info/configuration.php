@@ -94,6 +94,8 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{Configuration avancée}}</label>
 			<div class="col-lg-3">
 				<a class="btn btn-danger" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
+				<br />
+				<a class="btn btn-danger" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
 			</div>
 		</div>		
 	</fieldset>
@@ -142,6 +144,14 @@ if(!isConnect()) {
 			if (result) {
 				$('#md_modal2').dialog({title: "{{Configuration Plateforme Homebridge supplémentaire}}"});
 				$('#md_modal2').load('index.php?v=d&plugin=homebridge&modal=platformHB.homebridge').dialog('open');
+			}
+		});
+	});
+	$('#bt_accessoryFile').on('click', function () {
+		bootbox.confirm('{{Configuration avancée, à vos propres risques !!! Aucun support ne sera donné !!!}}', function(result) {
+			if (result) {
+				$('#md_modal2').dialog({title: "{{Configuration Accessoire Homebridge supplémentaire}}"});
+				$('#md_modal2').load('index.php?v=d&plugin=homebridge&modal=accessoryHB.homebridge').dialog('open');
 			}
 		});
 	});
