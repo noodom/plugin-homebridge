@@ -71,7 +71,7 @@ if (!isConnect('admin')) {
 <br />
 <a href="https://github.com/KhaosT/homebridge-camera-ffmpeg/wiki/Tested-Configuration" target="_blank">{{Exemples camera}}</a> - <a href="https://www.ispyconnect.com/sources.aspx" target="_blank">{{Trouvez votre camera}}</a><br />
 <br />
-NB : Une nouvelle Plateforme doit être ajoutée à nouveau dans l'application "Maison" avec le même code PIN</label>
+{{NB : Une nouvelle Plateforme doit être ajoutée à nouveau dans l'application "Maison" avec le même code PIN}}</label>
 </div>
 <button id="saveconf" class="btn btn-success pull-left"><i class="fa fa-floppy-o"></i> {{Sauvegarder les changements}}
 </button><br/>
