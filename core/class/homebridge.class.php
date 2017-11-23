@@ -342,7 +342,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function cryptedMagic() {
-		$magicField = config::byKey('magicField','homebridge');
+		$magicField = config::byKey('magicField','homebridge',"",true);
 		$magicField = explode(" ",$magicField);
 		foreach($magicField as &$magicWord) {
 			$magicWord = crypt($magicWord,"NBZ");
