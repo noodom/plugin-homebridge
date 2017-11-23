@@ -367,6 +367,16 @@ class homebridge extends eqLogic {
 			$apikey = config::byKey('api');
 		}
 		//$apikey = jeedom::getApiKey('homebridge'); need to manage jeeHomebridge.php first
+
+		if(homebridge::isMagic('NBJCKZ/fOJDnM')) { // enable beta
+			file_put_contents(dirname(__FILE__) . '/../../branch','beta');
+		}
+		if(homebridge::isMagic('NBz//9iJgk0sA')) { // enable alpha
+			file_put_contents(dirname(__FILE__) . '/../../branch','alpha');
+		}
+		if(homebridge::isMagic('NBe/9kOLwyupc')) { // enable master
+			file_put_contents(dirname(__FILE__) . '/../../branch','master');
+		}
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
