@@ -341,6 +341,20 @@ class homebridge extends eqLogic {
 		return true;
 	}
 	
+	public static function cryptedMagic() {
+		$magicField = config::byKey('magicField','homebridge');
+		$magicField = explode(" ",$magicField);
+		foreach($magicField as &$magicWord) {
+			$magicWord = crypt($magicWord,"NBZ");
+		}
+		return $magicField;	
+	}
+	
+	public static function isMagic($magicValue) {
+		$magicField = homebridge::cryptedMagic();
+		return ((array_search($magicValue,$magicField) !== false) ? true : false);
+	}	
+	
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
