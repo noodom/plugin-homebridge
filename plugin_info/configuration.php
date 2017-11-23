@@ -96,6 +96,8 @@ if(!isConnect()) {
 				<a class="btn btn-danger" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
 				<br />
 				<a class="btn btn-danger" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
+				<br />
+				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" placeholder="***** CHAMP MAGIQUE *****" />
 			</div>
 		</div>		
 	</fieldset>
