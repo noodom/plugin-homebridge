@@ -121,100 +121,11 @@ function listThermoSetModes($cmds,$selected) {
 							<?php
 							switch($eqLogic->getEqType_name()) :
 								case "alarm" :
-									if(isset($customEQValuesArr['configuration'])) {
-										$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
-										$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
-										$SetModeNuit    = (($customEQValuesArr['configuration']['SetModeNuit'])?$customEQValuesArr['configuration']['SetModeNuit']:'NOT');
-									}
-									else {
-										$SetModePresent = 'NOT';
-										$SetModeAbsent  = 'NOT';
-										$SetModeNuit    = 'NOT';
-									}
-							?>
-									<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
-									<table class="table">
-										<tr class="cmdLine">
-											<th>{{Mode app Maison}}</th>
-											<th>{{Mode app Eve}}</th>
-											<th>{{Mode Jeedom}}</th>
-										</tr>
-										<tr class="cmdLine">
-											<td>{{Domicile}}</td><td>{{Présence}}</td>
-											<td>
-												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-													<?=listAlarmSetModes($eql_cmds,$SetModePresent)?>
-												</select>
-											</td>
-										</tr>
-										<tr class="cmdLine">
-											<td>{{À distance}}</td><td>{{Absence}}</td>
-											<td>
-												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-													<?=listAlarmSetModes($eql_cmds,$SetModeAbsent)?>
-												</select>
-											</td>
-										</tr>
-										<tr class="cmdLine">
-											<td>{{Nuit}}</td><td>{{Nuit}}</td>
-											<td>
-												<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-													<?=listAlarmSetModes($eql_cmds,$SetModeNuit)?>
-												</select>	
-											</td>
-										</tr>
-										<tr class="cmdLine">
-											<td></td><td></td>
-											<td>
-												<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
-											</td>
-										</tr>
-									</table>
-								<?php
+									configAlarmModes($customEQValuesArr,$eql_cmds);
 								break;
 								case "netatmoThermostat":
 								case "thermostat" :
-									if(isset($customEQValuesArr['configuration'])) {
-										$Chauf = (($customEQValuesArr['configuration']['Chauf'])?$customEQValuesArr['configuration']['Chauf']:'NOT');
-										$Clim  = (($customEQValuesArr['configuration']['Clim'])?$customEQValuesArr['configuration']['Clim']:'NOT');
-									}
-									else {
-										$Chauf = 'NOT';
-										$Clim  = 'NOT';
-									}
-							?>
-									<span class="form-control eqLogicAttrThermo" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
-									<?=listThermoSetModes($eql_cmds,'Off')?>
-									<table class="table">
-										<tr class="cmdLine">
-											<th>{{Mode app Maison}}</th>
-											<th>{{Mode app Eve}}</th>
-											<th>{{Mode Jeedom}}</th>
-										</tr>
-										<tr class="cmdLine">
-											<td>{{Chauffer}}</td><td>{{CHAUF.}}</td>
-											<td>
-												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Chauf">
-													<?=listThermoSetModes($eql_cmds,$Chauf)?>
-												</select>
-											</td>
-										</tr>
-										<tr class="cmdLine">
-											<td>{{Refroidir}}</td><td>{{CLIM.}}</td>
-											<td>
-												<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Clim">
-													<?=listThermoSetModes($eql_cmds,$Clim)?>
-												</select>
-											</td>
-										</tr>
-										<tr class="cmdLine">
-											<td></td><td></td>
-											<td>
-												<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
-											</td>
-										</tr>
-									</table>
-								<?php
+									configThermoModes($customEQValuesArr,$eql_cmds);
 								break;
 								case "weather" :
 								?>
@@ -287,8 +198,6 @@ function listThermoSetModes($cmds,$selected) {
 																continue;
 															} elseif ($cmd->getType() == 'action' && $info['type'] == 'Info') {
 																continue;
-														/*	} elseif (isset($info['family']) && $info['family'] == 'Thermostat') { // display ignored types
-																continue;*/
 															} elseif (isset($info['family']) && $info['family'] == 'Caméra') { // display ignored types
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Qualité D\'air') { // display ignored types
@@ -336,107 +245,16 @@ function listThermoSetModes($cmds,$selected) {
 										switch($isCustomisable) {
 											case "GARAGE_STATE" :
 											case "BARRIER_STATE":
-												//var_dump($eqLogic);
-												if(isset($customEQValuesArr['configuration'])) {
-													$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
-													$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
-													$OPENING	  = ((isset($customEQValuesArr['configuration']['OPENING']))?$customEQValuesArr['configuration']['OPENING']:254);
-													$STOPPED	  = ((isset($customEQValuesArr['configuration']['STOPPED']))?$customEQValuesArr['configuration']['STOPPED']:253);
-													$CLOSING	  = ((isset($customEQValuesArr['configuration']['CLOSING']))?$customEQValuesArr['configuration']['CLOSING']:252);
-													$CLOSED		  = ((isset($customEQValuesArr['configuration']['CLOSED']))?$customEQValuesArr['configuration']['CLOSED']:0);
-												}
-												else {
-													$customValues = false;
-													$OPEN		  = 255;
-													$OPENING	  = 254;
-													$STOPPED	  = 253;
-													$CLOSING	  = 252;
-													$CLOSED		  = 0;
-												}
-										?>
-											<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
-											<span class="eqLogicAttrGarage configuration" type="text" data-l1key="configuration" data-l2key="customValues" style="display : none;">1</span>
-											<tr><th colspan='3'>{{Personnalisation des états}}</th></tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>{{Ouvert}}</td>
-												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPEN" value='<?=$OPEN?>' /></td>
-											</tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>{{Ouverture en cours}}</td>
-												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPENING" value='<?=$OPENING?>' /></td>
-											</tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>{{Stoppé}}</td>
-												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="STOPPED" value='<?=$STOPPED?>' /></td>
-											</tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>{{Fermeture en cours}}</td>
-												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSING" value='<?=$CLOSING?>' /></td>
-											</tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>{{Fermé}}</td>
-												<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSED" value='<?=$CLOSED?>' /></td>
-											</tr>
-											<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>
-										<?php
+												configBarrierGarage($customEQValuesArr);
 											break;
-											case "ALARM_STATE" :
+											case "ALARM_SET_MODE" :
 												if($eqLogic->getEqType_name() != 'alarm' && homebridge::isMagic('NBpPxpeFf5QRA')) :
-													if(isset($customEQValuesArr['configuration'])) {
-														$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
-														$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
-														$SetModeNuit    = (($customEQValuesArr['configuration']['SetModeNuit'])?$customEQValuesArr['configuration']['SetModeNuit']:'NOT');
-													}
-													else {
-														$SetModePresent = 'NOT';
-														$SetModeAbsent  = 'NOT';
-														$SetModeNuit    = 'NOT';
-													}
-										?>
-												<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
-												<table class="table">
-													<tr class="cmdLine">
-														<th>{{Mode app Maison}}</th>
-														<th>{{Mode app Eve}}</th>
-														<th>{{Mode Jeedom}}</th>
-													</tr>
-													<tr class="cmdLine">
-														<td>{{Domicile}}</td><td>{{Présence}}</td>
-														<td>
-															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
-																<?=listAlarmSetModes($eql_cmds,$SetModePresent)?>
-															</select>
-														</td>
-													</tr>
-													<tr class="cmdLine">
-														<td>{{À distance}}</td><td>{{Absence}}</td>
-														<td>
-															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
-																<?=listAlarmSetModes($eql_cmds,$SetModeAbsent)?>
-															</select>
-														</td>
-													</tr>
-													<tr class="cmdLine">
-														<td>{{Nuit}}</td><td>{{Nuit}}</td>
-														<td>
-															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
-																<?=listAlarmSetModes($eql_cmds,$SetModeNuit)?>
-															</select>	
-														</td>
-													</tr>
-													<tr class="cmdLine">
-														<td></td><td></td>
-														<td>
-															<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
-														</td>
-													</tr>
-												</table>
-										<?php
+													configAlarmModes($customEQValuesArr,$eql_cmds);
+												endif;
+											break;
+											case "THERMOSTAT_SET_MODE" :
+												if($eqLogic->getEqType_name() != 'thermostat') :
+													configThermoModes($customEQValuesArr,$eql_cmds);
 												endif;
 											break;
 											default:
@@ -645,3 +463,149 @@ $('#md_modal').on('dialogclose', function () {
 	}
 })
 </script>
+<?php
+function configAlarmModes($customEQValuesArr,$eql_cmds) {
+		if(isset($customEQValuesArr['configuration'])) {
+			$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
+			$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
+			$SetModeNuit    = (($customEQValuesArr['configuration']['SetModeNuit'])?$customEQValuesArr['configuration']['SetModeNuit']:'NOT');
+		}
+		else {
+			$SetModePresent = 'NOT';
+			$SetModeAbsent  = 'NOT';
+			$SetModeNuit    = 'NOT';
+		}
+?>
+		<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
+		<table class="table">
+			<tr class="cmdLine">
+				<th>{{Mode app Maison}}</th>
+				<th>{{Mode app Eve}}</th>
+				<th>{{Mode Jeedom}}</th>
+			</tr>
+			<tr class="cmdLine">
+				<td>{{Domicile}}</td><td>{{Présence}}</td>
+				<td>
+					<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
+						<?=listAlarmSetModes($eql_cmds,$SetModePresent)?>
+					</select>
+				</td>
+			</tr>
+			<tr class="cmdLine">
+				<td>{{À distance}}</td><td>{{Absence}}</td>
+				<td>
+					<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
+						<?=listAlarmSetModes($eql_cmds,$SetModeAbsent)?>
+					</select>
+				</td>
+			</tr>
+			<tr class="cmdLine">
+				<td>{{Nuit}}</td><td>{{Nuit}}</td>
+				<td>
+					<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
+						<?=listAlarmSetModes($eql_cmds,$SetModeNuit)?>
+					</select>	
+				</td>
+			</tr>
+			<tr class="cmdLine">
+				<td></td><td></td>
+				<td>
+					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+				</td>
+			</tr>
+		</table>	
+<?php
+}
+function configThermoModes($customEQValuesArr,$eql_cmds) {
+		if(isset($customEQValuesArr['configuration'])) {
+			$Chauf = (($customEQValuesArr['configuration']['Chauf'])?$customEQValuesArr['configuration']['Chauf']:'NOT');
+			$Clim  = (($customEQValuesArr['configuration']['Clim'])?$customEQValuesArr['configuration']['Clim']:'NOT');
+		}
+		else {
+			$Chauf = 'NOT';
+			$Clim  = 'NOT';
+		}
+?>
+		<span class="form-control eqLogicAttrThermo" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
+		<?=listThermoSetModes($eql_cmds,'Off')?>
+		<table class="table">
+			<tr class="cmdLine">
+				<th>{{Mode app Maison}}</th>
+				<th>{{Mode app Eve}}</th>
+				<th>{{Mode Jeedom}}</th>
+			</tr>
+			<tr class="cmdLine">
+				<td>{{Chauffer}}</td><td>{{CHAUF.}}</td>
+				<td>
+					<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Chauf">
+						<?=listThermoSetModes($eql_cmds,$Chauf)?>
+					</select>
+				</td>
+			</tr>
+			<tr class="cmdLine">
+				<td>{{Refroidir}}</td><td>{{CLIM.}}</td>
+				<td>
+					<select class="eqLogicAttrThermo configuration" data-l1key="configuration" data-l2key="Clim">
+						<?=listThermoSetModes($eql_cmds,$Clim)?>
+					</select>
+				</td>
+			</tr>
+			<tr class="cmdLine">
+				<td></td><td></td>
+				<td>
+					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+				</td>
+			</tr>
+		</table>	
+<?php
+}
+function configBarrierGarage($customEQValuesArr) {
+		if(isset($customEQValuesArr['configuration'])) {
+			$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
+			$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
+			$OPENING	  = ((isset($customEQValuesArr['configuration']['OPENING']))?$customEQValuesArr['configuration']['OPENING']:254);
+			$STOPPED	  = ((isset($customEQValuesArr['configuration']['STOPPED']))?$customEQValuesArr['configuration']['STOPPED']:253);
+			$CLOSING	  = ((isset($customEQValuesArr['configuration']['CLOSING']))?$customEQValuesArr['configuration']['CLOSING']:252);
+			$CLOSED		  = ((isset($customEQValuesArr['configuration']['CLOSED']))?$customEQValuesArr['configuration']['CLOSED']:0);
+		}
+		else {
+			$customValues = false;
+			$OPEN		  = 255;
+			$OPENING	  = 254;
+			$STOPPED	  = 253;
+			$CLOSING	  = 252;
+			$CLOSED		  = 0;
+		}
+	?>
+		<span class="form-control eqLogicAttrGarage" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
+		<span class="eqLogicAttrGarage configuration" type="text" data-l1key="configuration" data-l2key="customValues" style="display : none;">1</span>
+		<tr><th colspan='3'>{{Personnalisation des états}}</th></tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Ouvert}}</td>
+			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPEN" value='<?=$OPEN?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Ouverture en cours}}</td>
+			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="OPENING" value='<?=$OPENING?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Stoppé}}</td>
+			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="STOPPED" value='<?=$STOPPED?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Fermeture en cours}}</td>
+			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSING" value='<?=$CLOSING?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Fermé}}</td>
+			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSED" value='<?=$CLOSED?>' /></td>
+		</tr>
+		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+<?php
+}
+?>
