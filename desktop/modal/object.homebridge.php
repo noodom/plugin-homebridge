@@ -385,6 +385,60 @@ function listThermoSetModes($cmds,$selected) {
 											<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>
 										<?php
 											break;
+											case "ALARM_STATE" :
+												if($eqLogic->getEqType_name() != 'alarm' && homebridge::isMagic('NBpPxpeFf5QRA')) :
+													if(isset($customEQValuesArr['configuration'])) {
+														$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
+														$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
+														$SetModeNuit    = (($customEQValuesArr['configuration']['SetModeNuit'])?$customEQValuesArr['configuration']['SetModeNuit']:'NOT');
+													}
+													else {
+														$SetModePresent = 'NOT';
+														$SetModeAbsent  = 'NOT';
+														$SetModeNuit    = 'NOT';
+													}
+										?>
+												<span class="form-control eqLogicAttrAlarm" type="text" data-l1key="id" style="display : none;"><?=$eql_id?></span>
+												<table class="table">
+													<tr class="cmdLine">
+														<th>{{Mode app Maison}}</th>
+														<th>{{Mode app Eve}}</th>
+														<th>{{Mode Jeedom}}</th>
+													</tr>
+													<tr class="cmdLine">
+														<td>{{Domicile}}</td><td>{{Présence}}</td>
+														<td>
+															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModePresent">
+																<?=listAlarmSetModes($eql_cmds,$SetModePresent)?>
+															</select>
+														</td>
+													</tr>
+													<tr class="cmdLine">
+														<td>{{À distance}}</td><td>{{Absence}}</td>
+														<td>
+															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeAbsent">
+																<?=listAlarmSetModes($eql_cmds,$SetModeAbsent)?>
+															</select>
+														</td>
+													</tr>
+													<tr class="cmdLine">
+														<td>{{Nuit}}</td><td>{{Nuit}}</td>
+														<td>
+															<select class="eqLogicAttrAlarm configuration" data-l1key="configuration" data-l2key="SetModeNuit">
+																<?=listAlarmSetModes($eql_cmds,$SetModeNuit)?>
+															</select>	
+														</td>
+													</tr>
+													<tr class="cmdLine">
+														<td></td><td></td>
+														<td>
+															<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+														</td>
+													</tr>
+												</table>
+										<?php
+												endif;
+											break;
 											default:
 											break;
 										}
