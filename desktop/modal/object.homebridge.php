@@ -200,7 +200,7 @@ function listThermoSetModes($cmds,$selected) {
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Caméra') { // display ignored types
 																continue;
-															} elseif (isset($info['family']) && $info['family'] == 'Qualité D\'air') { // display ignored types
+															} elseif (isset($info['family']) && $info['family'] == 'Qualité D\'air' && !homebridge::isMagic('NBXZTP255Nq22')) { // display ignored types
 																continue;
 															} elseif (isset($info['family']) && $info['family'] == 'Alarme' && !homebridge::isMagic('NBpPxpeFf5QRA')) { // display ignored types
 																continue;
