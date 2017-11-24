@@ -410,6 +410,7 @@ class homebridge extends eqLogic {
 		$plateform['pollerperiod'] = 0.05;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
 		$plateform['myPlugin'] = 'homebridge';
+		$plateform['magicField'] = join(' ',homebridge::cryptedMagic());
 		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
