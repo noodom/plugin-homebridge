@@ -60,7 +60,7 @@ class homebridge extends eqLogic {
 	}
 
 	public static function PluginCustomisable(){
-		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE','ALARM_STATE'];
+		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE','ALARM_SET_MODE','THERMOSTAT_SET_MODE'];
 		return $PluginCustomisable;
 	}
 	
