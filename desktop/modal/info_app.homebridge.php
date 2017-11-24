@@ -112,6 +112,8 @@ Homebridge-Jeedom locale : <?=$localVer?>
 
 Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?php if($diffVer) {echo "</span>";} ?>
+
+Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 </pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)&nbsp;<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
@@ -151,6 +153,8 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 
 <?=shell_exec("ps aux | grep dbus | grep -v grep")?>
+
+<?=shell_exec("grep \"homebridge\" /etc/avahi/avahi-daemon.conf")?>
 </pre>
 
 <h3>{{Environnement IP :}} <a class="btn" data-clipboard-target=".ip"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
@@ -160,6 +164,8 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?=shell_exec("ip route")?>
 
 <?=network::getNetworkAccess('internal')?>
+
+JSONRPC : <?=config::byKey('api::core::jsonrpc::mode', 'core', 'enable')?>
 </pre>
 
 <?php
