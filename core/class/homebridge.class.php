@@ -103,6 +103,11 @@ class homebridge extends eqLogic {
 										[
 											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'philipseyecare'=>
+										[
+											'online'=>'ACTIVE',
+											'status::power'=>'LIGHT_STATE_BOOL'
 										]
 								],
 							'ikealight'=>
