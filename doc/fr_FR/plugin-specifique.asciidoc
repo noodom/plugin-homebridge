@@ -3,16 +3,24 @@
 ==== Plugin "Thermostat"
 
 [IMPORTANT]
-La fonctionnalité du thermostat dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Thermostat". Pour configurer le plugin "Thermostat", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
+Pour configurer le plugin "Thermostat", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
 
+===== Utilisation avec EVE
 
-===== Configuration
+====== Configuration
 
 Dans HomeKit, le thermostat est géré suivant 4 modes : "Éteint", "Chauffer" "Climatiser" et "Automatique". 
 
-Pour utiliser le thermostat dans HomeKit, l'application Eve est beaucoup plus fonctionnelle que l'application Maison. Il est d'ailleur conseillé de l'utiliser.
 
-image::../images/thermostat1.png[]
+image::../images/theve1.png[]
+
+* *CHAUF* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+* *CLIM* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+* *AUTO* : Aucun mode mais température demandée (et donc le plugin thermostat décide s'il doit chauffer ou refroidir automatiquement)
+
+* *ETEINT* : Active le mode du plugin "Thermostat" pour la partie chauffage.
 
 * *Température cible* : Température de consigne;
 
@@ -20,37 +28,25 @@ image::../images/thermostat1.png[]
 
 * *Protection enfants* : Permet de verrouiller les réglages du thermostat;
 
-* *Statut* : Indique si le chauffage ou la climatisation émet ou pas de la chaleur ou du froid.
-
 Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.
 
 image::../images/thermostat.png[]
 
 ===== Utilisation
 
-Seuls les modes "CHAUF", "CLIM" et "ÉTEINT" fonctionneront. Le Mode "AUTO" est non fonctionnel. Pour mettre à l'arrêt le système de chauffage ou climatisation, il faut sélectionner le mode "ÉTEINT".
-
 [underline]#Mise en route du chauffage#
 
-* *CHAUF* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+En cliquant sur "CHAUF", on active le mode de chauffe réglé dans le plugin "Thermostat".
 
 image::../images/chauffe.png[]
 
 La température cible passe automatique à la température de consigne réglée dans le plugin "Thermostat".
 
-Le mode passe en "Chauffage". Cela ne veut pas dire que le radiateur émet de la chaleur. C'est juste que le système de chauffage est en route. Le statut indique si le radiateur émet de la chaleur.
-
-image::../images/statut.png[]
-
-*Statut arrêté" : Le radiateur n'émet pas de chaleur.
-
-*Statut chauffage" : Le radiateur émet de la chaleur.
-
 Il est également possible de régler une température de consigne directement depuis l'application Eve ou via Siri.
 
 image::../images/sirichauff.png[]
 
-Le chauffage passe en mode manuel.
+Le chauffage passe en mode auto avec comme valeur la consigne demandée.
 
 image::../images/forcechauff.png[]
 
@@ -70,7 +66,7 @@ On peut modifier la température de consigne.
 
 image::../images/siriclim.png[]
 
-Le fonctionnement de la climatisation passe en mode manuel.
+Le fonctionnement de la climatisation passe en mode auto.
 
 image::../images/climforce.png[]
 
@@ -144,3 +140,7 @@ image::../images/reinitialiseralarme.png[]
 Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont s'exécuter.
 
 image::../images/reinitialisation.png[]
+
+===== Utilisation avec Maison
+
+
