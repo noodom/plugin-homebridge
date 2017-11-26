@@ -98,6 +98,11 @@ class homebridge extends eqLogic {
 											'online'=>'ACTIVE',
 											'status::aqi'=>'AIRQUALITY_INDEX',
 											'status::battery'=>'BATTERY'
+										],
+									'stripe'=>
+										[
+											'online'=>'ACTIVE',
+											'status'=>'LIGHT_STATE_BOOL'
 										]
 								],
 							'ikealight'=>
