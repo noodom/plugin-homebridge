@@ -103,7 +103,7 @@ if(!isConnect()) {
 	</fieldset>
 </form>
 <script>
-	setTimeout(function() {
+	//setTimeout(function() {
 	/*	if (hasIos == 0) {
 			$('#div_plugin_dependancy').closest('.panel').hide();
 			$('#div_plugin_deamon').closest('.panel').parent().removeClass('col-md-6');
@@ -112,11 +112,11 @@ if(!isConnect()) {
 			$('#div_plugin_configuration').closest('.panel').hide();
 			$('#div_plugin_configuration').closest('.panel').parent().removeClass('col-md-6');
 		} else {*/
-			$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
-			$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
+			//$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
+			//$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
 		//}
 
-	}, 50);
+	//}, 50);
 	$('input#input_pin_homebridge').on('keyup', function() {
 		if(!this.value.match(/^\d\d\d-\d\d-\d\d\d$/)) {
 			$('#div_alert').showAlert({
