@@ -11,14 +11,13 @@ Pour configurer le plugin "Thermostat", il faut se référer à la http://https:
 
 Dans HomeKit, le thermostat est géré suivant 4 modes : "Éteint", "Chauffer" "Climatiser" et "Automatique". 
 
-
-image::../images/theve1.png[]
+image::../images/theve1.png[] 
 
 * *CHAUF* : Active le mode du plugin "Thermostat" pour la partie chauffage.
 
 * *CLIM* : Active le mode du plugin "Thermostat" pour la partie chauffage.
 
-* *AUTO* : Aucun mode mais température demandée (et donc le plugin thermostat décide s'il doit chauffer ou refroidir automatiquement)
+* *AUTO* : Aucun mode mais température demandée (et donc le plugin thermostat décide s'il doit chauffer ou refroidir automatiquement).
 
 * *ETEINT* : Active le mode du plugin "Thermostat" pour la partie chauffage.
 
@@ -40,7 +39,7 @@ En cliquant sur "CHAUF", on active le mode de chauffe réglé dans le plugin "Th
 
 image::../images/chauffe.png[]
 
-La température cible passe automatique à la température de consigne réglée dans le plugin "Thermostat".
+La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat".
 
 Il est également possible de régler une température de consigne directement depuis l'application Eve ou via Siri.
 
@@ -69,6 +68,81 @@ image::../images/siriclim.png[]
 Le fonctionnement de la climatisation passe en mode auto.
 
 image::../images/climforce.png[]
+
+===== Utilisation avec Maison
+
+====== Configuration
+
+Le thermostat dans l'application Maison se présente sous la forme d'une pastille (comme tous les accéssoires). La température affichée correspond à la température mesurée de la pièce. Au dessous du nom du thermostat, se trouve le mode.
+
+image::../images/thmai1.png[]
+
+Dans l'exemple ci dessous, le chauffage ou la climatisation est à l'arrêt et il fait 20° dans la pièce.
+
+Pour afficher les réglages, il faut faire un appuie long sur la pastille.
+
+image::../images/thmai2.png[]
+
+On retrouve la température mesurée en haut, la consigne juste en dessous, le curseur pour régler la consigne et pour finir, un bouton "Mode" et un autre "Détails".
+
+Le bouton "Mode" permet de selctionner le mode du thermostat.
+
+image::../images/thmai3.png[]
+
+* *Eteint* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+* *Chauffer* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+* *Refroidir* : Active le mode du plugin "Thermostat" pour la partie chauffage.
+
+* *Autom* : Aucun mode mais température demandée (et donc le plugin thermostat décide s'il doit chauffer ou refroidir automatiquement).
+
+[TIP]
+*Le bouton "Temp" permet de revenir à l'écran précédent (celui avec le curseur pour régler la consigne).*
+
+===== Utilisation
+
+[underline]#Mise en route du chauffage#
+
+Pour mettre en route le chauffage suivant il faut cliquer sur "Chauffer".
+
+image::../images/thmai4.png[]
+
+Le thermostat selectionne le mode qui a été configuré via les paramètres du plugin Homebridge. 
+
+La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat".
+
+Le statut chauffage apparait et la pastille de la température mesurée passe en orange. Cela signifie que le radiateur produit de la chaleur.
+
+Pour régler manuelement la consigne de température, il suffit de déplacer le curseur jusqu'à la température souhaitée.
+
+image::../images/thmai5.png[]
+
+Le nom du statut disparait mais la pastille passe en orange. Cela signifie que le radiateur produit de la chaleur. Quand le radiateur ne produit plus de chaleur (lorsque sa température de consigne est atteinte par exemple) mais que la régulation est toujours en route, la pastille passe en vert.
+
+image::../images/thmai6.png[]
+
+[underline]#Mise en route de la climatisation#
+
+Pour mettre en route la climatisation, il faut sélectionner le mode "Refroidir".
+
+image::../images/thmai7.png[]
+
+La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat". La climatisation se met en route et la pastille passe en couleur bleue et le nom du mode apparait dans la pastille. Lorsque la température de consigne sera atteinte, la pastille passera en vert comme pour le mode chauffe.
+
+image::../images/thmai71.png[]
+
+Pour régler manuelement la consigne pour la climatisation, il suffit de déplacer le curseur à la température souhaitée.
+
+image::../images/thmai8.png[]
+
+Pour désactiver la régulation de température, il suffit de cliquer sur "Eteint".
+
+image::../images/thmai9.png[]
+
+La pastille passe en sombre.
+
+image::../images/thmai10.png[]
 
 ==== Plugin "Alarme"
 
@@ -141,6 +215,5 @@ Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont
 
 image::../images/reinitialisation.png[]
 
-===== Utilisation avec Maison
 
 
