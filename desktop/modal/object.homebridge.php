@@ -245,7 +245,7 @@ function listThermoSetModes($cmds,$selected) {
 										switch($isCustomisable) {
 											case "GARAGE_STATE" :
 											case "BARRIER_STATE":
-												configBarrierGarage($customEQValuesArr);
+												configBarrierGarage($customEQValuesArr,$eql_id);
 											break;
 											case "ALARM_SET_MODE" :
 												if($eqLogic->getEqType_name() != 'alarm' && homebridge::isMagic('NBpPxpeFf5QRA')) :
@@ -559,7 +559,7 @@ function configThermoModes($customEQValuesArr,$eql_cmds) {
 		</table>	
 <?php
 }
-function configBarrierGarage($customEQValuesArr) {
+function configBarrierGarage($customEQValuesArr,$eql_id) {
 		if(isset($customEQValuesArr['configuration'])) {
 			$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
 			$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
