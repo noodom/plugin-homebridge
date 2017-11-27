@@ -916,7 +916,7 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP la caméra et  <Local_Acc
 
 image::../images/camera.png[]
 
-=== Type Générenic Custom
+=== Type Générique Custom
 
 Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
 
