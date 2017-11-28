@@ -963,7 +963,7 @@ Pour configurer plusieurs caméras, il suffit de mettre une barre | entre les de
 
 *Cela est également valable pour tout autre plateforme comme le thermostat NEST par exemple.*
 
-=== Type Générenic Custom
+=== Type Générique Custom
 
 Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
 

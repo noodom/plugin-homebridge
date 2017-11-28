@@ -57,8 +57,7 @@ echo "Version actuelle : ${actual}"
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
-#if [[ $actual == *"6."* || $actual == *"8."* ]]
-if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* ]]
+if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
 then
   echo "Ok, version suffisante";
 else

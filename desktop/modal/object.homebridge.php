@@ -121,11 +121,11 @@ function listThermoSetModes($cmds,$selected) {
 							<?php
 							switch($eqLogic->getEqType_name()) :
 								case "alarm" :
-									configAlarmModes($customEQValuesArr,$eql_cmds);
+									configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id);
 								break;
 								case "netatmoThermostat":
 								case "thermostat" :
-									configThermoModes($customEQValuesArr,$eql_cmds);
+									configThermoModes($customEQValuesArr,$eql_cmds,$eql_id);
 								break;
 								case "weather" :
 								?>
@@ -249,12 +249,12 @@ function listThermoSetModes($cmds,$selected) {
 											break;
 											case "ALARM_SET_MODE" :
 												if($eqLogic->getEqType_name() != 'alarm' && homebridge::isMagic('NBpPxpeFf5QRA')) :
-													configAlarmModes($customEQValuesArr,$eql_cmds);
+													configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id);
 												endif;
 											break;
 											case "THERMOSTAT_SET_MODE" :
 												if($eqLogic->getEqType_name() != 'thermostat') :
-													configThermoModes($customEQValuesArr,$eql_cmds);
+													configThermoModes($customEQValuesArr,$eql_cmds,$eql_id);
 												endif;
 											break;
 											default:
@@ -464,7 +464,7 @@ $('#md_modal').on('dialogclose', function () {
 })
 </script>
 <?php
-function configAlarmModes($customEQValuesArr,$eql_cmds) {
+function configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id) {
 		if(isset($customEQValuesArr['configuration'])) {
 			$SetModePresent = (($customEQValuesArr['configuration']['SetModePresent'])?$customEQValuesArr['configuration']['SetModePresent']:'NOT');
 			$SetModeAbsent  = (($customEQValuesArr['configuration']['SetModeAbsent'])?$customEQValuesArr['configuration']['SetModeAbsent']:'NOT');
@@ -516,7 +516,7 @@ function configAlarmModes($customEQValuesArr,$eql_cmds) {
 		</table>	
 <?php
 }
-function configThermoModes($customEQValuesArr,$eql_cmds) {
+function configThermoModes($customEQValuesArr,$eql_cmds,$eql_id) {
 		if(isset($customEQValuesArr['configuration'])) {
 			$Chauf = (($customEQValuesArr['configuration']['Chauf'])?$customEQValuesArr['configuration']['Chauf']:'NOT');
 			$Clim  = (($customEQValuesArr['configuration']['Clim'])?$customEQValuesArr['configuration']['Clim']:'NOT');
