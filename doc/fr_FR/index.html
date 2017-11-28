@@ -745,7 +745,10 @@ A n&#8217;effectuer que sur conseil d&#8217;un membre du forum et il faut retire
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Plateforme Homebridge supplémentaire</strong> : Permet de rajouter manuellement un équipement.</p>
+<p><strong>Plateforme Homebridge supplémentaire</strong> : Permet de rajouter manuellement une plateforme (caméra ou Nest par exemple).</p>
+</li>
+<li>
+<p><strong>Accessoire Homebridge supplémentaire</strong> : Permet de rajouter manuellement un accessoire (freemote par exemple).</p>
 </li>
 </ul>
 </div>
@@ -756,7 +759,7 @@ A n&#8217;effectuer que sur conseil d&#8217;un membre du forum et il faut retire
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Réservé à un public averti. Il n&#8217;y aura aucun support pour cette partie (permet par exemple d&#8217;ajouter des cameras à Homebridge).
+Réservé à un public averti. Il n&#8217;y aura aucun support pour ces deux dernières parties.
 </td>
 </tr>
 </table>
@@ -2312,6 +2315,53 @@ Son intégration dans Homebridge est néanmoins possible.</p>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="trueconfigurer-plusieurs-cam-ras-ou-plateformes"><a class="anchor" href="#trueconfigurer-plusieurs-cam-ras-ou-plateformes"></a>Configurer plusieurs caméras (ou plateformes)</h4>
+<div class="paragraph">
+<p>Pour configurer plusieurs caméras, il suffit de mettre une barre | entre les deux configurations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>{
+  "platform": "Camera-ffmpeg",
+  "cameras": [
+	{
+	  "name": "Cellier 1",
+	  "videoConfig": {
+		"source": "-re -f mjpeg -i http://login:password@adresseIP/mjpeg.cgi",
+		"stillImageSource": "-f mjpeg -i http://login:password@adresseIP/image/jpeg.cgi",
+		"maxStreams": 2,
+		"maxWidth": 640,
+		"maxHeight": 480,
+		"maxFPS": 30,
+		"vcodec": "h264"
+	  }
+	}
+  ]
+}
+|
+{
+"platform": "Camera-ffmpeg",
+"cameras": [
+{
+"name": "Salon 1",
+"videoConfig": {
+"source": "-re -i http://adresseip/xxxxxxx/live/files/high/index.m3u8",
+"stillImageSource": "-i http://adresseIP/xxxxxx/live/snapshot_720.jpg",
+"maxStreams": 2,
+"maxWidth": 1280,
+"maxHeight": 720,
+"maxFPS": 30
+}
+}
+]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Cela est également valable pour tout autre plateforme comme le thermostat NEST par exemple.</strong></p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="truetype-g-n-renic-custom"><a class="anchor" href="#truetype-g-n-renic-custom"></a>Type Générenic Custom</h3>
@@ -2440,42 +2490,7 @@ Pour configurer le plugin "Thermostat", il faut se référer à la <a href="http
 </table>
 </div>
 <div class="sect4">
-<h5 id="trueutilisation-avec-eve"><a class="anchor" href="#trueutilisation-avec-eve"></a>Utilisation avec EVE</h5>
-<div class="sect5">
-<h6 id="trueconfiguration"><a class="anchor" href="#trueconfiguration"></a>Configuration</h6>
-<div class="paragraph">
-<p>Dans HomeKit, le thermostat est géré suivant 4 modes : "Éteint", "Chauffer" "Climatiser" et "Automatique".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/theve1.png" alt="theve1.png">
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>CHAUF</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
-</li>
-<li>
-<p><strong>CLIM</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
-</li>
-<li>
-<p><strong>AUTO</strong> : Aucun mode mais température demandée (et donc le plugin thermostat décide s&#8217;il doit chauffer ou refroidir automatiquement).</p>
-</li>
-<li>
-<p><strong>ETEINT</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
-</li>
-<li>
-<p><strong>Température cible</strong> : Température de consigne;</p>
-</li>
-<li>
-<p><strong>Mode</strong> : Sélection du mode du thermostat;</p>
-</li>
-<li>
-<p><strong>Protection enfants</strong> : Permet de verrouiller les réglages du thermostat;</p>
-</li>
-</ul>
-</div>
+<h5 id="trueconfiguration"><a class="anchor" href="#trueconfiguration"></a>Configuration</h5>
 <div class="paragraph">
 <p>Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.</p>
 </div>
@@ -2485,220 +2500,49 @@ Pour configurer le plugin "Thermostat", il faut se référer à la <a href="http
 </div>
 </div>
 </div>
-</div>
 <div class="sect4">
-<h5 id="trueutilisation"><a class="anchor" href="#trueutilisation"></a>Utilisation</h5>
-<div class="paragraph">
-<p><span class="underline">Mise en route du chauffage</span></p>
-</div>
-<div class="paragraph">
-<p>En cliquant sur "CHAUF", on active le mode de chauffe réglé dans le plugin "Thermostat".</p>
-</div>
+<h5 id="truepr-sentation"><a class="anchor" href="#truepr-sentation"></a>Présentation</h5>
 <div class="imageblock">
 <div class="content">
-<img src="../images/chauffe.png" alt="chauffe.png">
-</div>
-</div>
-<div class="paragraph">
-<p>La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat".</p>
-</div>
-<div class="paragraph">
-<p>Il est également possible de régler une température de consigne directement depuis l&#8217;application Eve ou via Siri.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/sirichauff.png" alt="sirichauff.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Le chauffage passe en mode auto avec comme valeur la consigne demandée.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/forcechauff.png" alt="forcechauff.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Le mode passe en "Désactivé", c&#8217;est normal. Dans certain cas, il peut rester dans la position où il était avant la demande de changement de la température de consigne.</p>
-</div>
-<div class="paragraph">
-<p>La température de consigne passe bien à la valeur demandée. Si la température ambiante est infèrieure à la température de consigne, le chauffage se mettra en route. Le statut passera donc en "Chauffage".</p>
-</div>
-<div class="paragraph">
-<p><span class="underline">Mise en route de la climatisation</span></p>
-</div>
-<div class="paragraph">
-<p>Le fonctionnement de la climatisation est indentique au fonctionnement du chauffage.</p>
-</div>
-<div class="paragraph">
-<p>En cliquant sur "CLIM", on active le mode de climatisation réglé dans le plugin "Thermostat".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/clim.png" alt="clim.png">
-</div>
-</div>
-<div class="paragraph">
-<p>On peut modifier la température de consigne.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/siriclim.png" alt="siriclim.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Le fonctionnement de la climatisation passe en mode auto.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/climforce.png" alt="climforce.png">
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="trueutilisation-avec-maison"><a class="anchor" href="#trueutilisation-avec-maison"></a>Utilisation avec Maison</h5>
-<div class="sect5">
-<h6 id="trueconfiguration-2"><a class="anchor" href="#trueconfiguration-2"></a>Configuration</h6>
-<div class="paragraph">
-<p>Le thermostat dans l&#8217;application Maison se présente sous la forme d&#8217;une pastille (comme tous les accéssoires). La température affichée correspond à la température mesurée de la pièce. Au dessous du nom du thermostat, se trouve le mode.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai1.png" alt="thmai1.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Dans l&#8217;exemple ci dessous, le chauffage ou la climatisation est à l&#8217;arrêt et il fait 20° dans la pièce.</p>
-</div>
-<div class="paragraph">
-<p>Pour afficher les réglages, il faut faire un appuie long sur la pastille.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai2.png" alt="thmai2.png">
-</div>
-</div>
-<div class="paragraph">
-<p>On retrouve la température mesurée en haut, la consigne juste en dessous, le curseur pour régler la consigne et pour finir, un bouton "Mode" et un autre "Détails".</p>
-</div>
-<div class="paragraph">
-<p>Le bouton "Mode" permet de selctionner le mode du thermostat.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai3.png" alt="thmai3.png">
+<img src="../images/thermostat1.png" alt="thermostat1.png">
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Eteint</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
+<p><strong>A</strong> : Température Cible ou Consigne : Température envoyée au plugin Thermostat (Passe en mode Auto sur Maison et Eve / Mode Aucun sur widget Thermostat)</p>
 </li>
 <li>
-<p><strong>Chauffer</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
+<p><strong>B</strong> : Température Ambiante : Température de référence pour le plugin Thermostat.</p>
 </li>
 <li>
-<p><strong>Refroidir</strong> : Active le mode du plugin "Thermostat" pour la partie chauffage.</p>
+<p><strong>C</strong> : Commande de modification de la Consigne A : Augmenter ou diminuer la température à l’aide du curseur. Cela aura pour action de modifier également le mode du chauffage E qui passera à AUCUN dans le dashboard Jeedom.</p>
 </li>
 <li>
-<p><strong>Autom</strong> : Aucun mode mais température demandée (et donc le plugin thermostat décide s&#8217;il doit chauffer ou refroidir automatiquement).</p>
+<p><strong>D</strong> : Statut du thermostat retourné par le plugin Thermostat : Arrêté (ou Désactivé ou Eteint) (Rond vert dans Maison) / Chauffage (Rond Orange dans Maison) / Climatisation (Rond Bleu dans Maison).</p>
+</li>
+<li>
+<p><strong>E</strong> : Mode Auto (dans Maison ou Eve) : correspond au mode Aucun dans Jeedom où le Plugin Thermostat décide de ce qu&#8217;il doit faire en fonction de la température qu&#8217;on lui envoi. Ce mode permets de régler une température cible via le curseur C</p>
+</li>
+<li>
+<p><strong>F</strong> : Mode Clim / Refroidir : Mode customisé associé manuellement dans la configuration du Thermostat dans le Plugin Homebridge. Permet de lancer le mode associé dans le plugin Thermostat. (Repasse en mode AUTO, si une température cible est donnée)</p>
+</li>
+<li>
+<p><strong>G</strong> : Mode Chauf / Chauffer : Mode customisé associé manuellement dans la configuration du Thermostat dans le Plugin Homebridge. Permet de lancer le mode associé dans le plugin Thermostat. (Repasse en mode AUTO, si une température cible est donnée)</p>
+</li>
+<li>
+<p><strong>H</strong> : Eteint / Off : permet d'éteindre le thermostat.</p>
+</li>
+<li>
+<p><strong>I</strong> : Verrouillage/Protection Enfants (uniquement dans Eve) : permet de verrouiller le thermostat. (modifié)</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<strong>Le bouton "Temp" permet de revenir à l'écran précédent (celui avec le curseur pour régler la consigne).</strong>
-</td>
-</tr>
-</table>
-</div>
-</div>
 </div>
 <div class="sect4">
-<h5 id="trueutilisation-2"><a class="anchor" href="#trueutilisation-2"></a>Utilisation</h5>
+<h5 id="trueutilisation"><a class="anchor" href="#trueutilisation"></a>Utilisation</h5>
 <div class="paragraph">
-<p><span class="underline">Mise en route du chauffage</span></p>
-</div>
-<div class="paragraph">
-<p>Pour mettre en route le chauffage suivant il faut cliquer sur "Chauffer".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai4.png" alt="thmai4.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Le thermostat selectionne le mode qui a été configuré via les paramètres du plugin Homebridge.</p>
-</div>
-<div class="paragraph">
-<p>La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat".</p>
-</div>
-<div class="paragraph">
-<p>Le statut chauffage apparait et la pastille de la température mesurée passe en orange. Cela signifie que le radiateur produit de la chaleur.</p>
-</div>
-<div class="paragraph">
-<p>Pour régler manuelement la consigne de température, il suffit de déplacer le curseur jusqu'à la température souhaitée.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai5.png" alt="thmai5.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Le nom du statut disparait mais la pastille passe en orange. Cela signifie que le radiateur produit de la chaleur. Quand le radiateur ne produit plus de chaleur (lorsque sa température de consigne est atteinte par exemple) mais que la régulation est toujours en route, la pastille passe en vert.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai6.png" alt="thmai6.png">
-</div>
-</div>
-<div class="paragraph">
-<p><span class="underline">Mise en route de la climatisation</span></p>
-</div>
-<div class="paragraph">
-<p>Pour mettre en route la climatisation, il faut sélectionner le mode "Refroidir".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai7.png" alt="thmai7.png">
-</div>
-</div>
-<div class="paragraph">
-<p>La température cible passe automatiquement à la température de consigne réglée dans le plugin "Thermostat". La climatisation se met en route et la pastille passe en couleur bleue et le nom du mode apparait dans la pastille. Lorsque la température de consigne sera atteinte, la pastille passera en vert comme pour le mode chauffe.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai71.png" alt="thmai71.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Pour régler manuelement la consigne pour la climatisation, il suffit de déplacer le curseur à la température souhaitée.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai8.png" alt="thmai8.png">
-</div>
-</div>
-<div class="paragraph">
-<p>Pour désactiver la régulation de température, il suffit de cliquer sur "Eteint".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai9.png" alt="thmai9.png">
-</div>
-</div>
-<div class="paragraph">
-<p>La pastille passe en sombre.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/thmai10.png" alt="thmai10.png">
-</div>
+<p>En cliquant sur "CHAUF" ou "Chauffer", on active le mode du thermostat associé. Idem pour "CLIM" ou "Refroidir".</p>
 </div>
 </div>
 </div>
@@ -2720,7 +2564,7 @@ La fonctionnalité de l&#8217;alarme dans Homebridge est compatible uniquement (
 <p><strong>Ce mode fonctionne avec l&#8217;application d&#8217;Apple Maison et celle d&#8217;Elgato Eve.</strong></p>
 </div>
 <div class="sect4">
-<h5 id="trueconfiguration-3"><a class="anchor" href="#trueconfiguration-3"></a>Configuration</h5>
+<h5 id="trueconfiguration-2"><a class="anchor" href="#trueconfiguration-2"></a>Configuration</h5>
 <div class="paragraph">
 <p>Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "Désactivée", "Nuit", "A distance" et "Domicile".</p>
 </div>
@@ -2778,7 +2622,7 @@ Le "mode Jeedom" correspond aux modes du plugin "Alarme".
 </div>
 </div>
 <div class="sect4">
-<h5 id="trueutilisation-3"><a class="anchor" href="#trueutilisation-3"></a>Utilisation</h5>
+<h5 id="trueutilisation-2"><a class="anchor" href="#trueutilisation-2"></a>Utilisation</h5>
 <div class="paragraph">
 <p>Il suffit de cliquer sur l&#8217;icone "Alarme" dans l&#8217;application Maison.</p>
 </div>
@@ -3354,7 +3198,7 @@ Si vous avez un problème avec un périphérique malgré tout : décochez "Envoy
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-26 23:33:00 CET
+Last updated 2017-11-28 21:46:58 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
