@@ -28,8 +28,8 @@ if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
   fi
 fi
 
-echo "Vérification si la source repo.jeedom.com existe (bug lors de l'installation de node 6 si c'est le cas)"
 if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
+  echo "Vérification si la source repo.jeedom.com existe (bug lors de l'installation de node 6 si c'est le cas)"
   echo "repo.jeedom.com existe !"
   if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
     echo "mais on l'a déjà désactivé..."
