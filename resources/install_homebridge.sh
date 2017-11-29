@@ -57,8 +57,7 @@ echo "Version actuelle : ${actual}"
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
-#if [[ $actual == *"6."* || $actual == *"8."* ]]
-if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* ]]
+if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
 then
   echo "Ok, version suffisante";
 else
@@ -139,7 +138,7 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
-sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge.git#master
+sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge.git#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
@@ -147,9 +146,9 @@ if [ -n $2 ]; then
 	BRANCH=$2
 	echo "Sur la branche ${BRANCH}"
 fi
-sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-jeedom.git#${BRANCH}
+sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-jeedom.git#${BRANCH}
 echo "Installation de Homebridge-Camera-FFMPEG..."
-sudo npm install -g --unsafe-perm https://github.com/jeedom/homebridge-camera-ffmpeg.git#master
+sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ffmpeg.git#master
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 

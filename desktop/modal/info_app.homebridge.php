@@ -112,6 +112,8 @@ Homebridge-Jeedom locale : <?=$localVer?>
 
 Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?php if($diffVer) {echo "</span>";} ?>
+
+Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 </pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)&nbsp;<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
@@ -127,10 +129,16 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <pre id='pre_eventlog' class="creation copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo shell_exec("awk '/ WARNING /,/└────────────────────────/' ".log::getPathToLog('homebridge_daemon')) ?></pre>
 
 <?php
-	$otherPlatform = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
+	$otherPlatform = homebridge::getJSON('Platform');
 ?>
-<h3>{{Autres Plateformes :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform).']')?>)&nbsp;<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a>&nbsp;<font color='red'>!!! Attention: Peut contenir vos mots de passe webcam !!!</font></h3>
+<h3>{{Plateforme Homebridge supplémentaire :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform).']')?>)&nbsp;<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a>&nbsp;<font color='red'>!!! Attention: Peut contenir des mots de passe webcam !!!</font></h3>
 <pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherPlatform; ?></pre>
+
+<?php
+	$otherAccessory = homebridge::getJSON('Accessory');
+?>
+<h3>{{Accessoire Homebridge supplémentaire :}} (<?=validateJSON('['.str_replace('|',',',$otherAccessory).']')?>)&nbsp;<a class="btn" data-clipboard-target=".otherAccessory"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a>&nbsp;<font color='red'>!!! Attention: Peut contenir des mots de passe!!!</font></h3>
+<pre id='pre_eventlog' class="otherAccessory copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherAccessory; ?></pre>
 
 <?php
 	$customData = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
@@ -145,6 +153,8 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 
 <?=shell_exec("ps aux | grep dbus | grep -v grep")?>
+
+<?=shell_exec("grep \"homebridge\" /etc/avahi/avahi-daemon.conf")?>
 </pre>
 
 <h3>{{Environnement IP :}} <a class="btn" data-clipboard-target=".ip"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
@@ -154,6 +164,8 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?=shell_exec("ip route")?>
 
 <?=network::getNetworkAccess('internal')?>
+
+JSONRPC : <?=config::byKey('api::core::jsonrpc::mode', 'core', 'enable')?>
 </pre>
 
 <?php

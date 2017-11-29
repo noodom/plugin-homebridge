@@ -22,6 +22,7 @@ var app_config = {
 				url: 'plugins/homebridge/core/ajax/homebridge.ajax.php',
 				data: {
 					action: 'saveJSON',
+					type: 'Platform',
 					file: $("#platformFile").val()
 				},
 				dataType: 'json',
@@ -49,7 +50,8 @@ var app_config = {
 		$.ajax({
 			url: 'plugins/homebridge/core/ajax/homebridge.ajax.php',
 			data: {
-				action: 'getJSON'
+				action: 'getJSON',
+				type: 'Platform'
 			},
 			dataType: 'json',
 			global: false,

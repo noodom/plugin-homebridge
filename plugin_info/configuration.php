@@ -94,12 +94,16 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{Configuration avancée}}</label>
 			<div class="col-lg-3">
 				<a class="btn btn-danger" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
+				<br />
+				<a class="btn btn-danger" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
+				<br />
+				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
 			</div>
 		</div>		
 	</fieldset>
 </form>
 <script>
-	setTimeout(function() {
+	//setTimeout(function() {
 	/*	if (hasIos == 0) {
 			$('#div_plugin_dependancy').closest('.panel').hide();
 			$('#div_plugin_deamon').closest('.panel').parent().removeClass('col-md-6');
@@ -108,11 +112,11 @@ if(!isConnect()) {
 			$('#div_plugin_configuration').closest('.panel').hide();
 			$('#div_plugin_configuration').closest('.panel').parent().removeClass('col-md-6');
 		} else {*/
-			$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
-			$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
+			//$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
+			//$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
 		//}
 
-	}, 50);
+	//}, 50);
 	$('input#input_pin_homebridge').on('keyup', function() {
 		if(!this.value.match(/^\d\d\d-\d\d-\d\d\d$/)) {
 			$('#div_alert').showAlert({
@@ -142,6 +146,14 @@ if(!isConnect()) {
 			if (result) {
 				$('#md_modal2').dialog({title: "{{Configuration Plateforme Homebridge supplémentaire}}"});
 				$('#md_modal2').load('index.php?v=d&plugin=homebridge&modal=platformHB.homebridge').dialog('open');
+			}
+		});
+	});
+	$('#bt_accessoryFile').on('click', function () {
+		bootbox.confirm('{{Configuration avancée, à vos propres risques !!! Aucun support ne sera donné !!!}}', function(result) {
+			if (result) {
+				$('#md_modal2').dialog({title: "{{Configuration Accessoire Homebridge supplémentaire}}"});
+				$('#md_modal2').load('index.php?v=d&plugin=homebridge&modal=accessoryHB.homebridge').dialog('open');
 			}
 		});
 	});

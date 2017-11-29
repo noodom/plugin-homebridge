@@ -48,7 +48,8 @@ class homebridge extends eqLogic {
 			'SPEAKER_MUTE_OFF' => array('name' => 'Haut-Parleur UnMute (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire) (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
+			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'AIRQUALITY_INDEX' => array('name' => 'Qualité d\'air (Indice AQI) (Homebridge)', 'family' => 'Qualité D\'air', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -59,7 +60,7 @@ class homebridge extends eqLogic {
 	}
 
 	public static function PluginCustomisable(){
-		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE'];
+		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE','ALARM_SET_MODE','THERMOSTAT_SET_MODE'];
 		return $PluginCustomisable;
 	}
 	
@@ -91,9 +92,20 @@ class homebridge extends eqLogic {
 										[
 											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'pm25'=>
+										[
+											'online'=>'ACTIVE',
+											'status::aqi'=>'AIRQUALITY_INDEX',
+											'status::battery'=>'BATTERY'
+										],
+									'stripe'=>
+										[
+											'online'=>'ACTIVE',
+											'status'=>'LIGHT_STATE_BOOL'
 										]
 								],
-								'ikealight'=>
+							'ikealight'=>
 								[
 									//'field'=>'model',
 									'default'=>
@@ -191,7 +203,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getRemoteVersion() {
-		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".self::getBranch()."/package.json";
+		$remotePackage = "https://raw.githubusercontent.com/NebzHB/homebridge-jeedom/".self::getBranch()."/package.json";
 		$packageJson = @file_get_contents($remotePackage);
 		if ($packageJson === false) {
 			$version = '0';
@@ -212,18 +224,18 @@ class homebridge extends eqLogic {
 		return $branch;
 	}
 	
-	public static function getJSON(){
+	public static function getJSON($type = 'Platform'){
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
+		exec('touch ' . dirname(__FILE__) . '/../../data/other'.$type.'.json');
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		return file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
+		return file_get_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json');
 	}
-	public static function saveJSON($file){
+	public static function saveJSON($file,$type = 'Platform'){
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		$ret = file_put_contents(dirname(__FILE__) . '/../../data/otherPlatform.json',$file);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json',$file);
 		return (($ret===false)?false:true);
 	}
 	
@@ -334,6 +346,20 @@ class homebridge extends eqLogic {
 		return true;
 	}
 	
+	public static function cryptedMagic() {
+		$magicField = config::byKey('magicField','homebridge',"",true);
+		$magicField = explode(" ",$magicField);
+		foreach($magicField as &$magicWord) {
+			$magicWord = crypt($magicWord,"NBZ");
+		}
+		return $magicField;	
+	}
+	
+	public static function isMagic($magicValue) {
+		$magicField = homebridge::cryptedMagic();
+		return ((array_search($magicValue,$magicField) !== false) ? true : false);
+	}	
+	
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
@@ -346,6 +372,16 @@ class homebridge extends eqLogic {
 			$apikey = config::byKey('api');
 		}
 		//$apikey = jeedom::getApiKey('homebridge'); need to manage jeeHomebridge.php first
+
+		if(homebridge::isMagic('NBJCKZ/fOJDnM')) { // enable beta
+			file_put_contents(dirname(__FILE__) . '/../../branch','beta');
+		}
+		if(homebridge::isMagic('NBz//9iJgk0sA')) { // enable alpha
+			file_put_contents(dirname(__FILE__) . '/../../branch','alpha');
+		}
+		if(homebridge::isMagic('NBe/9kOLwyupc')) { // enable master
+			file_put_contents(dirname(__FILE__) . '/../../branch','master');
+		}
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
@@ -379,16 +415,12 @@ class homebridge extends eqLogic {
 		$plateform['pollerperiod'] = 0.05;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
 		$plateform['myPlugin'] = 'homebridge';
+		$plateform['magicField'] = join(' ',homebridge::cryptedMagic());
 		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		exec('touch ' . dirname(__FILE__) . '/../../data/otherPlatform.json');
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		$jsonFile = file_get_contents(dirname(__FILE__) . '/../../data/otherPlatform.json');
+		$jsonFile = homebridge::getJSON('Platform');
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
@@ -422,6 +454,17 @@ class homebridge extends eqLogic {
 					}
 				}
 				$response['platforms'][] = $jsonArr;
+			}
+		}
+		
+		$jsonFileAccessory = homebridge::getJSON('Accessory');
+		$jsonAccessories = explode('|',$jsonFileAccessory);
+		if(!$jsonAccessories)
+			$jsonAccessories = array($jsonFileAccessory);
+		foreach ($jsonAccessories as $jsonAccessory) {
+			$jsonArrAcc = json_decode($jsonAccessory,true);
+			if($jsonArrAcc !== null) {
+				$response['accessories'][] = $jsonArrAcc;
 			}
 		}
 		
