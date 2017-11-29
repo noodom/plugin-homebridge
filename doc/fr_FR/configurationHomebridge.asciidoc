@@ -32,9 +32,9 @@ Il faut retirer le bridge de l'application "Maison".
 [IMPORTANT]
 A n'effectuer que sur conseil d'un membre du forum et il faut retirer le pont de l'application "Maison".
 
-* *Plateforme Homebridge supplémentaire* : Permet de rajouter manuellement une plateforme (caméra ou Nest par exemple).
+* *Plateforme Homebridge supplémentaire* : Permet de rajouter manuellement un plugin Homebridge de type plateforme (homebridge-camera-ffmpeg ou homebridge-nest par exemple).
 
-* *Accessoire Homebridge supplémentaire* : Permet de rajouter manuellement un accessoire (freemote par exemple).
+* *Accessoire Homebridge supplémentaire* : Permet de rajouter manuellement un plugin Homebridge de type accessoire (homebridge-freemote par exemple).
 
 [IMPORTANT]
 Réservé à un public averti. Il n'y aura aucun support pour ces deux dernières parties.
