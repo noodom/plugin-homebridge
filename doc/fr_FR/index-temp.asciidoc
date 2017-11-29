@@ -1119,7 +1119,6 @@ image::../images/reinitialisation.png[]
 === Plugin HomeBridge
 
 ==== v1.3.4 (29-11-2017)
-    * Gestion automatique Xiaomi PM2.5.
     * Réécriture du mode de fonctionnement des thermostats, plus logique :)
     * Accessoire supplémentaire pour installer les plugin Homebridge qui ne publient qu'un accessoire
     * Mise à jour documentation.
