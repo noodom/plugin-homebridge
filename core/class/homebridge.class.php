@@ -203,7 +203,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getRemoteVersion() {
-		$remotePackage = "https://raw.githubusercontent.com/jeedom/homebridge-jeedom/".self::getBranch()."/package.json";
+		$remotePackage = "https://raw.githubusercontent.com/NebzHB/homebridge-jeedom/".self::getBranch()."/package.json";
 		$packageJson = @file_get_contents($remotePackage);
 		if ($packageJson === false) {
 			$version = '0';
