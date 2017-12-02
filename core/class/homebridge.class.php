@@ -616,6 +616,13 @@ class homebridge extends eqLogic {
 	public static function generateQRCode($pin_homebridge = '') {
 		if($pin_homebridge == '')
 			$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
+		
+		/*$pin_homebridge=str_replace('-','',$pin_homebridge);
+		$payload = gmp_mul(gmp_init(2,16),gmp_pow(2,31));
+		$payload = gmp_or($payload,gmp_mul(gmp_init(1,16),gmp_pow(2,28)));
+		$payload = gmp_or($payload,gmp_init($pin_homebridge,10));
+		$Link="X-HM://00".strtoupper(gmp_strval($payload,36))."NEBZ";*/
+		
 		$Link=trim(shell_exec('nodejs '.dirname(__FILE__).'/../../node/genCode.js '.$pin_homebridge));
 		return 'http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl='.$Link.'&chld=H|0';
 	}
