@@ -12,6 +12,9 @@ var ACCESSORY_CATEGORY_BRIDGES = 2;
 var pin = '03145154';
 if(process.argv[2])
 	pin = process.argv[2].replace(/-/g, '');
+var setupID = 'NEBZ';
+if(process.argv[3])
+	setupID = process.argv[3];
 
 function generate_setup_payload_uri(category_id, hap_type, setup_code, setup_id) {
 	var payload = 0x00;
@@ -23,4 +26,4 @@ function generate_setup_payload_uri(category_id, hap_type, setup_code, setup_id)
 	return "X-HM://00" + bases.toBase36(payload).toUpperCase() + setup_id;
 }
 
-console.log(generate_setup_payload_uri(ACCESSORY_CATEGORY_BRIDGES, HAP_TYPE_IP, pin, 'NEBZ'));
+console.log(generate_setup_payload_uri(ACCESSORY_CATEGORY_BRIDGES, HAP_TYPE_IP, pin, setupID));
