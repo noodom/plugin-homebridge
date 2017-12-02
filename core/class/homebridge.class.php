@@ -612,6 +612,13 @@ class homebridge extends eqLogic {
 	public static function generateRandomMac() {
 		return strtoupper(implode(':', str_split(substr(md5(mt_rand()), 0, 12), 2)));
 	}
+
+	public static function generateQRCode($pin_homebridge = '') {
+		if($pin_homebridge == '')
+			$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
+		$Link=trim(shell_exec('nodejs '.dirname(__FILE__).'/../../node/genCode.js '.$pin_homebridge));
+		return 'http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl='.$Link.'&chld=H|0';
+	}
 	
 	/**************************************************************************************/
 	/*                                                                                    */
