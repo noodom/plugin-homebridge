@@ -82,7 +82,7 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{PIN Homebridge (format : XXX-XX-XXX)}}</label>
 			<div class="col-lg-3" style="background-color:#fff !important;padding:15px">
 				<input id="input_pin_homebridge" class="configKey form-control" maxlength="10" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
-			</div>
+			</div><div><img id="qrCode" src="" border="0" /></div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Réparation de Homebridge}}</label>
@@ -103,20 +103,6 @@ if(!isConnect()) {
 	</fieldset>
 </form>
 <script>
-	//setTimeout(function() {
-	/*	if (hasIos == 0) {
-			$('#div_plugin_dependancy').closest('.panel').hide();
-			$('#div_plugin_deamon').closest('.panel').parent().removeClass('col-md-6');
-			$('#div_plugin_deamon').closest('.panel').hide();
-			$('#div_plugin_dependancy').closest('.panel').parent().removeClass('col-md-6');
-			$('#div_plugin_configuration').closest('.panel').hide();
-			$('#div_plugin_configuration').closest('.panel').parent().removeClass('col-md-6');
-		} else {*/
-			//$('#div_plugin_dependancy').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-certificate"></i> {{Dépendances Homebridge}}');
-			//$('#div_plugin_deamon').closest('.panel').children('.panel-heading').children().html('<i class="fa fa-university"></i> {{Démon Homebridge}}');
-		//}
-
-	//}, 50);
 	$('input#input_pin_homebridge').on('keyup', function() {
 		if(!this.value.match(/^\d\d\d-\d\d-\d\d\d$/)) {
 			$('#div_alert').showAlert({
@@ -139,8 +125,29 @@ if(!isConnect()) {
 				});	
 			}
 		}
+		generateQRCode(this.value);
 	});
-	console.log('test');
+	function generateQRCode(pin_homebridge = '') {
+		$.ajax({
+			type : 'POST',
+			url : 'plugins/homebridge/core/ajax/homebridge.ajax.php',
+			data : {
+				action : 'generateQRCode',
+				pin_homebridge : pin_homebridge
+			},
+			dataType : 'json',
+			global : false,
+			error : function(request, status, error) {
+				$('#div_alert').showAlert({
+					message : error.message,
+					level : 'danger'
+				});
+			},
+			success : function(data) {
+				$('#qrCode').attr('src',data.result);
+			}
+		});
+	}
 	$('#bt_platformFile').on('click', function () {
 		bootbox.confirm('{{Configuration avancée, à vos propres risques !!! Aucun support ne sera donné !!!}}', function(result) {
 			if (result) {
@@ -213,4 +220,5 @@ if(!isConnect()) {
 			}
 		});
 	});
+	setTimeout(generateQRCode(),50);
 </script>
