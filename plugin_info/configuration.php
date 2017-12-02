@@ -108,7 +108,8 @@ if(!isConnect()) {
 			$('#div_alert').showAlert({
 				message : this.value+" : {{Format incorrect (XXX-XX-XXX)}}",
 				level : 'danger'
-			});	
+			});
+			$('#qrCode').attr('src','');			
 		}
 		else {
 			var forbiddenPIN = ["000-00-000","111-11-111","222-22-222","333-33-333","444-44-444","555-55-555","666-66-666","777-77-777","888-88-888","999-99-999","123-45-678","876-54-321"];
@@ -117,15 +118,16 @@ if(!isConnect()) {
 					message : this.value+" : {{Code PIN interdit par Apple}}",
 					level : 'danger'
 				});	
+				$('#qrCode').attr('src','');
 			}
 			else {
 				$('#div_alert').showAlert({
 					message : this.value+" : {{Format correct}}",
 					level : 'success'
 				});	
+				generateQRCode(this.value);
 			}
 		}
-		generateQRCode(this.value);
 	});
 	function generateQRCode(pin_homebridge = '') {
 		$.ajax({
