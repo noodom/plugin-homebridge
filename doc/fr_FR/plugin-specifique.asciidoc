@@ -3,7 +3,7 @@
 ==== Plugin "Thermostat"
 
 [IMPORTANT]
-Pour configurer le plugin "Thermostat", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
+Pour configurer le plugin "Thermostat", il faut se référer à la https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
 
 ===== Configuration
 
@@ -36,7 +36,7 @@ En cliquant sur "CHAUF" ou "Chauffer", on active le mode du thermostat associé.
 ==== Plugin "Alarme"
 
 [IMPORTANT]
-La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Alarme". Pour configurer le plugin "Alarme", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin].
+La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Alarme". Pour configurer le plugin "Alarme", il faut se référer à la https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin].
 
 *Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
 
