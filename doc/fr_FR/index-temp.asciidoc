@@ -1013,7 +1013,8 @@ image::../images/custom-6.png[]
 ==== Plugin "Thermostat"
 
 [IMPORTANT]
-Pour configurer le plugin "Thermostat", il faut se référer à la http://https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
+Pour configurer le plugin "Thermostat", il faut se référer à la https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
+
 
 ===== Configuration
 
