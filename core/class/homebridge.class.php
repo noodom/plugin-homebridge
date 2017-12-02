@@ -307,7 +307,12 @@ class homebridge extends eqLogic {
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
 		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
 		$content = file_get_contents(dirname(__FILE__) . '/../../data/customData.json');
+		if(!$content) $content = '';
 		$content = json_decode($content,true);
+		if(!$content) {
+			$content['eqLogic']=[];
+			$content['cmd']    =[];
+		}
 		return $content;
 	}
 	public static function cleanCustomData(){
