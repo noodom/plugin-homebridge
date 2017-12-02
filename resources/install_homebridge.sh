@@ -152,6 +152,13 @@ sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ff
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
+cd ${BASEDIR}/../node/
+npm cache clean
+sudo npm cache clean
+sudo rm -rf node_modules
+sudo npm install --unsafe-perm bases
+sudo npm install --unsafe-perm bignum
+
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
 #  echo "FFMPEG existe"; 
