@@ -157,8 +157,8 @@ cd ${BASEDIR}/../node/
 npm cache clean
 sudo npm cache clean
 sudo rm -rf node_modules
-sudo npm install --unsafe-perm --quiet bases
-sudo npm install --unsafe-perm --quiet bignum
+sudo npm install --unsafe-perm bases &> /dev/null
+sudo npm install --unsafe-perm bignum &> /dev/null
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
