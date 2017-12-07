@@ -81,7 +81,7 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{Configuration avancée}}</label>
 			<div class="col-lg-3">
 				<a class="btn btn-danger" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
-				<br />
+				<br /><br />
 				<a class="btn btn-danger" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
 				<br />
 				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
