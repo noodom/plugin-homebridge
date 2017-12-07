@@ -40,23 +40,25 @@ if(!isConnect()) {
 		?>
 			<div class="form-group">
 				<div class="col-lg-7">
-				<span class="badge" style="background-color : #c9302c;">{{Attention votre adresse interne (configuration) n'est pas valide.}}</span>
+					<span class="badge" style="background-color : #c9302c;">{{Attention votre adresse interne (configuration) n'est pas valide.}}</span>
 				</div>
 			</div>
 		<?php
 			}else{
 		?>
 			<div class="form-group">
-				<label class="col-lg-4 control-label">{{Adresse Ip Homebridge :}}</label>
-				<span class="badge" style="background-color : #ec971f;"><?php echo $interne; ?></span>
+				<label class="col-lg-4 control-label">{{Adresse Ip Homebridge}}</label>
+				<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+					<span class="badge" style="background-color : #ec971f;margin-top:10px"><?php echo $interne; ?></span>
+				</div>
 			</div>
 		<?php
 			}
 		?>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Nom Homebridge}}</label>
-			<div class="col-lg-3">
-				<input class="configKey form-control" data-l1key="name_homebridge" placeholder="<?php echo config::byKey('name') ?>" />
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<input class="configKey form-control" style="width:100%" data-l1key="name_homebridge" placeholder="<?php echo config::byKey('name') ?>" />
 			</div>
 		</div>
 		<div class="form-group hide">
@@ -67,22 +69,22 @@ if(!isConnect()) {
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{PIN Homebridge (format : XXX-XX-XXX)}}</label>
-			<div class="col-lg-3" style="background-color:#fff !important;padding:15px">
+			<div class="col-lg-3" style="background-color:#fff !important;padding-top:15px;padding-bottom:15px;">
 				<input id="input_pin_homebridge" class="configKey form-control" maxlength="10" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
-			</div><div><img id="qrCode" style="padding-left:100px" src="" border="0" /></div>
+			</div><img id="qrCode" style="padding-left:100px" src="" border="0" />
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Réparation de Homebridge}}</label>
-			<div class="col-lg-3">
-				<a class="btn btn-warning" id="bt_repairHome"><i class="fa fa-erase"></i> {{Réparer}}</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" id="bt_repairHome_reinstall"><i class="fa fa-erase"></i> {{Réparer & Réinstaller}}</a>
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<a class="btn btn-warning" style="width:48%" id="bt_repairHome"><i class="fa fa-erase"></i> {{Réparer}}</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" style="width:49%" id="bt_repairHome_reinstall"><i class="fa fa-erase"></i> {{Réparer & Réinstaller}}</a>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Configuration avancée}}</label>
-			<div class="col-lg-3">
-				<a class="btn btn-danger" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<a class="btn btn-danger" style="width:100%" id="bt_platformFile"><i class="fa fa-file-o"></i> {{Plateforme Homebridge supplémentaire}}</a>
 				<br /><br />
-				<a class="btn btn-danger" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
+				<a class="btn btn-danger" style="width:100%" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
 				<br />
 				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
 			</div>
