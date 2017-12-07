@@ -53,23 +53,6 @@ if(!isConnect()) {
 		<?php
 			}
 		?>
-		
-		<div class="form-group">
-			<label class="col-lg-4 control-label">{{Utilisateur}}</label>
-			<div class="col-lg-3">
-				<select class="configKey form-control configuration form-control" data-l1key="user_homebridge">
-					<?php
-					$user_id = '';
-					if (isset($_SESSION) && isset($_SESSION['user']) && is_object($_SESSION['user'])) {
-						$user_id = $_SESSION['user']->getId();
-					}
-					foreach(user::all() as $user) {
-						echo '<option value="' . $user->getId() . '">' . ucfirst($user->getLogin()) . '</option>';
-					}
-					?>
-				</select>
-			</div>
-		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Nom Homebridge}}</label>
 			<div class="col-lg-3">
