@@ -76,7 +76,7 @@ if(!isConnect()) {
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Réparation de Homebridge}}</label>
 			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
-				<a class="btn btn-warning" style="width:48%" id="bt_repairHome"><i class="fa fa-erase"></i> {{Réparer}}</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" style="width:49%" id="bt_repairHome_reinstall"><i class="fa fa-erase"></i> {{Réparer & Réinstaller}}</a>
+				<div><a class="btn btn-warning" style="width:50%;float:left;" id="bt_repairHome"><i class="fa fa-erase"></i> {{Réparer}}</a></div><div><a class="btn btn-danger" style="width:50%;float:right;" id="bt_repairHome_reinstall"><i class="fa fa-erase"></i> {{Réparer & Réinstaller}}</a></div>
 			</div>
 		</div>
 		<div class="form-group">
