@@ -78,6 +78,7 @@ else
   sudo apt-get -y --purge autoremove nodejs npm
   echo 30 > ${PROGRESS_FILE}
   echo "--30%"
+  $arch = `arch`
   
   if [[ $arch == "armv6l" ]]
   then
@@ -100,7 +101,7 @@ else
     #sudo npm install -g npm
   fi
   
-  if [[ `arch` == "aarch64" ]]
+  if [[ $arch == "aarch64" ]]
   then
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
