@@ -6,7 +6,7 @@ echo "--0%"
 BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
-sudo killall homebridge 2>/dev/null
+sudo killall homebridge &>/dev/null
 
 
 if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
@@ -73,8 +73,8 @@ else
   sudo npm rm -g node-gyp --save
   cd `npm root -g`;
   sudo npm rebuild
-  sudo rm -f /usr/bin/homebridge >/dev/null 2>&1
-  sudo rm -f /usr/local/bin/homebridge >/dev/null 2>&1
+  sudo rm -f /usr/bin/homebridge &>/dev/null
+  sudo rm -f /usr/local/bin/homebridge &>/dev/null
   
   sudo apt-get -y --purge autoremove nodejs npm
   echo 30 > ${PROGRESS_FILE}
@@ -83,7 +83,7 @@ else
   if [[ $arch == "armv6l" ]]
   then
     echo "Raspberry 1 détecté, utilisation du paquet pour armv6l"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list >/dev/null 2>&1
+    sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
     wget http://node-arm.herokuapp.com/node_latest_armhf.deb
     sudo dpkg -i node_latest_armhf.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -104,10 +104,10 @@ else
   if [[ $arch == "aarch64" ]]
   then
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list >/dev/null 2>&1
+    sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
     sudo dpkg -i nodejs_5-1_arm64.deb
-    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
+    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs &>/dev/null
     rm nodejs_5-1_arm64.deb
   fi
   
@@ -159,8 +159,8 @@ cd ${BASEDIR}/../node/
 npm cache clean
 sudo npm cache clean
 sudo rm -rf node_modules
-sudo npm install --unsafe-perm bases &> /dev/null
-sudo npm install --unsafe-perm bignum &> /dev/null
+sudo npm install --unsafe-perm bases &>/dev/null
+sudo npm install --unsafe-perm bignum &>/dev/null
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
@@ -178,12 +178,12 @@ fi
 
 echo 90 > ${PROGRESS_FILE}
 echo "--90%"
-#sudo systemctl is-enabled avahi-daemon >/dev/null
+#sudo systemctl is-enabled avahi-daemon &>/dev/null
 #if [ $? -ne 0 ]; then
 #	echo "avahi-daemon non activé au démarrage, activation..."
 #	sudo systemctl enable avahi-daemon
 	echo "Désactivation de avahi-daemon au démarrage...(il démarrera avec le daemon (on contourne le bug de la Smart du 1 jan 1970))"
-	sudo systemctl disable avahi-daemon >/dev/null 2>&1
+	sudo systemctl disable avahi-daemon &>/dev/null
 #fi
 sudo sed -i "/.*enable-dbus.*/c\enable-dbus=yes  #changed by homebridge" /etc/avahi/avahi-daemon.conf
 sudo sed -i "/.*use-ipv6.*/c\use-ipv6=no  #changed by homebridge" /etc/avahi/avahi-daemon.conf
