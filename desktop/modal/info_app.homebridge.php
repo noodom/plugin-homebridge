@@ -158,6 +158,8 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 
 <?=shell_exec("avahi-browse _homekit._tcp -t -v -r -p")?>
 
+<?=shell_exec("avahi-browse _airplay._tcp -t -v -r -p")?>
+
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 
 <?=shell_exec("ps aux | grep dbus | grep -v grep")?>
