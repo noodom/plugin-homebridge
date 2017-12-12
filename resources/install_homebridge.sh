@@ -54,7 +54,7 @@ echo 10 > ${PROGRESS_FILE}
 echo "--10%"
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
-$arch=`arch`;
+arch=`arch`;
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
