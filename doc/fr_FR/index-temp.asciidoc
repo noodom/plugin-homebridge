@@ -1119,7 +1119,7 @@ image::../images/reinitialisation.png[]
 
 === Plugin HomeBridge
 
-==== v1.3.5 (???)
+==== v1.3.5 (12-12-2017)
     * Suppression du besoin de selection de l'utilisateur
     * Plus besoin que les actions réfèrent l'état auxquel elles sont liées sauf si multi-prises ou multi-relay (on split)
     * QRCode pour configurer le bridge (attention, les cameras et plateformes supplémentaires doivent toujours scanner le PIN)
