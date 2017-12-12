@@ -83,7 +83,7 @@ else
   if [[ $arch == "armv6l" ]]
   then
     echo "Raspberry 1 détecté, utilisation du paquet pour armv6l"
-    sudo rm /etc/apt/sources.list.d/nodesource.list
+    sudo rm -f /etc/apt/sources.list.d/nodesource.list >/dev/null 2>&1
     wget http://node-arm.herokuapp.com/node_latest_armhf.deb
     sudo dpkg -i node_latest_armhf.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
@@ -103,8 +103,8 @@ else
   
   if [[ $arch == "aarch64" ]]
   then
-    rm -f /etc/apt/sources.list.d/nodesource.list
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
+    sudo rm -f /etc/apt/sources.list.d/nodesource.list >/dev/null 2>&1
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
     sudo dpkg -i nodejs_5-1_arm64.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
