@@ -103,6 +103,7 @@ else
   
   if [[ $arch == "aarch64" ]]
   then
+    rm -f /etc/apt/sources.list.d/nodesource.list
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
     sudo dpkg -i nodejs_5-1_arm64.deb
