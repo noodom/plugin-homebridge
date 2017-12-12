@@ -52,7 +52,8 @@ sudo apt-get update
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
 echo "--10%"
-actual=`nodejs -v`;
+type nodejs &>/dev/null
+if [ $? -eq 0 ]; then actual=`nodejs -v`; fi
 echo "Version actuelle : ${actual}"
 arch=`arch`;
 
@@ -66,13 +67,16 @@ else
   echo "--20%"
   echo "KO, version obsolète à upgrader";
   echo "Suppression du Nodejs existant et installation du paquet recommandé"
-  sudo npm rm -g homebridge-camera-ffmpeg --save
-  sudo npm rm -g homebridge-jeedom --save
-  sudo npm rm -g homebridge --save
-  sudo npm rm -g request --save
-  sudo npm rm -g node-gyp --save
-  cd `npm root -g`;
-  sudo npm rebuild
+  type npm &>/dev/null
+  if [ $? -eq 0 ]; then
+    sudo npm rm -g homebridge-camera-ffmpeg --save
+    sudo npm rm -g homebridge-jeedom --save
+    sudo npm rm -g homebridge --save
+    sudo npm rm -g request --save
+    sudo npm rm -g node-gyp --save
+    cd `npm root -g`;
+    sudo npm rebuild
+  fi
   sudo rm -f /usr/bin/homebridge &>/dev/null
   sudo rm -f /usr/local/bin/homebridge &>/dev/null
   
