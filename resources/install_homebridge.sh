@@ -83,7 +83,7 @@ else
   if [[ $arch == "armv6l" ]]
   then
     echo "Raspberry 1 détecté, utilisation du paquet pour armv6l"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list
+    sudo rm -f /etc/apt/sources.list.d/nodesource.list >/dev/null 2>&1
     wget http://node-arm.herokuapp.com/node_latest_armhf.deb
     sudo dpkg -i node_latest_armhf.deb
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
