@@ -75,7 +75,7 @@ else
     sudo npm rm -g request --save
     sudo npm rm -g node-gyp --save
     cd `npm root -g`;
-    sudo npm rebuild;
+    sudo npm rebuild
   fi
   sudo rm -f /usr/bin/homebridge &>/dev/null
   sudo rm -f /usr/local/bin/homebridge &>/dev/null
