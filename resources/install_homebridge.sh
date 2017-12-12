@@ -54,6 +54,7 @@ echo 10 > ${PROGRESS_FILE}
 echo "--10%"
 actual=`nodejs -v`;
 echo "Version actuelle : ${actual}"
+$arch = `arch`
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
@@ -100,7 +101,7 @@ else
     #sudo npm install -g npm
   fi
   
-  if [[ `arch` == "aarch64" ]]
+  if [[ $arch == "aarch64" ]]
   then
     echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
     wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
