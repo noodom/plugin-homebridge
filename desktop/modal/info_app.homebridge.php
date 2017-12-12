@@ -156,6 +156,8 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 <pre id='pre_eventlog' class="avahi copyAll" style='overflow: auto; with:90%;height:200px;'>
 <?=shell_exec("avahi-browse _hap._tcp -t -v -r -p")?>
 
+<?=shell_exec("avahi-browse _homekit._tcp -t -v -r -p")?>
+
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 
 <?=shell_exec("ps aux | grep dbus | grep -v grep")?>
