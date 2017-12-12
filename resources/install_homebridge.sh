@@ -144,8 +144,7 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
-#sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge.git#master
-sudo npm install -g --unsafe-perm homebridge
+sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-stable.git#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
