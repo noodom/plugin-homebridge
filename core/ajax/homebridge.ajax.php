@@ -42,6 +42,11 @@ try {
 		homebridge::generate_file();
 		ajax::success();
 	}
+	if (init('action') == 'generateQRCode') {
+		if(init('pin_homebridge') != '')
+			$pin_homebridge=init('pin_homebridge');
+		ajax::success(homebridge::generateQRCode($pin_homebridge));
+	}
 	if (init('action') == 'getJSON') {
 		if(init('type') == 'Platform')
 			$file = homebridge::getJSON('Platform');

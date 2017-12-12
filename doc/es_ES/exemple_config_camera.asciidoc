@@ -194,3 +194,48 @@ Son intégration dans Homebridge est néanmoins possible.
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP la caméra et  <Local_Access_Key> -> voir dans le plugin Caméra l'URL de capture /<Local_Access_Key>/live/snapshot_720.jpg.
 
 image::../images/camera.png[]
+
+==== Configurer plusieurs caméras (ou plateformes)
+
+Pour configurer plusieurs caméras, il suffit de mettre une barre | entre les deux configurations.
+
+[source,]
+----
+{
+  "platform": "Camera-ffmpeg",
+  "cameras": [
+	{
+	  "name": "Cellier 1",
+	  "videoConfig": {
+		"source": "-re -f mjpeg -i http://login:password@adresseIP/mjpeg.cgi",
+		"stillImageSource": "-f mjpeg -i http://login:password@adresseIP/image/jpeg.cgi",
+		"maxStreams": 2,
+		"maxWidth": 640,
+		"maxHeight": 480,
+		"maxFPS": 30,
+		"vcodec": "h264"
+	  }
+	}
+  ]
+}
+|
+{
+"platform": "Camera-ffmpeg",
+"cameras": [
+{
+"name": "Salon 1",
+"videoConfig": {
+"source": "-re -i http://adresseip/xxxxxxx/live/files/high/index.m3u8",
+"stillImageSource": "-i http://adresseIP/xxxxxx/live/snapshot_720.jpg",
+"maxStreams": 2,
+"maxWidth": 1280,
+"maxHeight": 720,
+"maxFPS": 30
+}
+}
+]
+}
+
+----
+
+*Cela est également valable pour tout autre plateforme comme le thermostat NEST par exemple.*

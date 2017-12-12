@@ -32,10 +32,12 @@ Il faut retirer le bridge de l'application "Maison".
 [IMPORTANT]
 A n'effectuer que sur conseil d'un membre du forum et il faut retirer le pont de l'application "Maison".
 
-* *Plateforme Homebridge supplémentaire* : Permet de rajouter manuellement un équipement.
+* *Plateforme Homebridge supplémentaire* : Permet de rajouter manuellement un plugin Homebridge de type plateforme (homebridge-camera-ffmpeg ou homebridge-nest par exemple).
+
+* *Accessoire Homebridge supplémentaire* : Permet de rajouter manuellement un plugin Homebridge de type accessoire (homebridge-freemote par exemple).
 
 [IMPORTANT]
-Réservé à un public averti. Il n'y aura aucun support pour cette partie (permet par exemple d'ajouter des cameras à Homebridge).
+Réservé à un public averti. Il n'y aura aucun support pour ces deux dernières parties.
 
 Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, la configuration se finalise en cliquant sur **Sauvegarder**. Le démon redémarre.
 

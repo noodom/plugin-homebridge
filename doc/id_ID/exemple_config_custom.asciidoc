@@ -1,4 +1,4 @@
-=== Type Générenic Custom
+=== Type Générique Custom
 
 Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
 

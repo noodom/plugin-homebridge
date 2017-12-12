@@ -116,6 +116,12 @@ Homebridge-Jeedom en ligne : <?=$remoteVer?>
 Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 </pre>
 
+<?php
+	$codeURL = str_replace('100x100','150x150',homebridge::generateQRCode());
+?>
+<h3>{{Code d'installation :}}&nbsp;<a class="btn" data-clipboard-target=".installCode"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="installCode copyAll" style='overflow: auto; with:90%;height:200px;'><img src="<?php echo $codeURL ?>" border="0" /><br /><?php echo $codeURL ?></pre>
+
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)&nbsp;<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="piece copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['objects'],JSON_PRETTY_PRINT); ?></pre>
 
@@ -148,7 +154,11 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 
 <h3>{{Environnement Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="avahi copyAll" style='overflow: auto; with:90%;height:200px;'>
-<?=shell_exec("avahi-browse _hap._tcp -t -v -r -p")?>
+<?=shell_exec("avahi-browse _hap._tcp -t -v -r -p -f")?>
+
+<?=shell_exec("avahi-browse _homekit._tcp -t -v -r -p -c -f")?>
+
+<?=shell_exec("avahi-browse _airplay._tcp -t -v -r -p -c -f")?>
 
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 

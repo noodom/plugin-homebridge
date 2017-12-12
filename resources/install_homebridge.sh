@@ -6,7 +6,7 @@ echo "--0%"
 BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
-sudo killall homebridge 2>/dev/null
+sudo killall homebridge &>/dev/null
 
 
 if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
@@ -144,7 +144,7 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
-sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge.git#master
+sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-stable.git#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
@@ -157,6 +157,13 @@ echo "Installation de Homebridge-Camera-FFMPEG..."
 sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ffmpeg.git#master
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
+
+cd ${BASEDIR}/../node/
+npm cache clean
+sudo npm cache clean
+sudo rm -rf node_modules
+sudo npm install --unsafe-perm bases &>/dev/null
+sudo npm install --unsafe-perm bignum &>/dev/null
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 

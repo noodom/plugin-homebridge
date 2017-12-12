@@ -28,13 +28,9 @@ function homebridge_install(){
 		exec('echo "`date +"[%Y-%m-%d %T]"` Présence du plugin Mobile [High Five old friend]" >> '.log::getPathToLog('homebridge'));
 		$pluginMobile->deamon_stop();
 		
-		$user_homebridge = config::byKey('user_homebridge','homebridge');
 		$user_mobile = config::byKey('user_homebridge','mobile');
-		if($user_mobile && !$user_homebridge) {
-			config::save('user_homebridge',$user_mobile,'homebridge');
+		if($user_mobile) {
 			config::remove('user_homebridge','mobile'); // delete it from mobile
-			$user_homebridge = $user_mobile;
-			exec('echo "`date +"[%Y-%m-%d %T]"` Reprise du User de mobile:'.$user_mobile.'" >> '.log::getPathToLog('homebridge'));
 		}
 
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge');
