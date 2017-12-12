@@ -154,11 +154,11 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 
 <h3>{{Environnement Avahi :}} <a class="btn" data-clipboard-target=".avahi"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="avahi copyAll" style='overflow: auto; with:90%;height:200px;'>
-<?=shell_exec("avahi-browse _hap._tcp -t -v -r -p")?>
+<?=shell_exec("avahi-browse _hap._tcp -t -v -r -p -f")?>
 
-<?=shell_exec("avahi-browse _homekit._tcp -t -v -r -p")?>
+<?=shell_exec("avahi-browse _homekit._tcp -t -v -r -p -c -f")?>
 
-<?=shell_exec("avahi-browse _airplay._tcp -t -v -r -p")?>
+<?=shell_exec("avahi-browse _airplay._tcp -t -v -r -p -c -f")?>
 
 <?=shell_exec("ps aux | grep avahi | grep -v grep")?>
 
