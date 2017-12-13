@@ -1119,13 +1119,13 @@ image::../images/reinitialisation.png[]
 
 === Plugin HomeBridge
 
-==== v1.3.5 (???)
-    * Suppression du besoin de selection de l'utilisateur
-    * Plus besoin que les actions réfèrent l'état auxquel elles sont liées sauf si multi-prises ou multi-relay (on split)
+==== v1.3.5 (12-12-2017)
+    * Suppression du besoin de sélection de l'utilisateur
+    * Plus besoin que les actions réfèrent l'état auquel elles sont liées sauf si multi-prises ou multi-relay (on split)
     * QRCode pour configurer le bridge (attention, les cameras et plateformes supplémentaires doivent toujours scanner le PIN)
     * Plus jolie config
     * Afficher une erreur si l'adresse interne est en https
-    * Mise à jour de Homebridge en 0.4.33 et HAP-Nodejs en 0.4.36
+    * Mise à jour de Homebridge en 0.4.32 et HAP-Nodejs en 0.4.36
 
 ==== v1.3.4 (29-11-2017)
     * Réécriture du mode de fonctionnement des thermostats, plus logique :)
