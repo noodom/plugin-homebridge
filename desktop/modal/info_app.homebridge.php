@@ -75,7 +75,7 @@ $PluginToSend = homebridge::PluginToSend();
 <button id="copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>
 
 <h3>{{Environnement NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:220px;'>
+<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:235px;'>
 <?php
 	$nodeVer=shell_exec("node -v");
 	$nodejsVer=shell_exec("nodejs -v");
@@ -113,7 +113,10 @@ Homebridge-Jeedom locale : <?=$localVer?>
 Homebridge-Jeedom en ligne : <?=$remoteVer?>
 <?php if($diffVer) {echo "</span>";} ?>
 
+Utilisateur sélectionné : <?=user::byProfils("admin",true)[0]->getLogin()?>
+
 Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
+
 </pre>
 
 <?php
