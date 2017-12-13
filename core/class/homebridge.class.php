@@ -355,7 +355,7 @@ class homebridge extends eqLogic {
 		//$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
 		//config::save('user_homebridge',$user_homebridge,'homebridge');
 		//$user = user::byId($user_homebridge);
-		$AdminUsers= user::searchByRight("admin");
+		$AdminUsers= user::byProfils("admin",true);
 		$user = $AdminUsers[0]; // take the first one
 		if(is_object($user)){
 			$apikey = $user->getHash();
