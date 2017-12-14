@@ -75,7 +75,7 @@ $PluginToSend = homebridge::PluginToSend();
 <button id="copyAll"><i class="fa fa-copy" alt="Copier tout dans le presse-papier" title="Copier tout dans le presse-papier"> Copier tout</i></button>
 
 <h3>{{Environnement NodeJS :}} <a class="btn" data-clipboard-target=".nodejs"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:235px;'>
+<pre id='pre_eventlog' class="nodejs copyAll" style='overflow: auto; with:90%;height:255px;'>
 <?php
 	$nodeVer=shell_exec("node -v");
 	$nodejsVer=shell_exec("nodejs -v");
@@ -123,7 +123,10 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 	$codeURL = str_replace('100x100','150x150',homebridge::generateQRCode());
 ?>
 <h3>{{Code d'installation :}}&nbsp;<a class="btn" data-clipboard-target=".installCode"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
-<pre id='pre_eventlog' class="installCode copyAll" style='overflow: auto; with:90%;height:200px;'><img src="<?php echo $codeURL ?>" border="0" /><br /><?php echo $codeURL ?></pre>
+<pre id='pre_eventlog' class="installCode copyAll" style='overflow: auto; with:90%;height:200px;'>
+	<img src="<?php echo $codeURL ?>" border="0" /><br />
+	<?php echo $codeURL.((extension_loaded('gmp'))?' (via gmp)':' (via bignum)') ?>
+</pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)&nbsp;<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="piece copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['objects'],JSON_PRETTY_PRINT); ?></pre>
