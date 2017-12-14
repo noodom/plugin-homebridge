@@ -158,7 +158,8 @@ sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ff
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
-if [ -n $3 ] || [ $3 -ne "php" ]; then
+if [ -n $3 ] && [ $3 -ne "php" ]; then
+  echo "Installation du script nodejs (génération QRCode)"
   cd ${BASEDIR}/../node/
   npm cache clean
   sudo npm cache clean
@@ -166,17 +167,21 @@ if [ -n $3 ] || [ $3 -ne "php" ]; then
   sudo npm install --unsafe-perm bases &>/dev/null
   sudo npm install --unsafe-perm bignum &>/dev/null
 else
+  echo "Installation de GMP (génération QRCode)"
   sudo apt-get install php7.0-gmp &>/dev/null
   if [ $? -ne 0 ]; then
+    echo "pour php5"
     sudo apt-get install php5-gmp
   fi
 
   sudo service nginx status
   if [ $? = 0 ]; then
+    echo "Reload nginx"
     sudo service nginx reload
   fi
   sudo service apache2 status
   if [ $? = 0 ]; then
+    echo "Reload apache2"
     sudo service apache2 reload
   fi
 fi
