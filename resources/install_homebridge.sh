@@ -170,7 +170,15 @@ else
   if [ $? -ne 0 ]; then
     sudo apt-get install php5-gmp
   fi
-  sudo service apache2 reload
+
+  sudo service nginx status
+  if [ $? = 0 ]; then
+    sudo service nginx reload
+  fi
+  sudo service apache2 status
+  if [ $? = 0 ]; then
+    sudo service apache2 reload
+  fi
 fi
 
 # do not break i don't know what
