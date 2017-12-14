@@ -158,12 +158,20 @@ sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ff
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
-cd ${BASEDIR}/../node/
-npm cache clean
-sudo npm cache clean
-sudo rm -rf node_modules
-sudo npm install --unsafe-perm bases &>/dev/null
-sudo npm install --unsafe-perm bignum &>/dev/null
+if [ -n $3 ] || [ $3 -ne "php" ]; then
+  cd ${BASEDIR}/../node/
+  npm cache clean
+  sudo npm cache clean
+  sudo rm -rf node_modules
+  sudo npm install --unsafe-perm bases &>/dev/null
+  sudo npm install --unsafe-perm bignum &>/dev/null
+else
+  sudo apt-get install php7.0-gmp &>/dev/null
+  if [ $? -ne 0 ]; then
+    sudo apt-get install php5-gmp
+  fi
+  sudo service apache2 reload
+fi
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
