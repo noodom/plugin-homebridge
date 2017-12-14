@@ -185,7 +185,7 @@ class homebridge extends eqLogic {
 		log::remove(__CLASS__ . '_dep');
 		self::generate_file();
 		
-        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch(),
+        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch().' nodejs',
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
 	
@@ -626,14 +626,19 @@ class homebridge extends eqLogic {
 		$setupID_homebridge = str_replace(':','',$mac_homebridge);
 		$setupID_homebridge = substr($setupID_homebridge,-4);
 
-		/*$pin_homebridge=str_replace('-','',$pin_homebridge);
-		$payload = gmp_mul(gmp_init(2,16),gmp_pow(2,31));
-		$payload = gmp_or($payload,gmp_mul(gmp_init(1,16),gmp_pow(2,28)));
-		$payload = gmp_or($payload,gmp_init($pin_homebridge,10));
-		$Link="X-HM://00".strtoupper(gmp_strval($payload,36)).$setupID_homebridge;*/
-		
-		$Link=trim(shell_exec('nodejs '.dirname(__FILE__).'/../../node/genCode.js '.$pin_homebridge.' '.$setupID_homebridge));
-		return 'http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl='.$Link.'&chld=H|0';
+		if(extension_loaded('gmp')) {
+			$pin_homebridge=str_replace('-','',$pin_homebridge);
+			$payload = gmp_mul(gmp_init(2,16),gmp_pow(2,31));
+			$payload = gmp_or($payload,gmp_mul(gmp_init(1,16),gmp_pow(2,28)));
+			$payload = gmp_or($payload,gmp_init($pin_homebridge,10));
+			$Link=trim("X-HM://00".strtoupper(gmp_strval($payload,36)).$setupID_homebridge);
+		} else {
+			$Link=trim(shell_exec('nodejs '.dirname(__FILE__).'/../../node/genCode.js '.$pin_homebridge.' '.$setupID_homebridge));
+		}
+		if(strlen($Link) > 0 && strlen($Link) < 30)
+			return 'http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl='.$Link.'&chld=H|0';
+		else
+			return "";
 	}
 	
 	/**************************************************************************************/
