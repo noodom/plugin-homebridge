@@ -185,7 +185,7 @@ class homebridge extends eqLogic {
 		log::remove(__CLASS__ . '_dep');
 		self::generate_file();
 		
-        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch().' nodejs',
+        return array('script' => dirname(__FILE__) . '/../../resources/install_homebridge.sh '.network::getNetworkAccess('internal','ip').' '.self::getBranch().' php',
 					 'log' => log::getPathToLog(__CLASS__ . '_dep'));
 	}
 	
