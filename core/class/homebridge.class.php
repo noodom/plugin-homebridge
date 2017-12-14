@@ -39,6 +39,7 @@ class homebridge extends eqLogic {
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
 			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'OCCUPANCY' => array('name' => 'Présence Occupation (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_SET_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
