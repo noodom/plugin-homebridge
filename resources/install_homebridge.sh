@@ -158,35 +158,33 @@ sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ff
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
-if [ -n $3 ] &&  [[ $3 == "php" ]]; then
-  echo "Installation du script nodejs (génération QRCode)"
-  cd ${BASEDIR}/../node/
-  npm cache clean
-  sudo npm cache clean
-  sudo rm -rf node_modules
-  sudo npm install --unsafe-perm bases &>/dev/null
-  sudo npm install --unsafe-perm bignum &>/dev/null
+echo "Installation de GMP (génération QRCode)"
+sudo apt-get install php7.0-gmp &>/dev/null
+if [ $? -ne 0 ]; then
+echo "pour php5"
+sudo apt-get install php5-gmp
 else
-  echo "Installation de GMP (génération QRCode)"
-  sudo apt-get install php7.0-gmp &>/dev/null
-  if [ $? -ne 0 ]; then
-    echo "pour php5"
-    sudo apt-get install php5-gmp
-  else
-    echo "pour php7"
-  fi
-
-  sudo service nginx status &>/dev/null
-  if [ $? = 0 ]; then
-    echo "Reload nginx"
-    sudo service nginx reload
-  fi
-  sudo service apache2 status &>/dev/null
-  if [ $? = 0 ]; then
-    echo "Reload apache2"
-    sudo service apache2 reload
-  fi
+echo "pour php7"
 fi
+
+sudo service nginx status &>/dev/null
+if [ $? = 0 ]; then
+echo "Reload nginx"
+sudo service nginx reload
+fi
+sudo service apache2 status &>/dev/null
+if [ $? = 0 ]; then
+echo "Reload apache2"
+sudo service apache2 reload
+fi
+
+# removing old node solution
+cd ${BASEDIR}/../node/
+npm cache clean
+sudo npm cache clean
+sudo rm -rf node_modules
+cd ${BASEDIR}/../
+sudo rm -rf node
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
