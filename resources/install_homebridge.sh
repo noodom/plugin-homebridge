@@ -161,20 +161,20 @@ echo "--80%"
 echo "Installation de GMP (génération QRCode)"
 sudo apt-get install php7.0-gmp &>/dev/null
 if [ $? -ne 0 ]; then
-echo "pour php5"
-sudo apt-get install php5-gmp
+  echo "pour php5"
+  sudo apt-get install php5-gmp
 else
-echo "pour php7"
+  echo "pour php7"
 fi
 
 sudo service nginx status &>/dev/null
 if [ $? = 0 ]; then
-echo "Reload nginx"
+echo "Reload nginx..."
 sudo service nginx reload
 fi
 sudo service apache2 status &>/dev/null
 if [ $? = 0 ]; then
-echo "Reload apache2"
+echo "Reload apache2..."
 sudo service apache2 reload
 fi
 
@@ -182,9 +182,10 @@ fi
 cd ${BASEDIR}/../node/
 npm cache clean
 sudo npm cache clean
-sudo rm -rf node_modules
 cd ${BASEDIR}/../
-sudo rm -rf node
+if [ -e ${BASEDIR}/../node ]; then
+  sudo rm -rf ${BASEDIR}/../node
+fi
 
 # do not break i don't know what
 #if [[ `file -bi /usr/bin/ffmpeg` == *"application/x-executable"* ]]; then 
