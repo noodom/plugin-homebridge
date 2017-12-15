@@ -125,7 +125,7 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 <h3>{{Code d'installation :}}&nbsp;<a class="btn" data-clipboard-target=".installCode"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="installCode copyAll" style='overflow: auto; with:90%;height:200px;'>
 	<img src="<?php echo $codeURL ?>" border="0" /><br />
-	<?php echo $codeURL.((extension_loaded('gmp'))?' (via gmp)':'') ?>
+	<?php echo $codeURL.((extension_loaded('gmp'))?' (gmp OK)':' <span style="color:red">(gmp KO)</span>') ?>
 </pre>
 
 <h3>{{Pièces :}} (<?=validateJSON(json_encode($sync_array['objects']))?>)&nbsp;<a class="btn" data-clipboard-target=".piece"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
