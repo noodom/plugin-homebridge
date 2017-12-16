@@ -1,4 +1,4 @@
-== Configuration du plugin Homebridge
+== Homebridge Plugin Konfiguration
 
 === Création du pont Homebridge
 

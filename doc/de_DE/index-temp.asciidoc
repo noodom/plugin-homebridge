@@ -82,7 +82,7 @@ image::../images/installationDep.png[]
 * Tout système basé sur Debian 8 ou 9
 
 [IMPORTANT]
-*Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.*
+*Die Installationen unter Docker und Raspberry Pi 1 sind nicht kompatibel mit dieser Version von Homebridge. *
 
 Une fois les dépendances installées, le démon se lance (dans les 5 min). Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
 
