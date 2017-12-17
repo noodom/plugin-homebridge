@@ -109,7 +109,7 @@ image::../images/log.png[]
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
 
-== Configuration du plugin Homebridge
+== Homebridge Plugin Konfiguration
 
 === Création du pont Homebridge
 
@@ -167,7 +167,7 @@ Afin d'ajouter un accessoire à Homebridge, il suffit de cocher la case "Envoyer
 [IMPORTANT]
 *Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge*.
 
-==== Configuration des types génériques
+==== Konfiguration generischer Typen
 
 ===== Généralités
 
@@ -414,7 +414,7 @@ avec Unité indiquée ou pas
 |===
 
 
-*Des exemples de configurations sont disponibles à la fin de la documentation*
+*Beispielkonfigurationen finden Sie am Ende der Dokumentation*
 
 Pour valider, il faut aller dans la configuration du plugin et relancer le démon Homebridge en cliquant sur "(Re)Démarrer".
 
@@ -491,7 +491,7 @@ La documentation complète de l'application "Maison" d'Apple est disponible http
 
 == Migration depuis le plugin App Mobile
 
-Le nouveau plugin Homebridge importe automatiquement la configuration Homebridge du plugin App Mobile. Il n'y a aucune opération à faire. 
+Das neue Homebridge-Plugin importiert automatisch die Homebridge-Konfiguration vom Mobile-App Plugin. Es ist kein weiterer Eingriff notwendig. 
 
 Lorsque l'importation est terminée, la rubrique Homebridge disparait des paramètres du plugin App Mobile. 
 
@@ -652,7 +652,7 @@ Les dépendances Homebridge ne sont pas installées ou certains fichiers sont ma
 image::../images/dependances-homebridge.png[]
 
 
-== Exemple de configuration
+== Beispielkonfiguration
 
 === Lumière
 
@@ -1016,7 +1016,7 @@ image::../images/custom-6.png[]
 Pour configurer le plugin "Thermostat", il faut se référer à la https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
 
 
-===== Configuration
+===== Konfiguration
 
 Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.
 
@@ -1051,7 +1051,7 @@ La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l
 
 *Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
 
-===== Configuration
+===== Konfiguration
 
 Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "Désactivée", "Nuit", "A distance" et "Domicile".
 

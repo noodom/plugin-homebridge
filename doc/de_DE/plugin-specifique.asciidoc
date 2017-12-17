@@ -5,7 +5,7 @@
 [IMPORTANT]
 Pour configurer le plugin "Thermostat", il faut se référer à la https://jeedom.github.io/documentation/plugins/thermostat/fr_FR/index.html[documentation du plugin].
 
-===== Configuration
+===== Konfiguration
 
 Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.
 
@@ -40,7 +40,7 @@ La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l
 
 *Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
 
-===== Configuration
+===== Konfiguration
 
 Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "Désactivée", "Nuit", "A distance" et "Domicile".
 

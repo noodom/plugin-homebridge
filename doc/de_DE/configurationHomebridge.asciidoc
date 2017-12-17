@@ -56,7 +56,7 @@ Afin d'ajouter un accessoire à Homebridge, il suffit de cocher la case "Envoyer
 [IMPORTANT]
 *Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.*
 
-==== Configuration des types génériques
+==== Konfiguration generischer Typen
 
 ===== Généralités
 
@@ -78,7 +78,7 @@ image::../images/ypegeaction.png[]
 
 include::configurationHomebridgeTypeGenerique.asciidoc[]
 
-*Des exemples de configurations sont disponibles à la fin de la documentation*
+*Beispielkonfigurationen finden Sie am Ende der Dokumentation*
 
 Pour valider, il faut aller dans la configuration du plugin et relancer le démon Homebridge en cliquant sur "(Re)Démarrer".
 
