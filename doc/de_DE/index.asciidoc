@@ -22,7 +22,7 @@ include::exemple_config_custom.asciidoc[]
 
 include::plugin-specifique.asciidoc[]
 
-== Changelog
+== Änderungsprotokoll
 
 include::changelog.asciidoc[]
 

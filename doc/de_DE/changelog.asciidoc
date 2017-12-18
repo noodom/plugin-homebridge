@@ -19,7 +19,7 @@
     * Gestion des actions Ouvrir et Fermer pour les portes de garages.
     * DebugInfo affiche maintenant le log de création d'accessoires (si celui-ci n'est pas encore tronqué)
 
-==== v1.3.2 (09 et 10 et 12-11-2017)
+==== v1.3.2 (09 und 10 und 12-11-2017)
     * Fichier fusionné pour la doc
     * Autre bug sur Inversion corrigé
     * Bug Siri "Ouvre tous les volets du salon" corrigé
