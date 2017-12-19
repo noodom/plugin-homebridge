@@ -618,13 +618,15 @@ class homebridge extends eqLogic {
 		return strtoupper(implode(':', str_split(substr(md5(mt_rand()), 0, 12), 2)));
 	}
 
-	public static function generateQRCode($pin_homebridge = '') {
+	public static function generateQRCode($size,$pin_homebridge = '') {
 		if($pin_homebridge == '')
 			$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 
 		$mac_homebridge = config::byKey('mac_homebridge','homebridge','NEBZ',true);
 		$setupID_homebridge = str_replace(':','',$mac_homebridge);
 		$setupID_homebridge = substr($setupID_homebridge,-4);
+		
+		$size = $size ? $size : '100x100';
 		
 		$Link="";
 		if(extension_loaded('gmp')) {
@@ -636,7 +638,8 @@ class homebridge extends eqLogic {
 		} 
 		
 		if(strlen($Link) > 0 && strlen($Link) < 30)
-			return 'http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl='.$Link.'&chld=H|0';
+			return '/plugins/homebridge/desktop/php/genQR.php?size='.$size.'&rnd='.rand().'&data='.$Link;
+		//http://chart.apis.google.com/chart?cht=qr&chs='.$size.'&chl='.$Link.'&chld=H|0
 		else
 			return "";
 	}
