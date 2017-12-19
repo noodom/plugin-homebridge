@@ -120,7 +120,7 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 </pre>
 
 <?php
-	$codeURL = str_replace('100x100','150x150',homebridge::generateQRCode());
+	$codeURL = homebridge::generateQRCode('150x150');
 ?>
 <h3>{{Code d'installation :}}&nbsp;<a class="btn" data-clipboard-target=".installCode"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="installCode copyAll" style='overflow: auto; with:90%;height:200px;'>
