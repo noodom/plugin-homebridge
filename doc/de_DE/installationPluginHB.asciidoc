@@ -10,7 +10,7 @@ Un fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
 
 image::../images/activationHB.png[]
 
-===  Installation des dépendances
+=== Abhängigkeiten Installation 
 
 Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Elles seront également réinstallées lors d'une mise à jour du plugin si besoin.
 

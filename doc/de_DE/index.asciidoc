@@ -1,4 +1,4 @@
-= Plugin HomeBridge
+= HomeBridge Plugin
 
 include::presentationHomebridge.asciidoc[]
 
@@ -8,7 +8,7 @@ include::configurationHomebridge.asciidoc[]
 
 include::migration.asciidoc[]
 
-== Troubleshooting
+== Fehlersuche
 
 include::TroubleshootingHomebridge.asciidoc[]
 

@@ -1,14 +1,14 @@
 {
     "plugins\/mobile\/plugin_info\/info.xml": {
         "Plugin pour l'application Mobile": "Plugin pour l'application Mobile",
-        "Aucune": "Aucune"
+        "Aucune": "Keine"
     },
     "plugins\/mobile\/desktop\/php\/mobile.php": {
         "Ajouter un mobile": "Ajouter un mobile",
-        "Rechercher": "Rechercher",
-        "Mes Téléphones Mobiles": "Mes Téléphones Mobiles",
-        "Général": "Général",
-        "Nom de l'équipement mobile": "Nom de l'équipement mobile",
+        "Rechercher": "Suchen",
+        "Mes Téléphones Mobiles": "Meine Handys",
+        "Général": "Allgemein",
+        "Nom de l'équipement mobile": "Name vom Mobilgerät",
         "Nom de l'équipement template": "Nom de l'équipement template",
         "Objet parent": "Objet parent",
         "Aucun": "Aucun",

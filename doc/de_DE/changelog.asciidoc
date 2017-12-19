@@ -1,4 +1,4 @@
-=== Plugin HomeBridge
+=== HomeBridge Plugin
 
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur

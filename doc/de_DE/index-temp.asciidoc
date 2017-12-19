@@ -1,4 +1,4 @@
-= Plugin HomeBridge
+= HomeBridge Plugin
 
 == Présentation HomeBridge
 

@@ -1,4 +1,4 @@
-=== Lumière
+=== Beleuchtung
 
 Type d'accessoire : Dimmer 2 de Fibaro (Z-Wave)
 

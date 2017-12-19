@@ -11,7 +11,7 @@ Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer 
 
 image::../images/thermostat.png[]
 
-===== Présentation
+===== Präsentation
 
 image::../images/thermostat1.png[]
 

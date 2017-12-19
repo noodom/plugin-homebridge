@@ -1,4 +1,4 @@
-===== Lumières
+===== Beleuchtung
 [options="header",cols=",^m,"]
 |===
 | Type générique | Obligatoire | Valeurs possibles 
@@ -13,7 +13,7 @@ lorsqu'elle est éteinte (Yeelight, Ikea, ...)
 autre que 0 = Allumé
 | Info/Lumière Etat | OUI | Luminosité
 
-0-100 ou 0-99 ou 0-255
+0-100 oder 0-99 oder 0-255
 
 (en fonction du max de Action/Lumière Slider)
 
