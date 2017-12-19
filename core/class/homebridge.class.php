@@ -638,7 +638,7 @@ class homebridge extends eqLogic {
 		} 
 		
 		if(strlen($Link) > 0 && strlen($Link) < 30)
-			return '/plugins/homebridge/desktop/php/genQR.php?size='.$size.'&rnd='.rand().'&data='.$Link;
+			return '/plugins/homebridge/3rdparty/genQR.php?size='.$size.'&rnd='.rand().'&data='.$Link;
 		//http://chart.apis.google.com/chart?cht=qr&chs='.$size.'&chl='.$Link.'&chld=H|0
 		else
 			return "";
