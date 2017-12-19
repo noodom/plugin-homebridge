@@ -45,7 +45,7 @@ try {
 	if (init('action') == 'generateQRCode') {
 		if(init('pin_homebridge') != '')
 			$pin_homebridge=init('pin_homebridge');
-		ajax::success(homebridge::generateQRCode($pin_homebridge));
+		ajax::success(homebridge::generateQRCode('100x100',$pin_homebridge));
 	}
 	if (init('action') == 'getJSON') {
 		if(init('type') == 'Platform')
