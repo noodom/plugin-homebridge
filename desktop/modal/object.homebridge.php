@@ -84,6 +84,7 @@ function listThermoSetModes($cmds,$selected) {
 		$tableau_cmd = [];
 		$eqLogics = $object->getEqLogic();
 		$customValuesArr = homebridge::getCustomData();
+		$PluginAutoConfig = homebridge::PluginAutoConfig();
 		?>
 		<div class="panel-group" id="accordionConfiguration">
 			<?php
@@ -119,7 +120,8 @@ function listThermoSetModes($cmds,$selected) {
 					<div id="config_<?=$eql_id?>" class="panel-collapse collapse">
 						<div class="panel-body">
 							<?php
-							switch($eqLogic->getEqType_name()) :
+							$pluginId = $eqLogic->getEqType_name();
+							switch($pluginId) :
 								case "alarm" :
 									configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id);
 								break;
@@ -145,6 +147,14 @@ function listThermoSetModes($cmds,$selected) {
 								default :
 									$cmds = null;
 									$cmds = cmd::byEqLogicId($eql_id);
+									$specificField=null;
+									$specificValue=null;
+									if(isset($PluginAutoConfig[$pluginId])) {
+										$specificField = $PluginAutoConfig[$pluginId]['field'];
+										if(isset($specificField)) {
+											$specificValue = $eqLogic->getConfiguration($specificField);
+										}
+									}
 									$isCustomisable = false;
 								?>
 									<table id='<?=$eql_id?>' class="table TableCMD">
@@ -156,8 +166,22 @@ function listThermoSetModes($cmds,$selected) {
 										<?php
 										foreach ($cmds as $cmd) :
 											$cmd_id = $cmd->getId();
+											$cmd_array = $cmd->exportApi();
 											$customCMDValuesArr=['display'=>null];
 											array_push($tableau_cmd, $cmd_id);
+											
+											
+											// replace generic_type if auto-config data exists
+											$logicalId = $cmd_array['logicalId'];
+											if(!isset($specificValue)) $specificValue = 'default';
+											if(	isset($PluginAutoConfig[$pluginId]) && 
+												isset($PluginAutoConfig[$pluginId][$specificValue]) && 
+												isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
+											
+												$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
+											}
+											
+											
 											foreach($customValuesArr['cmd'] as $cmdCustom) {
 												if($cmdCustom['id'] == $cmd_id) {
 													$customCMDValuesArr = $cmdCustom['display'];	
@@ -174,7 +198,7 @@ function listThermoSetModes($cmds,$selected) {
 													echo $cmd->getName();
 													$display_icon = 'none';
 													$icon ='';
-													if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
+													if (in_array($cmd_array['generic_type'], ['GENERIC_INFO','GENERIC_ACTION'])) {
 														$display_icon = 'block';
 														$icon = $cmd->getDisplay('icon');
 													}
@@ -226,7 +250,7 @@ function listThermoSetModes($cmds,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd->getDisplay('generic_type') || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
+																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
 																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
 																		$isCustomisable = $info['key'];
 																	}
