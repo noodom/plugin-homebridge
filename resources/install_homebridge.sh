@@ -179,11 +179,11 @@ sudo service apache2 reload
 fi
 
 # removing old node solution
-cd ${BASEDIR}/../node/
-npm cache clean
-sudo npm cache clean
-cd ${BASEDIR}/../
 if [ -e ${BASEDIR}/../node ]; then
+  cd ${BASEDIR}/../node/
+  npm cache clean
+  sudo npm cache clean
+  cd ${BASEDIR}/../
   sudo rm -rf ${BASEDIR}/../node
 fi
 
