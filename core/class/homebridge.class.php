@@ -104,6 +104,19 @@ class homebridge extends eqLogic {
 										[
 											'online'=>'ACTIVE',
 											'status'=>'LIGHT_STATE_BOOL'
+										],
+									'gateway'=>
+										[
+											'vol'=>'SPEAKER_VOLUME',
+											'vol-set'=>'SPEAKER_SET_VOLUME',
+											'online'=>'ACTIVE',
+											'illumination'=>'BRIGHTNESS',
+											'on'=>'LIGHT_ON',
+											'off'=>'LIGHT_OFF',
+											'rgb'=>'LIGHT_COLOR',
+											'rgb-set'=>'LIGHT_SET_COLOR',
+											'brightness'=>'LIGHT_STATE',
+											'brightness-set'=>'LIGHT_SLIDER'
 										]
 								],
 							'ikealight'=>
@@ -309,13 +322,13 @@ class homebridge extends eqLogic {
 		return $content;
 	}
 	public static function cleanCustomData(){
-		log::add('homebridge','debug','Nettoyage journalier des eqLogics & cmds n\'existant plus dans Jeedom mais toujours dans notre config');
+		log::add('homebridge','info','Nettoyage journalier des eqLogics & cmds n\'existant plus dans Jeedom mais toujours dans notre config');
 		$content = homebridge::getCustomData();
 		$found=false;
 		foreach ($content['eqLogic'] as $keyEqLogicCustom => $eqLogicCustom) {
 			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
 			if (!is_object($eqLogicExists)) {
-				log::add('homebridge','debug','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
+				log::add('homebridge','info','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
 				array_splice($content['eqLogic'],$keyEqLogicCustom);
 				$found=true;
 			}
@@ -323,7 +336,7 @@ class homebridge extends eqLogic {
 		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
 			$cmdExists = cmd::byId($cmdCustom['id']);
 			if (!is_object($cmdExists)) {
-				log::add('homebridge','debug','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
+				log::add('homebridge','info','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
 				array_splice($content['cmd'],$keyCmdCustom);
 				$found=true;
 			}
