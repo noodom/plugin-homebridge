@@ -36,7 +36,7 @@ Siri peut également faire des actions :
 
 image::../images/siri-02.jpg[]
 
-HomeKit à l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
+HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
 L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
 
 
@@ -55,7 +55,7 @@ Le plugin Homebridge doit être installé via le market Jeedom. *Le plugin App M
 
 image::../images/pluginHB.png[]
 
-Un fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
+Une fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
 
 image::../images/activationHB.png[]
 
@@ -99,13 +99,13 @@ image::../images/dependances-homebridge.png[]
 
 Les fichiers log permettent d'analyser pas à pas l'activité interne du processus et ses interactions avec son environnement.
 
-Ces fichiers peuvent être nécessaires en cas de disfonctionnement du plugin.
+Ces fichiers peuvent être nécessaires en cas de dysfonctionnement du plugin.
 
 image::../images/log.png[]
 
 * Homebridge : Historise toutes les communications avec le démon homebridge.
 
-* Homebridge_daemon : Historise les actions effectuées par Homebridge (par exemple si un accessoire est envoyé à Homebridge mais n'apparait pas dans l'application Maison, c'est ici qu'il faut aller voir).
+* Homebridge_daemon : Historise les actions effectuées par Homebridge (par exemple si un accessoire est envoyé à Homebridge mais n'apparaît pas dans l'application Maison, c'est ici qu'il faut aller voir).
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
 
@@ -294,8 +294,8 @@ N'existe pas en HomeKit
 | Info/Thermostat Etat (HUMAIN) | NON | Générique (Eve Seulement)
 | Info/Thermostat Mode | OUI si associé mode homekit | Générique (Eve Seulement)
 | Action/Thermostat Mode | NON | Peut être associé mode homekit
-| Info/Thermostat Température Extérieur| NON utilisé | N/A
-| Info/Thermostat Température ambiante| NON | -50 -> 100
+| Info/Thermostat Température Extérieure| NON utilisé | N/A
+| Info/Thermostat Température Ambiante| NON | -50 -> 100
 | Info/Thermostat Consigne| OUI | 10 -> 38
 | Action/Thermostat Consigne| OUI | 10 -> 38
 | Info/Thermostat Verrouillage| NON | 0 = Non Verrouillé 
@@ -498,13 +498,13 @@ Lorsque l'importation est terminée, la rubrique Homebridge disparait des param�
 
 image::../images/plugnmobilesanshb.png[]
 
-Homebridge est complètement dessolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
+Homebridge est complètement desolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
 
 Lors de l'installation du plugin Homebridge, tous les accessoires vont être indisponibles. C'est normal.
 
 image::../images/migration1.png[]
 
-Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveaux disponibles.
+Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveau disponibles.
 
 
 == Troubleshooting
@@ -530,7 +530,7 @@ image::../images/ref2.png[]
 
 ==== FAQ
 
-*-> Le pont Homebridge n'apparait pas dans l'application Maison !*
+*-> Le pont Homebridge n'apparaît pas dans l'application Maison !*
 
 TIP: Vérifiez que vous êtes connectés au même réseau que le pont Homebridge et que les fonctions Igmp snooping ou dns multicast sont activées sur votre box, routeur ou switch. Le protocole HomeKit n'est pas routable.
 
@@ -550,11 +550,11 @@ TIP: Vérifiez que vous disposez de la dernière version des dépendances. En ca
 
 image::../images/dependances-homebridge.png[]
 
-*-> Mon équipement n'apparait pas dans Homebridge !*
+*-> Mon équipement n'apparaît pas dans Homebridge !*
 
 TIP: Vérifiez que la case "Envoyer à Homebridge" est cochée dans la configuration du plugin Homebridge.
 
-*-> La case "Envoyer à Homebridge" est bien cochée mais mon équipement n'apparait toujours pas !*
+*-> La case "Envoyer à Homebridge" est bien cochée mais mon équipement n'apparaît toujours pas !*
 
 TIP: Vérifiez dans la configuration de votre équipement que celui-ci est activé, et dans une pièce.
 
@@ -570,11 +570,11 @@ TIP: Il faut bien mettre à jour le plugin App Mobile, puis dans la configuratio
 
 TIP: Vérifiez que les types génériques sont bien configurés. Il doit y avoir une cohérence entre les types. Si vous avez le type "Info Lumière Etat", vérifiez que les actions sont de types "Action / Lumière Bouton On" etc... Voir aussi la référence à l'état (le point important ci-dessus)
 
-*-> Le message "sans réponse" apparait dans l'application Maison ou Eve*
+*-> Le message "sans réponse" apparaît dans l'application Maison ou Eve*
 
 image::../images/sans-reponse.jpg[]
 
-1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connectés au même réseau que votre Jeedom. 
+1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connecté au même réseau que votre Jeedom. 
 2. Vérifiez que le démon est activé. Si ce n'est pas le cas, redémarrez le.
 3. Relancez votre box.
 4. Si malgré tout vous avez toujours ces états, lancez une réparation.
@@ -639,7 +639,7 @@ L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mai
 [Mon Jul 17 2017 19:49:49 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
 [TIP]
-Il y a une incohérence entre les types génériques. Les types "actions" ne correpondent pas au type "info". Pour corriger le problème, modifiez les types génériques de l'accessoire en gardant une cohérence entres les types actions et info.
+Il y a une incohérence entre les types génériques. Les types "actions" ne correpondent pas au type "info". Pour corriger le problème, modifiez les types génériques de l'accessoire en gardant une cohérence entre les types actions et info.
 
 
 [source,]
@@ -731,7 +731,7 @@ En touchant la capture de la caméra souhaitée, elle s'affiche en plein écran 
 
 image::../images/camera3.png[]
 
-Suivant les configurations matérielles, la qualité de la transmition peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
+Suivant les configurations matérielles, la qualité de la transmission peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
 
 Celles-ci peuvent afficher une notification lorsqu'un mouvement est détecté par un capteur de présence. Il faut que la caméra et le capteur soient configurés dans la même pièce et que les notifications du capteur soient activées.
 
@@ -741,7 +741,7 @@ Les caméras décrites ci-dessous ont été testées. Elles sont donc fonctionne
 
 
 
-L'intégration des caméras se fait via la bouton rouge "Plateforme Homebridge suplémentaire".
+L'intégration des caméras se fait via la bouton rouge "Plateforme Homebridge supplémentaire".
 
 image::../images/plateforme-hb.png[]
 
@@ -961,19 +961,19 @@ Pour configurer plusieurs caméras, il suffit de mettre une barre | entre les de
 
 ----
 
-*Cela est également valable pour tout autre plateforme comme le thermostat NEST par exemple.*
+*Cela est également valable pour toute autre plateforme comme le thermostat NEST par exemple.*
 
 === Type Générique Custom
 
-Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
+Le type générique "Custom" permet de faire remonter n'importe quelle valeur "info" de tout type dans Homebridge. *Quelques exemples sont décris dans ce chapitre.*
 
-*L'information à remonter dans Homebridge ne doit pas dépasser 64 carractères.*  
-
-[IMPORTANT]
-*Seule l'application d'Elgato Eve est compatible avec ce type générique. Les équipements utilisant ce type générique n'apparaiteront pas dans l'application Maison d'Apple.*
+*L'information à remonter dans Homebridge ne doit pas dépasser 64 caractères.*  
 
 [IMPORTANT]
-*Les interractions avec Siri ainsi que les automations ne sont pas possible avec ce type générique*
+*Seule l'application d'Elgato Eve est compatible avec ce type générique. Les équipements utilisant ce type générique n'apparaîtront pas dans l'application Maison d'Apple.*
+
+[IMPORTANT]
+*Les interactions avec Siri ainsi que les automations ne sont pas possibles avec ce type générique*
 
 [IMPORTANT]
 *Il est n'est pas possible de renommer l'accessoire*
@@ -1031,7 +1031,7 @@ image::../images/thermostat1.png[]
 * *C* : Commande de modification de la Consigne A : Augmenter ou diminuer la température à l’aide du curseur. Cela aura pour action de modifier également le mode du chauffage E qui passera à AUCUN dans le dashboard Jeedom.
 * *D* : Statut du thermostat retourné par le plugin Thermostat : Arrêté (ou Désactivé ou Eteint) (Rond vert dans Maison) / Chauffage (Rond Orange dans Maison) / Climatisation (Rond Bleu dans Maison).
 
-* *E* : Mode Auto (dans Maison ou Eve) : correspond au mode Aucun dans Jeedom où le Plugin Thermostat décide de ce qu'il doit faire en fonction de la température qu'on lui envoi. Ce mode permets de régler une température cible via le curseur C
+* *E* : Mode Auto (dans Maison ou Eve) : correspond au mode Aucun dans Jeedom où le Plugin Thermostat décide de ce qu'il doit faire en fonction de la température qu'on lui envoie. Ce mode permet de régler une température cible via le curseur C
 
 * *F* : Mode Clim / Refroidir : Mode customisé associé manuellement dans la configuration du Thermostat dans le Plugin Homebridge. Permet de lancer le mode associé dans le plugin Thermostat. (Repasse en mode AUTO, si une température cible est donnée)
 
@@ -1047,7 +1047,7 @@ En cliquant sur "CHAUF" ou "Chauffer", on active le mode du thermostat associé.
 ==== Plugin "Alarme"
 
 [IMPORTANT]
-La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l'intant) avec le plugin Jeedom "Alarme". Pour configurer le plugin "Alarme", il faut se référer à la https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin].
+La fonctionnalité de l'alarme dans Homebridge est compatible uniquement (pour l'instant) avec le plugin Jeedom "Alarme". Pour configurer le plugin "Alarme", il faut se référer à la https://jeedom.github.io/documentation/plugins/alarm/fr_FR/index.html[documentation du plugin].
 
 *Ce mode fonctionne avec l'application d'Apple Maison et celle d'Elgato Eve.*
 
@@ -1103,26 +1103,21 @@ Pour la désactiver, il suffit de sélectionner "Désactivée". Les actions déf
 
 image::../images/desactivationok.png[]
 
-En cas de déclenchement de l'alarme, une notification apparait sur le téléphone.
+En cas de déclenchement de l'alarme, une notification apparaît sur le téléphone.
 
 image::../images/alarmedeclanchee.png[]
 
-Pour la désarmer, il faut cliquer sur l'icone "Alarme" et sélectionner "Désactivée".
+Pour la désarmer, il faut cliquer sur l'icône "Alarme" et sélectionner "Désactivée".
 
 image::../images/reinitialiseralarme.png[]
 
-Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont s'exécuter.
+Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont s'éxécuter.
 
 image::../images/reinitialisation.png[]
 
 == Changelog
 
 === Plugin HomeBridge
-
-==== v1.3.6 (???)
-    * Meilleur code de génération pour le QRcode (en php)
-    * Changement de plusieurs libellés dans la configuration du plugin.
-    * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
 
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur
