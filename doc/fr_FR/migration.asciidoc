@@ -13,5 +13,5 @@ Lors de l'installation du plugin Homebridge, tous les accessoires vont être ind
 
 image::../images/migration1.png[]
 
-Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveaux disponibles.
+Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveau disponibles.
 
