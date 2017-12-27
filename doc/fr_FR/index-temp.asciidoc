@@ -1119,6 +1119,11 @@ image::../images/reinitialisation.png[]
 
 === Plugin HomeBridge
 
+-==== v1.3.6 (???)
+    * Meilleur code de génération pour le QRcode (en php)
+    * Changement de plusieurs libellés dans la configuration du plugin.
+    * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
+
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur
     * Plus besoin que les actions réfèrent l'état auquel elles sont liées sauf si multi-prises ou multi-relay (on split)
