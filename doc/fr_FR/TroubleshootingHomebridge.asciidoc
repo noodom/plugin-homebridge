@@ -19,7 +19,7 @@ image::../images/ref2.png[]
 
 ==== FAQ
 
-*-> Le pont Homebridge n'apparait pas dans l'application Maison !*
+*-> Le pont Homebridge n'apparaît pas dans l'application Maison !*
 
 TIP: Vérifiez que vous êtes connectés au même réseau que le pont Homebridge et que les fonctions Igmp snooping ou dns multicast sont activées sur votre box, routeur ou switch. Le protocole HomeKit n'est pas routable.
 
