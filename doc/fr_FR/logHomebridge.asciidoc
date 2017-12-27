@@ -56,7 +56,7 @@ L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mai
 [Mon Jul 17 2017 19:49:49 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
 [TIP]
-Il y a une incohérence entre les types génériques. Les types "actions" ne correpondent pas au type "info". Pour corriger le problème, modifiez les types génériques de l'accessoire en gardant une cohérence entres les types actions et info.
+Il y a une incohérence entre les types génériques. Les types "actions" ne correpondent pas au type "info". Pour corriger le problème, modifiez les types génériques de l'accessoire en gardant une cohérence entre les types actions et info.
 
 
 [source,]
