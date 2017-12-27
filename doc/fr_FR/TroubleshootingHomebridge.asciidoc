@@ -39,7 +39,7 @@ TIP: Vérifiez que vous disposez de la dernière version des dépendances. En ca
 
 image::../images/dependances-homebridge.png[]
 
-*-> Mon équipement n'apparait pas dans Homebridge !*
+*-> Mon équipement n'apparaît pas dans Homebridge !*
 
 TIP: Vérifiez que la case "Envoyer à Homebridge" est cochée dans la configuration du plugin Homebridge.
 
