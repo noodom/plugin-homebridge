@@ -105,8 +105,8 @@ N'existe pas en HomeKit
 | Info/Thermostat Etat (HUMAIN) | NON | Générique (Eve Seulement)
 | Info/Thermostat Mode | OUI si associé mode homekit | Générique (Eve Seulement)
 | Action/Thermostat Mode | NON | Peut être associé mode homekit
-| Info/Thermostat Température Extérieur| NON utilisé | N/A
-| Info/Thermostat Température ambiante| NON | -50 -> 100
+| Info/Thermostat Température Extérieure| NON utilisé | N/A
+| Info/Thermostat Température Ambiante| NON | -50 -> 100
 | Info/Thermostat Consigne| OUI | 10 -> 38
 | Action/Thermostat Consigne| OUI | 10 -> 38
 | Info/Thermostat Verrouillage| NON | 0 = Non Verrouillé 

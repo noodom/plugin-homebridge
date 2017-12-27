@@ -1,14 +1,14 @@
 === Type Générique Custom
 
-Le type générique "Custom" permet de faire remonter n'importe quelles valeurs "info" de tous types dans Hombridge. *Quelques exemples sont décris dans ce chapritre.*
+Le type générique "Custom" permet de faire remonter n'importe quelle valeur "info" de tout type dans Homebridge. *Quelques exemples sont décris dans ce chapitre.*
 
-*L'information à remonter dans Homebridge ne doit pas dépasser 64 carractères.*  
-
-[IMPORTANT]
-*Seule l'application d'Elgato Eve est compatible avec ce type générique. Les équipements utilisant ce type générique n'apparaiteront pas dans l'application Maison d'Apple.*
+*L'information à remonter dans Homebridge ne doit pas dépasser 64 caractères.*  
 
 [IMPORTANT]
-*Les interractions avec Siri ainsi que les automations ne sont pas possible avec ce type générique*
+*Seule l'application d'Elgato Eve est compatible avec ce type générique. Les équipements utilisant ce type générique n'apparaitront pas dans l'application Maison d'Apple.*
+
+[IMPORTANT]
+*Les interactions avec Siri ainsi que les automations ne sont pas possibles avec ce type générique*
 
 [IMPORTANT]
 *Il est n'est pas possible de renommer l'accessoire*
