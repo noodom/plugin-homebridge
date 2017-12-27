@@ -6,7 +6,7 @@ Le plugin Homebridge doit être installé via le market Jeedom. *Le plugin App M
 
 image::../images/pluginHB.png[]
 
-Un fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
+Une fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
 
 image::../images/activationHB.png[]
 
