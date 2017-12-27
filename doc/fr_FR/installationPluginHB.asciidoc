@@ -56,6 +56,6 @@ image::../images/log.png[]
 
 * Homebridge : Historise toutes les communications avec le démon homebridge.
 
-* Homebridge_daemon : Historise les actions effectuées par Homebridge (par exemple si un accessoire est envoyé à Homebridge mais n'apparait pas dans l'application Maison, c'est ici qu'il faut aller voir).
+* Homebridge_daemon : Historise les actions effectuées par Homebridge (par exemple si un accessoire est envoyé à Homebridge mais n'apparaît pas dans l'application Maison, c'est ici qu'il faut aller voir).
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
