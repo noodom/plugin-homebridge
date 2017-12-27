@@ -7,7 +7,7 @@ Lorsque l'importation est terminée, la rubrique Homebridge disparait des param�
 
 image::../images/plugnmobilesanshb.png[]
 
-Homebridge est complètement dessolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
+Homebridge est complètement désolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
 
 Lors de l'installation du plugin Homebridge, tous les accessoires vont être indisponibles. C'est normal.
 
