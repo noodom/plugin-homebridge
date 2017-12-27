@@ -43,7 +43,7 @@ image::../images/dependances-homebridge.png[]
 
 TIP: Vérifiez que la case "Envoyer à Homebridge" est cochée dans la configuration du plugin Homebridge.
 
-*-> La case "Envoyer à Homebridge" est bien cochée mais mon équipement n'apparait toujours pas !*
+*-> La case "Envoyer à Homebridge" est bien cochée mais mon équipement n'apparaît toujours pas !*
 
 TIP: Vérifiez dans la configuration de votre équipement que celui-ci est activé, et dans une pièce.
 
@@ -59,11 +59,11 @@ TIP: Il faut bien mettre à jour le plugin App Mobile, puis dans la configuratio
 
 TIP: Vérifiez que les types génériques sont bien configurés. Il doit y avoir une cohérence entre les types. Si vous avez le type "Info Lumière Etat", vérifiez que les actions sont de types "Action / Lumière Bouton On" etc... Voir aussi la référence à l'état (le point important ci-dessus)
 
-*-> Le message "sans réponse" apparait dans l'application Maison ou Eve*
+*-> Le message "sans réponse" apparaît dans l'application Maison ou Eve*
 
 image::../images/sans-reponse.jpg[]
 
-1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connectés au même réseau que votre Jeedom. 
+1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connecté au même réseau que votre Jeedom. 
 2. Vérifiez que le démon est activé. Si ce n'est pas le cas, redémarrez le.
 3. Relancez votre box.
 4. Si malgré tout vous avez toujours ces états, lancez une réparation.
