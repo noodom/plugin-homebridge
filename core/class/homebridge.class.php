@@ -387,6 +387,9 @@ class homebridge extends eqLogic {
 		if(homebridge::isMagic('NBe/9kOLwyupc')) { // enable master
 			file_put_contents(dirname(__FILE__) . '/../../branch','master');
 		}
+		if(homebridge::isMagic('NBOD0V56Srf.k')) { // enable fakegato
+			file_put_contents(dirname(__FILE__) . '/../../branch','fakegato');
+		}
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
 		config::save('pin_homebridge',$pin_homebridge,'homebridge');
