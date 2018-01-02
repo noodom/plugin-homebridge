@@ -10,8 +10,6 @@ Pour créer le pont, il suffit de lui donner un nom et un code "PIN".
 
 image::../images/config-pluginhb.png[]
 
-* *Utilisateur* : Permet à Homebridge d'utiliser l'ApiKey d'un utilisateur d'une box Jeedom.
-
 * *Nom Homebridge* : Permet de nommer le pont Homebridge. 
 
 [IMPORTANT]
@@ -39,7 +37,10 @@ A n'effectuer que sur conseil d'un membre du forum et il faut retirer le pont de
 [IMPORTANT]
 Réservé à un public averti. Il n'y aura aucun support pour ces deux dernières parties.
 
-Une fois les cases *Utilisateur, nom Homebridge et PIN Homebridge* correctement renseignées, la configuration se finalise en cliquant sur **Sauvegarder**. Le démon redémarre.
+Une fois les cases *nom Homebridge et PIN Homebridge* correctement renseignées, la configuration se finalise en cliquant sur **Sauvegarder**. Le démon redémarre.
+
+[TIP]
+Un QR code est généré automatiquement. Cela améliore l'intégration du pont jeedom dans Homekit. Voir la partie "Ajout de Jeedom dans HomeKit".
 
 === Ajout des accessoires dans Homebridge
 
@@ -90,12 +91,28 @@ Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'applicati
 
 image::../images/app-domicile.jpg[]
 
+Le pont peur être inclu manuellement en entrant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
+
+===== Ajout du pont par QR code
+
+Pour ajouter le pont dans Homekit, il suffit de scanner le QR code avec l'application "Appareil photo". 
+
+image::../images/qr-code.png[]
+
+Une notification est affichée en haut de l'écran. Il suffit de cliquer dessus et le pont est inclu automatiquement dans Homekit.
+
+image::../images/qr-code1.png[]
+
 [IMPORTANT]
-*Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante :*
+Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message indique que l'accessoire n'est pas certifié, il faut valider l'inclusion en cliquant sur "Poursuivre l'ajout".
 
-image::../images/partage.png[]
+image::../images/qr-code2.png[]
 
-L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et en cliquant sur "Ajouter un accessoire".
+Le pont est maintenant intégré dans Homekit.
+
+===== Ajout manuel du pont
+
+L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et en cliquant sur "Ajouter un accessoire". 
 
 image::../images/home-1.jpg[]
 
@@ -120,6 +137,11 @@ Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officielleme
 image::../images/home-4.png[]
 
 *Le pont Jeedom est maintenant intégré à HomeKit.*
+
+[IMPORTANT]
+*Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante :*
+
+image::../images/partage.png[]
 
 ==== Rangement des accessoires dans HomeKit
 
