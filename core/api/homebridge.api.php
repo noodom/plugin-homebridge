@@ -28,10 +28,6 @@ $params = $jsonrpc->getParams();
 $PluginToSend = homebridge::PluginToSend();
 //$filename = dirname(__FILE__) . '/../../../../tmp/syncHomebridge.txt';
 
-if ($jsonrpc->getMethod() == 'sync') {
-	log::add('homebridge', 'info', 'Demande de Sync');
-}
-
 if ($jsonrpc->getMethod() == 'sync_homebridge') {
 	log::add('homebridge', 'info', 'Demande de Sync Homebridge');
 			
@@ -39,8 +35,8 @@ if ($jsonrpc->getMethod() == 'sync_homebridge') {
 
 	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend,$customValues['cmd']),homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
 	$eqLogics = $sync_new[1]['eqLogics'];
+	$eqLogics = array_values($eqLogics);
 	$cmds = $sync_new[0];
-    $eqLogics = array_values($eqLogics);
 	
 	$objects = homebridge::delete_object_eqlogic_null(homebridge::discovery_object(),$eqLogics);
 	
@@ -57,25 +53,48 @@ if ($jsonrpc->getMethod() == 'sync_homebridge') {
 
 // HOMEBRIDGE API
 // Eqlogic byId
-if ($jsonrpc->getMethod() == 'cmdsbyEqlogicID') {
-	log::add('homebridge', 'info', 'Interrogation du module id:'.$params['id'].' Pour les cmds');
+if ($jsonrpc->getMethod() == 'getEql') {
+	//log::add('homebridge', 'debug', 'Interrogation du module id:'.$params['id']);
+	$customValues=homebridge::getCustomData();
+	$sync_new = homebridge::change_cmdAndeqLogic([],homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
+	$eqLogics = $sync_new[1]['eqLogics'];
+	$eqLogics = array_values($eqLogics);
+
+	$i = 0;
+	$eqLogicAPI = array();
+	$found=false;
+	foreach($eqLogics as $eqLogic){
+		if(isset($eqLogic["id"])){
+			if($eqLogic["id"] == $params['id']){
+				$found=$eqLogics[$i];
+				break;
+			}
+		}
+		$i++;   
+    }
+	if($found) {
+		$jsonrpc->makeSuccess($eqLogics[$i]);
+	} else {
+		$jsonrpc->makeSuccess();
+	}
+}
+if ($jsonrpc->getMethod() == 'getCmd') {
+	//log::add('homebridge', 'info', 'Interrogation du module id:'.$params['id'].' Pour les cmds');
 	$customValues=homebridge::getCustomData();
 	$sync_new = homebridge::change_cmdAndeqLogic(homebridge::discovery_cmd($PluginToSend,$customValues['cmd']),homebridge::discovery_eqLogic($PluginToSend,$customValues['eqLogic']));
-	$cmds = $sync_new[0];
+	$commandes = $sync_new[0]['cmds'];
+
 	$i = 0;
-	$commandes = $cmds['cmds'];
 	$cmdAPI = array();
 	foreach($commandes as $cmd){
 		if(isset($cmd["eqLogic_id"])){
-			if($cmd["eqLogic_id"] != $params['id']){
-				unset($commandes[$i]);
-			}else{
+			if($cmd["eqLogic_id"] == $params['id']){
 				array_push($cmdAPI, $commandes[$i]);
 			}
 		}
 		$i++;   
-    	}
-   	log::add('homebridge', 'debug', 'Commande > '.json_encode($cmdAPI));
+    }
+
 	$jsonrpc->makeSuccess($cmdAPI);
 }
 if ($jsonrpc->getMethod() == 'version') {
