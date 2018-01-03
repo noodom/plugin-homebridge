@@ -48,7 +48,7 @@ if ($jsonrpc->getMethod() == 'sync_homebridge') {
 		'eqLogics' => $eqLogics,
 		'cmds' => $cmds['cmds'],
 		'objects' => $objects,
-		//'scenarios' => homebridge::discovery_scenario(),
+		'scenarios' => homebridge::discovery_scenario(),
 		'config' => array('datetime' => getmicrotime()),
 	);
 
