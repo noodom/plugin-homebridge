@@ -29,7 +29,8 @@ $PluginToSend = homebridge::PluginToSend();
 	$sync_array = array(
 		'eqLogics' => $eqLogics['eqLogics'],
 		'cmds' => $cmds['cmds'],
-		'objects' => homebridge::delete_object_eqlogic_null(homebridge::discovery_object(),$eqLogics['eqLogics'])
+		'objects' => homebridge::delete_object_eqlogic_null(homebridge::discovery_object(),$eqLogics['eqLogics']),
+		'scenarios' => homebridge::discovery_scenario()
 	);
 	function validateJSON($toValidate) {
 		if(is_json($toValidate)) {
@@ -136,6 +137,9 @@ Branche : <?=file_get_contents(dirname(__FILE__) . '/../../branch');?>
 
 <h3>{{Commandes :}} (<?=validateJSON(json_encode($sync_array['cmds']))?>)&nbsp;<a class="btn" data-clipboard-target=".cmds"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="cmds copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['cmds'],JSON_PRETTY_PRINT); ?></pre>
+
+<h3>{{Scénarios :}} (<?=validateJSON(json_encode($sync_array['scenarios']))?>)&nbsp;<a class="btn" data-clipboard-target=".scenarios"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
+<pre id='pre_eventlog' class="scenarios copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo json_encode($sync_array['scenarios'],JSON_PRETTY_PRINT); ?></pre>
 
 <h3>{{Création Accessoires :}} &nbsp;<a class="btn" data-clipboard-target=".creation"><i class="fa fa-copy" alt="Copier dans le presse-papier" title="Copier dans le presse-papier"></i></a></h3>
 <pre id='pre_eventlog' class="creation copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo shell_exec("awk '/ WARNING /,/└────────────────────────/' ".log::getPathToLog('homebridge_daemon')) ?></pre>
