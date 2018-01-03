@@ -427,6 +427,9 @@ class homebridge extends eqLogic {
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
 		$plateform['myPlugin'] = 'homebridge';
 		$plateform['magicField'] = join(' ',homebridge::cryptedMagic());
+		if(homebridge::isMagic('NBwoMwwLkQk0k')) { // High Level Debug
+			$plateform['debugLevel'] = 0;
+		}		
 		$response['platforms'] = [];
 		$response['platforms'][] = $plateform;
 
@@ -1026,9 +1029,18 @@ class homebridge extends eqLogic {
 					$scenario['name'] = $scenario['display']['name'];
 				}
 				unset($scenario['mode'],$scenario['schedule'], $scenario['scenarioElement'],$scenario['trigger'],$scenario['timeout'],$scenario['description'],$scenario['configuration'],$scenario['type'],$scenario['display']['name']);
+				if (isset($scenario['isVisible'])) {
+					$scenario['isVisible']=intval($scenario['isVisible']);
+				}
+				if (isset($scenario['isActive'])) {
+					$scenario['isActive']=intval($scenario['isActive']);
+				}
+				if (isset($scenario['display']['sendToApp'])) {
+					$scenario['display']['sendToApp']=intval($scenario['display']['sendToApp']);
+				}
 				if ($scenario['display'] == [] || $scenario['display']['icon'] == ''){
 					unset($scenario['display']);
-				}
+				}				
 				$return[]=$scenario;
 			}	
 		}
