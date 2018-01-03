@@ -1040,7 +1040,8 @@ class homebridge extends eqLogic {
 				}
 				if ($scenario['display'] == [] || $scenario['display']['icon'] == ''){
 					unset($scenario['display']);
-				}				
+				}	
+				unset($scenario['lastLaunch']);
 				$return[]=$scenario;
 			}	
 		}
