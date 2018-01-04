@@ -38,6 +38,10 @@ class homebridge extends eqLogic {
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
+			'ENERGY_INUSE' => array('name' => 'Prise En Utilisation (Homebridge)', 'family' => 'Prise', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_STATE' => array('name' => 'Interrupteur Etat (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_ON' => array('name' => 'Interrupteur Bouton On (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_OFF' => array('name' => 'Interrupteur Bouton Off (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'OCCUPANCY' => array('name' => 'Présence Occupation (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
