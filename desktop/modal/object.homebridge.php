@@ -167,7 +167,7 @@ function listThermoSetModes($cmds,$selected) {
 										foreach ($cmds as $cmd) :
 											$cmd_id = $cmd->getId();
 											$cmd_array = $cmd->exportApi();
-											$customCMDValuesArr=['display'=>null];
+											$customCMDValuesArr=['id'=>null,'display'=>null,'configuration'=>null];
 											array_push($tableau_cmd, $cmd_id);
 											
 											
@@ -184,7 +184,7 @@ function listThermoSetModes($cmds,$selected) {
 											
 											foreach($customValuesArr['cmd'] as $cmdCustom) {
 												if($cmdCustom['id'] == $cmd_id) {
-													$customCMDValuesArr = $cmdCustom['display'];	
+													$customCMDValuesArr = $cmdCustom;	
 													break;
 												}
 											}
@@ -250,7 +250,7 @@ function listThermoSetModes($cmds,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
+																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['display']['generic_type']) && $info['key'] == $customCMDValuesArr['display']['generic_type'])){
 																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
 																		$isCustomisable = $info['key'];
 																	}
@@ -262,9 +262,17 @@ function listThermoSetModes($cmds,$selected) {
 														}
 														?>
 													</select>
+													<?php
+													switch($isCustomisable) {
+														case "SWITCH_STATELESS_ALLINONE" :
+															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id);
+															$isCustomisable=false;
+														break;
+													}
+													?>
 												</td>
 											</tr>
-										<?php
+											<?php
 										endforeach;
 										switch($isCustomisable) {
 											case "GARAGE_STATE" :
@@ -306,13 +314,14 @@ function listThermoSetModes($cmds,$selected) {
 var changed=0;
 var eqLogicsHomebridge = [];
 var eqLogicsCustoms = [];
+var customCmds = [];
 var oldValues = [];
 // CHANGE CLICK
 $('.cmdAttr').on('change',function(){
-	$(this).closest('tr').attr('data-change','1');
+	$(this).closest('tr.cmdLine').attr('data-change','1');
 });
 $('.cmdAttr').on('click',function(){
-	$(this).closest('tr').attr('data-change','1');
+	$(this).closest('tr.cmdLine').attr('data-change','1');
 	var found = false;
 	for(var i=0; i<oldValues.length ; i++) {
 		if($(this).attr('data-cmd_id') == oldValues[i].id) {
@@ -352,12 +361,17 @@ $('.eqLogicAttrGarage').on('change',function(){
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsCustoms.push(eqLogic);
 });
+/*
+$('.cmdAttrStateless').on('change',function(){
+	var cmd = $(this).closest('tr').getValues('.cmdAttrStateless')[0];
+	console.log(cmd,cmd.id,cmd.configuration);
+	customCmds.push(cmd);
+});*/
 
 
 // SAUVEGARDE
 function SaveObject(){
 	var cmds = []
-	var customCmds = [];
 	var cmdValues;
 	$('.TableCMD tr').each(function(){
 		if($(this).attr('data-change') == '1'){
@@ -426,6 +440,7 @@ function SaveObject(){
 			eqLogicsCustomsFiltered.push(eqLogic);
 		}
 	});
+	console.log('customCmds',customCmds);
 	// custom Save
 	$.ajax({
 		type: 'POST',
@@ -448,6 +463,7 @@ function SaveObject(){
 					level: 'success'
 				});
 				eqLogicsCustoms = [];
+				customCmds = []
 				oldValues = [];
 			} else {
 				$('.EnregistrementDisplay').showAlert({
@@ -534,7 +550,7 @@ function configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id) {
 			<tr class="cmdLine">
 				<td></td><td></td>
 				<td>
-					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+					{{Merci de ne pas choisir plusieurs fois le même mode}}
 				</td>
 			</tr>
 		</table>	
@@ -577,7 +593,7 @@ function configThermoModes($customEQValuesArr,$eql_cmds,$eql_id) {
 			<tr class="cmdLine">
 				<td></td><td></td>
 				<td>
-					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+					{{Merci de ne pas choisir plusieurs fois le même mode}}
 				</td>
 			</tr>
 		</table>	
@@ -630,6 +646,44 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSED" value='<?=$CLOSED?>' /></td>
 		</tr>
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+<?php
+}
+function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id) {
+		if(isset($customCMDValuesArr['configuration'])) {
+			$customValues = (($customCMDValuesArr['configuration']['customValues'])?$customCMDValuesArr['configuration']['customValues']:false);
+			$SINGLE		  = ((isset($customCMDValuesArr['configuration']['SINGLE']))?$customCMDValuesArr['configuration']['SINGLE']:0);
+			$DOUBLE	  	  = ((isset($customCMDValuesArr['configuration']['DOUBLE']))?$customCMDValuesArr['configuration']['DOUBLE']:1);
+			$LONG	 	  = ((isset($customCMDValuesArr['configuration']['LONG']))?$customCMDValuesArr['configuration']['LONG']:2);
+		}
+		else {
+			$customValues = false;
+			$SINGLE		  = 0;
+			$DOUBLE		  = 1;
+			$LONG	  	  = 2;
+		}
+	?>
+	<table>
+		<tr><th colspan='3'>{{Personnalisation des états, indiquez ici la valeur de l'état correspondant au type d'action}}</th></tr>
+		<tr>
+			<td>
+				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValues" data-cmd_id="<?=$cmd_id?>" style="display : none;">1</span>
+				&nbsp;
+			</td>
+			<td>{{Simple Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="SINGLE" data-cmd_id="<?=$cmd_id?>" value='<?=$SINGLE?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Double Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="DOUBLE" data-cmd_id="<?=$cmd_id?>" value='<?=$DOUBLE?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Long Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="LONG" data-cmd_id="<?=$cmd_id?>" value='<?=$LONG?>' /></td>
+		</tr>
+		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+	</table>
 <?php
 }
 ?>
