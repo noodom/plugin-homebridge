@@ -1125,6 +1125,9 @@ image::../images/reinitialisation.png[]
     * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
     * Meilleur gestion du type Haut-Parleur (si pas de Mute)
     * Gestion automatique pour la serrure TheKeys
+    * Séparation des types "Prise" et "Interrupteur"
+    * Les prises dans Jeedom sont maintenant des vrais prises dans Homebridge
+    * Les scénarios Jeedom sont ajoutés en tant qu'interrupteur dans Homebridge (si sélectionné dans la configuration) [En cours]
 
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur
