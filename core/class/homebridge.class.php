@@ -395,8 +395,9 @@ class homebridge extends eqLogic {
 		if(homebridge::isMagic('NBe/9kOLwyupc')) { // enable master
 			file_put_contents(dirname(__FILE__) . '/../../branch','master');
 		}
+		$fakegato=false;
 		if(homebridge::isMagic('NBOD0V56Srf.k')) { // enable fakegato
-			file_put_contents(dirname(__FILE__) . '/../../branch','fakegato');
+			$fakegato=true;
 		}
 		
 		$pin_homebridge = config::byKey('pin_homebridge','homebridge','031-45-154',true);
@@ -432,6 +433,7 @@ class homebridge extends eqLogic {
 		$plateform['url'] = network::getNetworkAccess('internal');
 		$plateform['apikey'] = $apikey;
 		$plateform['pollerperiod'] = 0.05;
+		$plateform['fakegato'] = $fakegato;
 		$plateform['debugLevel'] = log::getLogLevel('homebridge');
 		$plateform['myPlugin'] = 'homebridge';
 		$plateform['magicField'] = join(' ',homebridge::cryptedMagic());
