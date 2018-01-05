@@ -135,8 +135,6 @@ echo 40 > ${PROGRESS_FILE}
 echo "--40%"
 echo "Installation de node-gyp..."
 sudo npm install -g node-gyp
-echo "Installation de request..."
-sudo npm install -g request
 echo 50 > ${PROGRESS_FILE}
 echo "--50%"
 nodePath=`npm root -g`
