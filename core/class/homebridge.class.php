@@ -42,10 +42,10 @@ class homebridge extends eqLogic {
 			'SWITCH_STATE' => array('name' => 'Interrupteur Etat (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SWITCH_ON' => array('name' => 'Interrupteur Bouton On (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'SWITCH_OFF' => array('name' => 'Interrupteur Bouton Off (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'SWITCH_STATELESS_ALLINONE' => array('name' => 'Interrupteur Evénement (Multi-Valeur) (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SWITCH_STATELESS_SINGLE' => array('name' => 'Interrupteur Evénement Binaire (Simple Click) (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SWITCH_STATELESS_DOUBLE' => array('name' => 'Interrupteur Evénement Binaire (Double Click) (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'SWITCH_STATELESS_LONG' => array('name' => 'Interrupteur Evénement Binaire (Long Click) (Homebridge)', 'family' => 'Interrupteur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_STATELESS_ALLINONE' => array('name' => 'Interrupteur Programmable (Multi-Valeur) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_STATELESS_SINGLE' => array('name' => 'Interrupteur Programmable Binaire (Simple Click) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_STATELESS_DOUBLE' => array('name' => 'Interrupteur Programmable Binaire (Double Click) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'SWITCH_STATELESS_LONG' => array('name' => 'Interrupteur Programmable Binaire (Long Click) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'OCCUPANCY' => array('name' => 'Présence Occupation (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
@@ -744,10 +744,6 @@ class homebridge extends eqLogic {
 							$tempArray['CLOSED'] = $eqLogic_array["customConfiguration"]['CLOSED'];
 							$tempArray['CLOSED'] = (($tempArray['CLOSED'] != "")?intval($tempArray['CLOSED']):NULL);
 
-							foreach($tempArray as $label => $val) {
-								if($val === NULL) unset($tempArray[$label]);
-							}
-							
 							$eqLogic_array["customValues"] = $tempArray;
 						}
 						if (isset($eqLogic_array['isVisible'])){
@@ -843,17 +839,14 @@ class homebridge extends eqLogic {
 							if(isset($cmd_array["customConfiguration"]['customValues'])){
 								if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
 								
-								$tempArray['SINGLE'] = $cmd_array["customConfiguration"]['SINGLE'];
-								$tempArray['SINGLE'] = (($tempArray['SINGLE'] != "")?$tempArray['SINGLE']:NULL);
-								$tempArray['DOUBLE'] = $cmd_array["customConfiguration"]['DOUBLE'];
-								$tempArray['DOUBLE'] = (($tempArray['DOUBLE'] != "")?$tempArray['DOUBLE']:NULL);
-								$tempArray['LONG'] = $cmd_array["customConfiguration"]['LONG'];
-								$tempArray['LONG'] = (($tempArray['LONG'] != "")?$tempArray['LONG']:NULL);
-								
+								$tempArray['SINGLE'] = (($cmd_array["customConfiguration"]['SINGLE'] != "")?$cmd_array["customConfiguration"]['SINGLE']:'TODEL');
+								$tempArray['DOUBLE'] = (($cmd_array["customConfiguration"]['DOUBLE'] != "")?$cmd_array["customConfiguration"]['DOUBLE']:'TODEL');
+								$tempArray['LONG'] =   (($cmd_array["customConfiguration"]['LONG'] != "")?$cmd_array["customConfiguration"]['LONG']:'TODEL');
+
 								foreach($tempArray as $label => $val) {
-									if($val === NULL) unset($tempArray[$label]);
+									if($val === 'TODEL') unset($tempArray[$label]);
 								}
-								
+
 								$cmd_array["customValues"] = $tempArray;
 							}							
 							if(isset($cmd_array['display'])){
@@ -875,7 +868,7 @@ class homebridge extends eqLogic {
 								}
 							}
 							
-							unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
+							unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array["customConfiguration"], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
 							
 							if ($maxValue != null) {
 								$cmd_array['configuration']['maxValue'] = floatval($maxValue);
