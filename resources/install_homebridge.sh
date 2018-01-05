@@ -57,9 +57,9 @@ if [ $? -eq 0 ]; then actual=`nodejs -v`; fi
 echo "Version actuelle : ${actual}"
 arch=`arch`;
 
-#testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
-#if [[ $testVer == "1" ]]
-if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
+#if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
+testVer=`php -r "echo version_compare('${actual}','v4.3.2','>=');"`
+if [[ $testVer == "1" ]]
 then
   echo "Ok, version suffisante";
 else
