@@ -28,9 +28,10 @@ if(!isConnect()) {
   font-family: Scancardium;
   src: url(/plugins/homebridge/resources/Scancardium.ttf);
 }
-input[type=checkbox] {
-  transform: scale(1.5);
-}
+
+#input[type=checkbox] {
+#  transform: scale(1.5);
+#}
 </style>
 <form class="form-horizontal">
 	<fieldset>
@@ -64,12 +65,6 @@ input[type=checkbox] {
 				<input class="configKey form-control" style="width:100%" data-l1key="name_homebridge" placeholder="<?php echo config::byKey('name') ?>" />
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="col-lg-4 control-label">{{Activer les graphiques dans application Eve}}</label>
-			<div class="col-sm-1" style="padding-left:0px;padding-right:0px;margin-left:-2px;width:auto;">
-				<input type="checkbox" class="configKey form-control" data-l1key="fakegato" />
-			</div>
-		</div>
 		<div class="form-group hide">
 			<label class="col-lg-4 control-label">{{MAC Homebridge}}</label>
 			<div class="col-lg-3">
@@ -95,7 +90,16 @@ input[type=checkbox] {
 				<br /><br />
 				<a class="btn btn-danger" style="width:100%" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
 				<br />
-				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
+			</div>
+		</div>
+		<div class="form-group">
+		
+				<label class="col-lg-4 control-label">{{Activer les graphiques dans Eve (Alpha)}}</label>
+				<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+					<input type="checkbox" class="configKey form-control" style="width:auto;" data-l1key="fakegato" title="{{(Aucun Support) Fonctionne seulement pour Température, Humidité, Pression, Porte/Fenêtre, Présence.  Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont uniquement à titre informatif.}}" />
+					<br /><br />
+					<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
+				</div>
 			</div>
 		</div>		
 	</fieldset>
