@@ -28,6 +28,9 @@ if(!isConnect()) {
   font-family: Scancardium;
   src: url(/plugins/homebridge/resources/Scancardium.ttf);
 }
+input[type=checkbox] {
+  transform: scale(1.5);
+}
 </style>
 <form class="form-horizontal">
 	<fieldset>
@@ -59,6 +62,12 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{Nom Homebridge}}</label>
 			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
 				<input class="configKey form-control" style="width:100%" data-l1key="name_homebridge" placeholder="<?php echo config::byKey('name') ?>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-4 control-label">{{Activer les graphiques dans application Eve}}</label>
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<input type="checkbox" class="configKey form-control" style="width:100%" data-l1key="fakegato" />
 			</div>
 		</div>
 		<div class="form-group hide">
