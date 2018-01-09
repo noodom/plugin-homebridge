@@ -287,6 +287,7 @@ class homebridge extends eqLogic {
 				//echo "--contentCmd:".$content['cmd'][$i]['id'];
 				if($content['cmd'][$i]['id'] == $oldValCmd['id']) {
 					//echo "---match ".$i;
+					log::add('homebridge','debug','Suppression :'.$content['cmd'][$i]['id']);
 					array_splice($content['cmd'],$i);
 					break;
 				}
@@ -395,7 +396,7 @@ class homebridge extends eqLogic {
 		if(homebridge::isMagic('NBe/9kOLwyupc')) { // enable master
 			file_put_contents(dirname(__FILE__) . '/../../branch','master');
 		}
-		$fakegato=false;
+		$fakegato=( (config::byKey('fakegato','homebridge',false,true))?true:false);
 		if(homebridge::isMagic('NBOD0V56Srf.k')) { // enable fakegato
 			$fakegato=true;
 		}
