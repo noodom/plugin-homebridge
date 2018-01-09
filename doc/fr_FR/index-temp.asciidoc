@@ -1128,6 +1128,20 @@ image::../images/reinitialisation.png[]
     * Séparation des types "Prise" et "Interrupteur"
     * Les prises dans Jeedom sont maintenant des vrais prises dans Homebridge
     * Les scénarios Jeedom sont ajoutés en tant qu'interrupteur dans Homebridge (si sélectionné dans la configuration) [En cours]
+    * Composant "Pression" modifié pour apparaitre mieux dans Eve
+    * Les interrupteur programmables dans homekit font leur apparition :)
+      ** Interrupteur Programmable (Multi-Valeur) (Homebridge) : Il s'agit d'un interrupteur avec une commande de type info qui contiendra plusieurs valeurs en fonction du type de click effectué. ("click", "double_click", "long_click" par exemple ou encore 11 , 21 , 30). Ces valeurs sont configurables.
+      ** Interrupteur Programmable Binaire (Simple Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un simple click sur le bouton.
+      ** Interrupteur Programmable Binaire (Double Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un double click sur le bouton.
+      ** Interrupteur Programmable Binaire (Long   Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un long click sur le bouton.
+    * Affichage des graphiques dans l'application Eve (support Alpha). Fonctionne pour les types suivants :
+      ** Température
+      ** Humidité
+      ** Pression
+      ** Porte ou Fenêtre
+      ** Mouvement
+[IMPORTANT]      
+      Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif.
 
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur
