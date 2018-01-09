@@ -66,8 +66,8 @@ input[type=checkbox] {
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Activer les graphiques dans application Eve}}</label>
-			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
-				<input type="checkbox" class="configKey form-control" style="width:100%" data-l1key="fakegato" />
+			<div class="col-sm-1" style="padding-left:0px;padding-right:0px;margin-left:-2px;width:auto;">
+				<input type="checkbox" class="configKey form-control" data-l1key="fakegato" />
 			</div>
 		</div>
 		<div class="form-group hide">
