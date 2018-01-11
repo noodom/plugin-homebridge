@@ -1123,6 +1123,7 @@ image::../images/reinitialisation.png[]
     * Meilleur code de génération pour le QRcode (en php)
     * Changement de plusieurs libellés dans la configuration du plugin.
     * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
+    * Nouveau type spécifique homebridge : "Online" permettant de passer le composant en "Sans réponse" dans Maison s'il a la valeur de 0.    
     * Meilleur gestion du type Haut-Parleur (si pas de Mute)
     * Gestion automatique pour la serrure TheKeys
     * Séparation des types "Prise" et "Interrupteur"
