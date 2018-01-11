@@ -47,6 +47,7 @@ class homebridge extends eqLogic {
 			'SWITCH_STATELESS_DOUBLE' => array('name' => 'Interrupteur Programmable Binaire (Double Click) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SWITCH_STATELESS_LONG' => array('name' => 'Interrupteur Programmable Binaire (Long Click) (Homebridge)', 'family' => 'Interrupteur Programmable', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'ACTIVE' => array('name' => 'Statut Actif (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'ONLINE' => array('name' => 'Statut Online (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'OCCUPANCY' => array('name' => 'Présence Occupation (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'DEFECT' => array('name' => 'Statut Défectueux (Homebridge)', 'family' => 'Generic', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'SPEAKER_VOLUME' => array('name' => 'Haut-Parleur Volume (Homebridge)', 'family' => 'Haut-Parleur', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
@@ -94,30 +95,30 @@ class homebridge extends eqLogic {
 									'field'=>'model',
 									'color'=>
 										[
-											'online'=>'ACTIVE',
+											'online'=>'ONLINE',
 											'status'=>'LIGHT_STATE_BOOL'
 										],
 									'mono'=>
 										[
-											'online'=>'ACTIVE',
+											'online'=>'ONLINE',
 											'status'=>'LIGHT_STATE_BOOL'
 										],
 									'pm25'=>
 										[
-											'online'=>'ACTIVE',
+											'online'=>'ONLINE',
 											'status::aqi'=>'AIRQUALITY_INDEX',
 											'status::battery'=>'BATTERY'
 										],
 									'stripe'=>
 										[
-											'online'=>'ACTIVE',
+											'online'=>'ONLINE',
 											'status'=>'LIGHT_STATE_BOOL'
 										],
 									'gateway'=>
 										[
 											'vol'=>'SPEAKER_VOLUME',
 											'vol-set'=>'SPEAKER_SET_VOLUME',
-											'online'=>'ACTIVE',
+											'online'=>'ONLINE',
 											'illumination'=>'BRIGHTNESS',
 											'on'=>'LIGHT_ON',
 											'off'=>'LIGHT_OFF',
