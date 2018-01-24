@@ -624,6 +624,8 @@ class homebridge extends eqLogic {
 		exec($cmd);
 		$cmd = system::getCmdSudo() . 'rm -Rf '.dirname(__FILE__) . '/../../resources/homebridge/persist';
 		exec($cmd);
+		$cmd = system::getCmdSudo() . 'rm -f '.dirname(__FILE__) . '/../../resources/homebridge/*_persist.json';
+		exec($cmd);
 		if($reinstall) {
 			homebridge::uninstallHomebridge();
 			$cmd = system::getCmdSudo() . 'apt-get -y --purge autoremove nodejs npm';
