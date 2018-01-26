@@ -281,20 +281,20 @@ class homebridge extends eqLogic {
 				array_push($content['eqLogic'],$newVal);
 			}
 		}
-		//var_dump($content['cmd']);
+
 		foreach ($cmdOldValues as $oldValCmd) {
 			//echo "-oldValCmd:".$oldValCmd['id'];
 			for($i=0;$i< count($content['cmd']);$i++) {
 				//echo "--contentCmd:".$content['cmd'][$i]['id'];
 				if($content['cmd'][$i]['id'] == $oldValCmd['id']) {
 					//echo "---match ".$i;
-					log::add('homebridge','debug','Suppression :'.$content['cmd'][$i]['id']);
-					array_splice($content['cmd'],$i);
+					log::add('homebridge','debug','Suppression :'.$content['cmd'][$i]['id'].$i);
+					array_splice($content['cmd'],$i,1);
 					break;
 				}
 			}
 		}			
-		//var_dump($content['cmd']);
+
 		foreach ($cmdToSave as $newValCmd) {
 			$found = false;
 			foreach ($content['cmd'] as $id => $cmd) {
@@ -311,7 +311,7 @@ class homebridge extends eqLogic {
 				array_push($content['cmd'],$newValCmd);
 			}
 		}	
-		
+
 		$content = json_encode($content);
 		$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
 		return (($ret===false)?false:true);
@@ -339,7 +339,7 @@ class homebridge extends eqLogic {
 			$eqLogicExists = eqLogic::byId($eqLogicCustom['id']);
 			if (!is_object($eqLogicExists)) {
 				log::add('homebridge','info','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
-				array_splice($content['eqLogic'],$keyEqLogicCustom);
+				array_splice($content['eqLogic'],$keyEqLogicCustom,1);
 				$found=true;
 			}
 		}
@@ -347,7 +347,7 @@ class homebridge extends eqLogic {
 			$cmdExists = cmd::byId($cmdCustom['id']);
 			if (!is_object($cmdExists)) {
 				log::add('homebridge','info','La cmd avec l\'id '.$cmdCustom['id'].'('.$keyCmdCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');				
-				array_splice($content['cmd'],$keyCmdCustom);
+				array_splice($content['cmd'],$keyCmdCustom,1);
 				$found=true;
 			}
 		}
