@@ -214,6 +214,19 @@ JSONRPC : <?=config::byKey('api::core::jsonrpc::mode', 'core', 'enable')?>
 <pre id='pre_eventlog' class="IdentifierCache copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($IdentifierCache),JSON_PRETTY_PRINT)?></pre>
 
 <?php
+	$fakegato=( (config::byKey('fakegato','homebridge',false,true))?true:false);
+	if(homebridge::isMagic('NBOD0V56Srf.k')) { // enable fakegato
+		$fakegato=true;
+	}
+	if($fakegato) :
+		$cmdPersist = 'i=0;echo \'[\';for file in '. dirname(__FILE__) . '/../../resources/homebridge/*_persist.json; do if [ "$i" -ne "0" ]; then echo \',\';fi;echo "{\"file\":\"$file\",\"content\":";cat "$file";echo \'}\';i=$((i + 1));done;echo \']\';';
+		$PersistFakegato = shell_exec($cmdPersist);
+?>
+<h3>{{Persistence FakeGato :}} (<?=validateJSON($PersistFakegato)?>)&nbsp;<a class="btn" data-clipboard-target=".PersistFakegato"><i class="fa fa-copy" alt="{{Copier dans le presse-papier}}" title="{{Copier dans le presse-papier}}"></i></a></h3>
+<pre id='pre_eventlog' class="PersistFakegato copyAll" style='overflow: auto; with:90%;height:200px;'><?=$PersistFakegato?></pre>
+
+<?php
+	endif;
 	$cachedAccessories = file_get_contents(dirname(__FILE__) . "/../../resources/homebridge/accessories/cachedAccessories");
 ?>
 <h3>{{Cache Homebridge :}} (<?=validateJSON($cachedAccessories)?>)&nbsp;<a class="btn" data-clipboard-target=".cachedAccessories"><i class="fa fa-copy" alt="{{Copier dans le presse-papier}}" title="{{Copier dans le presse-papier}}"></i></a></h3>
