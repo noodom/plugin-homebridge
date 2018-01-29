@@ -131,7 +131,7 @@ function homebridge_install(){
 	$pluginHomebridge = plugin::byId('homebridge');
 	$pluginHomebridge->dependancy_install();*/
 	exec(system::getCmdSudo() . 'chmod +x ' . dirname(__FILE__) . '/../resources/ffmpeg-wrapper');
-	log::add('homebridge', 'error', 'Merci pour l\'installation de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
+	event::add('jeedom::alertPopup', 'Merci pour l\'installation de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
 
 function homebridge_update(){
@@ -140,7 +140,7 @@ function homebridge_update(){
 	$pluginHomebridge->dependancy_install();*/
 	//log::add('homebridge', 'error', '!!! Voir le changelog et doc pour les changements !!!');
 	exec(system::getCmdSudo() . 'chmod +x ' . dirname(__FILE__) . '/../resources/ffmpeg-wrapper');
-	log::add('homebridge', 'error', 'Merci pour la mise à jour de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
+	event::add('jeedom::alertPopup', 'Merci pour la mise à jour de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
 
 function homebridge_remove(){
