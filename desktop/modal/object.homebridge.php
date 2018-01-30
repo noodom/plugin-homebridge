@@ -266,13 +266,21 @@ function listThermoSetModes($cmds,$selected) {
 													switch($isCustomisable) {
 														case "SWITCH_STATELESS_ALLINONE" :
 															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,false);
-															$isCustomisable=false;
 														break;
-														default :
-															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,true);
-															$isCustomisable=false;
+														case "SWITCH_STATELESS_SINGLE" :
+														case "SWITCH_STATELESS_DOUBLE" :
+														case "SWITCH_STATELESS_LONG" :
+															configStateless($customCMDValuesArr,$cmd_id,$eql_id,false);
 														break;
 													}
+													if($isCustomisable != "SWITCH_STATELESS_ALLINONE") {
+														configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,true);
+													} else $isCustomisable=false;
+													if($isCustomisable != "SWITCH_STATELESS_SINGLE" &&
+													   $isCustomisable != "SWITCH_STATELESS_DOUBLE" &&
+													   $isCustomisable != "SWITCH_STATELESS_LONG") {
+														configStateless($customCMDValuesArr,$cmd_id,$eql_id,true);
+													} else $isCustomisable=false;
 													?>
 												</td>
 											</tr>
@@ -326,14 +334,29 @@ $('.cmdAttr').on('change',function(){
 });
 
 // show custom config
-$('.cmdAttr').on('change',function(){
-	switch($(this).value()) {
+$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change',function(){
+	var SelectedValue = $(this).value();
+	switch(SelectedValue) {
 		case 'HB|SWITCH_STATELESS_ALLINONE' :
 			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).show();
+			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStatelessAllinone]').value(1);
 		break;
-		default :
-			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).hide();
+		case "HB|SWITCH_STATELESS_SINGLE" :
+		case "HB|SWITCH_STATELESS_DOUBLE" :
+		case "HB|SWITCH_STATELESS_LONG" :
+			$('#Stateless_'+$(this).attr('data-cmd_id')).show();
+			$('#Stateless_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStateless]').value(1);
 		break;
+	}
+	if(SelectedValue != 'HB|SWITCH_STATELESS_ALLINONE') {
+		$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).hide();
+		$('#StatelessAllinone_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStatelessAllinone]').value(0);
+	}
+	if(SelectedValue != "HB|SWITCH_STATELESS_SINGLE" &&
+	   SelectedValue != "HB|SWITCH_STATELESS_DOUBLE" &&
+	   SelectedValue != "HB|SWITCH_STATELESS_LONG") {
+		$('#Stateless_'+$(this).attr('data-cmd_id')).hide();
+		$('#Stateless_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStateless]').value(0);
 	}
 });
 $('.cmdAttr').on('click',function(){
@@ -617,7 +640,6 @@ function configThermoModes($customEQValuesArr,$eql_cmds,$eql_id) {
 }
 function configBarrierGarage($customEQValuesArr,$eql_id) {
 		if(isset($customEQValuesArr['configuration'])) {
-			$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
 			$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
 			$OPENING	  = ((isset($customEQValuesArr['configuration']['OPENING']))?$customEQValuesArr['configuration']['OPENING']:254);
 			$STOPPED	  = ((isset($customEQValuesArr['configuration']['STOPPED']))?$customEQValuesArr['configuration']['STOPPED']:253);
@@ -625,7 +647,6 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 			$CLOSED		  = ((isset($customEQValuesArr['configuration']['CLOSED']))?$customEQValuesArr['configuration']['CLOSED']:0);
 		}
 		else {
-			$customValues = false;
 			$OPEN		  = 255;
 			$OPENING	  = 254;
 			$STOPPED	  = 253;
@@ -666,13 +687,11 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 }
 function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 		if(isset($customCMDValuesArr['configuration'])) {
-			$customValues = (($customCMDValuesArr['configuration']['customValues'])?$customCMDValuesArr['configuration']['customValues']:false);
 			$SINGLE		  = ((isset($customCMDValuesArr['configuration']['SINGLE']))?$customCMDValuesArr['configuration']['SINGLE']:0);
 			$DOUBLE	  	  = ((isset($customCMDValuesArr['configuration']['DOUBLE']))?$customCMDValuesArr['configuration']['DOUBLE']:1);
 			$LONG	 	  = ((isset($customCMDValuesArr['configuration']['LONG']))?$customCMDValuesArr['configuration']['LONG']:2);
 		}
 		else {
-			$customValues = false;
 			$SINGLE		  = 0;
 			$DOUBLE		  = 1;
 			$LONG	  	  = 2;
@@ -682,7 +701,7 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 		<tr><th colspan='3'>{{Personnalisation des états, indiquez ici la valeur de l'état correspondant au type d'action}}</th></tr>
 		<tr>
 			<td>
-				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValues" data-cmd_id="<?=$cmd_id?>" style="display : none;">1</span>
+				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValuesStatelessAllinone" data-cmd_id="<?=$cmd_id?>" style="display : none;"><?=(($hidden==true)?'0':'1')?></span>
 				&nbsp;
 			</td>
 			<td>{{Simple Click}}</td>
@@ -699,6 +718,34 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="LONG" data-cmd_id="<?=$cmd_id?>" value='<?=$LONG?>' /></td>
 		</tr>
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+	</table>
+<?php
+}
+function configStateless($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
+		if(isset($customCMDValuesArr['configuration'])) {
+			$BUTTON		  = ((isset($customCMDValuesArr['configuration']['BUTTON']))?intval($customCMDValuesArr['configuration']['BUTTON']):0);
+		}
+		else {
+			$BUTTON		  = 0;
+		}
+		
+		$buttonList = "<option value='0' ".(($BUTTON == 0)?'selected':'').">{{Un bouton séparé}}</option>";
+		for($i=1;$i<=10;$i++) {
+			$buttonList .= "<option value='".$i."' ".(($BUTTON == $i)?'selected':'').">{{Bouton}} ".$i."</option>";
+		}
+		$buttonList .= "<option value='20' ".(($BUTTON == 20)?'selected':'').">{{Bouton}} 20</option>";
+	?>
+	<table style="<?=(($hidden==true)?'display: none;':'')?>" id='Stateless_<?=$cmd_id?>'>
+		<tr><th colspan='2'>{{Groupement des évenements par bouton, cet évènement appartient au :}}</th></tr>
+		<tr>
+			<td>
+				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValuesStateless" data-cmd_id="<?=$cmd_id?>" style="display : none;"><?=(($hidden==true)?'0':'1')?></span>
+				&nbsp;
+			</td>
+			<!--<td>{{Bouton N°}}</td>-->
+			<td><select class="cmdAttr configuration" data-l1key="configuration" data-l2key="BUTTON" data-cmd_id="<?=$cmd_id?>"><?=$buttonList?></select></td>
+		</tr>
+		<tr><td></td><td>{{Si vous laissez "Un bouton séparé", il sera créé un bouton avec un seul évènement}}</td></tr>
 	</table>
 <?php
 }
