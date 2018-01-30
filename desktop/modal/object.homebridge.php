@@ -723,13 +723,13 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 }
 function configStateless($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 		if(isset($customCMDValuesArr['configuration'])) {
-			$BUTTON		  = ((isset($customCMDValuesArr['configuration']['BUTTON']))?intval($customCMDValuesArr['configuration']['BUTTON']):0);
+			$BUTTON		  = ((isset($customCMDValuesArr['configuration']['BUTTON']))?$customCMDValuesArr['configuration']['BUTTON']:null);
 		}
 		else {
-			$BUTTON		  = 0;
+			$BUTTON		  = null;
 		}
 		
-		$buttonList = "<option value='0' ".(($BUTTON == 0)?'selected':'').">{{Un bouton séparé}}</option>";
+		$buttonList = "<option value='0' ".(($BUTTON === null)?'selected':'').">{{Un bouton séparé}}</option>";
 		for($i=1;$i<=10;$i++) {
 			$buttonList .= "<option value='".$i."' ".(($BUTTON == $i)?'selected':'').">{{Bouton}} ".$i."</option>";
 		}
@@ -746,6 +746,7 @@ function configStateless($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 			<td><select class="cmdAttr configuration" data-l1key="configuration" data-l2key="BUTTON" data-cmd_id="<?=$cmd_id?>"><?=$buttonList?></select></td>
 		</tr>
 		<tr><td></td><td>{{Si vous laissez "Un bouton séparé", il sera créé un bouton avec un seul évènement}}</td></tr>
+		<tr><td></td><td>{{Un seul type d'évenement (Simple, Double, Long) par bouton}}</td></tr>
 	</table>
 <?php
 }
