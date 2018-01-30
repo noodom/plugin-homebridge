@@ -265,7 +265,11 @@ function listThermoSetModes($cmds,$selected) {
 													<?php
 													switch($isCustomisable) {
 														case "SWITCH_STATELESS_ALLINONE" :
-															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id);
+															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,false);
+															$isCustomisable=false;
+														break;
+														default :
+															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,true);
 															$isCustomisable=false;
 														break;
 													}
@@ -319,6 +323,18 @@ var oldValues = [];
 // CHANGE CLICK
 $('.cmdAttr').on('change',function(){
 	$(this).closest('tr.cmdLine').attr('data-change','1');
+});
+
+// show custom config
+$('.cmdAttr').on('change',function(){
+	switch($(this).value()) {
+		case 'HB|SWITCH_STATELESS_ALLINONE' :
+			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).show();
+		break;
+		default :
+			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).hide();
+		break;
+	}
 });
 $('.cmdAttr').on('click',function(){
 	$(this).closest('tr.cmdLine').attr('data-change','1');
@@ -648,7 +664,7 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
 <?php
 }
-function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id) {
+function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 		if(isset($customCMDValuesArr['configuration'])) {
 			$customValues = (($customCMDValuesArr['configuration']['customValues'])?$customCMDValuesArr['configuration']['customValues']:false);
 			$SINGLE		  = ((isset($customCMDValuesArr['configuration']['SINGLE']))?$customCMDValuesArr['configuration']['SINGLE']:0);
@@ -662,7 +678,7 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id) {
 			$LONG	  	  = 2;
 		}
 	?>
-	<table>
+	<table style="<?=(($hidden==true)?'display: none;':'')?>" id='StatelessAllinone_<?=$cmd_id?>'>
 		<tr><th colspan='3'>{{Personnalisation des états, indiquez ici la valeur de l'état correspondant au type d'action}}</th></tr>
 		<tr>
 			<td>
