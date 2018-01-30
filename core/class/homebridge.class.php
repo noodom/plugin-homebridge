@@ -70,7 +70,7 @@ class homebridge extends eqLogic {
 	}
 
 	public static function PluginCustomisable(){
-		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE','ALARM_SET_MODE','THERMOSTAT_SET_MODE','SWITCH_STATELESS_ALLINONE'];
+		$PluginCustomisable = ['GARAGE_STATE','BARRIER_STATE','ALARM_SET_MODE','THERMOSTAT_SET_MODE','SWITCH_STATELESS_ALLINONE','SWITCH_STATELESS_SINGLE','SWITCH_STATELESS_DOUBLE','SWITCH_STATELESS_LONG'];
 		return $PluginCustomisable;
 	}
 	
@@ -751,6 +751,7 @@ class homebridge extends eqLogic {
 							$tempArray['CLOSED'] = (($tempArray['CLOSED'] != "")?intval($tempArray['CLOSED']):NULL);
 
 							$eqLogic_array["customValues"] = $tempArray;
+							$tempArray=[];
 						}
 						if (isset($eqLogic_array['isVisible'])){
 							$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
@@ -842,7 +843,7 @@ class homebridge extends eqLogic {
 									$actionConfirm = $configuration['actionConfirm'];
 								}
 							}
-							if(isset($cmd_array["customConfiguration"]['customValues'])){
+							if(isset($cmd_array["customConfiguration"]['customValuesStatelessAllinone']) && $cmd_array["customConfiguration"]['customValuesStatelessAllinone']=="1"){
 								if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
 								
 								$tempArray['SINGLE'] = (($cmd_array["customConfiguration"]['SINGLE'] != "")?$cmd_array["customConfiguration"]['SINGLE']:'TODEL');
@@ -854,7 +855,20 @@ class homebridge extends eqLogic {
 								}
 
 								$cmd_array["customValues"] = $tempArray;
-							}							
+								$tempArray=[];
+							}	
+							if(isset($cmd_array["customConfiguration"]['customValuesStateless']) && $cmd_array["customConfiguration"]['customValuesStateless']=="1"){
+								if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
+								
+								$tempArray['BUTTON'] = (($cmd_array["customConfiguration"]['BUTTON'] != "")?intval($cmd_array["customConfiguration"]['BUTTON']):'TODEL');
+
+								foreach($tempArray as $label => $val) {
+									if($val === 'TODEL') unset($tempArray[$label]);
+								}
+
+								$cmd_array["customValues"] = $tempArray;
+								$tempArray=[];
+							}								
 							if(isset($cmd_array['display'])){
 								$display = $cmd_array['display'];
 								if(isset($display['icon'])){
