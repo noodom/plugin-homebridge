@@ -718,6 +718,7 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="LONG" data-cmd_id="<?=$cmd_id?>" value='<?=$LONG?>' /></td>
 		</tr>
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+		<tr><td></td><td></td><td>{{Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')}}</td></tr>
 	</table>
 <?php
 }
