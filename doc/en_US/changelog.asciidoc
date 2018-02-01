@@ -20,8 +20,9 @@
       ** Température (chaque point de donnée est une moyenne des 10min précédentes)
       ** Humidité (chaque point de donnée est une moyenne des 10min précédentes)
       ** Pression (chaque point de donnée est une moyenne des 10min précédentes)
-      ** Porte ou Fenêtre ("Dernière ouverture" pas encore fonctionnel et "Nombre d'ouvertures" compte depuis le dernier démarrage du démon Homebridge)
-      ** Mouvement ("Dernier mouvement" pas encore fonctionnel)
+      ** Porte ou Fenêtre 
+      ** Mouvement 
+      ** Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
 [IMPORTANT]      
       Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif.
 
