@@ -366,7 +366,7 @@ class homebridge extends eqLogic {
 			}
 		}
 		foreach ($content['scenario'] as $keyScenarioCustom => $ScenarioCustom) {
-			$ScenarioExists = eqLogic::byId($ScenarioCustom['id']);
+			$ScenarioExists = scenario::byId($ScenarioCustom['id']);
 			if (!is_object($ScenarioExists)) {
 				log::add('homebridge','info','Le scenario avec l\'id '.$ScenarioCustom['id'].'('.$keyScenarioCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
 				array_splice($content['scenario'],$keyScenarioCustom,1);
