@@ -30,7 +30,7 @@ $PluginToSend = homebridge::PluginToSend();
 		'eqLogics' => $eqLogics['eqLogics'],
 		'cmds' => $cmds['cmds'],
 		'objects' => homebridge::delete_object_eqlogic_null(homebridge::discovery_object(),$eqLogics['eqLogics']),
-		'scenarios' => homebridge::discovery_scenario()
+		'scenarios' => homebridge::discovery_scenario($customValues['scenario'])
 	);
 	function validateJSON($toValidate) {
 		if(is_json($toValidate)) {
