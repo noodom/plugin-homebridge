@@ -316,6 +316,49 @@ function listThermoSetModes($cmds,$selected) {
 			endforeach;
 			?>
 		</div>
+
+		<?php
+		// SCENARIO
+		$scenarios = $object->getScenario(false,false);
+		if(count($scenarios)) :
+		?>
+		<legend><i class="fa fa-cogs"></i>  {{Scénarios}}</legend>
+		<div class="panel-group">
+			<?php
+			foreach ($scenarios as $scenario) :
+				$check = 'unchecked';
+				$scenario_id = $scenario->getId();
+				foreach($customValuesArr['scenario'] as $scenarioCustom) {
+					if($scenarioCustom['id'] == $scenario_id) {
+						if($scenarioCustom['configuration']['sendToHomebridge'] == "1") {
+							$check = 'checked';
+							break;
+						}
+						break;
+					}
+				}
+			?>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							
+								<span class="ScenarioAttr hidden" data-l1key="id"><?=$scenario->getId()?></span>
+								<?=$scenario->getHumanName(false,false,true)?>
+								<a class="btn btn-mini btn-success eqLogicAction pull-right" style="padding:0px 3px 0px 3px;cursor:pointer;" onclick="SaveObject()"><i class="fa fa-floppy-o" style="color:white;"></i></a>
+								<small>
+									<label style="cursor:default;margin-left:5px">{{  Envoyer à Homebridge  }}<input style="display:inline-block" type="checkbox" class="ScenarioAttr configuration" data-l1key="configuration" data-l2key="sendToHomebridge" <?=$check?>/></label>
+								</small>
+							
+						</h3>
+					</div>
+				</div>
+			<?php
+			endforeach;
+			?>
+		</div>
+		<?php
+		endif;
+		?>
 		<div class="form-actions pull-right">
 			<a class="btn btn-success eqLogicAction" onclick="SaveObject()" ><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
 		</div>
@@ -325,6 +368,7 @@ function listThermoSetModes($cmds,$selected) {
 <script>
 var changed=0;
 var eqLogicsHomebridge = [];
+var scenarioHomebridge = [];
 var eqLogicsCustoms = [];
 var customCmds = [];
 var oldValues = [];
@@ -384,6 +428,11 @@ $('.eqLogicAttr').on('change click',function(){
 	var eqLogic = $(this).closest('.panel-title').getValues('.eqLogicAttr')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
+});
+$('.ScenarioAttr').on('change click',function(){
+	var scenario = $(this).closest('.panel-title').getValues('.ScenarioAttr')[0];
+	console.log(scenario.id,scenario.configuration);
+	scenarioHomebridge.push(scenario);
 });
 $('.eqLogicAttrAlarm').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
@@ -479,6 +528,17 @@ function SaveObject(){
 			eqLogicsCustomsFiltered.push(eqLogic);
 		}
 	});
+	var scenarioHomebridgeFiltered = [];
+	scenarioHomebridge.reverse();
+	$.each(scenarioHomebridge, function(index, scenario) {
+		var eqLogics = $.grep(scenarioHomebridgeFiltered, function (e) {
+			return scenario.id === e.id;
+		});
+		if (eqLogics.length === 0) {
+			scenarioHomebridgeFiltered.push(scenario);
+		}
+	});
+	
 	console.log('customCmds',customCmds);
 	// custom Save
 	$.ajax({
@@ -487,6 +547,7 @@ function SaveObject(){
 		data: {
 			action: 'saveCustomData',
 			eqLogic: eqLogicsCustomsFiltered,
+			scenario: scenarioHomebridgeFiltered,
 			cmd: customCmds,
 			oldValues: oldValues
 		},
@@ -718,7 +779,7 @@ function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
 			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="LONG" data-cmd_id="<?=$cmd_id?>" value='<?=$LONG?>' /></td>
 		</tr>
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
-		<tr><td></td><td></td><td>{{Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')}}</td></tr>
+		<tr><td></td><td></td><td>{{Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')}}</td></tr>		
 	</table>
 <?php
 }
