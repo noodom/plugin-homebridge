@@ -157,7 +157,7 @@ echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
 echo "Installation de GMP (génération QRCode)"
-sudo apt-get install php7.0-gmp &>/dev/null
+sudo apt-get -y install php7.0-gmp &>/dev/null
 if [ $? -ne 0 ]; then
   echo "pour php5"
   sudo apt-get install php5-gmp
