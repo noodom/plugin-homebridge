@@ -262,7 +262,7 @@ class homebridge extends eqLogic {
 		return (($ret===false)?false:true);
 	}
 	
-	public static function saveCustomData($eqLogicToSave,$cmdToSave,$cmdOldValues){
+	public static function saveCustomData($eqLogicToSave,$cmdToSave,$scenarioToSave,$cmdOldValues){
 		$content = homebridge::getCustomData();
 		
 		foreach ($eqLogicToSave as $newVal) {
@@ -279,6 +279,21 @@ class homebridge extends eqLogic {
 			}
 			if(!$found) {
 				array_push($content['eqLogic'],$newVal);
+			}
+		}
+
+		foreach ($scenarioToSave as $newScenario) {
+			$found = false;
+			foreach ($content['scenario'] as $id => $scenario) {
+				if($scenario['id'] == $newScenario['id']) {
+					if($newScenario['configuration']) 
+						$content['scenario'][$id]['configuration'] = $newScenario['configuration'];
+					$found = true;
+					break;
+				}
+			}
+			if(!$found) {
+				array_push($content['scenario'],$newScenario);
 			}
 		}
 
@@ -328,6 +343,13 @@ class homebridge extends eqLogic {
 		if(!$content) {
 			$content['eqLogic']=[];
 			$content['cmd']    =[];
+			$content['scenario']=[];
+		} else if(!$content['scenario']) {
+			$content['scenario']=[];
+		} else if(!$content['eqLogic']) {
+			$content['eqLogic']=[];
+		} else if(!$content['cmd']) {
+			$content['cmd']=[];
 		}
 		return $content;
 	}
@@ -340,6 +362,14 @@ class homebridge extends eqLogic {
 			if (!is_object($eqLogicExists)) {
 				log::add('homebridge','info','Le perif avec l\'id '.$eqLogicCustom['id'].'('.$keyEqLogicCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
 				array_splice($content['eqLogic'],$keyEqLogicCustom,1);
+				$found=true;
+			}
+		}
+		foreach ($content['scenario'] as $keyScenarioCustom => $ScenarioCustom) {
+			$ScenarioExists = eqLogic::byId($ScenarioCustom['id']);
+			if (!is_object($ScenarioExists)) {
+				log::add('homebridge','info','Le scenario avec l\'id '.$ScenarioCustom['id'].'('.$keyScenarioCustom.') n\'existe plus dans Jeedom, on l\'efface de notre bdd custom');
+				array_splice($content['scenario'],$keyScenarioCustom,1);
 				$found=true;
 			}
 		}
@@ -1062,7 +1092,7 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	 
-	public static function discovery_scenario() {
+	public static function discovery_scenario($customScenarios) {
 		$all = utils::o2a(scenario::all());
 		$return = [];
 		foreach ($all as &$scenario){
@@ -1071,6 +1101,12 @@ class homebridge extends eqLogic {
 			} else {
 				if ($scenario['display']['name'] != ''){
 					$scenario['name'] = $scenario['display']['name'];
+				}
+				foreach($customScenarios as $custScen) { 
+					if($scenario['id'] == $custScen['id']) {
+						$scenario['sendToHomebridge'] = intval($custScen['configuration']['sendToHomebridge']);
+						break;
+					}
 				}
 				unset($scenario['mode'],$scenario['schedule'], $scenario['scenarioElement'],$scenario['trigger'],$scenario['timeout'],$scenario['description'],$scenario['configuration'],$scenario['type'],$scenario['display']['name']);
 				if (isset($scenario['isVisible'])) {
