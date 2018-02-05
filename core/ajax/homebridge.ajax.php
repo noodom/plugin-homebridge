@@ -35,7 +35,7 @@ try {
 		ajax::success($ret);
 	}
 	if (init('action') == 'saveCustomData') {
-		$ret=homebridge::saveCustomData(init('eqLogic'),init('cmd'),init('oldValues'));
+		$ret=homebridge::saveCustomData(init('eqLogic'),init('cmd'),init('scenario'),init('oldValues'));
 		ajax::success($ret);
 	}	
 	if (init('action') == 'regenerateHomebridgeConf') {
