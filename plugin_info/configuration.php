@@ -40,25 +40,41 @@ if(!isConnect()) {
 		</legend>
 		<?php
 			$interne = network::getNetworkAccess('internal');
+			$jsonrpc = config::byKey('api::core::jsonrpc::mode', 'core', 'enable');
+			$localVer =homebridge::getLocalVersion();
+			$remoteVer=homebridge::getRemoteVersion();
+			if($remoteVer != '0')
+				$diffVer = version_compare($localVer,$remoteVer,'<');
+			else
+				$diffVer = false;
+			
+			$vert = "#5cb85c";$orange = "#ec971f";$rouge = "#c9302c";$jaune = "#f1c40f";
+			
+			$color = $vert;
+			$errorMessage="";
 			if($interne == null || $interne == 'http://:80' || $interne == 'https://:80'){
-		?>
-			<div class="form-group">
-				<div class="col-lg-7">
-					<span class="badge" style="background-color : #c9302c;">{{Attention votre adresse interne (configuration) n'est pas valide.}}</span>
-				</div>
-			</div>
-		<?php
-			}else{
-		?>
-			<div class="form-group">
-				<label class="col-lg-4 control-label">{{Adresse Ip Homebridge}}</label>
-				<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
-					<span class="badge" style="background-color : #ec971f;margin-top:10px"><?php echo $interne; ?></span>
-				</div>
-			</div>
-		<?php
+				$errorMessage = "{{Attention : Votre adresse interne n'est pas valide (Configuration > Réseau). Homebridge ne fonctionnera pas.}}";
+				$color = $rouge;
+			} elseif (strstr($interne,'https')) {
+				$errorMessage = "{{Attention : Votre adresse interne est en https (Configuration > Réseau). Homebridge ne foncitonnera pas.}}";
+				$color = $rouge;
+			} elseif ($jsonrpc != 'enable') {
+				$errorMessage = "{{Attention : JSONRPC n'est pas activé (Configuration > API). Homebridge ne fonctionnera pas.}}";
+				$color = $rouge;
+			} elseif (jeedom::getHardwareName() == "Docker") {
+				$errorMessage = "{{Docker non supporté.}}";
+				$color = $orange;
+			} elseif ($diffVer) {
+				$errorMessage = "{{Nouvelle version de Homebridge, relancez vos dépendances.}}";
+				$color = $jaune;
 			}
 		?>
+		<div class="form-group">
+			<label class="col-lg-4 control-label">{{Adresse Ip Homebridge}}</label>
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<span class="badge" style="background-color : <?=$color?>;margin-top:10px"><?php echo $interne.(($errorMessage)?'&nbsp;&nbsp;&nbsp;'.$errorMessage:''); ?></span>
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Nom Homebridge}}</label>
 			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
