@@ -168,17 +168,17 @@ if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]]; then
   else
     echo "pour php7"
   fi
-fi
 
-sudo service nginx status &>/dev/null
-if [ $? = 0 ]; then
-echo "Reload nginx..."
-sudo service nginx reload
-fi
-sudo service apache2 status &>/dev/null
-if [ $? = 0 ]; then
-echo "Reload apache2..."
-sudo service apache2 reload
+  sudo service nginx status &>/dev/null
+  if [ $? = 0 ]; then
+    echo "Reload nginx..."
+    sudo service nginx reload
+  fi
+  sudo service apache2 status &>/dev/null
+  if [ $? = 0 ]; then
+    echo "Reload apache2..."
+    sudo service apache2 reload
+  fi
 fi
 
 # removing old node solution
