@@ -170,6 +170,7 @@ function listThermoSetModes($cmds,$selected) {
 											$customCMDValuesArr=['id'=>null,'display'=>null,'configuration'=>null];
 											array_push($tableau_cmd, $cmd_id);
 											
+											if(!$cmd_array['generic_type']) $cmd_array['generic_type'] = $cmd_array['display']['generic_type'];
 											
 											// replace generic_type if auto-config data exists
 											$logicalId = $cmd_array['logicalId'];
