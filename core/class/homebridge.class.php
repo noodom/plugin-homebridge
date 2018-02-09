@@ -316,8 +316,8 @@ class homebridge extends eqLogic {
 				if($cmd['id'] == $newValCmd['id']) {
 					if($newValCmd['configuration']) 
 						$content['cmd'][$id]['configuration'] = $newValCmd['configuration'];
-					if($newValCmd['display'])
-						$content['cmd'][$id]['display'] = $newValCmd['display'];
+					if($newValCmd['generic_type'])
+						$content['cmd'][$id]['generic_type'] = $newValCmd['generic_type'];
 					$found = true;
 					break;
 				}
@@ -381,6 +381,27 @@ class homebridge extends eqLogic {
 				$found=true;
 			}
 		}
+		if($found) {
+			$content = json_encode($content);
+			$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+			return (($ret===false)?false:true);
+		}
+		return true;
+	}
+	
+	public static function migrateCustomData(){
+		
+		$content = homebridge::getCustomData();
+		$found=false;
+
+		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
+			if (!is_object($cmdCustom)) {
+				$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
+				unset($content['cmd'][$keyCmdCustom]['display']);
+				$found=true;
+			}
+		}
+		
 		if($found) {
 			$content = json_encode($content);
 			$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
@@ -825,7 +846,11 @@ class homebridge extends eqLogic {
 						foreach ($cmds as $cmd) {
 							$cmd_array = $cmd->exportApi();
 							
-							if(!$cmd_array['generic_type']) $cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+							if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+								$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+								$cmd->save();
+								$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+							}
 							
 							// replace generic_type if auto-config data exists
 							$logicalId = $cmd_array['logicalId'];
@@ -840,7 +865,7 @@ class homebridge extends eqLogic {
 							// replace generic_type if custom type exists							
 							foreach($customCmds as $custCmd) { 
 								if($cmd_array['id'] == $custCmd['id']) {
-									$cmd_array['generic_type'] = $custCmd['display']['generic_type'];
+									$cmd_array['generic_type'] = $custCmd['generic_type'];
 									$cmd_array['customConfiguration'] = $custCmd['configuration'];
 									break;
 								}
