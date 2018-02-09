@@ -399,7 +399,6 @@ class homebridge extends eqLogic {
 				log::add('homebridge','debug','Modification de la commande '.$cmdCustom['id'].' generic_type : '.$cmdCustom['display']['generic_type']);
 				$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
 				unset($content['cmd'][$keyCmdCustom]['display']);
-				log::add('homebridge','debug','après modif '.$cmdCustom['id'].' generic_type : '.$content['cmd'][$keyCmdCustom]['generic_type'].' et '.$content['cmd'][$keyCmdCustom]['display']);
 				$found=true;
 			}
 		}
