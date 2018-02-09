@@ -395,7 +395,7 @@ class homebridge extends eqLogic {
 		$found=false;
 
 		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
-			if (!is_object($cmdCustom)) {
+			if (is_object($cmdCustom) && $cmdCustom['display']['generic_type']) {
 				$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
 				unset($content['cmd'][$keyCmdCustom]['display']);
 				$found=true;
