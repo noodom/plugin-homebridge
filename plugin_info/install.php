@@ -132,6 +132,8 @@ function homebridge_install(){
 }
 
 function homebridge_update(){
+	homebridge::migrateCustomData();
+	
 	exec(system::getCmdSudo() . 'chmod +x ' . dirname(__FILE__) . '/../resources/ffmpeg-wrapper');
 	message::add('homebridge', 'Merci pour la mise à jour de ce plugin, consultez les notes de version (dans le Forum Jeedom > Plugins Jeedom > [Catégorie] Communication > [Plugin Tiers] Homebridge) avant utilisation svp');
 }
