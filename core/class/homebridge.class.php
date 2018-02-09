@@ -825,6 +825,8 @@ class homebridge extends eqLogic {
 						foreach ($cmds as $cmd) {
 							$cmd_array = $cmd->exportApi();
 							
+							if(!$cmd_array['generic_type']) $cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+							
 							// replace generic_type if auto-config data exists
 							$logicalId = $cmd_array['logicalId'];
 							if(!isset($specificValue)) $specificValue = 'default';
