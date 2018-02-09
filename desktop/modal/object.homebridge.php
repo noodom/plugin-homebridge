@@ -24,7 +24,7 @@ sendVarToJS('object', $_GET['object_id']);
 function listAlarmSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
+		if($cmd->getGeneric_type() == "ALARM_SET_MODE") {
 			$val = $cmd->getid().'|'.$cmd->getName();
 			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
 		}
@@ -34,7 +34,7 @@ function listAlarmSetModes($cmds,$selected) {
 function listThermoSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+		if($cmd->getGeneric_type() == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
 			$val = $cmd->getid().'|'.$cmd->getName();
 			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
 		}
@@ -170,7 +170,11 @@ function listThermoSetModes($cmds,$selected) {
 											$customCMDValuesArr=['id'=>null,'display'=>null,'configuration'=>null];
 											array_push($tableau_cmd, $cmd_id);
 											
-											if(!$cmd_array['generic_type']) $cmd_array['generic_type'] = $cmd_array['display']['generic_type'];
+											if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+												$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+												$cmd->save();
+												$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+											}
 											
 											// replace generic_type if auto-config data exists
 											$logicalId = $cmd_array['logicalId'];
@@ -212,7 +216,7 @@ function listThermoSetModes($cmds,$selected) {
 													</div>
 												</td>
 												<td>
-													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
+													<select class="cmdAttr form-control" data-l1key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
@@ -251,7 +255,7 @@ function listThermoSetModes($cmds,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['display']['generic_type']) && $info['key'] == $customCMDValuesArr['display']['generic_type'])){
+																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
 																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
 																		$isCustomisable = $info['key'];
 																	}
@@ -379,7 +383,7 @@ $('.cmdAttr').on('change',function(){
 });
 
 // show custom config
-$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change',function(){
+$('.cmdAttr[data-l1key=generic_type]').on('change',function(){
 	var SelectedValue = $(this).value();
 	switch(SelectedValue) {
 		case 'HB|SWITCH_STATELESS_ALLINONE' :
@@ -465,8 +469,8 @@ function SaveObject(){
 	$('.TableCMD tr').each(function(){
 		if($(this).attr('data-change') == '1'){
 			cmdValues = $(this).getValues('.cmdAttr')[0];
-			if(cmdValues.display.generic_type.substr(0,3) == 'HB|') {
-				cmdValues.display.generic_type = cmdValues.display.generic_type.replace('HB|','');
+			if(cmdValues.generic_type.substr(0,3) == 'HB|') {
+				cmdValues.generic_type = cmdValues.generic_type.replace('HB|','');
 				customCmds.push(cmdValues);
 			}
 			else {
@@ -589,7 +593,7 @@ $('body').undelegate('.cmdAttr[data-l1key=display][data-l2key=icon]', 'click').d
 	$(this).empty();
 });
 
-$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change', function () {
+$('.cmdAttr[data-l1key=generic_type]').on('change', function () {
 	var cmdLine = $(this).closest('.cmdLine');
 	if ($(this).value() == 'GENERIC_INFO' || $(this).value() == 'GENERIC_ACTION') {
 		cmdLine.find('.iconeGeneric').show();
