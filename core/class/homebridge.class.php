@@ -390,14 +390,16 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function migrateCustomData(){
-		
+		log::add('homebridge','info','Migration des données spécifique à Homebridge');
 		$content = homebridge::getCustomData();
 		$found=false;
 
 		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
 			if (is_object($cmdCustom) && $cmdCustom['display']['generic_type']) {
+				log::add('homebridge','debug','Modification de la commande '.$cmdCustom['id'].' generic_type : '.$cmdCustom['display']['generic_type']);
 				$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
 				unset($content['cmd'][$keyCmdCustom]['display']);
+				log::add('homebridge','debug','après modif '.$cmdCustom['id'].' generic_type : '.$content['cmd'][$keyCmdCustom]['generic_type'].' et '.$content['cmd'][$keyCmdCustom]['display']);
 				$found=true;
 			}
 		}
