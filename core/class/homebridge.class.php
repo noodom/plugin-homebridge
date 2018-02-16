@@ -739,81 +739,82 @@ class homebridge extends eqLogic {
 		$return = [];
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
-			if (is_array($eqLogics)) {
-				foreach ($eqLogics as $eqLogic) {
-					if(		$eqLogic->getObject_id() !== null // has room
-						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
-						){
-						
-						$eqLogic_array = utils::o2a($eqLogic);
-						
-						foreach($customEqLogics as $custeqLogic) { // import customConfiguration
-							if($eqLogic_array['id'] == $custeqLogic['id']) {
-								$eqLogic_array['customConfiguration'] = $custeqLogic['configuration'];
-								break;
-							}
+			if (!is_array($eqLogics)) {
+				continue;
+			}
+			foreach ($eqLogics as $eqLogic) {
+				if(		$eqLogic->getObject_id() !== null // has room
+					&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+					){
+					
+					$eqLogic_array = utils::o2a($eqLogic);
+					
+					foreach($customEqLogics as $custeqLogic) { // import customConfiguration
+						if($eqLogic_array['id'] == $custeqLogic['id']) {
+							$eqLogic_array['customConfiguration'] = $custeqLogic['configuration'];
+							break;
 						}
-						
-						
-
-						if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
-							$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
-						}
-						
-						//Alarm
-						if(isset($eqLogic_array["customConfiguration"]['SetModeAbsent'])){
-							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["customConfiguration"]['SetModeAbsent'];
-						}
-						if(isset($eqLogic_array["customConfiguration"]['SetModePresent'])){
-							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["customConfiguration"]['SetModePresent'];
-						}
-						if(isset($eqLogic_array["customConfiguration"]['SetModeNuit'])){
-							if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
-							$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["customConfiguration"]['SetModeNuit'];
-						}
-						
-						//Thermostat
-						if(isset($eqLogic_array["customConfiguration"]['Chauf'])){
-							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
-							$eqLogic_array["thermoModes"]["Chauf"] = $eqLogic_array["customConfiguration"]['Chauf'];
-						}
-						if(isset($eqLogic_array["customConfiguration"]['Clim'])){
-							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
-							$eqLogic_array["thermoModes"]["Clim"] = $eqLogic_array["customConfiguration"]['Clim'];
-						}
-						if(isset($eqLogic_array["customConfiguration"]['Off'])){
-							if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
-							$eqLogic_array["thermoModes"]["Off"] = $eqLogic_array["customConfiguration"]['Off'];
-						}
-						
-						if(isset($eqLogic_array["customConfiguration"]['customValues'])){
-							if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
-							
-							$tempArray['OPEN'] = $eqLogic_array["customConfiguration"]['OPEN'];
-							$tempArray['OPEN'] = (($tempArray['OPEN'] != "")?intval($tempArray['OPEN']):NULL);
-							$tempArray['OPENING'] = $eqLogic_array["customConfiguration"]['OPENING'];
-							$tempArray['OPENING'] = (($tempArray['OPENING'] != "")?intval($tempArray['OPENING']):NULL);
-							$tempArray['STOPPED'] = $eqLogic_array["customConfiguration"]['STOPPED'];
-							$tempArray['STOPPED'] = (($tempArray['STOPPED'] != "")?intval($tempArray['STOPPED']):NULL);
-							$tempArray['CLOSING'] = $eqLogic_array["customConfiguration"]['CLOSING'];
-							$tempArray['CLOSING'] = (($tempArray['CLOSING'] != "")?intval($tempArray['CLOSING']):NULL);
-							$tempArray['CLOSED'] = $eqLogic_array["customConfiguration"]['CLOSED'];
-							$tempArray['CLOSED'] = (($tempArray['CLOSED'] != "")?intval($tempArray['CLOSED']):NULL);
-
-							$eqLogic_array["customValues"] = $tempArray;
-							$tempArray=[];
-						}
-						if (isset($eqLogic_array['isVisible'])){
-							$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
-						}
-						if (isset($eqLogic_array['isEnable'])){
-							$eqLogic_array['isEnable']=intval($eqLogic_array['isEnable']);
-						}
-						unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'],$eqLogic_array['customConfiguration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
-						$return[] = $eqLogic_array;
 					}
+					
+					
+
+					if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
+						$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
+					}
+					
+					//Alarm
+					if(isset($eqLogic_array["customConfiguration"]['SetModeAbsent'])){
+						if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+						$eqLogic_array["alarmModes"]["SetModeAbsent"] = $eqLogic_array["customConfiguration"]['SetModeAbsent'];
+					}
+					if(isset($eqLogic_array["customConfiguration"]['SetModePresent'])){
+						if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+						$eqLogic_array["alarmModes"]["SetModePresent"] = $eqLogic_array["customConfiguration"]['SetModePresent'];
+					}
+					if(isset($eqLogic_array["customConfiguration"]['SetModeNuit'])){
+						if(!isset($eqLogic_array["alarmModes"])) $eqLogic_array["alarmModes"] = [];
+						$eqLogic_array["alarmModes"]["SetModeNuit"] = $eqLogic_array["customConfiguration"]['SetModeNuit'];
+					}
+					
+					//Thermostat
+					if(isset($eqLogic_array["customConfiguration"]['Chauf'])){
+						if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+						$eqLogic_array["thermoModes"]["Chauf"] = $eqLogic_array["customConfiguration"]['Chauf'];
+					}
+					if(isset($eqLogic_array["customConfiguration"]['Clim'])){
+						if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+						$eqLogic_array["thermoModes"]["Clim"] = $eqLogic_array["customConfiguration"]['Clim'];
+					}
+					if(isset($eqLogic_array["customConfiguration"]['Off'])){
+						if(!isset($eqLogic_array["thermoModes"])) $eqLogic_array["thermoModes"] = [];
+						$eqLogic_array["thermoModes"]["Off"] = $eqLogic_array["customConfiguration"]['Off'];
+					}
+					
+					if(isset($eqLogic_array["customConfiguration"]['customValues'])){
+						if(!isset($eqLogic_array["customValues"])) $eqLogic_array["customValues"] = [];
+						
+						$tempArray['OPEN'] = $eqLogic_array["customConfiguration"]['OPEN'];
+						$tempArray['OPEN'] = (($tempArray['OPEN'] != "")?intval($tempArray['OPEN']):NULL);
+						$tempArray['OPENING'] = $eqLogic_array["customConfiguration"]['OPENING'];
+						$tempArray['OPENING'] = (($tempArray['OPENING'] != "")?intval($tempArray['OPENING']):NULL);
+						$tempArray['STOPPED'] = $eqLogic_array["customConfiguration"]['STOPPED'];
+						$tempArray['STOPPED'] = (($tempArray['STOPPED'] != "")?intval($tempArray['STOPPED']):NULL);
+						$tempArray['CLOSING'] = $eqLogic_array["customConfiguration"]['CLOSING'];
+						$tempArray['CLOSING'] = (($tempArray['CLOSING'] != "")?intval($tempArray['CLOSING']):NULL);
+						$tempArray['CLOSED'] = $eqLogic_array["customConfiguration"]['CLOSED'];
+						$tempArray['CLOSED'] = (($tempArray['CLOSED'] != "")?intval($tempArray['CLOSED']):NULL);
+
+						$eqLogic_array["customValues"] = $tempArray;
+						$tempArray=[];
+					}
+					if (isset($eqLogic_array['isVisible'])){
+						$eqLogic_array['isVisible']=intval($eqLogic_array['isVisible']);
+					}
+					if (isset($eqLogic_array['isEnable'])){
+						$eqLogic_array['isEnable']=intval($eqLogic_array['isEnable']);
+					}
+					unset($eqLogic_array['eqReal_id'],$eqLogic_array['configuration'],$eqLogic_array['customConfiguration'], $eqLogic_array['specificCapatibilities'],$eqLogic_array['timeout'],$eqLogic_array['category'],$eqLogic_array['display']);
+					$return[] = $eqLogic_array;
 				}
 			}
 		}
@@ -825,198 +826,199 @@ class homebridge extends eqLogic {
 		$PluginAutoConfig = self::PluginAutoConfig();
 		foreach ($plugin as $plugin_type) {
 			$eqLogics = eqLogic::byType($plugin_type/*, true*/);
-			if (is_array($eqLogics)) {
-				foreach ($eqLogics as $eqLogic) {
-                  	$i = 0;
-					if(		$eqLogic->getObject_id() !== null // has room
-						&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
-						){
-							
-						$cmds = $eqLogic->getCmd();
+			if (!is_array($eqLogics)) {
+				continue;
+			}
+			foreach ($eqLogics as $eqLogic) {
+				$i = 0;
+				if(		$eqLogic->getObject_id() !== null // has room
+					&& 	object::byId($eqLogic->getObject_id())->getDisplay('sendToApp', 1) == 1 // if that room is active
+					){
 						
-						$pluginId = $eqLogic->getEqType_name();
-						$specificField=null;
-						$specificValue=null;
-						if(isset($PluginAutoConfig[$pluginId])) {
-							$specificField = $PluginAutoConfig[$pluginId]['field'];
-							if(isset($specificField)) {
-								$specificValue = $eqLogic->getConfiguration($specificField);
-							}
-						}
-						
-						foreach ($cmds as $cmd) {
-							$cmd_array = $cmd->exportApi();
-							
-							if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
-								$cmd->setGeneric_type($cmd_array['display']['generic_type']);
-								$cmd->save();
-								$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
-							}
-							
-							// replace generic_type if auto-config data exists
-							$logicalId = $cmd_array['logicalId'];
-							if(!isset($specificValue)) $specificValue = 'default';
-							if(	isset($PluginAutoConfig[$pluginId]) && 
-								isset($PluginAutoConfig[$pluginId][$specificValue]) && 
-								isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
-							
-								$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
-							}
-							
-							// replace generic_type if custom type exists							
-							foreach($customCmds as $custCmd) { 
-								if($cmd_array['id'] == $custCmd['id']) {
-									$cmd_array['generic_type'] = $custCmd['generic_type'];
-									$cmd_array['customConfiguration'] = $custCmd['configuration'];
-									break;
-								}
-							}
-
-							// we kept errors as it might be a custom but now we could ignore it
-							if(in_array($cmd_array['generic_type'],['GENERIC_ERROR','DONT'])) continue;
-							
-							//Variables
-							$maxValue = null;
-							$minValue = null;
-							$actionCodeAccess = null;
-							$actionConfirm = null;
-							$icon = null;
-							$invertBinary = null;
-							$title_disable = null;
-							$title_placeholder = null;
-							$message_placeholder = null;
-								
-							if(isset($cmd_array['configuration'])){
-								$configuration = $cmd_array['configuration'];
-								if(isset($configuration['maxValue']) && $configuration['maxValue'] != ""){
-									$maxValue = $configuration['maxValue'];
-								}
-								if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
-									$minValue = $configuration['minValue'];
-								}
-								if(isset($configuration['actionCodeAccess'])){
-									$actionCodeAccess = $configuration['actionCodeAccess'];
-								}
-								if(isset($configuration['actionConfirm'])){
-									$actionConfirm = $configuration['actionConfirm'];
-								}
-							}
-							if(isset($cmd_array["customConfiguration"]['customValuesStatelessAllinone']) && $cmd_array["customConfiguration"]['customValuesStatelessAllinone']=="1"){
-								if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
-								
-								$tempArray['SINGLE'] = (($cmd_array["customConfiguration"]['SINGLE'] != "")?$cmd_array["customConfiguration"]['SINGLE']:'TODEL');
-								$tempArray['DOUBLE'] = (($cmd_array["customConfiguration"]['DOUBLE'] != "")?$cmd_array["customConfiguration"]['DOUBLE']:'TODEL');
-								$tempArray['LONG'] =   (($cmd_array["customConfiguration"]['LONG'] != "")?$cmd_array["customConfiguration"]['LONG']:'TODEL');
-
-								foreach($tempArray as $label => $val) {
-									if($val === 'TODEL') unset($tempArray[$label]);
-								}
-
-								$cmd_array["customValues"] = $tempArray;
-								$tempArray=[];
-							}	
-							if(isset($cmd_array["customConfiguration"]['customValuesStateless']) && $cmd_array["customConfiguration"]['customValuesStateless']=="1"){
-								if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
-								
-								$tempArray['BUTTON'] = (($cmd_array["customConfiguration"]['BUTTON'] != "")?intval($cmd_array["customConfiguration"]['BUTTON']):'TODEL');
-
-								foreach($tempArray as $label => $val) {
-									if($val === 'TODEL') unset($tempArray[$label]);
-								}
-
-								$cmd_array["customValues"] = $tempArray;
-								$tempArray=[];
-							}								
-							if(isset($cmd_array['display'])){
-								$display = $cmd_array['display'];
-								if(isset($display['icon'])){
-									$icon = $display['icon'];
-								}
-								if(isset($display['invertBinary'])){
-									$invertBinary = $display['invertBinary'];
-								}
-								if(isset($display['title_disable'])){
-									$title_disable = $display['title_disable'];
-								}
-								if(isset($display['title_placeholder'])){
-									$title_placeholder = $display['title_placeholder'];
-								}
-								if(isset($display['message_placeholder'])){
-									$message_placeholder = $display['message_placeholder'];
-								}
-							}
-							
-							unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array["customConfiguration"], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
-							
-							if ($maxValue != null) {
-								$cmd_array['configuration']['maxValue'] = floatval($maxValue);
-							}
-							if ($minValue != null) {
-								$cmd_array['configuration']['minValue'] = floatval($minValue);
-							}
-							if ($icon != null) {
-								$cmd_array['display']['icon'] = $icon;
-							}
-							if(isset($invertBinary)){
-								if ($invertBinary != null) {
-									$cmd_array['display']['invertBinary'] = intval($invertBinary);
-								}
-							}
-							if(isset($title_disable)){
-								if ($title_disable != null) {
-									$cmd_array['display']['title_disable'] = $title_disable;
-								}
-							}
-							if(isset($title_placeholder)){
-								if ($title_placeholder != null) {
-									$cmd_array['display']['title_placeholder'] = $title_placeholder;
-								}
-							}
-							if(isset($message_placeholder)){
-								if ($message_placeholder != null) {
-									$cmd_array['display']['message_placeholder'] = $message_placeholder;
-								}
-							}
-							if(isset($actionCodeAccess)){
-								if($actionCodeAccess !== null ){
-									if($actionCodeAccess !== ''){
-										$cmd_array['configuration']['actionCodeAccess'] = true;
-									}
-								}
-							}
-							if(isset($actionConfirm)){
-								if($actionConfirm !== null){
-									if($actionConfirm == 1){
-										$cmd_array['configuration']['actionConfirm'] = true;
-									}
-								}
-							}
-							if ($cmd_array['type'] == 'action'){
-								unset($cmd_array['currentValue']);
-							}
-							if ($cmd_array['type'] == 'info'){
-								if ($cmd_array['value'] === null || $cmd_array['value'] == "") {
-									unset($cmd_array['value']);
-								}
-								$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
-							}
-							if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
-								$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
-							}
-							if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
-								unset($cmd_array['unite']);
-							}
-							if (isset($cmd_array['isVisible'])){
-								$cmd_array['isVisible']=intval($cmd_array['isVisible']);
-							}
-							$cmds_array[] = $cmd_array;
-							$i++;
-						}
-						if($i > 0){
-							$return = $cmds_array;
+					$cmds = $eqLogic->getCmd();
+					
+					$pluginId = $eqLogic->getEqType_name();
+					$specificField=null;
+					$specificValue=null;
+					if(isset($PluginAutoConfig[$pluginId])) {
+						$specificField = $PluginAutoConfig[$pluginId]['field'];
+						if(isset($specificField)) {
+							$specificValue = $eqLogic->getConfiguration($specificField);
 						}
 					}
-                }
+					
+					foreach ($cmds as $cmd) {
+						$cmd_array = $cmd->exportApi();
+						
+						if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+							$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+							$cmd->save();
+							$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+						}
+						
+						// replace generic_type if auto-config data exists
+						$logicalId = $cmd_array['logicalId'];
+						if(!isset($specificValue)) $specificValue = 'default';
+						if(	isset($PluginAutoConfig[$pluginId]) && 
+							isset($PluginAutoConfig[$pluginId][$specificValue]) && 
+							isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
+						
+							$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
+						}
+						
+						// replace generic_type if custom type exists							
+						foreach($customCmds as $custCmd) { 
+							if($cmd_array['id'] == $custCmd['id']) {
+								$cmd_array['generic_type'] = $custCmd['generic_type'];
+								$cmd_array['customConfiguration'] = $custCmd['configuration'];
+								break;
+							}
+						}
+
+						// we kept errors as it might be a custom but now we could ignore it
+						if(in_array($cmd->getGeneric_type(),['GENERIC_ERROR','DONT'])) continue;
+						
+						//Variables
+						$maxValue = null;
+						$minValue = null;
+						$actionCodeAccess = null;
+						$actionConfirm = null;
+						$icon = null;
+						$invertBinary = null;
+						$title_disable = null;
+						$title_placeholder = null;
+						$message_placeholder = null;
+							
+						if(isset($cmd_array['configuration'])){
+							$configuration = $cmd_array['configuration'];
+							if(isset($configuration['maxValue']) && $configuration['maxValue'] != ""){
+								$maxValue = $configuration['maxValue'];
+							}
+							if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
+								$minValue = $configuration['minValue'];
+							}
+							if(isset($configuration['actionCodeAccess'])){
+								$actionCodeAccess = $configuration['actionCodeAccess'];
+							}
+							if(isset($configuration['actionConfirm'])){
+								$actionConfirm = $configuration['actionConfirm'];
+							}
+						}
+						if(isset($cmd_array["customConfiguration"]['customValuesStatelessAllinone']) && $cmd_array["customConfiguration"]['customValuesStatelessAllinone']=="1"){
+							if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
+							
+							$tempArray['SINGLE'] = (($cmd_array["customConfiguration"]['SINGLE'] != "")?$cmd_array["customConfiguration"]['SINGLE']:'TODEL');
+							$tempArray['DOUBLE'] = (($cmd_array["customConfiguration"]['DOUBLE'] != "")?$cmd_array["customConfiguration"]['DOUBLE']:'TODEL');
+							$tempArray['LONG'] =   (($cmd_array["customConfiguration"]['LONG'] != "")?$cmd_array["customConfiguration"]['LONG']:'TODEL');
+
+							foreach($tempArray as $label => $val) {
+								if($val === 'TODEL') unset($tempArray[$label]);
+							}
+
+							$cmd_array["customValues"] = $tempArray;
+							$tempArray=[];
+						}	
+						if(isset($cmd_array["customConfiguration"]['customValuesStateless']) && $cmd_array["customConfiguration"]['customValuesStateless']=="1"){
+							if(!isset($cmd_array["customValues"])) $cmd_array["customValues"] = [];
+							
+							$tempArray['BUTTON'] = (($cmd_array["customConfiguration"]['BUTTON'] != "")?intval($cmd_array["customConfiguration"]['BUTTON']):'TODEL');
+
+							foreach($tempArray as $label => $val) {
+								if($val === 'TODEL') unset($tempArray[$label]);
+							}
+
+							$cmd_array["customValues"] = $tempArray;
+							$tempArray=[];
+						}								
+						if(isset($cmd_array['display'])){
+							$display = $cmd_array['display'];
+							if(isset($display['icon'])){
+								$icon = $display['icon'];
+							}
+							if(isset($display['invertBinary'])){
+								$invertBinary = $display['invertBinary'];
+							}
+							if(isset($display['title_disable'])){
+								$title_disable = $display['title_disable'];
+							}
+							if(isset($display['title_placeholder'])){
+								$title_placeholder = $display['title_placeholder'];
+							}
+							if(isset($display['message_placeholder'])){
+								$message_placeholder = $display['message_placeholder'];
+							}
+						}
+						
+						unset($cmd_array['isHistorized'],$cmd_array['configuration'], $cmd_array["customConfiguration"], $cmd_array['template'], $cmd_array['display'], $cmd_array['html']);
+						
+						if ($maxValue != null) {
+							$cmd_array['configuration']['maxValue'] = floatval($maxValue);
+						}
+						if ($minValue != null) {
+							$cmd_array['configuration']['minValue'] = floatval($minValue);
+						}
+						if ($icon != null) {
+							$cmd_array['display']['icon'] = $icon;
+						}
+						if(isset($invertBinary)){
+							if ($invertBinary != null) {
+								$cmd_array['display']['invertBinary'] = intval($invertBinary);
+							}
+						}
+						if(isset($title_disable)){
+							if ($title_disable != null) {
+								$cmd_array['display']['title_disable'] = $title_disable;
+							}
+						}
+						if(isset($title_placeholder)){
+							if ($title_placeholder != null) {
+								$cmd_array['display']['title_placeholder'] = $title_placeholder;
+							}
+						}
+						if(isset($message_placeholder)){
+							if ($message_placeholder != null) {
+								$cmd_array['display']['message_placeholder'] = $message_placeholder;
+							}
+						}
+						if(isset($actionCodeAccess)){
+							if($actionCodeAccess !== null ){
+								if($actionCodeAccess !== ''){
+									$cmd_array['configuration']['actionCodeAccess'] = true;
+								}
+							}
+						}
+						if(isset($actionConfirm)){
+							if($actionConfirm !== null){
+								if($actionConfirm == 1){
+									$cmd_array['configuration']['actionConfirm'] = true;
+								}
+							}
+						}
+						if ($cmd_array['type'] == 'action'){
+							unset($cmd_array['currentValue']);
+						}
+						if ($cmd_array['type'] == 'info'){
+							if ($cmd_array['value'] === null || $cmd_array['value'] == "") {
+								unset($cmd_array['value']);
+							}
+							$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
+						}
+						if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
+							$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
+						}
+						if ($cmd_array['unite'] === null || $cmd_array['unite'] == ""){
+							unset($cmd_array['unite']);
+						}
+						if (isset($cmd_array['isVisible'])){
+							$cmd_array['isVisible']=intval($cmd_array['isVisible']);
+						}
+						$cmds_array[] = $cmd_array;
+						$i++;
+					}
+					if($i > 0){
+						$return = $cmds_array;
+					}
+				}
 			}
 		}
 		return $return;
@@ -1156,37 +1158,19 @@ class homebridge extends eqLogic {
 		return $return;
 	}
 	
-	/*public static function discovery_message() {
-		$all = utils::o2a(message::all());
-		$return = [];
-		foreach ($all as &$message){
-				$return[]=$message;	
+	public static function delete_object_eqlogic_null($objects, $eqLogics) {
+		$return = array();
+		$object_id = array();
+		foreach ($eqLogics as $eqLogic) {
+			$object_id[$eqLogic['object_id']] = $eqLogic['object_id'];
 		}
-		return $return;
-	}*/
-	
-	/*public static function discovery_plan() {
-		$all = utils::o2a(planHeader::all());
-		$return = [];
-		foreach ($all as &$plan){
-				$return[]=$plan;	
-		}
-		return $return;
-	}*/
-
-
-	public static function delete_object_eqlogic_null($objectsATraiter,$eqlogicsATraiter){
-		$retour = [];
-		foreach ($objectsATraiter as &$objectATraiter){
-			$id_object = $objectATraiter['id'];
-			foreach ($eqlogicsATraiter as &$eqlogicATraiter){
-				if ($id_object == $eqlogicATraiter['object_id']){
-					array_push($retour,$objectATraiter);
-					break;
-				}
+		foreach ($objects as $object) {
+			if (!isset($object_id[$object['id']])) {
+				continue;
 			}
+			$return[] = $object;
 		}
-		return $retour;
+		return $return;
 	}
 
 	
