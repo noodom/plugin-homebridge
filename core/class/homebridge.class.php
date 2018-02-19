@@ -440,9 +440,9 @@ class homebridge extends eqLogic {
 	public static function generate_file(){
 		log::add('homebridge','info','Génération du fichier config.json de Homebridge');
 		if(self::deamon_info()=="ok") self::deamon_stop();
-		//$user_homebridge = config::byKey('user_homebridge','homebridge',1,true);
-		//config::save('user_homebridge',$user_homebridge,'homebridge');
-		//$user = user::byId($user_homebridge);
+
+		if(jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) === false) homebridge::migrateCustomData();
+		
 		$AdminUsers= user::byProfils("admin",true);
 		$user = $AdminUsers[0]; // take the first one
 		if(is_object($user)){
