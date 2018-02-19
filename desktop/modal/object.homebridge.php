@@ -24,9 +24,16 @@ sendVarToJS('object', $_GET['object_id']);
 function listAlarmSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getGeneric_type() == "ALARM_SET_MODE") {
-			$val = $cmd->getid().'|'.$cmd->getName();
-			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+		if (jeedom::version() >= '3.2.1') {
+			if($cmd->getGeneric_type() == "ALARM_SET_MODE") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
+		} else {
+			if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
 		}
 	}
 	return $opt;
@@ -34,9 +41,16 @@ function listAlarmSetModes($cmds,$selected) {
 function listThermoSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getGeneric_type() == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
-			$val = $cmd->getid().'|'.$cmd->getName();
-			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+		if (jeedom::version() >= '3.2.1') {
+			if($cmd->getGeneric_type() == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
+		} else {
+			if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
 		}
 		if($cmd->getName() == 'Off' && $selected == 'Off') {
 			return '<input class="eqLogicAttrThermo configuration hidden" data-l1key="configuration" data-l2key="Off" value="'.$cmd->getid().'|'.$cmd->getName().'" />';
@@ -170,10 +184,12 @@ function listThermoSetModes($cmds,$selected) {
 											$customCMDValuesArr=['id'=>null,'display'=>null,'configuration'=>null];
 											array_push($tableau_cmd, $cmd_id);
 											
-											if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
-												$cmd->setGeneric_type($cmd_array['display']['generic_type']);
-												$cmd->save();
-												$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+											if (jeedom::version() >= '3.2.1') {
+												if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+													$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+													$cmd->save();
+													$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+												}
 											}
 											
 											// replace generic_type if auto-config data exists
@@ -216,7 +232,17 @@ function listThermoSetModes($cmds,$selected) {
 													</div>
 												</td>
 												<td>
+												<?php
+													if (jeedom::version() >= '3.2.1') :
+												?>
 													<select class="cmdAttr form-control" data-l1key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
+												<?php
+													else :
+												?>
+													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
+												<?php
+													endif;
+												?>
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
@@ -255,11 +281,20 @@ function listThermoSetModes($cmds,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
-																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
-																		$isCustomisable = $info['key'];
+																if (jeedom::version() >= '3.2.1') {
+																	if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
+																		if(in_array($info['key'],homebridge::PluginCustomisable())) {
+																			$isCustomisable = $info['key'];
+																		}
+																		$selected=' selected';
 																	}
-																	$selected=' selected';
+																} else {
+																	if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['display']['generic_type']) && $info['key'] == $customCMDValuesArr['display']['generic_type'])){
+																		if(in_array($info['key'],homebridge::PluginCustomisable())) {
+																			$isCustomisable = $info['key'];
+																		}
+																		$selected=' selected';
+																	}
 																}
 																echo '<option value="' . ((isset($info['homebridge_type']) && $info['homebridge_type'])?'HB|':'') . $info['key'] . '" '.((isset($info['homebridge_type']) && $info['homebridge_type'])?'class="orange"':'').$selected.'>' . $info['type'] . ' / ' . $info['name'] . '</option>';
 															}
@@ -383,7 +418,17 @@ $('.cmdAttr').on('change',function(){
 });
 
 // show custom config
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
 $('.cmdAttr[data-l1key=generic_type]').on('change',function(){
+<?php
+	else :
+?>
+$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change',function(){
+<?php
+	endif;
+?>
 	var SelectedValue = $(this).value();
 	switch(SelectedValue) {
 		case 'HB|SWITCH_STATELESS_ALLINONE' :
@@ -469,8 +514,19 @@ function SaveObject(){
 	$('.TableCMD tr').each(function(){
 		if($(this).attr('data-change') == '1'){
 			cmdValues = $(this).getValues('.cmdAttr')[0];
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
 			if(cmdValues.generic_type.substr(0,3) == 'HB|') {
 				cmdValues.generic_type = cmdValues.generic_type.replace('HB|','');
+<?php
+	else :
+?>
+			if(cmdValues.display.generic_type.substr(0,3) == 'HB|') {
+				cmdValues.display.generic_type = cmdValues.display.generic_type.replace('HB|','');
+<?php
+	endif;
+?>
 				customCmds.push(cmdValues);
 			}
 			else {
@@ -593,7 +649,17 @@ $('body').undelegate('.cmdAttr[data-l1key=display][data-l2key=icon]', 'click').d
 	$(this).empty();
 });
 
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
 $('.cmdAttr[data-l1key=generic_type]').on('change', function () {
+<?php
+	else :
+?>
+$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change', function () {
+<?php
+	endif;
+?>
 	var cmdLine = $(this).closest('.cmdLine');
 	if ($(this).value() == 'GENERIC_INFO' || $(this).value() == 'GENERIC_ACTION') {
 		cmdLine.find('.iconeGeneric').show();
