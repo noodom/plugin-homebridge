@@ -67,8 +67,8 @@ if(!isConnect()) {
 			} elseif ($diffVer) {
 				$errorMessage = "{{Nouvelle version de Homebridge, relancez vos dépendances.}}";
 				$color = $jaune;
-			} elseif (jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) == false) {
-				$errorMessage = "{{Jeedom 3.2.1 mais données non migrées, <br/>Cliquez 'Réinstaller' pour le plugin Homebridge dans le Centre de mises à jour de Jeedom}}";
+			} elseif (jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) === false) {
+				$errorMessage = "{{Jeedom >=3.2.1 mais données non migrées, Redémarrez le Démon}}";
 				$color = $orange;
 			}
 		?>
