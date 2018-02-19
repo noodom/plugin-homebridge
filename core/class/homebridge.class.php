@@ -316,8 +316,13 @@ class homebridge extends eqLogic {
 				if($cmd['id'] == $newValCmd['id']) {
 					if($newValCmd['configuration']) 
 						$content['cmd'][$id]['configuration'] = $newValCmd['configuration'];
-					if($newValCmd['generic_type'])
-						$content['cmd'][$id]['generic_type'] = $newValCmd['generic_type'];
+					if (jeedom::version() >= '3.2.1') {
+						if($newValCmd['generic_type'])
+							$content['cmd'][$id]['generic_type'] = $newValCmd['generic_type'];
+					} else {
+						if($newValCmd['display'])
+-							$content['cmd'][$id]['display'] = $newValCmd['display'];
+					}
 					$found = true;
 					break;
 				}
@@ -390,25 +395,32 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function migrateCustomData(){
-		log::add('homebridge','info','Migration des données spécifique à Homebridge');
-		$content = homebridge::getCustomData();
-		$found=false;
-
-		foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
-			if ($cmdCustom['display']['generic_type']) {
-				log::add('homebridge','debug','Modification de la commande '.$cmdCustom['id'].' generic_type : '.$cmdCustom['display']['generic_type']);
-				$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
-				unset($content['cmd'][$keyCmdCustom]['display']);
-				$found=true;
-			}
-		}
+		$migrated321 = config::byKey('migrated321','homebridge',false,true);
 		
-		if($found) {
-			$content = json_encode($content);
-			$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
-			return (($ret===false)?false:true);
+		if(!$migrated321) {
+			log::add('homebridge','info','Migration des données spécifique à Homebridge');
+			$content = homebridge::getCustomData();
+			$found=false;
+
+			foreach ($content['cmd'] as $keyCmdCustom => $cmdCustom) {
+				if ($cmdCustom['display']['generic_type']) {
+					log::add('homebridge','debug','Modification de la commande '.$cmdCustom['id'].' generic_type : '.$cmdCustom['display']['generic_type']);
+					$content['cmd'][$keyCmdCustom]['generic_type'] = $cmdCustom['display']['generic_type'];
+					unset($content['cmd'][$keyCmdCustom]['display']);
+					$found=true;
+				}
+			}
+			
+			if($found) {
+				$content = json_encode($content);
+				$ret = file_put_contents(dirname(__FILE__) . '/../../data/customData.json',$content);
+				$ret = (($ret===false)?false:true);
+				config::save('migrated321',$ret,'homebridge');
+				return $ret;
+			}
+			config::save('migrated321',true,'homebridge');
+			return true;
 		}
-		return true;
 	}
 	
 	public static function cryptedMagic() {
@@ -850,12 +862,14 @@ class homebridge extends eqLogic {
 					foreach ($cmds as $cmd) {
 						$cmd_array = $cmd->exportApi();
 						
-						if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
-							$cmd->setGeneric_type($cmd_array['display']['generic_type']);
-							$cmd->save();
-							$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+						if (jeedom::version() >= '3.2.1') {
+							if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+								$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+								$cmd->save();
+								$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+							}
 						}
-						
+							
 						// replace generic_type if auto-config data exists
 						$logicalId = $cmd_array['logicalId'];
 						if(!isset($specificValue)) $specificValue = 'default';
@@ -869,7 +883,11 @@ class homebridge extends eqLogic {
 						// replace generic_type if custom type exists							
 						foreach($customCmds as $custCmd) { 
 							if($cmd_array['id'] == $custCmd['id']) {
-								$cmd_array['generic_type'] = $custCmd['generic_type'];
+								if (jeedom::version() >= '3.2.1') {
+									$cmd_array['generic_type'] = $custCmd['generic_type'];
+								} else {
+									$cmd_array['generic_type'] = $custCmd['display']['generic_type'];
+								}
 								$cmd_array['customConfiguration'] = $custCmd['configuration'];
 								break;
 							}
