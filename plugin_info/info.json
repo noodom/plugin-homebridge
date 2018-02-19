@@ -3,7 +3,7 @@
 	"name" : "Homebridge",
 	"licence" : "AGPL",
 	"author" : "Nebz",
-	"require" : "3.0",
+	"require" : "3.3",
 	"installation" : "Aucune",
 	"hasDependency" : true,
 	"hasOwnDeamon" : true,
