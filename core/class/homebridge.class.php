@@ -35,6 +35,7 @@ class homebridge extends eqLogic {
 		$PluginWidget = ['alarm','camera','thermostat','netatmoThermostat','weather','mode'];	
 		return $PluginWidget; 
 	}*/
+	public static $_listenEvents = array('cmd::update', 'scenario::update');
 
 	public static function getCustomGenerics(){
 		$CUSTOM_GENERIC_TYPE = array(
