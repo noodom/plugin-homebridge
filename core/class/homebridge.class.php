@@ -895,7 +895,7 @@ class homebridge extends eqLogic {
 						}
 
 						// we kept errors as it might be a custom but now we could ignore it
-						if(in_array($cmd->getGeneric_type(),['GENERIC_ERROR','DONT'])) continue;
+						if(in_array($cmd_array['generic_type'],['GENERIC_ERROR','DONT'])) continue;
 						
 						//Variables
 						$maxValue = null;
