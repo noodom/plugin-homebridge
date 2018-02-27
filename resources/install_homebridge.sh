@@ -143,7 +143,7 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
-sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-stable.git#master
+sudo npm install -g --unsafe-perm NebzHB/homebridge-stable#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 echo "Installation de Homebridge-Jeedom..."
@@ -151,9 +151,9 @@ if [ -n $2 ]; then
 	BRANCH=$2
 	echo "Sur la branche ${BRANCH}"
 fi
-sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-jeedom.git#${BRANCH}
+sudo npm install -g --unsafe-perm NebzHB/homebridge-jeedom#${BRANCH}
 echo "Installation de Homebridge-Camera-FFMPEG..."
-sudo npm install -g --unsafe-perm https://github.com/NebzHB/homebridge-camera-ffmpeg.git#master
+sudo npm install -g --unsafe-perm NebzHB/homebridge-camera-ffmpeg#master
 echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
