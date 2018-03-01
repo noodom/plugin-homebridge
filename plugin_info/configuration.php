@@ -206,7 +206,8 @@ if(!isConnect()) {
 						});
 					},
 					success : function(data) {
-						$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						//$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						$('li.li_plugin.active').click();
 						$('#div_alert').showAlert({
 							message : "{{Réparation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
 							level : 'success'
@@ -234,7 +235,8 @@ if(!isConnect()) {
 						});
 					},
 					success : function(data) {
-						$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						//$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						$('li.li_plugin.active').click();
 						$('#div_alert').showAlert({
 							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'à la fin de l'installation des dépendances}}",
 							level : 'success'
