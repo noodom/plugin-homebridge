@@ -1126,6 +1126,7 @@ image::../images/reinitialisation.png[]
     * Nouveau type spécifique homebridge : "Online" permettant de passer le composant en "Sans réponse" dans Maison s'il a la valeur de 0.
     * Nouveau type spécifique homebridge : "Bouton poussoir" qui est en fait un interrupteur mais qui s'éteint tout seul. Cela permet d'associer n'importe quelle commande action de type "autre".
     * Support du type générique Action/Générique pour les commandes action de type "autre" seulement. (Comme un Bouton poussoir)
+    * Support des commandes camera comme bouton pousoir(Haut,Bas,Gauche,Droite,Zoom,DéZoom,Preset) et de l'enregistrement comme un interrupteur.
     * Meilleur gestion du type Haut-Parleur (si pas de Mute)
     * Gestion automatique pour la serrure TheKeys
     * Séparation des types "Prise" et "Interrupteur"
