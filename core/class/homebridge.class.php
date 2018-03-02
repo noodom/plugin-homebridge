@@ -143,6 +143,17 @@ class homebridge extends eqLogic {
 											'kelvinInfo'=>'LIGHT_COLOR_TEMP',
 											'kelvin'=>'LIGHT_SET_COLOR_TEMP'
 										]
+								],
+							'camera'=>
+								[
+									//'field'=>'model',
+									'default'=>
+										[
+											'recordState'=>'CAMERA_RECORD_STATE',
+											'sendSnapshot'=>'CAMERA_RECORD',
+											'stopRecordCmd'=>'CAMERA_STOP',
+											'motionDetectAlarm'=>'PRESENCE'
+										]
 								]
 							];
 		
