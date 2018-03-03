@@ -58,6 +58,7 @@ echo "Version actuelle : ${actual}"
 arch=`arch`;
 
 #if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
+installVer='6'
 minVer='v5'
 testVer=`php -r "echo version_compare('${actual}','${minVer}','>=');"`
 if [[ $testVer == "1" ]]
@@ -108,18 +109,23 @@ else
   
   if [[ $arch == "aarch64" ]]
   then
-    echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
-    wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
-    sudo dpkg -i nodejs_5-1_arm64.deb
-    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs &>/dev/null
-    rm nodejs_5-1_arm64.deb
+    if [[ $installVer == '6' ]]
+    then
+      arch = 'arm64'
+    else
+      echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
+      sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
+      wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
+      sudo dpkg -i nodejs_5-1_arm64.deb
+      sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs &>/dev/null
+      rm nodejs_5-1_arm64.deb
+    fi
   fi
   
   if [[ $arch != "aarch64" && $arch != "armv6l" ]]
   then
     echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
     sudo apt-key update
     sudo apt-get install -y nodejs  
   fi
