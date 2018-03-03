@@ -88,13 +88,13 @@ else
   
   if [[ $arch == "armv6l" ]]
   then
-    echo "Raspberry 1 ou zéro détecté, utilisation du paquet pour armv6l"
-    wget https://nodejs.org/download/release/v6.9.5/node-v6.9.5-linux-armv6l.tar.gz
-    tar -xvf node-v6.9.5-linux-armv6l.tar.gz
-    cd node-v6.9.5-linux-armv6l
+    echo "Raspberry 1 ou zéro détecté, utilisation du paquet pour ${arch}"
+    wget https://nodejs.org/download/release/v6.9.5/node-v6.9.5-linux-${arch}.tar.gz
+    tar -xvf node-v6.9.5-linux-${arch}.tar.gz
+    cd node-v6.9.5-linux-${arch}
     sudo cp -R * /usr/local/
     cd ..
-    rm -fR node-v6.9.5-linux-armv6l*
+    rm -fR node-v6.9.5-linux-${arch}*
     #upgrade to recent npm
     sudo npm install -g npm
   else
