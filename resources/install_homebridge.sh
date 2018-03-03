@@ -94,9 +94,8 @@ else
     cd node-v6.9.5-linux-armv6l
     sudo cp -R * /usr/local/
     cd ..
-    rm -fR node-v6.9.5-linux-armv6l/
-    rm -f node-v6.9.5-linux-armv6l.tar.gz
-    upgrade to recent npm
+    rm -fR node-v6.9.5-linux-armv6l*
+    #upgrade to recent npm
     sudo npm install -g npm
   else
     echo "Utilisation du dépot officiel"
