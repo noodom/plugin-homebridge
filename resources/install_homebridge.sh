@@ -102,6 +102,10 @@ else
     curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
     sudo apt-key update
     sudo apt-get install -y nodejs  
+    if [[ $arch == "aarch64" ]]
+    then
+    	npm config set prefix /usr/local
+    fi
   fi
 
   new=`nodejs -v`;
