@@ -64,6 +64,7 @@ testVer=`php -r "echo version_compare('${actual}','${minVer}','>=');"`
 if [[ $testVer == "1" ]]
 then
   echo "Ok, version suffisante";
+  new=$actual
 else
   echo 20 > ${PROGRESS_FILE}
   echo "--20%"
@@ -124,6 +125,10 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
+if [[ $new != $actual ]]
+then
+  rm -fR ${nodePath}/homebridge
+fi
 sudo npm install -g --unsafe-perm NebzHB/homebridge-stable#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
