@@ -78,6 +78,9 @@ else
     sudo npm rm -g node-gyp --save
     cd `npm root -g`;
     sudo npm rebuild
+    npmPrefix=`npm prefix -g`
+  else
+    npmPrefix="/usr"
   fi
   sudo rm -f /usr/bin/homebridge &>/dev/null
   sudo rm -f /usr/local/bin/homebridge &>/dev/null
@@ -102,11 +105,9 @@ else
     curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
     sudo apt-key update
     sudo apt-get install -y nodejs  
-    if [[ $arch == "aarch64" ]]
-    then
-    	npm config set prefix /usr/local
-    fi
   fi
+  
+  npm config set prefix ${npmPrefix}
 
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
