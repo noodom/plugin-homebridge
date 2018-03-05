@@ -58,7 +58,7 @@ if(!isConnect()) {
 			} elseif (strstr($interne,'https')) {
 				$errorMessage = "{{Attention : Votre adresse interne est en https (Configuration > Réseau). Homebridge ne foncitonnera pas.}}";
 				$color = $rouge;
-			} elseif ($jsonrpc != 'enable') {
+			} elseif ($jsonrpc == 'disable') {
 				$errorMessage = "{{Attention : JSONRPC n'est pas activé (Configuration > API). Homebridge ne fonctionnera pas.}}";
 				$color = $rouge;
 			} elseif (jeedom::getHardwareName() == "Docker") {
