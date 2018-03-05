@@ -125,10 +125,11 @@ sudo rm -Rf ${nodePath}/homebridge-jeedom/.git
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
-if [[ $new != $actual ]]
-then
-  rm -fR ${nodePath}/homebridge
-fi
+#should not be needed
+#if [[ $new != $actual ]]
+#then
+#  rm -fR ${nodePath}/homebridge
+#fi
 sudo npm install -g --unsafe-perm NebzHB/homebridge-stable#master
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
@@ -174,7 +175,7 @@ if [ -e ${BASEDIR}/../node ]; then
   npm cache clean
   sudo npm cache clean
   cd ${BASEDIR}/../
-  sudo rm -rf ${BASEDIR}/../node
+  sudo rm -Rf ${BASEDIR}/../node
 fi
 
 # do not break i don't know what
@@ -219,4 +220,4 @@ fi
 echo "Installation Homebridge OK"
 echo 100 > ${PROGRESS_FILE}
 echo "--100%"
-rm ${PROGRESS_FILE}
+rm -f ${PROGRESS_FILE}
