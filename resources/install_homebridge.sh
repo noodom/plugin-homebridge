@@ -58,10 +58,10 @@ echo "Version actuelle : ${actual}"
 arch=`arch`;
 
 #if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
-installVer='4' 	#version to be installed
-minVer='4'	#min version to be accepted
-exclVer='5'	#version to be excluded (still need to manage multiple)
-exclVerSix='6'	#version to be excluded, temporary force downgrade to 4
+installVer='4' 	#major version to be installed
+minVer='4.8.7'	#min version to be accepted
+exclVer='5'	#major version to be excluded (still need to manage multiple)
+exclVerSix='6'	#major version to be excluded, temporary force downgrade to 4.8.7
 testVer=`php -r "echo version_compare('${actual}','v${minVer}','>=');"`
 if [[ $testVer == "1" && $actual != "v${exclVer}."* && $actual != "v${exclVerSix}."* ]]
 then
