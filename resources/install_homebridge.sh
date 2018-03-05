@@ -48,6 +48,7 @@ if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
 fi
 echo 5 > ${PROGRESS_FILE}
 echo "--5%"
+sudo dpkg --configure -a
 sudo apt-get update
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 echo 10 > ${PROGRESS_FILE}
