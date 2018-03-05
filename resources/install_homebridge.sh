@@ -61,8 +61,9 @@ arch=`arch`;
 installVer='4' 	#version to be installed
 minVer='4'	#min version to be accepted
 exclVer='5'	#version to be excluded (still need to manage multiple)
+exclVerSix='6'	#version to be excluded, temporary force downgrade to 4
 testVer=`php -r "echo version_compare('${actual}','v${minVer}','>=');"`
-if [[ $testVer == "1" && $actual != "v${exclVer}."* ]]
+if [[ $testVer == "1" && $actual != "v${exclVer}."* && $actual != "v${exclVerSix}."* ]]
 then
   echo "Ok, version suffisante";
   new=$actual
