@@ -95,12 +95,13 @@ else
   if [[ $arch == "armv6l" ]]
   then
     echo "Raspberry 1 ou zéro détecté, utilisation du paquet v${installVer} pour ${arch}"
-    wget https://nodejs.org/download/release/latest-v${installVer}.x/node-*-linux-${arch}.tar.gz
+    wget -r -l1 -np -nd -A 'node-*-linux-${arch}.tar.gz' https://nodejs.org/download/release/latest-v${installVer}.x/
+    sudo rm -f robots.txt*
     tar -xvf node-*-linux-${arch}.tar.gz
     cd node-*-linux-${arch}
     sudo cp -R * /usr/local/
     cd ..
-    rm -fR node-*-linux-${arch}*
+    sudo rm -fR node-*-linux-${arch}*
     #upgrade to recent npm
     sudo npm install -g npm
   else
