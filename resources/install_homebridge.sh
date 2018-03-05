@@ -96,7 +96,7 @@ else
   then
     echo "Raspberry 1 ou zéro détecté, utilisation du paquet v${installVer} pour ${arch}"
     cd /tmp
-    wget -r -l1 -np -nd -A 'node-*-linux-${arch}.tar.gz' https://nodejs.org/download/release/latest-v${installVer}.x/
+    wget -r -l1 -np -nd -A "node-*-linux-${arch}.tar.gz" https://nodejs.org/download/release/latest-v${installVer}.x/
     sudo rm -f robots.txt*
     tar -xvf node-*-linux-${arch}.tar.gz
     cd node-*-linux-${arch}
