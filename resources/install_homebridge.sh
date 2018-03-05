@@ -58,10 +58,11 @@ echo "Version actuelle : ${actual}"
 arch=`arch`;
 
 #if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
-installVer='6'
-minVer='v6'
-testVer=`php -r "echo version_compare('${actual}','${minVer}','>=');"`
-if [[ $testVer == "1" ]]
+installVer='4' 	#version to be installed
+minVer='4'	#min version to be accepted
+exclVer='5'	#version to be excluded (still need to manage multiple)
+testVer=`php -r "echo version_compare('${actual}','v${minVer}','>=');"`
+if [[ $testVer == "1" && $actual != "v${exclVer}."* ]]
 then
   echo "Ok, version suffisante";
   new=$actual
@@ -92,13 +93,13 @@ else
   
   if [[ $arch == "armv6l" ]]
   then
-    echo "Raspberry 1 ou zéro détecté, utilisation du paquet pour ${arch}"
-    wget https://nodejs.org/download/release/v6.9.5/node-v6.9.5-linux-${arch}.tar.gz
-    tar -xvf node-v6.9.5-linux-${arch}.tar.gz
-    cd node-v6.9.5-linux-${arch}
+    echo "Raspberry 1 ou zéro détecté, utilisation du paquet v${installVer} pour ${arch}"
+    wget https://nodejs.org/download/release/latest-v${installVer}.x/node-*-linux-${arch}.tar.gz
+    tar -xvf node-*-linux-${arch}.tar.gz
+    cd node-*-linux-${arch}
     sudo cp -R * /usr/local/
     cd ..
-    rm -fR node-v6.9.5-linux-${arch}*
+    rm -fR node-*-linux-${arch}*
     #upgrade to recent npm
     sudo npm install -g npm
   else
