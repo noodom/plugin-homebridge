@@ -140,6 +140,12 @@ sudo rm -rf node_modules
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
+if [ -n $2 ]; then
+	BRANCH=$2
+else
+	BRANCH="master"
+fi
+sudo sed -i "/.*homebridge-jeedom.*/c\    \"homebridge-jeedom\": \"NebzHB/homebridge-jeedom#${BRANCH}\"," ./package.json
 #need to be sudoed because of recompil
 sudo npm install
 sudo chown -R www-data .
