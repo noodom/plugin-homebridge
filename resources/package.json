@@ -1,10 +1,12 @@
 {
-  "name": "JeedomHomebridge",
+  "name": "jeedom_homebridge",
   "version": "0.0.1",
   "description": "Node to connect Homebridge to Jeedom",
   "license": "GPL-3.0",
   "repository": "npm/npm",
   "dependencies": {
-	"node-gyp": "latest"
+	"homebridge": "NebzHB/homebridge-stable#master",
+	"homebridge-jeedom": "NebzHB/homebridge-jeedom#beta",
+	"homebridge-camera-ffmpeg": "NebzHB/homebridge-camera-ffmpeg#master"
   }
 }
