@@ -225,7 +225,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function getLocalVersion($plugin='homebridge-jeedom') {
-		$npmRoot = trim(shell_exec('npm -g root'));
+		$npmRoot = dirname(__FILE__).'/../../resources/node_modules';
 		if (!file_exists($npmRoot.'/homebridge-jeedom/package.json')) {
 			$version = '0';
 			$serial  = '';
@@ -664,6 +664,7 @@ class homebridge extends eqLogic {
 	/**************************************************************************************/
 	
 	public static function uninstallHomebridge() {
+		/*
 		log::add('homebridge', 'info', 'Suppression homebridge-camera-ffmpeg...');
 		$cmd = system::getCmdSudo() . 'npm rm -g homebridge-camera-ffmpeg --save';
 		exec($cmd);
@@ -688,6 +689,8 @@ class homebridge extends eqLogic {
 		exec($cmd);
 		$cmd = system::getCmdSudo() . 'rm -f /usr/local/bin/homebridge >/dev/null 2>&1';
 		exec($cmd);
+		*/
+		$cmd = system::getCmdSudo() . 'rm -rf '.dirname(__FILE__) . '/../../resources/node_modules &>/dev/null';
 		log::add('homebridge', 'info', 'Homebridge supprimé');
 	}
 	
