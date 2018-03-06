@@ -14,6 +14,8 @@ if [ ! -d "$DIRECTORY" ]; then
 fi
 sudo chown -R www-data $DIRECTORY
 
+echo 10 > ${PROGRESS_FILE}
+echo "--10%"
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
 sudo killall homebridge &>/dev/null
 
@@ -55,13 +57,13 @@ if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
   fi
 fi
 
-echo 5 > ${PROGRESS_FILE}
-echo "--5%"
+echo 20 > ${PROGRESS_FILE}
+echo "--20%"
 sudo apt-get update
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 
-echo 10 > ${PROGRESS_FILE}
-echo "--10%"
+echo 30 > ${PROGRESS_FILE}
+echo "--30%"
 type nodejs &>/dev/null
 if [ $? -eq 0 ]; then actual=`nodejs -v`; fi
 echo "Version actuelle : ${actual}"
@@ -73,8 +75,8 @@ then
   echo "Ok, version suffisante";
   new=$actual
 else
-  echo 20 > ${PROGRESS_FILE}
-  echo "--20%"
+  echo 40 > ${PROGRESS_FILE}
+  echo "--40%"
   echo "KO, version obsolète à upgrader";
   echo "Suppression du Nodejs existant et installation du paquet recommandé"
   #if npm exists
@@ -93,8 +95,8 @@ else
   fi
   sudo apt-get -y --purge autoremove nodejs npm
   
-  echo 30 > ${PROGRESS_FILE}
-  echo "--30%"
+  echo 45 > ${PROGRESS_FILE}
+  echo "--45%"
   if [[ $arch == "armv6l" ]]
   then
     echo "Raspberry 1, 2 ou zéro détecté, utilisation du paquet v${installVer} pour ${arch}"
@@ -119,8 +121,8 @@ else
   echo "Version actuelle : ${new}"
 fi
 
-echo 40 > ${PROGRESS_FILE}
-echo "--40%"
+echo 50 > ${PROGRESS_FILE}
+echo "--50%"
 # Remove old globals
 sudo rm -f /usr/bin/homebridge &>/dev/null
 sudo rm -f /usr/local/bin/homebridge &>/dev/null
@@ -135,38 +137,15 @@ cd ${BASEDIR};
 #remove old local modules
 sudo rm -rf node_modules
 
-echo 50 > ${PROGRESS_FILE}
-echo "--50%"
-echo "Installation de Node-Gyp..."
-#install deps from package.json
-npm install
-sudo chown -R www-data node_modules
-
 echo 60 > ${PROGRESS_FILE}
 echo "--60%"
 echo "Installation de Homebridge..."
 #need to be sudoed because of recompil
-sudo npm install NebzHB/homebridge-stable#master
-sudo chown -R www-data node_modules
+sudo npm install
+sudo chown -R www-data .
 
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
-echo "Installation de Homebridge-Jeedom..."
-if [ -n $2 ]; then
-	BRANCH=$2
-	echo "Sur la branche ${BRANCH}"
-fi
-npm install NebzHB/homebridge-jeedom#${BRANCH}
-sudo chown -R www-data node_modules
-
-echo 75 > ${PROGRESS_FILE}
-echo "--75%"
-echo "Installation de Homebridge-Camera-FFMPEG..."
-npm install NebzHB/homebridge-camera-ffmpeg#master
-sudo chown -R www-data node_modules
-
-echo 80 > ${PROGRESS_FILE}
-echo "--80%"
 hasPHP7GMP=`sudo dpkg -l | grep php7.0-gmp | wc -l`
 hasPHP5GMP=`sudo dpkg -l | grep php5-gmp | wc -l`
 if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]]; then
@@ -191,8 +170,8 @@ if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]]; then
   fi
 fi
 
-echo 85 > ${PROGRESS_FILE}
-echo "--85%"
+echo 80 > ${PROGRESS_FILE}
+echo "--80%"
 # removing old node solution
 if [ -e ${BASEDIR}/../node ]; then
   cd ${BASEDIR}/../node/
