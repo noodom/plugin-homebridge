@@ -205,7 +205,7 @@ class homebridge extends eqLogic {
 		log::add('homebridge','debug',"/usr/bin/homebridge existe:".((file_exists('/usr/bin/homebridge'))?'oui':'non'));
 		log::add('homebridge','debug',"/usr/local/bin/homebridge existe:".((file_exists('/usr/local/bin/homebridge'))?'oui':'non'));*/
 		
-		if ((file_exists('/usr/bin/homebridge') || file_exists('/usr/local/bin/homebridge')) && version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>=')) {
+		if (file_exists(dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge') && version_compare(self::getLocalVersion(),self::getRemoteVersion(),'>=')) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
@@ -607,7 +607,7 @@ class homebridge extends eqLogic {
 		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		
-		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .'homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
+		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
