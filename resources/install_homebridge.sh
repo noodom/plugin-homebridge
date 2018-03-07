@@ -59,7 +59,7 @@ arch=`arch`;
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
-if [[ $actual == *"4."* || $actual == *"5."*  || $actual == *"6."* || $actual == *"8."* || $actual == *"10."* ]]
+if [[ $actual == *"8."* || $actual == *"9."* || $actual == *"10."* ]]
 then
   echo "Ok, version suffisante";
 else
@@ -93,39 +93,12 @@ else
     sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
     rm node_latest_armhf.deb
     
-    #echo "Raspberry zéro détecté, utilisation du paquet pour armv6l"
-    #wget https://nodejs.org/dist/v5.12.0/node-v5.12.0-linux-armv6l.tar.gz
-    #tar -xvf node-v5.12.0-linux-armv6l.tar.gz
-    #cd node-v5.12.0-linux-armv6l
-    #sudo cp -R * /usr/local/
-    #cd ..
-    #rm -fR node-v5.12.0-linux-armv6l/
-    #rm -f node-v5.12.0-linux-armv6l.tar.gz
-    #upgrade to recent npm
-    #sudo npm install -g npm
-  fi
-  
-  if [[ $arch == "aarch64" ]]
-  then
-    echo "Utilisation du dépot exotique car paquet officiel non existant en V5"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
-    wget http://dietpi.com/downloads/binaries/c2/nodejs_5-1_arm64.deb
-    sudo dpkg -i nodejs_5-1_arm64.deb
-    sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs &>/dev/null
-    rm nodejs_5-1_arm64.deb
-  fi
-  
-  if [[ $arch != "aarch64" && $arch != "armv6l" ]]
-  then
+  else
     echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-key update
     sudo apt-get install -y nodejs  
   fi
-#  echo "Utilisation du dépot officiel"
-#  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-#  sudo apt-key update
-#  sudo apt-get install -y nodejs  
 
   new=`nodejs -v`;
   echo "Version actuelle : ${new}"
