@@ -60,6 +60,7 @@ fi
 echo 20 > ${PROGRESS_FILE}
 echo "--20%"
 sudo apt-get update
+sudo dpkg --configure -a
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev
 
 echo 30 > ${PROGRESS_FILE}
