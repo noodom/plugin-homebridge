@@ -132,8 +132,7 @@ echo 80 > ${PROGRESS_FILE}
 echo "--80%"
 
 cd ${BASEDIR}/../node/
-npm cache clean
-sudo npm cache clean
+sudo npm cache verify
 sudo rm -rf node_modules
 sudo npm install --unsafe-perm bases &>/dev/null
 sudo npm install --unsafe-perm bignum &>/dev/null
