@@ -182,7 +182,6 @@ echo "--80%"
 if [ -e ${BASEDIR}/../node ]; then
   cd ${BASEDIR}/../node/
   sudo npm cache verify
-  sudo npm cache clean --force
   cd ${BASEDIR}/../
   sudo rm -Rf ${BASEDIR}/../node
 fi
