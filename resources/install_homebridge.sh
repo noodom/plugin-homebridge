@@ -181,8 +181,8 @@ echo "--80%"
 # removing old node solution
 if [ -e ${BASEDIR}/../node ]; then
   cd ${BASEDIR}/../node/
-  npm cache clean
-  sudo npm cache clean
+  sudo npm cache verify
+  sudo npm cache clean --force
   cd ${BASEDIR}/../
   sudo rm -Rf ${BASEDIR}/../node
 fi
