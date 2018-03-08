@@ -4,6 +4,12 @@ touch ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
 echo "--0%"
 BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIRECTORY="/var/www"
+if [ ! -d "$DIRECTORY" ]; then
+  echo "Création du home www-data pour npm"
+  sudo mkdir $DIRECTORY
+fi
+sudo chown -R www-data $DIRECTORY
 
 echo "Lancement de l'installation/mise à jour des dépendances homebridge"
 sudo killall homebridge &>/dev/null
