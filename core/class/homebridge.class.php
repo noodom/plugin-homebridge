@@ -607,7 +607,12 @@ class homebridge extends eqLogic {
 		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
 		
-		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
+		$insecure='';
+		if(homebridge::isMagic('NBakLcxU29STU')) { // pass homebridge insecure (for alexa)
+			$insecure='-I ';
+		}			
+		
+		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
