@@ -82,13 +82,13 @@ else
   #if npm exists
   type npm &>/dev/null
   if [ $? -eq 0 ]; then
-    sudo npm rm -g homebridge-camera-ffmpeg --save
-    sudo npm rm -g homebridge-jeedom --save
-    sudo npm rm -g homebridge --save
-    sudo npm rm -g request --save
-    sudo npm rm -g node-gyp --save
+    sudo npm rm -g homebridge-camera-ffmpeg --save &>/dev/null
+    sudo npm rm -g homebridge-jeedom --save &>/dev/null
+    sudo npm rm -g homebridge --save &>/dev/null
+    sudo npm rm -g request --save &>/dev/null
+    sudo npm rm -g node-gyp --save &>/dev/null
     cd `npm root -g`;
-    sudo npm rebuild
+    sudo npm rebuild &>/dev/null
     npmPrefix=`npm prefix -g`
   else
     npmPrefix="/usr"
