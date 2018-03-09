@@ -603,9 +603,20 @@ class homebridge extends eqLogic {
 			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
 
+		if(jeedom::getHardwareName() == "Docker") {
+			// check dbus-daemon started, if not, start
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "dbus-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start dbus;echo "Démarrage dbus-daemon";sleep 1; fi';
+			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		}
+		
 		// check avahi-daemon started, if not, start
 		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon";sleep 1; fi';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		if(jeedom::getHardwareName() == "Docker") {
+			// start 2 times if Docker
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon;echo "Démarrage avahi-daemon 2";sleep 1; fi';
+			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
+		}
 		
 		$insecure='';
 		if(homebridge::isMagic('NBakLcxU29STU')) { // pass homebridge insecure (for alexa)
