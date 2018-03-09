@@ -113,7 +113,6 @@ else
     echo "Utilisation du dépot officiel"
     curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
     wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    sudo apt-key update
     sudo apt-get install -y nodejs  
   fi
   
