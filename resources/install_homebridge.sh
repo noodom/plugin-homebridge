@@ -111,7 +111,6 @@ else
     sudo npm install -g npm
   else
     echo "Utilisation du dépot officiel"
-    sudo rm -f /etc/apt/sources.list.d/nodesource.list &>/dev/null
     curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
     wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
     sudo apt-key update
