@@ -605,17 +605,18 @@ class homebridge extends eqLogic {
 
 		if(jeedom::getHardwareName() == "Docker") {
 			// check dbus-daemon started, if not, start
-			$cmd = 'if [ $(ps -ef | grep -v grep | grep "dbus-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start dbus.service || ' . system::getCmdSudo() . 'service dbus start;echo "Démarrage dbus-daemon";sleep 1; fi';
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "dbus-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'service dbus start;echo "Démarrage dbus-daemon";sleep 1; fi';
 			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1');
-		}
-		
-		// check avahi-daemon started, if not, start
-		$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon.service || ' . system::getCmdSudo() . 'service avahi-daemon start;echo "Démarrage avahi-daemon";sleep 1; fi';
-		exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');
-		if(jeedom::getHardwareName() == "Docker") {
 			// start 2 times if Docker
-			$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon.service || ' . system::getCmdSudo() . 'service avahi-daemon start;echo "Démarrage avahi-daemon 2";sleep 1; fi';
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'service avahi-daemon start;echo "Démarrage avahi-daemon 2";sleep 1; fi';
 			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1');
+			// start 2 times if Docker
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'service avahi-daemon start;echo "Démarrage avahi-daemon 2";sleep 1; fi';
+			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1');
+		} else {
+			// check avahi-daemon started, if not, start
+			$cmd = 'if [ $(ps -ef | grep -v grep | grep "avahi-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'systemctl start avahi-daemon.service;echo "Démarrage avahi-daemon";sleep 1; fi';
+			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1 &');	
 		}
 		
 		$insecure='';
