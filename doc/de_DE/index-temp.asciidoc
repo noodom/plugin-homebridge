@@ -1,49 +1,49 @@
 = HomeBridge Plugin
 
-== Présentation HomeBridge
+HomeBridge-Präsentation
 
-*Le plugin Homebridge* est un demon qui permet d’interagir avec un système domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Maison. 
+*Das HomeBridge-Plugin* ist ein Daemon, mit dem Sie über den Siri-Sprachassistenten auf iOS mit einem Heimautomationssystem interagieren können. Das HomeKit wurde seit iOS 8 eingeführt, ist aber erst ab iOS 10 über die Home-Anwendung voll funktionsfähig. 
 
 image::../images/homekit-logo.jpg[]
 
-Le plugin Homebridge de Jeedom permet donc d’exposer des équipements Jeedom qui seront vus comme des accessoires compatibles au protocole *HomeKit*.
+Das Homebridge-Plugin von Jeedom ermöglicht es, Jeedom-Geräte freizugeben, die mit dem *HomeKit*-Protokoll kompatibel sind.
 
 [IMPORTANT]
-*Homebridge n'est pas officiellement supporté par Apple. A tout moment Apple peut bloquer ce protocole.*
+*HomeBridge wird von Apple offiziell nicht unterstützt. Apple kann dieses Protokoll daher jederzeit sperren.*
 
-===  Que peut-on faire avec HomeBridge ?
+=== Was können Sie mit HomeBridge machen?
 
-Homebridge peut s'utiliser avec une application compatible HomeKit ou avec l'assistant vocal Siri.
+HomeBridge kann mit einer HomeKit-kompatiblen Anwendung oder mit dem Siri Sprachassistenten verwendet werden.
 
-Depuis iOS 10, l'application Maison (inclue par défaut avec iOS) permet le pilotage d'équipements compatibles HomeKit. 
+Seit iOS 10 ermöglicht die Home-Anwendung (standardmäßig im Lieferumfang von iOS enthalten) die Steuerung von HomeKit-kompatiblen Geräten. 
 
 image::../images/cuisine-homekit.jpg[]
 
-Les équipements peuvent être classés par pièce.
+Die Geräte können nach Räumen klassifiziert werden.
 
 image::../images/piece-homekit.jpg[]
 
-Beaucoup d'accessoires sont pris en charge.
+Viele Zubehörteile werden unterstützt.
 
 image::../images/garage-homekit.png[]
 
-Siri peut aussi interagir. Il répond aux questions : 
+Siri kann auch interagieren. Sie beantwortet Fragen : 
 
 
 image::../images/siri-01.jpg[]
 
-Siri peut également faire des actions : 
+Siri kann auch aktiv werden : 
 
 image::../images/siri-02.jpg[]
 
-HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
-L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+HomeKit hat den Vorteil, dass es auch außerhalb des Hauses einsetzbar ist. Die einzige Bedingung ist, dass Sie einen Hub benötigen. 
+Das iPad und AppleTV (und bald auch der HomePod) können als Hub genutzt werden. Dazu müssen sie mit demselben iCloud-Konto verbunden sein.
 
 
-[TIP]
-*HomeKit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.*
+[TIPP]
+*HomeKit ist der offizielle Name des von Apple entwickelten Protokolls. HomeBridge ist das von nfarina entwickelte Open Source Äquivalent. Letzteres hat das HAP-NodeJS-Projekt, das die treibende Kraft hinter HomeBridge ist, erweitert.*
 
-===  Type d'accessoire compatible avec HomeKit (on les ajoutera peu à peu à HomeBridge)
+=== HomeKit-kompatibler Zubehörtyp (wird nach und nach zur HomeBridge hinzugefügt)
 
 image::../images/acchb.jpg[]
 
@@ -435,14 +435,14 @@ L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et
 
 image::../images/home-1.jpg[]
 
-[TIP]
+[TIPP]
 Dans l'exemple, le domicile s'appelle "Test". Son nom peut être modifié en allant dans les réglages de l'application.
 
 Il faut scanner le code PIN 
 
 image::../images/home-2.jpg[]
 
-[TIP]
+[TIPP]
 *Le code PIN peut être également rentré manuellement en cliquant sur "Code absent ou impossible à scanner ?".*
 
 Il faut sélectionner le pont à inclure.
@@ -480,7 +480,7 @@ Maintenant, il ne reste plus qu'à ranger tous les accessoires dans les différe
 
 image::../images/home-052.jpg[]
 
-[TIP]
+[TIPP]
 *La fonction "Inclure dans les favoris" permet d'afficher l'accessoire dans la page principale de l'application*
 
 image::../images/home-053.jpg[]
@@ -592,7 +592,7 @@ TIP: Beaucoup d'informations se trouvent dans les logs, le prochain chapitre vou
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] │ Accessoire Ignoré
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
-[TIP]
+[TIPP]
 L'Accessoire 1 est visible mais la case "Envoyer vers Homebridge" n'est pas cochée. L'accessoire ne sera donc pas ajouté dans Homebridge.
 
 
@@ -607,7 +607,7 @@ L'Accessoire 1 est visible mais la case "Envoyer vers Homebridge" n'est pas coch
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] │ Ajout de l'accessoire (Accessoire 2)
 [Mon Jul 17 2017 19:35:08 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
-[TIP]
+[TIPP]
 L'Accessoire 2 est visible et la case "Envoyer vers Homebridge" est cochée. L'accessoire sera donc ajouté dans Homebridge.
 
 
@@ -621,7 +621,7 @@ L'Accessoire 2 est visible et la case "Envoyer vers Homebridge" est cochée. L'a
 [Mon Jul 17 2017 19:45:27 GMT+0000 (UTC)] [Jeedom] │ Accessoire Ignoré
 [Mon Jul 17 2017 19:45:27 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
-[TIP]
+[TIPP]
 L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mais il n'y a pas de type générique "Etat" (ou celui-ci n'est pas visible). L'accessoire ne sera donc pas intégré dans Homebridge. Pour corriger ce problème, ajoutez le type générique "Info / Prise Etat" à l'accessoire (ou cochez la case "visible").
 
 
@@ -638,7 +638,7 @@ L'Accessoire 3 est visible et la case "Envoyer vers Homebridge" est cochée. Mai
 [Mon Jul 17 2017 19:49:49 GMT+0000 (UTC)] [Jeedom] │ Ajout de l'accessoire (Accessoire 4)
 [Mon Jul 17 2017 19:49:49 GMT+0000 (UTC)] [Jeedom] └─────────
 ----
-[TIP]
+[TIPP]
 Il y a une incohérence entre les types génériques. Les types "actions" ne correpondent pas au type "info". Pour corriger le problème, modifiez les types génériques de l'accessoire en gardant une cohérence entre les types actions et info.
 
 
@@ -646,7 +646,7 @@ Il y a une incohérence entre les types génériques. Les types "actions" ne cor
 ----
 sh: 1: homebridge: not found
 ----
-[TIP]
+[TIPP]
 Les dépendances Homebridge ne sont pas installées ou certains fichiers sont manquants. Cliquez sur "Relancer".
 
 image::../images/dependances-homebridge.png[]
@@ -997,7 +997,7 @@ image::../images/custom-3.png[]
 
 image::../images/custom-4.png[]
 
-[TIP]
+[TIPP]
 *Si le champ unité a été indiqué dans jeedom, il remontra dans le type custom.*
 
 image::../images/custom-9.png[]
@@ -1123,7 +1123,10 @@ image::../images/reinitialisation.png[]
     * Meilleur code de génération pour le QRcode (en php)
     * Changement de plusieurs libellés dans la configuration du plugin.
     * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
-    * Nouveau type spécifique homebridge : "Online" permettant de passer le composant en "Sans réponse" dans Maison s'il a la valeur de 0.    
+    * Nouveau type spécifique homebridge : "Online" permettant de passer le composant en "Sans réponse" dans Maison s'il a la valeur de 0.
+    * Nouveau type spécifique homebridge : "Bouton poussoir" qui est en fait un interrupteur mais qui s'éteint tout seul. Cela permet d'associer n'importe quelle commande action de type "autre".
+    * Support du type générique Action/Générique pour les commandes action de type "autre" seulement. (Comme un Bouton poussoir)
+    * Support des commandes camera comme bouton pousoir(Haut,Bas,Gauche,Droite,Zoom,DéZoom,Preset) et de l'enregistrement comme un interrupteur.
     * Meilleur gestion du type Haut-Parleur (si pas de Mute)
     * Gestion automatique pour la serrure TheKeys
     * Séparation des types "Prise" et "Interrupteur"
@@ -1139,8 +1142,9 @@ image::../images/reinitialisation.png[]
       ** Température (chaque point de donnée est une moyenne des 10min précédentes)
       ** Humidité (chaque point de donnée est une moyenne des 10min précédentes)
       ** Pression (chaque point de donnée est une moyenne des 10min précédentes)
-      ** Porte ou Fenêtre ("Dernière ouverture" pas encore fonctionnel et "Nombre d'ouvertures" compte depuis le dernier démarrage du démon Homebridge)
-      ** Mouvement ("Dernier mouvement" pas encore fonctionnel)
+      ** Porte ou Fenêtre 
+      ** Mouvement 
+      ** Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
 [IMPORTANT]      
       Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif.
 
@@ -1185,7 +1189,7 @@ image::../images/reinitialisation.png[]
 ne pas modifier ce type dans Jeedom pendant que Homebridge fonctionne
     * Les types génériques "Info/Choc", "Info/Vent (direction)", "Info/Vent (vitesse)", "Info/Pluie (mm/h)", "Info/Pluie (accumulation)", "Info/Pression", "Info/Son (dB)" sont gérés comme des "Info/Générique" et affichés dans Eve.
     * Lumières : Fonctionnement est corrigé pour certains plugins (voir annonce forum)
-[TIP]
+[TIPP]
 Si vous aviez un pont Philips Hue v1, vous avez maintenant accès à HomeKit :)
     * Alarme : les modes sont liables aux modes imposés d'HomeKit : Absent, Nuit, Présent, Désactivé. Fonctionne en consultation ET action.
     * Thermostat : (Fonctionne mieux dans Eve) : Température de consigne fonctionne, les modes peuvent être liés aux modes imposés d'HomeKit : Chauf., Clim.. L'asservissement se faisant dans Jeedom, le mode auto ne sert à rien dans HomeKit. Le statut est dans un champ générique (visible dans Eve) (cette façon de faire permet de lier les modes et d'avoir une fonctionnalité supplémentaire au lieu  de simplement vous montrer que votre chauffage chauffe). Le verrouillage apparait aussi dans Eve.
@@ -1306,7 +1310,7 @@ Cela signifie qu'à l'installation de cette version, vos périphériques dans Ma
     * Ajout d'un ramasse miettes à la fin de l'ajout des périphériques présent dans Jeedom à Homebridge, tout ce qui n'a pas été ajouté/modifié est supprimé d'Homebridge (si vous avez rendu invisible un périf ou supprimé dans Jeedom par exemple).
     * Suppression du bouton Regénérer le fichier de configuration : plus besoin, lorsqu'on sauvegarde la configuration, on regénère le fichier automatiquement et on relance le daemon.
     * Suppression du bouton Effacer le cache : plus besoin, on gère la suppression individuelle des périphériques. 
-[TIP]
+[TIPP]
 Si vous avez un problème avec un périphérique malgré tout : décochez "Envoyer à Homebridge" | relancez le daemon | décochez "Envoyer à Homebridge" | relancez le daemon : il sera recréé tout proprement (et dans la pièce par défaut de Maison).
 
     * Ajout d'avertissements et de messages d'attention si on s'approche du nombre fatidique de 100 accessoires envoyés dans Homebridge (HomeKit ne supporte pas plus de 100 accessoires).

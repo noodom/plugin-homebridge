@@ -5,23 +5,28 @@
     * Changement de plusieurs libellés dans la configuration du plugin.
     * Nouveau type spécifique homebridge : "Occupation" légèrement différent de "mouvement" dans Maison et dans Eve, il est plus clair pour par exemple afficher une présence (plutot qu'un mouvement).
     * Nouveau type spécifique homebridge : "Online" permettant de passer le composant en "Sans réponse" dans Maison s'il a la valeur de 0.
+    * Nouveau type spécifique homebridge : "Bouton poussoir" qui est en fait un interrupteur mais qui s'éteint tout seul. Cela permet d'associer n'importe quelle commande action de type "autre".
+    * Support du type générique Action/Générique pour les commandes action de type "autre" seulement. (Comme un Bouton poussoir)
+    * Support des commandes camera comme bouton pousoir(Haut,Bas,Gauche,Droite,Zoom,DéZoom,Preset) et de l'enregistrement comme un interrupteur.
     * Meilleur gestion du type Haut-Parleur (si pas de Mute)
     * Gestion automatique pour la serrure TheKeys
     * Séparation des types "Prise" et "Interrupteur"
     * Les prises dans Jeedom sont maintenant des vrais prises dans Homebridge
-    * Les scénarios Jeedom sont ajoutés en tant qu'interrupteur dans Homebridge (si sélectionné dans la configuration) [En cours]
+    * Les scénarios Jeedom sont ajoutés en tant qu'interrupteur dans Homebridge (si sélectionné dans la configuration)
     * Composant "Pression" modifié pour apparaitre mieux dans Eve
     * Les interrupteur programmables dans homekit font leur apparition :)
       ** Interrupteur Programmable (Multi-Valeur) (Homebridge) : Il s'agit d'un interrupteur avec une commande de type info qui contiendra plusieurs valeurs en fonction du type de click effectué. ("click", "double_click", "long_click" par exemple ou encore 11 , 21 , 30). Ces valeurs sont configurables.
       ** Interrupteur Programmable Binaire (Simple Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un simple click sur le bouton.
       ** Interrupteur Programmable Binaire (Double Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un double click sur le bouton.
       ** Interrupteur Programmable Binaire (Long   Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un long click sur le bouton.
+    * Support (Alpha) de Docker : quelques modifications ont été faites pour faciliter l'utilisation du plugin sous Docker. Pas encore complètement compatible mais on s'en approche...
     * Affichage des graphiques dans l'application Eve (support Alpha). Fonctionne pour les types suivants :
       ** Température (chaque point de donnée est une moyenne des 10min précédentes)
       ** Humidité (chaque point de donnée est une moyenne des 10min précédentes)
       ** Pression (chaque point de donnée est une moyenne des 10min précédentes)
-      ** Porte ou Fenêtre ("Dernière ouverture" pas encore fonctionnel et "Nombre d'ouvertures" compte depuis le dernier démarrage du démon Homebridge)
-      ** Mouvement ("Dernier mouvement" pas encore fonctionnel)
+      ** Porte ou Fenêtre 
+      ** Mouvement 
+      ** Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
 [IMPORTANT]      
       Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif.
 
