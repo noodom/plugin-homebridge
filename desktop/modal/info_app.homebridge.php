@@ -104,9 +104,11 @@ ls -l nodejs : <?=shell_exec("ls -l `which nodejs`")?>
 {{Root Global}} : <?=shell_exec("npm root -g")?>
 {{Architecture}} : <?=shell_exec("arch")?>
 Linux : <?=shell_exec("lsb_release -d -s")?>
+{{Système}} : <?=jeedom::getHardwareName()?>
+
 Homebridge : <?=homebridge::getLocalVersion('homebridge')?>
 
-HAP-NodeJS : <?=homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs')?>
+HAP-NodeJS : <?=homebridge::getLocalVersion('hap-nodejs')?>
 
 <?php if($diffVer) {echo "<span style='color:red'>{{Relancez les dépendances}}</br>";} ?>
 {{Homebridge-Jeedom locale}} : <?=$localVer?>
