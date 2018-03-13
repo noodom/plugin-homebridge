@@ -116,6 +116,10 @@ class homebridge extends eqLogic {
 											'online'=>'ONLINE',
 											'status'=>'LIGHT_STATE_BOOL'
 										],
+									'sensor_motion.aq2'=>
+										[
+											'lux'=>'BRIGHTNESS'
+										],
 									'gateway'=>
 										[
 											'vol'=>'SPEAKER_VOLUME',
