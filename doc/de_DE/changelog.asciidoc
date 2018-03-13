@@ -19,7 +19,7 @@
       ** Interrupteur Programmable Binaire (Simple Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un simple click sur le bouton.
       ** Interrupteur Programmable Binaire (Double Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un double click sur le bouton.
       ** Interrupteur Programmable Binaire (Long   Click) (Homebridge) : Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un long click sur le bouton.
-    * Support (Alpha) de Docker : quelques modifications ont été faites pour faciliter l'utilisation du plugin sous Docker. Pas encore complètement compatible mais on s'en approche...
+    * Compatibilité (Alpha) avec Docker : (toujours aucun support) Mais quelques modifications ont été faites pour faciliter l'utilisation du plugin sous Docker officiel Jeedom en mode réseau "Host".
     * Affichage des graphiques dans l'application Eve (support Alpha). Fonctionne pour les types suivants :
       ** Température (chaque point de donnée est une moyenne des 10min précédentes)
       ** Humidité (chaque point de donnée est une moyenne des 10min précédentes)
@@ -28,7 +28,7 @@
       ** Mouvement 
       ** Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
 [IMPORTANT]      
-      Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif.
+      Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif. A part les trois premiers qui peuvent être dans le même Périphérique, les autres ne peuvent pas être combinés (il faut coller aux produits Elgato).
 
 ==== v1.3.5 (12-12-2017)
     * Suppression du besoin de sélection de l'utilisateur
