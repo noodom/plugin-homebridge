@@ -1,0 +1,68 @@
+{
+	"sonos3": {
+		"default": {
+			"mute": "SPEAKER_MUTE_ON",
+			"unmute": "SPEAKER_MUTE_OFF",
+			"mute_state": "SPEAKER_MUTE",
+			"volume": "SPEAKER_VOLUME",
+			"setVolume": "SPEAKER_SET_VOLUME",
+			"track_artist": "GENERIC_INFO",
+			"track_title": "GENERIC_INFO",
+			"track_album": "GENERIC_INFO"
+		}
+	},
+	"xiaomihome": {
+		"field": "model",
+		"color": {
+			"online": "ONLINE",
+			"status": "LIGHT_STATE_BOOL"
+		},
+		"mono": {
+			"online": "ONLINE",
+			"status": "LIGHT_STATE_BOOL"
+		},
+		"pm25": {
+			"online": "ONLINE",
+			"status::aqi": "AIRQUALITY_INDEX",
+			"status::battery": "BATTERY"
+		},
+		"stripe": {
+			"online": "ONLINE",
+			"status": "LIGHT_STATE_BOOL"
+		},
+		"sensor_motion.aq2": {
+			"lux": "BRIGHTNESS"
+		},
+		"gateway": {
+			"vol": "SPEAKER_VOLUME",
+			"vol-set": "SPEAKER_SET_VOLUME",
+			"online": "ONLINE",
+			"illumination": "BRIGHTNESS",
+			"on": "LIGHT_ON",
+			"off": "LIGHT_OFF",
+			"rgb": "LIGHT_COLOR",
+			"rgb-set": "LIGHT_SET_COLOR",
+			"brightness": "LIGHT_STATE",
+			"brightness-set": "LIGHT_SLIDER"
+		}
+	},
+	"ikealight": {
+		"default": {
+			"state": "LIGHT_STATE_BOOL",
+			"on": "LIGHT_ON",
+			"off": "LIGHT_OFF",
+			"dimInfo": "LIGHT_STATE",
+			"dim": "LIGHT_SLIDER",
+			"kelvinInfo": "LIGHT_COLOR_TEMP",
+			"kelvin": "LIGHT_SET_COLOR_TEMP"
+		}
+	},
+	"camera": {
+		"default": {
+			"recordState": "CAMERA_RECORD_STATE",
+			"sendSnapshot": "CAMERA_RECORD",
+			"stopRecordCmd": "CAMERA_STOP",
+			"motionDetectAlarm": "PRESENCE"
+		}
+	}
+}
