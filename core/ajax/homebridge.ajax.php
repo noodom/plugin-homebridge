@@ -49,18 +49,18 @@ try {
 	}
 	if (init('action') == 'getJSON') {
 		if(init('type') == 'Platform')
-			$file = homebridge::getJSON('Platform');
+			$file = homebridge::getJSON('otherPlatform');
 		elseif(init('type') == 'Accessory')
-			$file = homebridge::getJSON('Accessory');
+			$file = homebridge::getJSON('otherAccessory');
 		else
 			$file = false;
 		ajax::success($file);
 	}
 	if (init('action') == 'saveJSON') {
 		if(init('type') == 'Platform')
-			$ret = homebridge::saveJSON(init('file'),'Platform');
+			$ret = homebridge::saveJSON(init('file'),'otherPlatform');
 		elseif(init('type') == 'Accessory')
-			$ret = homebridge::saveJSON(init('file'),'Accessory');
+			$ret = homebridge::saveJSON(init('file'),'otherAccessory');
 		else
 			$ret = false;
 		ajax::success($ret);
