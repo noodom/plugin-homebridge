@@ -33,6 +33,11 @@
 		"sensor_motion.aq2": {
 			"lux": "BRIGHTNESS"
 		},
+		"plug": {
+			"inuse": "ENERGY_INUSE",
+			"load_power": "POWER",
+			"power_consumed": "CONSUMPTION"
+		},
 		"gateway": {
 			"vol": "SPEAKER_VOLUME",
 			"vol-set": "SPEAKER_SET_VOLUME",
