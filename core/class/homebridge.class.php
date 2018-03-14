@@ -77,91 +77,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function PluginAutoConfig(){
-		$PluginAutoConfig = [
-							'sonos3'=>	
-								[
-									'default'=>
-										[
-											'mute'=>'SPEAKER_MUTE_ON',
-											'unmute'=>'SPEAKER_MUTE_OFF',
-											'mute_state'=>'SPEAKER_MUTE',
-											'volume'=>'SPEAKER_VOLUME',
-											'setVolume'=>'SPEAKER_SET_VOLUME',
-											'track_artist'=>'GENERIC_INFO',
-											'track_title'=>'GENERIC_INFO',
-											'track_album'=>'GENERIC_INFO'
-										]
-								],
-							'xiaomihome'=> 
-								[
-									'field'=>'model',
-									'color'=>
-										[
-											'online'=>'ONLINE',
-											'status'=>'LIGHT_STATE_BOOL'
-										],
-									'mono'=>
-										[
-											'online'=>'ONLINE',
-											'status'=>'LIGHT_STATE_BOOL'
-										],
-									'pm25'=>
-										[
-											'online'=>'ONLINE',
-											'status::aqi'=>'AIRQUALITY_INDEX',
-											'status::battery'=>'BATTERY'
-										],
-									'stripe'=>
-										[
-											'online'=>'ONLINE',
-											'status'=>'LIGHT_STATE_BOOL'
-										],
-									'sensor_motion.aq2'=>
-										[
-											'lux'=>'BRIGHTNESS'
-										],
-									'gateway'=>
-										[
-											'vol'=>'SPEAKER_VOLUME',
-											'vol-set'=>'SPEAKER_SET_VOLUME',
-											'online'=>'ONLINE',
-											'illumination'=>'BRIGHTNESS',
-											'on'=>'LIGHT_ON',
-											'off'=>'LIGHT_OFF',
-											'rgb'=>'LIGHT_COLOR',
-											'rgb-set'=>'LIGHT_SET_COLOR',
-											'brightness'=>'LIGHT_STATE',
-											'brightness-set'=>'LIGHT_SLIDER'
-										]
-								],
-							'ikealight'=>
-								[
-									//'field'=>'model',
-									'default'=>
-										[
-											'state'=>'LIGHT_STATE_BOOL',
-											'on'=>'LIGHT_ON',
-											'off'=>'LIGHT_OFF',
-											'dimInfo'=>'LIGHT_STATE',
-											'dim'=>'LIGHT_SLIDER',
-											'kelvinInfo'=>'LIGHT_COLOR_TEMP',
-											'kelvin'=>'LIGHT_SET_COLOR_TEMP'
-										]
-								],
-							'camera'=>
-								[
-									//'field'=>'model',
-									'default'=>
-										[
-											'recordState'=>'CAMERA_RECORD_STATE',
-											'sendSnapshot'=>'CAMERA_RECORD',
-											'stopRecordCmd'=>'CAMERA_STOP',
-											'motionDetectAlarm'=>'PRESENCE'
-										]
-								]
-							];
-		
-		return $PluginAutoConfig;
+		return json_decode(self::getJSON('autoconfig','core/config'),true);
 	}
 	
 	public static function DisallowedPIN() {
@@ -264,18 +180,18 @@ class homebridge extends eqLogic {
 		return $branch;
 	}
 	
-	public static function getJSON($type = 'Platform'){
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		exec('touch ' . dirname(__FILE__) . '/../../data/other'.$type.'.json');
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		return file_get_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json');
+	public static function getJSON($file,$folder = 'data'){
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../'.$folder);
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../'.$folder);
+		exec('touch ' . dirname(__FILE__) . '/../../'.$folder.'/'.$file.'.json');
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../'.$folder);
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../'.$folder);
+		return file_get_contents(dirname(__FILE__) . '/../../'.$folder.'/'.$file.'.json');
 	}
-	public static function saveJSON($file,$type = 'Platform'){
-		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../data');
-		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../data');
-		$ret = file_put_contents(dirname(__FILE__) . '/../../data/other'.$type.'.json',$file);
+	public static function saveJSON($fileContent,$file,$folder= 'data'){
+		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../'.$folder);
+		exec(system::getCmdSudo() . 'chmod -R 775 ' . dirname(__FILE__) . '/../../'.$folder);
+		$ret = file_put_contents(dirname(__FILE__) . '/../../'.$folder.'/'.$file.'.json',$fileContent);
 		return (($ret===false)?false:true);
 	}
 	
@@ -527,7 +443,7 @@ class homebridge extends eqLogic {
 		$response['platforms'][] = $plateform;
 
 		// get file and add it if it's valid
-		$jsonFile = homebridge::getJSON('Platform');
+		$jsonFile = homebridge::getJSON('otherPlatform');
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
@@ -564,7 +480,7 @@ class homebridge extends eqLogic {
 			}
 		}
 		
-		$jsonFileAccessory = homebridge::getJSON('Accessory');
+		$jsonFileAccessory = homebridge::getJSON('otherAccessory');
 		$jsonAccessories = explode('|',$jsonFileAccessory);
 		if(!$jsonAccessories)
 			$jsonAccessories = array($jsonFileAccessory);
