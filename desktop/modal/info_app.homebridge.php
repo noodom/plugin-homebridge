@@ -147,13 +147,13 @@ HAP-NodeJS : <?=homebridge::getLocalVersion('hap-nodejs')?>
 <pre id='pre_eventlog' class="creation copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo shell_exec("awk '/ WARNING /,/└────────────────────────/' ".log::getPathToLog('homebridge_daemon')) ?></pre>
 
 <?php
-	$otherPlatform = homebridge::getJSON('Platform');
+	$otherPlatform = homebridge::getJSON('otherPlatform');
 ?>
 <h3>{{Plateforme Homebridge supplémentaire :}} (<?=validateJSON('['.str_replace('|',',',$otherPlatform).']')?>)&nbsp;<a class="btn" data-clipboard-target=".otherPlatform"><i class="fa fa-copy" alt="{{Copier dans le presse-papier}}" title="{{Copier dans le presse-papier}}"></i></a>&nbsp;<font color='red'>!!! Attention: Peut contenir des mots de passe webcam !!!</font></h3>
 <pre id='pre_eventlog' class="otherPlatform copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherPlatform; ?></pre>
 
 <?php
-	$otherAccessory = homebridge::getJSON('Accessory');
+	$otherAccessory = homebridge::getJSON('otherAccessory');
 ?>
 <h3>{{Accessoire Homebridge supplémentaire :}} (<?=validateJSON('['.str_replace('|',',',$otherAccessory).']')?>)&nbsp;<a class="btn" data-clipboard-target=".otherAccessory"><i class="fa fa-copy" alt="{{Copier dans le presse-papier}}" title="{{Copier dans le presse-papier}}"></i></a>&nbsp;<font color='red'>!!! Attention: Peut contenir des mots de passe!!!</font></h3>
 <pre id='pre_eventlog' class="otherAccessory copyAll" style='overflow: auto; with:90%;height:200px;'><?php echo $otherAccessory; ?></pre>
