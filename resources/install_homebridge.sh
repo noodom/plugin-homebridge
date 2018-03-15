@@ -65,7 +65,7 @@ arch=`arch`;
 
 #testVer=`php -r "echo version_compare('${actual}','v6','>=');"`
 #if [[ $testVer == "1" ]]
-if [[ $actual == *"8."* || $actual == *"9."* || $actual == *"10."* ]]
+if [[ $actual == "v8."* || $actual == "v9."* || $actual == "v10."* ]]
 then
   echo "Ok, version suffisante";
 else
