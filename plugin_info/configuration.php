@@ -62,13 +62,15 @@ if(!isConnect()) {
 				$errorMessage = "{{Attention : JSONRPC n'est pas activé (Configuration > API). Homebridge ne fonctionnera pas.}}";
 				$color = $rouge;
 			} elseif (jeedom::getHardwareName() == "Docker") {
-				$errorMessage = "{{Docker non supporté.}}";
+				$color = $orange;
+			} elseif (!extension_loaded('gmp')) {
+				$errorMessage = "{{GMP n'est pas bien installé, relancez vos dépendances. (Puis rafraichir)}}";
 				$color = $orange;
 			} elseif ($diffVer) {
-				$errorMessage = "{{Nouvelle version de Homebridge, relancez vos dépendances. (Fermer/Réouvrir cette page pour raffraichir)}}";
+				$errorMessage = "{{Nouvelle version des dépendances, relancez vos dépendances. (Puis rafraichir)}}";
 				$color = $jaune;
 			} elseif (jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) === false) {
-				$errorMessage = "{{Jeedom >=3.2.1 mais données non migrées, Redémarrez le Démon}}";
+				$errorMessage = "{{Jeedom >=3.2.1 mais données non migrées, Redémarrez le Démon. (Puis rafraichir)}}";
 				$color = $orange;
 			}
 		?>
