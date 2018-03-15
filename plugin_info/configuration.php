@@ -65,7 +65,7 @@ if(!isConnect()) {
 				$errorMessage = "{{Docker non supporté.}}";
 				$color = $orange;
 			} elseif ($diffVer) {
-				$errorMessage = "{{Nouvelle version de Homebridge, relancez vos dépendances.}}";
+				$errorMessage = "{{Nouvelle version de Homebridge, relancez vos dépendances. (Fermer/Réouvrir cette page pour raffraichir)}}";
 				$color = $jaune;
 			} elseif (jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) === false) {
 				$errorMessage = "{{Jeedom >=3.2.1 mais données non migrées, Redémarrez le Démon}}";
