@@ -1,0 +1,27 @@
+---
+langs: [fr_FR,en_US,es_ES] 
+baseurl: "/"
+sass:
+  sass_dir: assets/css
+  style: compressed
+markdown: kramdown
+permalink: /404.html
+kramdown:
+  input: GFM
+  hard_wrap: false
+highlighter: rouge
+gems:
+- jekyll-paginate
+- jekyll-seo-tag
+exclude:
+- vendor
+plugins:
+- jekyll-seo-tag
+title: "Documentation Homebridge"
+description: "Ceci est la documentation, lier à la solution domotique Jeedom."
+author: "BPhoque"
+image: https://github.com/NebzHB/plugin-homebridge/raw/beta/plugin_info/homebridge_icon.png
+social:
+  name: Jeedom-Homebridge
+  links:
+    - https://github.com/NebzHB
