@@ -43,6 +43,7 @@ try {
 		ajax::success();
 	}
 	if (init('action') == 'generateQRCode') {
+		$pin_homebridge='';
 		if(init('pin_homebridge') != '')
 			$pin_homebridge=init('pin_homebridge');
 		ajax::success(homebridge::generateQRCode('100x100',$pin_homebridge));
