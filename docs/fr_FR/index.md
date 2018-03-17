@@ -3,7 +3,7 @@ Présentation Homebridge
 
 *Le plugin Homebridge* est un demon qui permet d’interagir avec un système domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Maison. 
 
-![homekit-logo](https://bphoque.github.io/images/homekit-logo.jpg)
+![homekit-logo](.../images/homekit-logo.jpg)
 
 Le plugin Homebridge de Jeedom permet donc d’exposer des équipements Jeedom qui seront vus comme des accessoires compatibles au protocole *HomeKit*.
 
@@ -16,19 +16,19 @@ Homebridge peut s'utiliser avec une application compatible HomeKit ou avec l'ass
 
 Depuis iOS 10, l'application Maison (inclue par défaut avec iOS) permet le pilotage d'équipements compatibles HomeKit. 
 
-![cuisine-homekit](https://bphoque.github.io/images/cuisine-01.png) ![cuisine-homekit](https://bphoque.github.io/images/salon-01.png) ![cuisine-homekit](https://bphoque.github.io/images/salle-de-bain-01.png)
+![cuisine-homekit](.../images/cuisine-01.png) ![cuisine-homekit](.../images/salon-01.png) ![cuisine-homekit](.../images/salle-de-bain-01.png)
 
 Les équipements peuvent être classés par pièce. Il est également possible de mettre des accessoires en favoris sur la pages d'accueil. Une page spécifique indique l'ensemble des états des accessoires.
 
-![piece-homekit](https://bphoque.github.io/images/piece-homekit.jpg) ![piece-homekit](https://bphoque.github.io/images/accueil-01.png) ![etat](https://bphoque.github.io/images/etat.png)
+![piece-homekit](.../images/piece-homekit.jpg) ![piece-homekit](.../images/accueil-01.png) ![etat](.../images/etat.png)
 
 Beaucoup d'accessoires sont pris en charge.
 
-![garage-homekit](https://bphoque.github.io/images/acchb.png)
+![garage-homekit](.../images/acchb.png)
 
 Siri peut aussi interagir. Il répond aux questions et fait des actions.  
 
-![siri-01](https://bphoque.github.io/images/siri-01.jpg) ![siri-02](https://bphoque.github.io/images/siri-02.jpg)
+![siri-01](.../images/siri-01.jpg) ![siri-02](.../images/siri-02.jpg)
 
 HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
 L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
@@ -43,18 +43,18 @@ Le plugin Homebridge doit être installé via le market Jeedom. *Le plugin App M
 
 *Pour les migrations depuis le plugin App Mobile officiel, il est important de ne pas désactiver le plugin App Mobile. Une rubrique "Migration depuis le plugin App Mobile" est disponible dans la documentation.* 
 
-![pluginHB](https://bphoque.github.io/images/pluginHB.png) ![pluginHB](https://bphoque.github.io/images/pluginHB2.png)
+![pluginHB](.../images/pluginHB.png) ![pluginHB](.../images/pluginHB2.png)
 
 Une fois le plugin installé, il suffit de l'activer en cliquant sur "Activer".
 
-![activationHB](https://bphoque.github.io/images/activationHB.png)
+![activationHB](.../images/activationHB.png)
 
 Installation des dépendances
 ----------------------------
 
 Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Elles seront également réinstallées lors d'une mise à jour du plugin si besoin.
 
-![installationDep](https://bphoque.github.io/images/installationDep.png)
+![installationDep](.../images/installationDep.png)
 
 *Le temps d'installation des dépendances peut varier en fonction du matériel utilisé.*
 
@@ -77,14 +77,14 @@ Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Ell
 
 Une fois les dépendances installées, le démon se lance (dans les 5 min). Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
 
-![demon-homebridge](https://bphoque.github.io/images/demon-homebridge.png)
+![demon-homebridge](.../images/demon-homebridge.png)
 
 Mise à jour manuelle des dépendances
 ------------------------------------
 
 Pour mettre à jour manuellement les dépendances, il faut cliquer sur "Relancer".
 
-![dependances-homebridge](https://bphoque.github.io/images/dependances-homebridge.png)
+![dependances-homebridge](.../images/dependances-homebridge.png)
 
 Fichiers LOG
 ------------
@@ -93,7 +93,7 @@ Les fichiers log permettent d'analyser pas à pas l'activité interne du process
 
 Ces fichiers peuvent être nécessaires en cas de dysfonctionnement du plugin.
 
-![log](https://bphoque.github.io/images/log.png)
+![log](.../images/log.png)
 
 * Homebridge : Historise toutes les communications avec le démon homebridge.
 
@@ -109,11 +109,11 @@ Création du pont Homebridge
 
 Pour créer le pont Homebridge, il faut aller dans la rubrique "Gestion", et cliquer sur "Configuration".
 
-![gestion](https://bphoque.github.io/images/gestion.png)
+![gestion](.../images/gestion.png)
 
 Pour créer le pont, il suffit de lui donner un nom et un code "PIN".
 
-![config-pluginhb](https://bphoque.github.io/images/config-pluginhb.png)
+![config-pluginhb](.../images/config-pluginhb.png)
 
 * *Nom Homebridge* : Permet de nommer le pont Homebridge. 
 
@@ -152,11 +152,11 @@ Ajout des accessoires dans Homebridge
 
 Les équipements seront à ajouter manuellement. 
 
-![config-piece](https://bphoque.github.io/images/config-piece.png)
+![config-piece](.../images/config-piece.png)
 
 Afin d'intégrer un accessoire dans Homebridge, il faut sélectionner la pièce où il se trouve.
 
-![choix-acc](https://bphoque.github.io/images/choix-acc.png)
+![choix-acc](.../images/choix-acc.png)
 
 Afin d'ajouter un accessoire à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
 
@@ -171,7 +171,7 @@ Généralités
 
 En cliquant sur l'équipement, les types génériques utilisés pour la communication entre votre Jeedom et Homebridge apparaissent.
 
-![typegen-1](https://bphoque.github.io/images/typegen-1.png)
+![typegen-1](.../images/typegen-1.png)
 
 La majorité des types génériques est déjà renseignée. Dans certains cas, une configuration manuelle sera nécessaire (pour le plugin Virtuel par exemple).
 
@@ -179,11 +179,11 @@ Voici les types génériques disponibles :
 
 Pour les informations : 
 
-![typeginfo](https://bphoque.github.io/images/typeginfo.png)
+![typeginfo](.../images/typeginfo.png)
 
 Pour les actions : 
 
-![ypegeaction](https://bphoque.github.io/images/ypegeaction.png)
+![ypegeaction](.../images/ypegeaction.png)
 
 
 Lumière
@@ -322,14 +322,14 @@ Generic
 
 Pour valider, il faut aller dans la configuration du plugin et relancer le démon Homebridge en cliquant sur "(Re)Démarrer".
 
-![demon-homebridge](https://bphoque.github.io/images/demon-homebridge.png)
+![demon-homebridge](.../images/demon-homebridge.png)
 
 Ajout de Jeedom dans HomeKit
 ===========================
 
 Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'application "Maison" d'Apple sera utilisée pour la rédaction de la documentation.
 
-![app-domicile](https://bphoque.github.io/images/app-domicile.jpg)
+![app-domicile](.../images/app-domicile.jpg)
 
 Le pont peut être inclu manuellement en entrant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
 
@@ -338,9 +338,9 @@ Ajout du pont par QR code
 
 Pour ajouter le pont dans Homekit, il suffit de scanner le QR code avec l'application "Appareil photo".  Une notification est affichée en haut de l'écran. Il suffit de cliquer dessus et le pont est inclus automatiquement dans Homekit. 
 
-![qr-code](https://bphoque.github.io/images/qr-code.png)
-![qr-code1](https://bphoque.github.io/images/qr-code1.png)
-![qr-code21](https://bphoque.github.io/images/qr-code21.png)
+![qr-code](.../images/qr-code.png)
+![qr-code1](.../images/qr-code1.png)
+![qr-code21](.../images/qr-code21.png)
 
 >Comme expliqué plus haut dans la doc, Homebridge n'est pas reconnu officiellement par Apple. Un message indique que l'accessoire n'est pas certifié, il faut valider l'inclusion en cliquant sur "Poursuivre l'ajout".
 
@@ -351,16 +351,16 @@ Ajout manuel du pont
 
 L'inclusion de Jeedom dans HomeKit, se fait en ouvrant l'application "Maison" et en cliquant sur "Ajouter un accessoire". 
 
-![home-1](https://bphoque.github.io/images/home-1.jpg)
+![home-1](.../images/home-1.jpg)
 
 
 >Dans l'exemple, le domicile s'appelle "Test". Son nom peut être modifié en allant dans les réglages de l'application.
 
 Il faut scanner le code PIN et sélectionner le pont à inclure. Le pont Jeedom sera intégré à Homekit
 
-![home-2](https://bphoque.github.io/images/home-2.jpg)
-![home-3](https://bphoque.github.io/images/home-3.jpg)
-![home-4](https://bphoque.github.io/images/home-4.png)
+![home-2](.../images/home-2.jpg)
+![home-3](.../images/home-3.jpg)
+![home-4](.../images/home-4.png)
 
 
 >Le code PIN peut être également rentré manuellement en cliquant sur "Code absent ou impossible à scanner ?"
@@ -369,7 +369,7 @@ Il faut scanner le code PIN et sélectionner le pont à inclure. Le pont Jeedom 
 
 >Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante :
 
-![partage](https://bphoque.github.io/images/partage.png)
+![partage](.../images/partage.png)
 
 Rangement des accessoires dans HomeKit
 ====================================
@@ -381,18 +381,18 @@ Les accessoires doivent être rangés correctement dans HomeKit. Il faudra crée
 
 Le premier accessoire à "ranger" est le pont Jeedom. Il faut sélectionner la pièce où il sera installé. Si elle n'existe pas, il faudra la créer en cliquant sur "Créer". Ensuite, il faut définir le nom de la nouvelle pièce. Il est également possible de lui attribuer un fond d'écran dédié. Pour finaliser la création de la pièce, il faut cliquer sur "Enregistrer".
 
-![home-5](https://bphoque.github.io/images/home-5.jpg)
-![home-05](https://bphoque.github.io/images/home-05.jpg)
-![home-051](https://bphoque.github.io/images/home-051.jpg)
+![home-5](.../images/home-5.jpg)
+![home-05](.../images/home-05.jpg)
+![home-051](.../images/home-051.jpg)
 
 Maintenant, il ne reste plus qu'à ranger tous les accessoires dans les différentes pièces.
 
-![home-052](https://bphoque.github.io/images/home-052.jpg)
+![home-052](.../images/home-052.jpg)
 
 
 >La fonction "Inclure dans les favoris" permet d'afficher l'accessoire dans la page principale de l'application
 
-![home-053](https://bphoque.github.io/images/home-053.jpg)
+![home-053](.../images/home-053.jpg)
 
 **Les accessoires doivent être "rangés" un par un. Si il y en a beaucoup, cette partie prendra du temps**.
 
@@ -405,13 +405,13 @@ Le nouveau plugin Homebridge importe automatiquement la configuration Homebridge
 
 Lorsque l'importation est terminée, la rubrique Homebridge disparait des paramètres du plugin App Mobile. 
 
-![plugnmobilesanshb](https://bphoque.github.io/images/plugnmobilesanshb.png)
+![plugnmobilesanshb](.../images/plugnmobilesanshb.png)
 
 Homebridge est complètement désolidarisé du plugin App Mobile. Il fonctionne maintenant de manière autonome.
 
 Lors de l'installation du plugin Homebridge, tous les accessoires vont être indisponibles. C'est normal.
 
-![migration1](https://bphoque.github.io/images/sans-reponse.png)
+![migration1](.../images/sans-reponse.png)
 
 Dès que l'installation des dépendances est terminée, tous les accessoires seront de nouveau disponibles.
 
@@ -429,11 +429,11 @@ Point important
 
 Pour un "virtuel" : 
 
-![plugnmobilesanshb](https://bphoque.github.io/images/reference-etat.png)
+![plugnmobilesanshb](.../images/reference-etat.png)
 
 Pour un accessoire physique (Dimmer 2 de Fibaro par exemple) : 
 
-![ref2.png](https://bphoque.github.io/images/ref2.png)
+![ref2.png](.../images/ref2.png)
 
 FAQ
 ----
@@ -442,17 +442,17 @@ FAQ
 
 >Vérifiez que le statut du démon Homebridge est sur OK.
 
-![demon-homebridge.png](https://bphoque.github.io/images/demon-homebridge.png)
+![demon-homebridge.png](.../images/demon-homebridge.png)
 
 >Pour inclure votre Jeedom dans HomeKit, via une application compatible (par exemple Maison ou Eve), vérifiez que votre appareil iOS est connecté au même réseau que votre Jeedom.
 
-![config-pluginhb](https://bphoque.github.io/images/config-pluginhb.png)
+![config-pluginhb](.../images/config-pluginhb.png)
 
 **-> Le démon Homebridge ne veut pas démarrer !**
 
 >Vérifiez que vous disposez de la dernière version des dépendances. En cas de doute, il est possible de les réinstaller en cliquant sur "Relancer". Si la réinstallation des dépendances ne fonctionne pas ou indique une erreur dans le log des dépendances, cliquez sur "Réparer et Réinstaller".
 
-![dependances-homebridge](https://bphoque.github.io/images/dependances-homebridge.png)
+![dependances-homebridge](.../images/dependances-homebridge.png)
 
 **-> Mon équipement n'apparaît pas dans Homebridge !**
 
@@ -466,7 +466,7 @@ FAQ
 
 >Vérifiez que les types génériques sont bien configurés. Chaque équipement envoyé à Homebridge doit avoir au moins un type générique "Etat".
 
-![ypegelumi](https://bphoque.github.io/images/ypegelumi.png)
+![ypegelumi](.../images/ypegelumi.png)
 
 **-> J'ai mon Homebridge qui n'exécute pas les commandes !**
 
@@ -478,7 +478,7 @@ FAQ
 
 **-> Le message "sans réponse" apparaît dans l'application Maison ou Eve**
 
-![sans-reponse](https://bphoque.github.io/images/sans-reponse.png)
+![sans-reponse](.../images/sans-reponse.png)
 
 1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connecté au même réseau que votre Jeedom. 
 2. Vérifiez que le démon est activé. Si ce n'est pas le cas, redémarrez le.
@@ -548,7 +548,7 @@ sh: 1: homebridge: not found
 
 >Les dépendances Homebridge ne sont pas installées ou certains fichiers sont manquants. Cliquez sur "Relancer"
 
-![dependances-homebridge](https://bphoque.github.io/images/dependances-homebridge.png)
+![dependances-homebridge](.../images/dependances-homebridge.png)
 
 
 Exemple de configuration
@@ -559,11 +559,11 @@ Lumière
 
 Type d'accessoire : Dimmer 2 de Fibaro (Z-Wave)
 
-![lumiere](https://bphoque.github.io/images/lumiere.png)
+![lumiere](.../images/lumiere.png)
 
 Type d'accessoire : Double contact de Nodon (EnOcean)
 
-![lumiere-2](https://bphoque.github.io/images/lumiere-2.png)
+![lumiere-2](.../images/lumiere-2.png)
 
 Si les deux contacts sont utilisés, copier-coller les types génériques On-1 sur On-2, Off-1 sur Off-2 et Etat-1 sur Etat-2.
 
@@ -572,7 +572,7 @@ Température et hydrométrie
 
 Type d'accessoire : Sonde Oregon (RfxCom) et Xiaomi Aqara
 
-![temperature](https://bphoque.github.io/images/temperature.png)
+![temperature](.../images/temperature.png)
 
 Détecteur d'ouverture
 ----------------------
@@ -581,13 +581,13 @@ Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
 ### Fenêtre #
 
-![fenetre](https://bphoque.github.io/images/fenetre.png)
+![fenetre](.../images/fenetre.png)
 
 Si un capteur de température est utilisé, mettre "Info / Température" sur le nom de la commande Température.
 
 ### Porte #
 
-![porte](https://bphoque.github.io/images/porte.png)
+![porte](.../images/porte.png)
 
 Si un capteur de température est utilisé, mettre "Info / Température" sur le nom de la commande Température.
 
@@ -596,60 +596,60 @@ Détecteur de fuite
 
 Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
-![fuite](https://bphoque.github.io/images/fuite.png)
+![fuite](.../images/fuite.png)
 
 Détecteur de fumées
 --------------------
 
 Type d'accessoire : Détecteur Fibaro (Z-Wave)
 
-![fumee](https://bphoque.github.io/images/fumee.png)
+![fumee](.../images/fumee.png)
 
 Volets roulants
 ----------------- 
 
 Type d'accessoire : Détecteur Fibaro FGR-222 (Z-Wave)
 
-![volet](https://bphoque.github.io/images/volet.png)
+![volet](.../images/volet.png)
 
 Porte de garage
 -----------------
 
 Type d'accessoire : Aeotec - Contrôleur de porte de garage (GEN5) (Z-Wave)
 
-![garage](https://bphoque.github.io/images/garage.png)
+![garage](.../images/garage.png)
 
 Virtuel
 --------
 
 Type d'accessoire : Interrupteur bistable avec le plugin virtuel
 
-![virtuel](https://bphoque.github.io/images/virtuel.png)
+![virtuel](.../images/virtuel.png)
 
-![virtuel-tg](https://bphoque.github.io/images/virtuel-tg.png)
+![virtuel-tg](.../images/virtuel-tg.png)
 
 Caméra
 ------
 
 Homebrige prend en charge les caméras.
 
-![camera2.](https://bphoque.github.io/images/camera2.png)
+![camera2.](.../images/camera2.png)
 
 En touchant la capture de la caméra souhaitée, elle s'affiche en plein écran et en live !
 
-![camera3](https://bphoque.github.io/images/camera3.png)
+![camera3](.../images/camera3.png)
 
 Suivant les configurations matérielles, la qualité de la transmission peut varier. Par exemple, sur un NUC gen7 core i7, c'est quasiment du live ! La latence est très faible.
 
 Celles-ci peuvent afficher une notification lorsqu'un mouvement est détecté par un capteur de présence. Il faut que la caméra et le capteur soient configurés dans la même pièce et que les notifications du capteur soient activées.
 
-![notig](https://bphoque.github.io/images/notif.jpg)
+![notig](.../images/notif.jpg)
 
 Les caméras décrites ci-dessous ont été testées. Elles sont donc fonctionnelles dans Homebridge.
 
 L'intégration des caméras se fait via la bouton rouge "Plateforme Homebridge supplémentaire".
 
-![plateforme-hb](https://bphoque.github.io/images/plateforme-hb.png)
+![plateforme-hb](.../images/plateforme-hb.png)
 
 ### Foscam C1 # 
 
@@ -801,7 +801,7 @@ Son intégration dans Homebridge est néanmoins possible.
 
 Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP la caméra et Local_Access_Key -> voir dans le plugin Caméra l'URL de capture /Local_Access_Key/live/snapshot_720.jpg.
 
-![camera](https://bphoque.github.io/images/camera.png)
+![camera](.../images/camera.png)
 
 ### Configurer plusieurs caméras (ou plateformes) #
 
@@ -861,31 +861,31 @@ Le type générique "Custom" permet de faire remonter n'importe quelle valeur "i
 
 Cela permet d'afficher l'intitulé du mode jeedom en cours.
 
-![custom-1](https://bphoque.github.io/images/custom-1.png)
+![custom-1](.../images/custom-1.png)
 
 Dans ce cas, il faut attribuer le type générique "Info/Générique" au nom de commande "Mode".
 
 
-![custom-2](https://bphoque.github.io/images/custom-2.png)
+![custom-2](.../images/custom-2.png)
 
 ### Utilisation avec le plugin Netatmo (station météo) #
 
 Cela permet d'afficher les informations de type pression, CO2, noise.
 
-![custom-3](https://bphoque.github.io/images/custom-3.png)
+![custom-3](.../images/custom-3.png)
 
-![custom-4](https://bphoque.github.io/images/custom-4.png)
+![custom-4](.../images/custom-4.png)
 
 
 >**Si le champ unité a été indiqué dans jeedom, il remontra dans le type custom.**
 
-![custom-9](https://bphoque.github.io/images/custom-9.png)
+![custom-9](.../images/custom-9.png)
 
 ### Utilisation avec le plugin vigilance méteo #
 
-![custom-7](https://bphoque.github.io/images/custom-7.png)
+![custom-7](.../images/custom-7.png)
 
-![custom-6](https://bphoque.github.io/images/custom-6.png)
+![custom-6](.../images/custom-6.png)
 
 Plugins spécifiques
 ===================
@@ -899,12 +899,12 @@ Plugin "Thermostat"
 
 Seuls les modes "Chauffer" et "Refroidir" sont à configurer. Il faut attribuer un mode du plugin "Thermostat" à un mode de HomeKit.
 
-![thermostat](https://bphoque.github.io/images/thermostat.png)
+![thermostat](.../images/thermostat.png)
 
 
 ### Présentation #
 
-![thermostat1](https://bphoque.github.io/images/thermostat1.png)
+![thermostat1](.../images/thermostat1.png)
 
 * **A** : Température Cible ou Consigne : Température envoyée au plugin Thermostat (Passe en mode Auto sur Maison et Eve / Mode Aucun sur widget Thermostat)
 * **B** : Température Ambiante : Température de référence pour le plugin Thermostat.
@@ -935,22 +935,22 @@ Plugin "Alarme"
 
 Dans HomeKit, la fonction alarme est gérée suivant 4 modes : "Désactivée", "Nuit", "A distance" et "Domicile".
 
-![alarme](https://bphoque.github.io/images/alarme.png)
-![alarmeeve](https://bphoque.github.io/images/alarmeeve.png)
+![alarme](.../images/alarme.png)
+![alarmeeve](.../images/alarmeeve.png)
 
 Le mode "Désactivé", inhibe l'ensemble des modes d'alarme du plugin "Alarme". Les actions de l'onglet "Désactivation OK" sont lancées (en fonction du mode de sortie).
 
-![inhibe](https://bphoque.github.io/images/inhibe.png)
+![inhibe](.../images/inhibe.png)
 
 Les 3 autres modes, sont à définir dans la configuration du plugin Homebridge.
 
 
-![configalarme](https://bphoque.github.io/images/configalarme.png)
+![configalarme](.../images/configalarme.png)
 
 
 >Le "mode Jeedom" correspond aux modes du plugin "Alarme".
 
-![modealarme](https://bphoque.github.io/images/modealarme.png)
+![modealarme](.../images/modealarme.png)
 
 Il suffit d'affecter le "mode Jeedom" au mode Homebridge choisi.
 
@@ -958,37 +958,37 @@ Il suffit d'affecter le "mode Jeedom" au mode Homebridge choisi.
 
 Il suffit de cliquer sur l'icone "Alarme" dans l'application Maison.
 
-![iconealarme](https://bphoque.github.io/images/iconealarme.png)
+![iconealarme](.../images/iconealarme.png)
 
 Et de sélectionner le mode.
 
-![selmodealarme](https://bphoque.github.io/images/selmodealarme.png)
+![selmodealarme](.../images/selmodealarme.png)
 
 L'alarme est activée.
 
 Sur le dashboard : 
 
-![alarmeactive](https://bphoque.github.io/images/alarmeactive.png)
+![alarmeactive](.../images/alarmeactive.png)
 
 Sur l'application Maison : 
 
-![alarmeactive2](https://bphoque.github.io/images/alarmeactive2.png)
+![alarmeactive2](.../images/alarmeactive2.png)
 
 Pour la désactiver, il suffit de sélectionner "Désactivée". Les actions définies dans la partie "Désactivation OK" du plugin "Alarme" vont s'exécuter.
 
-![desactivationok](https://bphoque.github.io/images/desactivationok.png)
+![desactivationok](.../images/desactivationok.png)
 
 En cas de déclenchement de l'alarme, une notification apparaît sur le téléphone.
 
-![alarmedeclanchee](https://bphoque.github.io/images/alarmedeclanchee.png)
-![reinitialiseralarme](https://bphoque.github.io/images/reinitialiseralarme.png)
+![alarmedeclanchee](.../images/alarmedeclanchee.png)
+![reinitialiseralarme](.../images/reinitialiseralarme.png)
 
 Pour la désarmer, il faut cliquer sur l'icône "Alarme" et sélectionner "Désactivée".
 
 
 Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont s'éxécuter.
 
-![reinitialisation](https://bphoque.github.io/images/reinitialisation.png)
+![reinitialisation](.../images/reinitialisation.png)
 
 Changelog
 =========
