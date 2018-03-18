@@ -30,9 +30,10 @@ Siri peut aussi interagir. Il répond aux questions et fait des actions.
 
 ![siri-01](../images/siri-01.jpg) ![siri-02](../images/siri-02.jpg)
 
+Le plugin prend en charge les scénarios. Il est possible de les exécuter directement depuis l'app Maison d'Apple.
+
 HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
 L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
-
 
 >HomeKit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.
 
@@ -158,8 +159,9 @@ Afin d'intégrer un accessoire dans Homebridge, il faut sélectionner la pièce 
 
 ![choix-acc](../images/choix-acc.png)
 
-Afin d'ajouter un accessoire à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
+![scenario](../images/scenario.png)
 
+Afin d'ajouter un accessoire ou un scénario à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
 
 >Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.
 
