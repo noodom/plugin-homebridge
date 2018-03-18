@@ -643,11 +643,46 @@ La tableau ci dessus indique les valeurs renvoyées par l'interrupteur pour chaq
 
 ![tg-inter](../images/tg-inter.png)
 
+Voici le résultat dans l'app maison : 
+
+![inter01](../images/inter01.png)
+![inter02](../images/inter02.png)
+
 Type d'accessoire : Bouton simple Click XIAOMI Aquara
 
 ![bouton-xiaomi](../images/bouton-xiaomi.png)
 
 ### Interrupteur programmable binaire #
+
+Ce type générique possède 3 options (Simple click, long click et double click). Il faut que l'accessoire possède une info par type générique. Cette action doit être binaire.
+
+Type d'accessoire : NODON Interrupteur mural ENOCEAN
+
+L'interrupteur enocean de NODON, possède 4 informations (bt1, bt2, bt3 et bt4). Chaque information est de type binaire : 
+
+![enocean](../images/enocean.png)
+
+Voici les paramètres pour cet accessoire : 
+
+![tg-bouton02](../images/tg-bouton02.png)
+
+Homebridge va créer 1 accessoires mais avec 4 boutons :
+
+![bt01](../images/ebt01.png)
+
+Type d'accessoire : EDISIO interrupteur 4 boutons : 
+
+Cet accessoire possède 2 actions par bouton mais avec 2 ID binaires différents (1 ID par action).
+
+![edisio](../images/edisio.png)
+
+Voici les paramètres pour cet accessoire : 
+
+![edisio02](../images/edisio02.png)
+
+Homebridge va créer 1 accessoires, avec 4 boutons et 2 actions par boutons :
+
+![edisio03](../images/edisio03.png)
 
 Virtuel
 --------
