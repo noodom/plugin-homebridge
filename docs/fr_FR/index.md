@@ -288,6 +288,17 @@ Haut-Parleurs (Eve Seulement)
 |Info/Haut-Parleur Volume|`NON`|%| 
 |Action/Haut-Parleur Volume|`OUI si Info/HP Volume`|Réf. vers Info/Haut-Parleur Volume| 
 
+Interrupteur programmable
+--------
+
+|Type générique  | Obligatoire | Valeurs possibles |
+|---------------|:----------------:|----------------|
+|Info/Interrupteur programmable<br/>(multi-valeur)|`NON`|Watts|
+|Info/Interrupteur programmable "binaire"<br/>(Double Click)|`NON`|Watts|
+|Info/Interrupteur programmable "binaire"<br/>Long Click)|`NON`|Watts|
+|Info/Interrupteur programmable "binaire"<br/>Simple Click)|`NON`|Watts|
+
+
 Generic
 ----------
 
@@ -618,6 +629,25 @@ Porte de garage
 Type d'accessoire : Aeotec - Contrôleur de porte de garage (GEN5) (Z-Wave)
 
 ![garage](../images/garage.png)
+
+Interrupteur programable
+-----------------------
+
+### Interrupteur programmable multi-valeur #
+
+Type d'accessoire : NODON Interrupteur mural Z-Wave Plus
+
+![bouton](../images/bouton.png)
+
+La tableau ci dessus indique les valeurs renvoyées par l'interrupteur pour chaque type d'appuie. Il faudra reporter les valeurs dans les paramètres du plugin.
+
+![tg-inter](../images/tg-inter.png)
+
+Type d'accessoire : Bouton simple Click XIAOMI Aquara
+
+![bouton-xiaomi](../images/bouton-xiaomi.png)
+
+### Interrupteur programmable binaire #
 
 Virtuel
 --------
