@@ -668,7 +668,7 @@ Voici les paramètres pour cet accessoire :
 
 Homebridge va créer 1 accessoires mais avec 4 boutons :
 
-![bt01](../images/ebt01.png)
+![bt01](../images/bt01.png)
 
 Type d'accessoire : EDISIO interrupteur 4 boutons : 
 
