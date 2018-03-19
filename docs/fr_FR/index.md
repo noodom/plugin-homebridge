@@ -1092,26 +1092,26 @@ v1.4.0 (???)
 
 * Les interrupteur programmables dans homekit font leur apparition.
 
-* Interrupteur Programmable (Multi-Valeur) (Homebridge) : 
- * Il s'agit d'un interrupteur avec une commande de type info qui contiendra plusieurs valeurs en fonction du type de click effectué. ("click", "double_click", "long_click"
+    * Interrupteur Programmable (Multi-Valeur) (Homebridge) : 
+        * Il s'agit d'un interrupteur avec une commande de type info qui contiendra plusieurs valeurs en fonction du type de click effectué. ("click", "double_click", "long_click"
 
-* Interrupteur Programmable Binaire (Simple Click) (Homebridge) : 
- * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un simple click sur le bouton.
-* Interrupteur Programmable Binaire (Double Click) (Homebridge) :
- * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un double click sur le bouton.
-* Interrupteur Programmable Binaire (Long   Click) (Homebridge) :
- * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un long click sur le bouton.
+    * Interrupteur Programmable Binaire (Simple Click) (Homebridge) : 
+        * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un simple click sur le bouton.
+    * Interrupteur Programmable Binaire (Double Click) (Homebridge) :
+        * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un double click sur le bouton.
+    * Interrupteur Programmable Binaire (Long   Click) (Homebridge) :
+        * Il s'agit d'un interrupteur ou la commande de type info est un binaire et correspond à un long click sur le bouton.
  
 * Compatibilité (Alpha) avec Docker : (toujours aucun support) mais quelques modifications ont été faites pour faciliter l'utilisation du plugin sous Docker officiel Jeedom en mode réseau "Host".
 
 * Affichage des graphiques dans l'application Eve (support Alpha). Fonctionne pour les types suivants :
 
- * Température (chaque point de donnée est une moyenne des 10min précédentes)
- * Humidité (chaque point de donnée est une moyenne des 10min précédentes)
- * Pression (chaque point de donnée est une moyenne des 10min précédentes)
- * Porte ou Fenêtre 
- * Mouvement 
- * Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
+    * Température (chaque point de donnée est une moyenne des 10min précédentes)
+    * Humidité (chaque point de donnée est une moyenne des 10min précédentes)
+    * Pression (chaque point de donnée est une moyenne des 10min précédentes)
+    * Porte ou Fenêtre 
+    * Mouvement 
+    * Puissance Electrique (chaque point de donnée est une moyenne des 10min précédentes)
 
 > Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif. A part les trois premiers qui peuvent être dans le même Périphérique, les autres ne peuvent pas être combinés (il faut coller aux produits Elgato).
 
@@ -1174,15 +1174,15 @@ v1.3 (30-10-2017)
 * Possibilité de personnaliser les états des Portes de Garage (Ouvert (255), En Ouverture (254), Stopé (253), En Fermeture (252), Fermé (0)) avec d'autres valeurs.
 * Les types spécifiques à Homebridge : j'ai maintenant la possibilité de créer des types spécifiques pour Homebridge, ceux-ci ne font pas partie du core (comme les types génériques) mais les complètent. Il faut néanmoins les définir manuellement dans le plugin (les types génériques restent utilisés principalement, ces types sont un ajout pour les types génériques qui n'existent pas).
 * Nouveaux types spécifiques à Homebridge : 
- * Status Defectueux (binaire : 0:non/ 1:oui -> peut-être mappé à un binaire représentant par exemple un lien mort chez Z-Wave) .
- * Status Actif (binaire : 0:non/ 1:oui -> peut-etre mappé au status "online" d'une Xiaomi Yeelight par exemple).
+    * Status Defectueux (binaire : 0:non/ 1:oui -> peut-être mappé à un binaire représentant par exemple un lien mort chez Z-Wave) .
+    * Status Actif (binaire : 0:non/ 1:oui -> peut-etre mappé au status "online" d'une Xiaomi Yeelight par exemple).
 * Haut-parleurs, il devrait fonctionner automatiquement avec le plugin Sonos par exemple (à tester), les types sont : 
- * Info/Haut-parleur Mute (binaire)
- * Info/Haut-parleur Volume (pourcentage)
- * Action/Haut-parleur Mute
- * Action/Haut-parleur Unmute
- * Action/Haut-parleur Toggle Mute (soit Toggle soit Mute/Unmute, les deux choix sont possibles séparément)
- * Action/Haut-parleur Volume (typiquement un slider)
+    * Info/Haut-parleur Mute (binaire)
+    * Info/Haut-parleur Volume (pourcentage)
+    * Action/Haut-parleur Mute
+    * Action/Haut-parleur Unmute
+    * Action/Haut-parleur Toggle Mute (soit Toggle soit Mute/Unmute, les deux choix sont possibles séparément)
+    * Action/Haut-parleur Volume (typiquement un slider)
 
 >Info/Haut-parleur Mute est obligatoire, c'est étrange mais c'est une obligation coté HomeKit.
 
@@ -1279,8 +1279,8 @@ v1.0.16
 
 >Cela signifie qu'à l'installation de cette version, vos périphériques dans Maison vont disparaitre pour réapparaitre dans la pièce par défaut (et casser vos scènes et automations).
 
- * Point positif : vous pouvez maintenant changer de pièce dans Jeedom les périphériques sans les perdre dans Maison. Malheureusement, ils ne changeront pas dans Maison (non-implémenté dans Homebridge).
- * j'ai gardé le nom du périphérique pour l'instant dans l'identifiant car le renommage d'un périphérique dans Jeedom casserait tout dans Maison (pour l'instant) de toute façon.
+    * Point positif : vous pouvez maintenant changer de pièce dans Jeedom les périphériques sans les perdre dans Maison. Malheureusement, ils ne changeront pas dans Maison (non-implémenté dans Homebridge).
+    * j'ai gardé le nom du périphérique pour l'instant dans l'identifiant car le renommage d'un périphérique dans Jeedom casserait tout dans Maison (pour l'instant) de toute façon.
 * Modification du délais d'interrogation-longue pour optimiser les systèmes avec moins de changements d'états.
 * Modification du modèle de fonctionnement. Maintenant on prend un état des périphérique au démarrage du plugin et on le met à jour en temps réel à chaque changement dans Jeedom ou Maison. Moins de requêtes sur l'API Jeedom, plus petits temps de réponse dans Maison.
 * Ajout d'un ramasse miettes à la fin de l'ajout des périphériques présent dans Jeedom à Homebridge, tout ce qui n'a pas été ajouté/modifié est supprimé d'Homebridge (si vous avez rendu invisible un périf ou supprimé dans Jeedom par exemple).
