@@ -148,7 +148,7 @@ Une fois les cases *nom Homebridge et PIN Homebridge* correctement renseignées,
 
 >Un QR code est généré automatiquement. Cela améliore l'intégration du pont jeedom dans Homekit. Voir la partie "Ajout de Jeedom dans HomeKit".
 
-Ajout des accessoires dans Homebridge
+Ajout des accessoires et scénarios dans Homebridge
 ------------------------------------
 
 Les équipements seront à ajouter manuellement. 
@@ -162,6 +162,7 @@ Afin d'intégrer un accessoire dans Homebridge, il faut sélectionner la pièce 
 ![scenario](../images/scenario.png)
 
 Afin d'ajouter un accessoire ou un scénario à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
+Les scénarios seront créés sous forme d'interrupteurs. En l'activant, vous lancerez le scénario. En le désactivant, vous le stopperez (s'il tournait toujours). L'interrupteur reste activé tant que le scénario tourne.
 
 >Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.
 
