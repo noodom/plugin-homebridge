@@ -38,6 +38,13 @@
 			"load_power": "POWER",
 			"power_consumed": "CONSUMPTION"
 		},
+		"sensor_ht": {
+			"battery": "BATTERY"
+		},
+		"weather.v1": {
+			"pressure": "PRESSURE",
+			"battery": "BATTERY",
+		},
 		"gateway": {
 			"vol": "SPEAKER_VOLUME",
 			"vol-set": "SPEAKER_SET_VOLUME",
