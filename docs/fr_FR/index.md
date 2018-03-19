@@ -214,8 +214,22 @@ Prises
 |Action/Prise<br/>Bouton On|`OUI`|Réf. vers Info/Prise Etat| 
 |Action/Prise<br/>Bouton Off|`OUI`|Réf. vers Info/Prise Etat|
 |Action/Prise<br/>Slider|`NON Utilisé`|N/A|
-|Action/Lumière<br/>Bouton Off|`OUI`|Réf. vers Lumière Etat :<br/>- Binaire s’il est présent<br/>- Etat sinon|
 
+Interrupteurs
+----------
+
+|Type générique  | Obligatoire | Valeurs possibles |
+|----------------|:-----------:|------------|
+|Info/Interrupteur<br/>Etat|`OUI`|0 = Eteint<br/>1 = Allumé|
+|Action/Interrupteur<br/>Bouton On|`OUI`|Réf. vers Info/Interrupteur Etat| 
+|Action/Interrupteur<br/>Bouton Off|`OUI`|Réf. vers Info/Interrupteur Etat|
+
+Bouton poussoir
+----------
+
+|Type générique  | Obligatoire | Valeurs possibles |
+|----------------|:-----------:|------------|
+|Action/Bouton<br/>poussoir|`NON`|type = "Autre" dans jeedom|
 
 Volets
 --------
@@ -284,22 +298,28 @@ Haut-Parleurs (Eve Seulement)
 
 |Type générique  | Obligatoire | Valeurs possibles |
 |---------------|:----------------:|----------------|
-|Info/Haut-Parleur Mute|`OUI`|1 = Pas de son<br/>0 = Son|
+|Info/Haut-Parleur Mute|`NON`|1 = Pas de son<br/>0 = Son|
 |Action/Haut-Parleur Mute|`Si pas Toggle`|Réf. vers Info/Haut-Parleur Mute| 
 |Action/Haut-Parleur UnMute|`Si pas Toggle`|Réf. vers Info/Haut-Parleur Mute| 
 |Action/Haut-Parleur Toggle Mute|`Si seul`|Réf. vers Info/Haut-Parleur Mute|
-|Info/Haut-Parleur Volume|`NON`|%| 
-|Action/Haut-Parleur Volume|`OUI si Info/HP Volume`|Réf. vers Info/Haut-Parleur Volume| 
+|Info/Haut-Parleur Volume|`OUI`|%| 
+|Action/Haut-Parleur Volume|`OUI`|Réf. vers Info/Haut-Parleur Volume| 
 
-Interrupteur programmable
+Interrupteur programmable Multi-Valeurs
 --------
 
 |Type générique  | Obligatoire | Valeurs possibles |
 |---------------|:----------------:|----------------|
-|Info/Interrupteur programmable<br/>(multi-valeur)|`NON`|Watts|
-|Info/Interrupteur programmable "binaire"<br/>(Double Click)|`NON`|Watts|
-|Info/Interrupteur programmable "binaire"<br/>Long Click)|`NON`|Watts|
-|Info/Interrupteur programmable "binaire"<br/>Simple Click)|`NON`|Watts|
+|Info/Interrupteur programmable<br/>(multi-valeur)|`NON`|Valeurs correspondantes</br>(une colonne par bouton)<br/>Séparer par ;|
+
+Interrupteur programmable Binaires
+--------
+
+|Type générique  | Obligatoire | Valeurs possibles |
+|---------------|:----------------:|----------------|
+|Info/Interrupteur programmable "binaire"<br/>(Double Click)|`NON`|Numéro du bouton<br/>pour groupage|
+|Info/Interrupteur programmable "binaire"<br/>(Long Click)|`NON`|Numéro du bouton<br/>pour groupage|
+|Info/Interrupteur programmable "binaire"<br/>(Simple Click)|`NON`|Numéro du bouton<br/>pour groupage|
 
 
 Generic
@@ -312,6 +332,7 @@ Generic
 |Info/Température|`NON`|-50→100 °C| 
 |Info/Luminosité|`NON`|0.0001→ 100000 lux| 
 |Info/Présence|`NON`|0 = Pas de mouvement<br/>1 = Mouvement|
+|Info/Occupation|`NON`|0 = Personne<br/>1 = Quelqu'un|
 |Info/Batterie|`NON`|%| 
 |Info/Batterie en charge|`NON`|0 = NON<br/>pas 0 = OUI| 
 |Info/Détection de fumée|`NON`|pas 1 = Pas de fumée détectée<br/>1 = fumée détectée| 
@@ -325,11 +346,12 @@ Generic
 |Info/Son (dB)|`NON`|Générique (Eve Seulement)
 |Info/UV|`NON`|Générique (Eve Seulement)
 |Info/Générique|`NON`|Valeur <64 charactères<br/>avec Unité indiquée ou pas<br/>(Eve Seulement)| 
-|Action/Générique<br/>(N’existe pas en HomeKit)|`NON`|N/A|
+|Action/Générique|`NON`|Type "autre"<br/>uniquement<br/><br/>Bouton poussoir|
 |Info/Pluie (accumulation)|`NON`|Générique (Eve Seulement)|
 |Info/Vent (direction)|`NON`|Générique (Eve Seulement)|
 |Info/Vent (vitesse)|`NON`|Générique (Eve Seulement)|
 |Info/Actif|`NON`|0 = inactif<br/>1 = actif|
+|Info/Online|`NON`|0 = inactif<br/>1 = actif|
 |Info/Defectueux|`NON`|0 = non<br/>1 = oui|
 
 *Des exemples de configurations sont disponibles à la fin de la documentation*
