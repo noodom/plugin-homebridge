@@ -74,7 +74,7 @@ Les dépendances sont installées automatiquement par Jeedom dans les 5 min. Ell
 * Tout système basé sur Debian 8 ou 9
 
 
->Les installations sous Docker et Raspberry Pi 1 ne sont pas compatibles avec cette version de Homebridge.
+>Les installations sous Docker et Raspberry Pi 1 ne sont pas supportées.
 
 Une fois les dépendances installées, le démon se lance (dans les 5 min). Si le statut n'est pas sur "OK", il faut cliquer sur "(Re)Démarrer".
 
@@ -102,6 +102,8 @@ Ces fichiers peuvent être nécessaires en cas de dysfonctionnement du plugin.
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
 
+* DebugInfo : Il ne s'agit pas vraiment d'un Log mais plutot d'informations de debuggage qui peuvent aider à diagnostiquer votre problème.  Pour avoir ces informations, il faut passer les logs du démon en "Debug" ou en "Info" puis actualiser la fenêtre (F5). A coté de "Configuration" dans le plugin Homebridge, vous avez l'icone DebugInfo qui est apparue. Il vous suffit de cliquer dessus et attendre que le relevé des informations s'effectue. Vous pouvez ensuite copier tout ou bien la catégorie qui vous est demandée.
+
 Configuration du plugin Homebridge
 =================================
 
@@ -124,7 +126,7 @@ Pour créer le pont, il suffit de lui donner un nom et un code "PIN".
 * *PIN Homebridge* : Permet de personnaliser le code PIN Homebridge.
 
 
->Les PIN suivants ne sont pas acceptés par Apple : 000-00-000, 111-11-111, 222-22-222 -> 999-99-999, 123-45-678, 876-54-321. Son changement obligera la reconfiguration des applications HomeKit.
+>Les PIN suivants ne sont pas acceptés par Apple : 000-00-000, 111-11-111 -> 999-99-999, 123-45-678, 876-54-321. Son changement obligera la reconfiguration des applications HomeKit.
 
 * *Réparer* :  Permet une réparation de Homebridge en modifiant les identifiants. 
 
@@ -367,7 +369,7 @@ Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'applicati
 
 ![app-domicile](../images/app-domicile.jpg)
 
-Le pont peut être inclu manuellement en entrant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
+Le pont peut être inclu manuellement en entrant ou scannant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
 
 Ajout du pont par QR code
 -------------------------
@@ -401,7 +403,7 @@ Il faut scanner le code PIN et sélectionner le pont à inclure. Le pont Jeedom 
 
 >Le code PIN peut être également rentré manuellement en cliquant sur "Code absent ou impossible à scanner ?"
 
-
+>Les plateformes et accessoires supplémentaires doivent être inclus manuellement (pas via le QRcode)
 
 >Il n'est pas possible d'inclure le pont Jeedom sur plusieurs appareils IOS. Pour utiliser Homebridge sur plusieurs appareils IOS, il suffit de partager le domicile en suivant la procédure suivante :
 
@@ -458,10 +460,10 @@ Support
 -------
 **Merci de passer par le forum, de créer *un* sujet par demande et de lire les autres sujets s'ils ressemblent au votre (ceux créés après la sortie de ce plugin, c'est logique :-))**
 
-Point important
----------------
+Point important si multi-prise/multi-relay
+------------------------------------------
 
->Les références vers l'état dans les actions sont primordiales !! Sinon pas de lien entre l'état et ses actions possibles.
+>Les références vers l'état dans les actions sont primordiales dans le cas où vous avez un équipement avec des états semblables multiples (multi-prise, multi-relay) !! Sinon pas de lien entre l'état et ses actions liées possible.
 
 Pour un "virtuel" : 
 
@@ -480,7 +482,7 @@ FAQ
 
 ![demon-homebridge.png](../images/demon-homebridge.png)
 
->Pour inclure votre Jeedom dans HomeKit, via une application compatible (par exemple Maison ou Eve), vérifiez que votre appareil iOS est connecté au même réseau que votre Jeedom.
+>Pour inclure votre Jeedom dans HomeKit, via une application compatible (par exemple Maison ou Eve), vérifiez que votre appareil iOS est connecté au même réseau que votre Jeedom. (Il ne peut y avoir **aucun routage** entre jeedom et votre appareil iOS)
 
 ![config-pluginhb](../images/config-pluginhb.png)
 
@@ -506,7 +508,7 @@ FAQ
 
 **-> J'ai mon Homebridge qui n'exécute pas les commandes !**
 
->Il faut bien mettre à jour le plugin.
+>Il faut bien mettre à jour le plugin. Vérifiez le type générique de la commande.
 
 **-> J'ai bien le retour d'état d'un équipement mais impossible de le piloter !**
 
@@ -516,10 +518,11 @@ FAQ
 
 ![sans-reponse](../images/sans-reponse.png)
 
-1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connecté au même réseau que votre Jeedom. 
+1. Si vous n'avez pas de concentrateur HomeKit (iPad ou Apple TV), vérifiez que vous êtes connecté au même réseau que votre Jeedom. (Pas de routage)
 2. Vérifiez que le démon est activé. Si ce n'est pas le cas, redémarrez le.
 3. Relancez votre box.
 4. Si malgré tout vous avez toujours ces états, lancez une réparation.
+5. Si le problème n'est pas réglé, vous avez un problème réseau, veillez à activer IGMP Snooping, le multicast et mDNS sur tout le trajet entre Jeedom et votre iDevice et votre AppleTV/HomePod. Aucun routage entre ces trois périphériques n'est toléré.
 
 >Beaucoup d'informations se trouvent dans les logs, le prochain chapitre vous expliquera comment les analyser.
 
@@ -934,10 +937,10 @@ Pour configurer plusieurs caméras, il suffit de mettre une barre entre les deux
 
 **Cela est également valable pour toute autre plateforme comme le thermostat NEST par exemple.**
 
-Type Générique Custom
+Type Générique Info/Générique
 ---------------------
 
-Le type générique "Custom" permet de faire remonter n'importe quelle valeur "info" de tout type dans Homebridge. **Quelques exemples sont décris dans ce chapitre.**
+Le type générique "Info/Générique" permet de faire remonter n'importe quelle valeur "info" de tout type dans Homebridge. **Quelques exemples sont décris dans ce chapitre.**
 
 **L'information à remonter dans Homebridge ne doit pas dépasser 64 caractères.**
 
@@ -1085,6 +1088,8 @@ Changelog
 
 v1.4.0 (???)
 -------------
+
+* Documentation au nouveau format + mise à jour par @BPhoque
 
 * Meilleur code de génération pour le QRcode (en php).
 
