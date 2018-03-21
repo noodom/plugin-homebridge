@@ -115,7 +115,28 @@
         "Modifications sauvegardées avec succès": "Modifications sauvegardées avec succès",
         "Sauvegarde effectuée avec succès": "Sauvegarde effectuée avec succès",
         "Sauvegarde de la configuration réussie.": "Erfolgreiche Konfigurations Sicherung.",
-        "Echec de la sauvegarde de la configuration : ": "Fehler beim Speichern der Konfiguration :"
+        "Echec de la sauvegarde de la configuration : ": "Fehler beim Speichern der Konfiguration :",
+        "Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')": "Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')",
+        "Groupement des évenements par bouton, cet évènement appartient au :": "Groupement des évenements par bouton, cet évènement appartient au :",
+        "Bouton N°": "Bouton N°",
+        "Un bouton séparé": "Un bouton séparé",
+        "Bouton": "Bouton",
+        "Si vous laissez \"Un bouton séparé\", il sera créé un bouton avec un seul évènement": "Si vous laissez \"Un bouton séparé\", il sera créé un bouton avec un seul évènement",
+        "Un seul type d'évenement (Simple, Double, Long) par bouton": "Un seul type d'évenement (Simple, Double, Long) par bouton",
+        "Mode app Maison": "Mode app Maison",
+        "Mode app Eve": "Mode app Eve",
+        "Mode Jeedom": "Mode Jeedom",
+        "Chauffer": "Chauffer",
+        "CHAUF.": "CHAUF.",
+        "Refroidir": "Refroidir",
+        "CLIM.": "CLIM.",
+        "Merci de ne pas choisir plusieurs fois le même mode": "Merci de ne pas choisir plusieurs fois le même mode",
+        "Domicile": "Domicile",
+        "Présence": "Présence",
+        "À distance": "À distance",
+        "Absence": "Absence",
+        "Nuit": "Nuit",
+        "Scénarios": "Scénarios"
     },
     "plugins\/homebridge\/desktop\/modal\/info_app.homebridge.php": {
         "Copier tout dans le presse-papier": "Copier tout dans le presse-papier",
@@ -147,7 +168,9 @@
         "DB Homebridge :": "DB Homebridge :",
         "Config du Bridge :": "Bridge konfig :",
         "Cache Identifiants :": "Cache Identifiants :",
-        "Cache Homebridge :": "Cache Homebridge :"
+        "Cache Homebridge :": "Cache Homebridge :",
+        "Système": "Système",
+        "Persistence FakeGato :": "Persistence FakeGato :"
     },
     "plugins\/homebridge\/desktop\/modal\/accessoryHB.homebridge.php": {
         "!!! Cette configuration est en mode avancé !!! à vos risques et périls !!! aucun support ne sera donné !!!": "!!! Cette configuration est en mode avancé !!! à vos risques et périls !!! aucun support ne sera donné !!!",
@@ -156,5 +179,16 @@
         "le plugin homebridge correspondant doit être installé avec <i>npm<\/i>": "le plugin homebridge correspondant doit être installé avec <i>npm<\/i>",
         "NB : Un nouvel Accessoire doit être ajouté à nouveau dans l'application \"Maison\" avec le même code PIN": "NB : Un nouvel Accessoire doit être ajouté à nouveau dans l'application \"Maison\" avec le même code PIN",
         "Sauvegarder les changements": "Änderungen speichern"
+    },
+    "plugins\/homebridge\/desktop\/js\/homebridge.js": {
+        "Santé homebridge": "Santé homebridge",
+        "DebugInfo Homebridge": "DebugInfo Homebridge",
+        "Configuration homebridge du Plugin \"+name_plugin+\"": "Configuration homebridge du Plugin \"+name_plugin+\"",
+        "Configuration homebridge de la Pièce": "Configuration homebridge de la Pièce",
+        "Configuration homebridge du Scénario \"+name_scenario+\"": "Configuration homebridge du Scénario \"+name_scenario+\""
+    },
+    "plugins\/homebridge\/desktop\/js\/accessoryFile.js": {
+        "Sauvegarde de la configuration réussie. Relancez le demon": "Sauvegarde de la configuration réussie. Relancez le demon",
+        "Echec de la sauvegarde de la configuration : ": "Echec de la sauvegarde de la configuration : "
     }
 }
