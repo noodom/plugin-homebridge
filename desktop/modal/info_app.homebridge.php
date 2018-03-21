@@ -216,8 +216,9 @@ JSONRPC : <?=config::byKey('api::core::jsonrpc::mode', 'core', 'enable')?>
 <pre id='pre_eventlog' class="IdentifierCache copyAll" style='overflow: auto; with:90%;height:200px;'><?=json_encode(json_decode($IdentifierCache),JSON_PRETTY_PRINT)?></pre>
 
 <?php
-	$fakegato=( (config::byKey('fakegato','homebridge',false,true))?true:false);
-	if(homebridge::isMagic('NBOD0V56Srf.k')) { // enable fakegato
+	//do not display now
+	$fakegato=false;//( (config::byKey('fakegato','homebridge',false,true))?true:false);
+	if(homebridge::isMagic('NBOD0V56Srf.k')) { // force enable fakegato
 		$fakegato=true;
 	}
 	if($fakegato) :
