@@ -716,9 +716,9 @@ Bouton poussoir
 ------------------------------------------------
 
 Ce type générique est utilisé par des accessoires qui ne nécessites pas de retour d'état. Le bouton poussoir est le parfait exemple. 
-Dans cet exemple, un simple appui sur le bouton permet de lancer un script (avec le plugin script).
+Dans cet exemple, un simple appui sur le bouton poussoir permet de lancer un script (avec le plugin script).
 
-Le BP sera crée à l'aide du plugin virtuel.
+Le Bouton poussoir sera crée à l'aide du plugin virtuel.
 
 ![BP](../images/bp.png)
 
@@ -726,7 +726,7 @@ Voici les paramètres pour cet accessoire :
 
 ![TGBP](../images/tgbp.png)
 
-Dans l'application Maison, le BP sera représenté comme un interrupteur. Un appui dessus permet le lancement du script.
+Dans l'application Maison, le Bouton poussoir sera représenté comme un interrupteur. Un appui dessus permet le lancement du script et l'interrupteur repasse à OFF (0) tout seul.
 
 Virtuel
 --------
