@@ -1160,6 +1160,8 @@ v1.4.0 (22&23-03-2018)
 
 > Il s'agit d'un support Alpha, juste car c'est fun :) Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont là à titre informatif. A part les trois premiers types qui peuvent être dans le même Périphérique, les autres ne peuvent pas être combinés (il faut coller aux produits Elgato).
 
+> Pour faire apparaître les graphs, il faut des données et si vous ne voyez rien la première fois, il faut fermer complètement l'app Eve puis la réouvrir pour qu'il rafraîchisse les composants.
+
 v1.3.5 (12-12-2017)
 ------------------
 * Suppression du besoin de sélection de l'utilisateur
