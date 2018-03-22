@@ -658,7 +658,7 @@ Type d'accessoire : Aeotec - Contrôleur de porte de garage (GEN5) (Z-Wave)
 
 ![garage](../images/garage.png)
 
-Interrupteur programable
+Interrupteur programmable
 -----------------------
 
 ### Interrupteur programmable multi-valeur #
