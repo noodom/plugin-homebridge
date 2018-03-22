@@ -176,6 +176,7 @@ if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]] && [[ "$testGMP" != 
   if [ $? = 0 ]; then
     echo "Reload apache2..."
     sudo service apache2 reload
+    sudo systemctl daemon-reload
   fi
 fi
 
