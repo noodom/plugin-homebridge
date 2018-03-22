@@ -1119,9 +1119,9 @@ v1.4.0 (22&23-03-2018)
 
 * Nouveau type spécifique homebridge : "Bouton poussoir" qui est en fait un interrupteur mais qui s'éteint tout seul. Cela permet d'associer n'importe quelle commande action de type "autre".
 
-* Support du type générique Action/Générique pour les commandes action de type "autre" seulement. (Comme un Bouton poussoir).
+* Support du type générique Action/Générique pour les commandes action de type "Défaut" seulement. (Comme un Bouton poussoir).
 
-* Support des commandes camera comme bouton pousoir(Haut,Bas,Gauche,Droite,Zoom,DéZoom,Preset) et de l'enregistrement comme un interrupteur.
+* Support des commandes camera comme Bouton poussoir (Haut,Bas,Gauche,Droite,Zoom,DéZoom,Preset) et de l'enregistrement comme un interrupteur.
 
 * Meilleur gestion du type Haut-Parleur (si pas de Mute).
 
