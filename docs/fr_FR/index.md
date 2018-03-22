@@ -1104,7 +1104,7 @@ Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont
 Changelog
 =========
 
-v1.4.0 (???)
+v1.4.0 (22&23-03-2018)
 -------------
 
 * Documentation au nouveau format + mise à jour par @BPhoque
