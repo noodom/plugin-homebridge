@@ -35,7 +35,7 @@ try {
 		ajax::success($ret);
 	}
 	if (init('action') == 'saveCustomData') {
-		$ret=homebridge::saveCustomData(init('eqLogic'),init('cmd'),init('oldValues'));
+		$ret=homebridge::saveCustomData(init('eqLogic'),init('cmd'),init('scenario'),init('oldValues'));
 		ajax::success($ret);
 	}	
 	if (init('action') == 'regenerateHomebridgeConf') {
@@ -46,22 +46,22 @@ try {
 		$pin_homebridge='';
 		if(init('pin_homebridge') != '')
 			$pin_homebridge=init('pin_homebridge');
-		ajax::success(homebridge::generateQRCode($pin_homebridge));
+		ajax::success(homebridge::generateQRCode('100x100',$pin_homebridge));
 	}
 	if (init('action') == 'getJSON') {
 		if(init('type') == 'Platform')
-			$file = homebridge::getJSON('Platform');
+			$file = homebridge::getJSON('otherPlatform');
 		elseif(init('type') == 'Accessory')
-			$file = homebridge::getJSON('Accessory');
+			$file = homebridge::getJSON('otherAccessory');
 		else
 			$file = false;
 		ajax::success($file);
 	}
 	if (init('action') == 'saveJSON') {
 		if(init('type') == 'Platform')
-			$ret = homebridge::saveJSON(init('file'),'Platform');
+			$ret = homebridge::saveJSON(init('file'),'otherPlatform');
 		elseif(init('type') == 'Accessory')
-			$ret = homebridge::saveJSON(init('file'),'Accessory');
+			$ret = homebridge::saveJSON(init('file'),'otherAccessory');
 		else
 			$ret = false;
 		ajax::success($ret);

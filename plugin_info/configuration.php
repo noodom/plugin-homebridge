@@ -28,6 +28,10 @@ if(!isConnect()) {
   font-family: Scancardium;
   src: url(/plugins/homebridge/resources/Scancardium.ttf);
 }
+
+#input[type=checkbox] {
+#  transform: scale(1.5);
+#}
 </style>
 <form class="form-horizontal">
 	<fieldset>
@@ -36,25 +40,46 @@ if(!isConnect()) {
 		</legend>
 		<?php
 			$interne = network::getNetworkAccess('internal');
+			$jsonrpc = config::byKey('api::core::jsonrpc::mode', 'core', 'enable');
+			$localVer =homebridge::getLocalVersion();
+			$remoteVer=homebridge::getRemoteVersion();
+			if($remoteVer != '0')
+				$diffVer = version_compare($localVer,$remoteVer,'<');
+			else
+				$diffVer = false;
+			
+			$vert = "#5cb85c";$orange = "#ec971f";$rouge = "#c9302c";$jaune = "#f1c40f";
+			
+			$color = $vert;
+			$errorMessage="";
 			if($interne == null || $interne == 'http://:80' || $interne == 'https://:80'){
-		?>
-			<div class="form-group">
-				<div class="col-lg-7">
-					<span class="badge" style="background-color : #c9302c;">{{Attention votre adresse interne (configuration) n'est pas valide.}}</span>
-				</div>
-			</div>
-		<?php
-			}else{
-		?>
-			<div class="form-group">
-				<label class="col-lg-4 control-label">{{Adresse Ip Homebridge}}</label>
-				<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
-					<span class="badge" style="background-color : #ec971f;margin-top:10px"><?php echo $interne; ?></span>
-				</div>
-			</div>
-		<?php
+				$errorMessage = "{{Attention : Votre adresse interne n'est pas valide (Configuration > Réseau). Homebridge ne fonctionnera pas.}}";
+				$color = $rouge;
+			} elseif (strstr($interne,'https')) {
+				$errorMessage = "{{Attention : Votre adresse interne est en https (Configuration > Réseau). Homebridge ne foncitonnera pas.}}";
+				$color = $rouge;
+			} elseif ($jsonrpc == 'disable') {
+				$errorMessage = "{{Attention : JSONRPC n'est pas activé (Configuration > API). Homebridge ne fonctionnera pas.}}";
+				$color = $rouge;
+			} elseif (jeedom::getHardwareName() == "Docker") {
+				$color = $orange;
+			} elseif (!extension_loaded('gmp')) {
+				$errorMessage = "{{GMP n'est pas bien installé, relancez vos dépendances. (Puis rafraichir)}}";
+				$color = $orange;
+			} elseif ($diffVer) {
+				$errorMessage = "{{Nouvelle version des dépendances, relancez vos dépendances. (Puis rafraichir)}}";
+				$color = $jaune;
+			} elseif (jeedom::version() >= '3.2.1' && config::byKey('migrated321','homebridge',false,true) === false) {
+				$errorMessage = "{{Jeedom >=3.2.1 mais données non migrées, Redémarrez le Démon. (Puis rafraichir)}}";
+				$color = $orange;
 			}
 		?>
+		<div class="form-group">
+			<label class="col-lg-4 control-label">{{Adresse Ip Homebridge}}</label>
+			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+				<span class="badge" style="background-color : <?=$color?>;margin-top:10px"><?php echo $interne.(($errorMessage)?'&nbsp;&nbsp;&nbsp;'.$errorMessage:''); ?></span>
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Nom Homebridge}}</label>
 			<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
@@ -71,7 +96,7 @@ if(!isConnect()) {
 			<label class="col-lg-4 control-label">{{PIN Homebridge (format : XXX-XX-XXX)}}</label>
 			<div class="col-lg-3" style="background-color:#fff !important;padding-top:15px;padding-bottom:15px;">
 				<input id="input_pin_homebridge" class="configKey form-control" maxlength="10" style="margin: auto; border:5px solid #000;height:70px;width:220px;text-align:center;font-size:25px;background-color:#fff !important;color:#000;border-radius:0px;font-family:Scancardium; letter-spacing: 1px;" data-l1key="pin_homebridge" placeholder="031-45-154" />
-			</div><img id="qrCode" style="padding-left:100px" title="{{Fonctionne uniquement pour ajouter Jeedom, pour les plateformes supplémentaires, utilisez le PIN}}" src="" border="0" />
+			</div><img id="qrCode" style="padding-left:100px" title="{{Fonctionne uniquement pour ajouter Jeedom, pour les plateformes supplémentaires, utilisez le PIN}}" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" border="0" />
 		</div>
 		<div class="form-group">
 			<label class="col-lg-4 control-label">{{Réparation de Homebridge}}</label>
@@ -86,7 +111,16 @@ if(!isConnect()) {
 				<br /><br />
 				<a class="btn btn-danger" style="width:100%" id="bt_accessoryFile"><i class="fa fa-file-o"></i> {{Accessoire Homebridge supplémentaire}}</a>
 				<br />
-				<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
+			</div>
+		</div>
+		<div class="form-group">
+		
+				<label class="col-lg-4 control-label">{{Activer les graphiques dans Eve (Alpha)}}</label>
+				<div class="col-lg-3" style="padding-left:0px;padding-right:0px;">
+					<input type="checkbox" class="configKey form-control" style="width:auto;" data-l1key="fakegato" title="{{(Aucun Support) Fonctionne seulement pour Température, Humidité, Pression, Porte/Fenêtre, Présence.  Les graphiques ont été développés par ingénierie inversée des composants Elgato Eve et il peut y avoir des incohérences. Les données des graphiques sont les données collectées lorsque le démon Homebridge est démarré, il peut donc manquer certaines informations. Les graphiques sont uniquement à titre informatif.}}" />
+					<br /><br />
+					<input id="input_magicField" class="configKey form-control" data-l1key="magicField" style="background-color:transparent !important;border:0px !important;" />
+				</div>
 			</div>
 		</div>		
 	</fieldset>
@@ -135,7 +169,8 @@ if(!isConnect()) {
 				});
 			},
 			success : function(data) {
-				$('#qrCode').attr('src',data.result);
+				if(data.result != "")
+					$('#qrCode').attr('src',data.result);
 			}
 		});
 	}
@@ -173,7 +208,8 @@ if(!isConnect()) {
 						});
 					},
 					success : function(data) {
-						$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						//$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						$('li.li_plugin.active').click();
 						$('#div_alert').showAlert({
 							message : "{{Réparation Homebridge effectuée, merci de patienter jusqu'au démarrage du démon}}",
 							level : 'success'
@@ -201,7 +237,8 @@ if(!isConnect()) {
 						});
 					},
 					success : function(data) {
-						$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						//$('#div_plugin_configuration').setValues(data.result, '.configKey');
+						$('li.li_plugin.active').click();
 						$('#div_alert').showAlert({
 							message : "{{Réinstallation Homebridge effectuée, merci de patienter jusqu'à la fin de l'installation des dépendances}}",
 							level : 'success'

@@ -24,9 +24,16 @@ sendVarToJS('object', $_GET['object_id']);
 function listAlarmSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
-			$val = $cmd->getid().'|'.$cmd->getName();
-			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+		if (jeedom::version() >= '3.2.1') {
+			if($cmd->getGeneric_type() == "ALARM_SET_MODE") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
+		} else {
+			if($cmd->getDisplay('generic_type') == "ALARM_SET_MODE") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
 		}
 	}
 	return $opt;
@@ -34,9 +41,16 @@ function listAlarmSetModes($cmds,$selected) {
 function listThermoSetModes($cmds,$selected) {
 	$opt = "<option value='NOT'>Aucun</option>";
 	foreach ($cmds as $cmd) {
-		if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
-			$val = $cmd->getid().'|'.$cmd->getName();
-			$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+		if (jeedom::version() >= '3.2.1') {
+			if($cmd->getGeneric_type() == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
+		} else {
+			if($cmd->getDisplay('generic_type') == "THERMOSTAT_SET_MODE" && $cmd->getName() != "Off") {
+				$val = $cmd->getid().'|'.$cmd->getName();
+				$opt.= '<option value="'.$val.'"'.(($selected==$val)?" selected":'').'>'.$cmd->getName().'</option>';
+			}
 		}
 		if($cmd->getName() == 'Off' && $selected == 'Off') {
 			return '<input class="eqLogicAttrThermo configuration hidden" data-l1key="configuration" data-l2key="Off" value="'.$cmd->getid().'|'.$cmd->getName().'" />';
@@ -60,14 +74,14 @@ function listThermoSetModes($cmds,$selected) {
 		</center>
 	</div><br/>
 	<div class="alert alert-info div_object_configuration" role="alert">
-		{{Vous pouvez activer ou désactiver l'envoi de cette pièce vers l'application}}
+		{{Cliquez sur un équipement pour voir ses types génériques}}
 		<?php
 		$check = 'checked';
 		if ($object->getDisplay('sendToApp', 1) == 0) {
 			$check = 'unchecked';
 		}
 		?>
-		<label class="checkbox-inline pull-right"><input type="checkbox" class="objectAttr" data-l1key="display" data-l2key="sendToApp" <?=$check?>/>{{Activer}}</label>
+		<label class="checkbox-inline pull-right"><input type="checkbox" class="objectAttr" data-l1key="display" data-l2key="sendToApp" <?=$check?>/>{{Activer la pièce}}</label>
 		<span class="form-control objectAttr" type="text" data-l1key="id" style="display : none;"><?=$_GET['object_id']?></span>
 		<span class="form-control objectAttr" type="text" data-l1key="name" style="display : none;"><?=$object->getName()?></span>
 	</div>
@@ -84,6 +98,7 @@ function listThermoSetModes($cmds,$selected) {
 		$tableau_cmd = [];
 		$eqLogics = $object->getEqLogic();
 		$customValuesArr = homebridge::getCustomData();
+		$PluginAutoConfig = homebridge::PluginAutoConfig();
 		?>
 		<div class="panel-group" id="accordionConfiguration">
 			<?php
@@ -119,7 +134,8 @@ function listThermoSetModes($cmds,$selected) {
 					<div id="config_<?=$eql_id?>" class="panel-collapse collapse">
 						<div class="panel-body">
 							<?php
-							switch($eqLogic->getEqType_name()) :
+							$pluginId = $eqLogic->getEqType_name();
+							switch($pluginId) :
 								case "alarm" :
 									configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id);
 								break;
@@ -145,6 +161,14 @@ function listThermoSetModes($cmds,$selected) {
 								default :
 									$cmds = null;
 									$cmds = cmd::byEqLogicId($eql_id);
+									$specificField=null;
+									$specificValue=null;
+									if(isset($PluginAutoConfig[$pluginId])) {
+										$specificField = $PluginAutoConfig[$pluginId]['field'];
+										if(isset($specificField)) {
+											$specificValue = $eqLogic->getConfiguration($specificField);
+										}
+									}
 									$isCustomisable = false;
 								?>
 									<table id='<?=$eql_id?>' class="table TableCMD">
@@ -156,11 +180,32 @@ function listThermoSetModes($cmds,$selected) {
 										<?php
 										foreach ($cmds as $cmd) :
 											$cmd_id = $cmd->getId();
-											$customCMDValuesArr=['display'=>null];
+											$cmd_array = $cmd->exportApi();
+											$customCMDValuesArr=['id'=>null,'display'=>null,'configuration'=>null];
 											array_push($tableau_cmd, $cmd_id);
+											
+											if (jeedom::version() >= '3.2.1') {
+												if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
+													$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+													$cmd->save();
+													$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+												}
+											}
+											
+											// replace generic_type if auto-config data exists
+											$logicalId = $cmd_array['logicalId'];
+											if(!isset($specificValue)) $specificValue = 'default';
+											if(	isset($PluginAutoConfig[$pluginId]) && 
+												isset($PluginAutoConfig[$pluginId][$specificValue]) && 
+												isset($PluginAutoConfig[$pluginId][$specificValue][$logicalId])) {
+											
+												$cmd_array['generic_type'] = $PluginAutoConfig[$pluginId][$specificValue][$logicalId];
+											}
+											
+											
 											foreach($customValuesArr['cmd'] as $cmdCustom) {
 												if($cmdCustom['id'] == $cmd_id) {
-													$customCMDValuesArr = $cmdCustom['display'];	
+													$customCMDValuesArr = $cmdCustom;	
 													break;
 												}
 											}
@@ -174,7 +219,7 @@ function listThermoSetModes($cmds,$selected) {
 													echo $cmd->getName();
 													$display_icon = 'none';
 													$icon ='';
-													if (in_array($cmd->getDisplay('generic_type'), ['GENERIC_INFO','GENERIC_ACTION'])) {
+													if (in_array($cmd_array['generic_type'], ['GENERIC_INFO','GENERIC_ACTION'])) {
 														$display_icon = 'block';
 														$icon = $cmd->getDisplay('icon');
 													}
@@ -187,7 +232,17 @@ function listThermoSetModes($cmds,$selected) {
 													</div>
 												</td>
 												<td>
+												<?php
+													if (jeedom::version() >= '3.2.1') :
+												?>
+													<select class="cmdAttr form-control" data-l1key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
+												<?php
+													else :
+												?>
 													<select class="cmdAttr form-control" data-l1key="display" data-l2key="generic_type" data-cmd_id="<?php echo $cmd_id; ?>">
+												<?php
+													endif;
+												?>
 														<option value="">{{Aucun}}</option>
 														<?php
 														$groups = array();
@@ -226,11 +281,20 @@ function listThermoSetModes($cmds,$selected) {
 																	echo '<optgroup label="{{' . $info['family'] . '}}">';
 																}
 																$selected = '';
-																if($info['key'] == $cmd->getDisplay('generic_type') || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
-																	if(in_array($info['key'],homebridge::PluginCustomisable())) {
-																		$isCustomisable = $info['key'];
+																if (jeedom::version() >= '3.2.1') {
+																	if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['generic_type']) && $info['key'] == $customCMDValuesArr['generic_type'])){
+																		if(in_array($info['key'],homebridge::PluginCustomisable())) {
+																			$isCustomisable = $info['key'];
+																		}
+																		$selected=' selected';
 																	}
-																	$selected=' selected';
+																} else {
+																	if($info['key'] == $cmd_array['generic_type'] || (isset($customCMDValuesArr['display']['generic_type']) && $info['key'] == $customCMDValuesArr['display']['generic_type'])){
+																		if(in_array($info['key'],homebridge::PluginCustomisable())) {
+																			$isCustomisable = $info['key'];
+																		}
+																		$selected=' selected';
+																	}
 																}
 																echo '<option value="' . ((isset($info['homebridge_type']) && $info['homebridge_type'])?'HB|':'') . $info['key'] . '" '.((isset($info['homebridge_type']) && $info['homebridge_type'])?'class="orange"':'').$selected.'>' . $info['type'] . ' / ' . $info['name'] . '</option>';
 															}
@@ -238,9 +302,29 @@ function listThermoSetModes($cmds,$selected) {
 														}
 														?>
 													</select>
+													<?php
+													switch($isCustomisable) {
+														case "SWITCH_STATELESS_ALLINONE" :
+															configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,false);
+														break;
+														case "SWITCH_STATELESS_SINGLE" :
+														case "SWITCH_STATELESS_DOUBLE" :
+														case "SWITCH_STATELESS_LONG" :
+															configStateless($customCMDValuesArr,$cmd_id,$eql_id,false);
+														break;
+													}
+													if($isCustomisable != "SWITCH_STATELESS_ALLINONE") {
+														configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,true);
+													} else $isCustomisable=false;
+													if($isCustomisable != "SWITCH_STATELESS_SINGLE" &&
+													   $isCustomisable != "SWITCH_STATELESS_DOUBLE" &&
+													   $isCustomisable != "SWITCH_STATELESS_LONG") {
+														configStateless($customCMDValuesArr,$cmd_id,$eql_id,true);
+													} else $isCustomisable=false;
+													?>
 												</td>
 											</tr>
-										<?php
+											<?php
 										endforeach;
 										switch($isCustomisable) {
 											case "GARAGE_STATE" :
@@ -272,6 +356,49 @@ function listThermoSetModes($cmds,$selected) {
 			endforeach;
 			?>
 		</div>
+
+		<?php
+		// SCENARIO
+		$scenarios = $object->getScenario(false,false);
+		if(count($scenarios)) :
+		?>
+		<legend><i class="fa fa-cogs"></i>  {{Scénarios}}</legend>
+		<div class="panel-group">
+			<?php
+			foreach ($scenarios as $scenario) :
+				$check = 'unchecked';
+				$scenario_id = $scenario->getId();
+				foreach($customValuesArr['scenario'] as $scenarioCustom) {
+					if($scenarioCustom['id'] == $scenario_id) {
+						if($scenarioCustom['configuration']['sendToHomebridge'] == "1") {
+							$check = 'checked';
+							break;
+						}
+						break;
+					}
+				}
+			?>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							
+								<span class="ScenarioAttr hidden" data-l1key="id"><?=$scenario->getId()?></span>
+								<?=$scenario->getHumanName(false,false,true)?>
+								<a class="btn btn-mini btn-success eqLogicAction pull-right" style="padding:0px 3px 0px 3px;cursor:pointer;" onclick="SaveObject()"><i class="fa fa-floppy-o" style="color:white;"></i></a>
+								<small>
+									<label style="cursor:default;margin-left:5px">{{  Envoyer à Homebridge  }}<input style="display:inline-block" type="checkbox" class="ScenarioAttr configuration" data-l1key="configuration" data-l2key="sendToHomebridge" <?=$check?>/></label>
+								</small>
+							
+						</h3>
+					</div>
+				</div>
+			<?php
+			endforeach;
+			?>
+		</div>
+		<?php
+		endif;
+		?>
 		<div class="form-actions pull-right">
 			<a class="btn btn-success eqLogicAction" onclick="SaveObject()" ><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
 		</div>
@@ -281,14 +408,53 @@ function listThermoSetModes($cmds,$selected) {
 <script>
 var changed=0;
 var eqLogicsHomebridge = [];
+var scenarioHomebridge = [];
 var eqLogicsCustoms = [];
+var customCmds = [];
 var oldValues = [];
 // CHANGE CLICK
 $('.cmdAttr').on('change',function(){
-	$(this).closest('tr').attr('data-change','1');
+	$(this).closest('tr.cmdLine').attr('data-change','1');
+});
+
+// show custom config
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
+$('.cmdAttr[data-l1key=generic_type]').on('change',function(){
+<?php
+	else :
+?>
+$('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change',function(){
+<?php
+	endif;
+?>
+	var SelectedValue = $(this).value();
+	switch(SelectedValue) {
+		case 'HB|SWITCH_STATELESS_ALLINONE' :
+			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).show();
+			$('#StatelessAllinone_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStatelessAllinone]').value(1);
+		break;
+		case "HB|SWITCH_STATELESS_SINGLE" :
+		case "HB|SWITCH_STATELESS_DOUBLE" :
+		case "HB|SWITCH_STATELESS_LONG" :
+			$('#Stateless_'+$(this).attr('data-cmd_id')).show();
+			$('#Stateless_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStateless]').value(1);
+		break;
+	}
+	if(SelectedValue != 'HB|SWITCH_STATELESS_ALLINONE') {
+		$('#StatelessAllinone_'+$(this).attr('data-cmd_id')).hide();
+		$('#StatelessAllinone_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStatelessAllinone]').value(0);
+	}
+	if(SelectedValue != "HB|SWITCH_STATELESS_SINGLE" &&
+	   SelectedValue != "HB|SWITCH_STATELESS_DOUBLE" &&
+	   SelectedValue != "HB|SWITCH_STATELESS_LONG") {
+		$('#Stateless_'+$(this).attr('data-cmd_id')).hide();
+		$('#Stateless_'+$(this).attr('data-cmd_id')+' .cmdAttr[data-l2key=customValuesStateless]').value(0);
+	}
 });
 $('.cmdAttr').on('click',function(){
-	$(this).closest('tr').attr('data-change','1');
+	$(this).closest('tr.cmdLine').attr('data-change','1');
 	var found = false;
 	for(var i=0; i<oldValues.length ; i++) {
 		if($(this).attr('data-cmd_id') == oldValues[i].id) {
@@ -313,6 +479,11 @@ $('.eqLogicAttr').on('change click',function(){
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsHomebridge.push(eqLogic);
 });
+$('.ScenarioAttr').on('change click',function(){
+	var scenario = $(this).closest('.panel-title').getValues('.ScenarioAttr')[0];
+	console.log(scenario.id,scenario.configuration);
+	scenarioHomebridge.push(scenario);
+});
 $('.eqLogicAttrAlarm').on('change',function(){
 	var eqLogic = $(this).closest('.panel-body').getValues('.eqLogicAttrAlarm')[0];
 	console.log(eqLogic.id,eqLogic.configuration);
@@ -328,18 +499,34 @@ $('.eqLogicAttrGarage').on('change',function(){
 	console.log(eqLogic.id,eqLogic.configuration);
 	eqLogicsCustoms.push(eqLogic);
 });
+/*
+$('.cmdAttrStateless').on('change',function(){
+	var cmd = $(this).closest('tr').getValues('.cmdAttrStateless')[0];
+	console.log(cmd,cmd.id,cmd.configuration);
+	customCmds.push(cmd);
+});*/
 
 
 // SAUVEGARDE
 function SaveObject(){
 	var cmds = []
-	var customCmds = [];
 	var cmdValues;
 	$('.TableCMD tr').each(function(){
 		if($(this).attr('data-change') == '1'){
 			cmdValues = $(this).getValues('.cmdAttr')[0];
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
+			if(cmdValues.generic_type.substr(0,3) == 'HB|') {
+				cmdValues.generic_type = cmdValues.generic_type.replace('HB|','');
+<?php
+	else :
+?>
 			if(cmdValues.display.generic_type.substr(0,3) == 'HB|') {
 				cmdValues.display.generic_type = cmdValues.display.generic_type.replace('HB|','');
+<?php
+	endif;
+?>
 				customCmds.push(cmdValues);
 			}
 			else {
@@ -402,6 +589,18 @@ function SaveObject(){
 			eqLogicsCustomsFiltered.push(eqLogic);
 		}
 	});
+	var scenarioHomebridgeFiltered = [];
+	scenarioHomebridge.reverse();
+	$.each(scenarioHomebridge, function(index, scenario) {
+		var eqLogics = $.grep(scenarioHomebridgeFiltered, function (e) {
+			return scenario.id === e.id;
+		});
+		if (eqLogics.length === 0) {
+			scenarioHomebridgeFiltered.push(scenario);
+		}
+	});
+	
+	console.log('customCmds',customCmds);
 	// custom Save
 	$.ajax({
 		type: 'POST',
@@ -409,6 +608,7 @@ function SaveObject(){
 		data: {
 			action: 'saveCustomData',
 			eqLogic: eqLogicsCustomsFiltered,
+			scenario: scenarioHomebridgeFiltered,
 			cmd: customCmds,
 			oldValues: oldValues
 		},
@@ -424,6 +624,7 @@ function SaveObject(){
 					level: 'success'
 				});
 				eqLogicsCustoms = [];
+				customCmds = []
 				oldValues = [];
 			} else {
 				$('.EnregistrementDisplay').showAlert({
@@ -448,7 +649,17 @@ $('body').undelegate('.cmdAttr[data-l1key=display][data-l2key=icon]', 'click').d
 	$(this).empty();
 });
 
+<?php
+	if (jeedom::version() >= '3.2.1') :
+?>
+$('.cmdAttr[data-l1key=generic_type]').on('change', function () {
+<?php
+	else :
+?>
 $('.cmdAttr[data-l1key=display][data-l2key=generic_type]').on('change', function () {
+<?php
+	endif;
+?>
 	var cmdLine = $(this).closest('.cmdLine');
 	if ($(this).value() == 'GENERIC_INFO' || $(this).value() == 'GENERIC_ACTION') {
 		cmdLine.find('.iconeGeneric').show();
@@ -510,7 +721,7 @@ function configAlarmModes($customEQValuesArr,$eql_cmds,$eql_id) {
 			<tr class="cmdLine">
 				<td></td><td></td>
 				<td>
-					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+					{{Merci de ne pas choisir plusieurs fois le même mode}}
 				</td>
 			</tr>
 		</table>	
@@ -553,7 +764,7 @@ function configThermoModes($customEQValuesArr,$eql_cmds,$eql_id) {
 			<tr class="cmdLine">
 				<td></td><td></td>
 				<td>
-					<span class="cmdAttr" data-l1key="id">{{Merci de ne pas choisir plusieurs fois le même mode}}</span>
+					{{Merci de ne pas choisir plusieurs fois le même mode}}
 				</td>
 			</tr>
 		</table>	
@@ -561,7 +772,6 @@ function configThermoModes($customEQValuesArr,$eql_cmds,$eql_id) {
 }
 function configBarrierGarage($customEQValuesArr,$eql_id) {
 		if(isset($customEQValuesArr['configuration'])) {
-			$customValues = (($customEQValuesArr['configuration']['customValues'])?$customEQValuesArr['configuration']['customValues']:false);
 			$OPEN		  = ((isset($customEQValuesArr['configuration']['OPEN']))?$customEQValuesArr['configuration']['OPEN']:255);
 			$OPENING	  = ((isset($customEQValuesArr['configuration']['OPENING']))?$customEQValuesArr['configuration']['OPENING']:254);
 			$STOPPED	  = ((isset($customEQValuesArr['configuration']['STOPPED']))?$customEQValuesArr['configuration']['STOPPED']:253);
@@ -569,7 +779,6 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 			$CLOSED		  = ((isset($customEQValuesArr['configuration']['CLOSED']))?$customEQValuesArr['configuration']['CLOSED']:0);
 		}
 		else {
-			$customValues = false;
 			$OPEN		  = 255;
 			$OPENING	  = 254;
 			$STOPPED	  = 253;
@@ -606,6 +815,72 @@ function configBarrierGarage($customEQValuesArr,$eql_id) {
 			<td><input type='text' class="eqLogicAttrGarage configuration" data-l1key="configuration" data-l2key="CLOSED" value='<?=$CLOSED?>' /></td>
 		</tr>
 		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+<?php
+}
+function configStatelessAllinone($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
+		if(isset($customCMDValuesArr['configuration'])) {
+			$SINGLE		  = ((isset($customCMDValuesArr['configuration']['SINGLE']))?$customCMDValuesArr['configuration']['SINGLE']:0);
+			$DOUBLE	  	  = ((isset($customCMDValuesArr['configuration']['DOUBLE']))?$customCMDValuesArr['configuration']['DOUBLE']:1);
+			$LONG	 	  = ((isset($customCMDValuesArr['configuration']['LONG']))?$customCMDValuesArr['configuration']['LONG']:2);
+		}
+		else {
+			$SINGLE		  = 0;
+			$DOUBLE		  = 1;
+			$LONG	  	  = 2;
+		}
+	?>
+	<table style="<?=(($hidden==true)?'display: none;':'')?>" id='StatelessAllinone_<?=$cmd_id?>'>
+		<tr><th colspan='3'>{{Personnalisation des états, indiquez ici la valeur de l'état correspondant au type d'action}}</th></tr>
+		<tr>
+			<td>
+				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValuesStatelessAllinone" data-cmd_id="<?=$cmd_id?>" style="display : none;"><?=(($hidden==true)?'0':'1')?></span>
+				&nbsp;
+			</td>
+			<td>{{Simple Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="SINGLE" data-cmd_id="<?=$cmd_id?>" value='<?=$SINGLE?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Double Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="DOUBLE" data-cmd_id="<?=$cmd_id?>" value='<?=$DOUBLE?>' /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>{{Long Click}}</td>
+			<td><input type='text' class="cmdAttr configuration" data-l1key="configuration" data-l2key="LONG" data-cmd_id="<?=$cmd_id?>" value='<?=$LONG?>' /></td>
+		</tr>
+		<tr><td></td><td></td><td>{{Merci de vider les valeurs que vous n'utilisez pas (pas zéro, vide !)}}</td></tr>	
+		<tr><td></td><td></td><td>{{Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')}}</td></tr>		
+	</table>
+<?php
+}
+function configStateless($customCMDValuesArr,$cmd_id,$eql_id,$hidden) {
+		if(isset($customCMDValuesArr['configuration'])) {
+			$BUTTON		  = ((isset($customCMDValuesArr['configuration']['BUTTON']))?$customCMDValuesArr['configuration']['BUTTON']:null);
+		}
+		else {
+			$BUTTON		  = null;
+		}
+		
+		$buttonList = "<option value='0' ".(($BUTTON === null)?'selected':'').">{{Un bouton séparé}}</option>";
+		for($i=1;$i<=10;$i++) {
+			$buttonList .= "<option value='".$i."' ".(($BUTTON == $i)?'selected':'').">{{Bouton}} ".$i."</option>";
+		}
+		$buttonList .= "<option value='20' ".(($BUTTON == 20)?'selected':'').">{{Bouton}} 20</option>";
+	?>
+	<table style="<?=(($hidden==true)?'display: none;':'')?>" id='Stateless_<?=$cmd_id?>'>
+		<tr><th colspan='2'>{{Groupement des évenements par bouton, cet évènement appartient au :}}</th></tr>
+		<tr>
+			<td>
+				<span class="cmdAttr configuration" type="text" data-l1key="configuration" data-l2key="customValuesStateless" data-cmd_id="<?=$cmd_id?>" style="display : none;"><?=(($hidden==true)?'0':'1')?></span>
+				&nbsp;
+			</td>
+			<!--<td>{{Bouton N°}}</td>-->
+			<td><select class="cmdAttr configuration" data-l1key="configuration" data-l2key="BUTTON" data-cmd_id="<?=$cmd_id?>"><?=$buttonList?></select></td>
+		</tr>
+		<tr><td></td><td>{{Si vous laissez "Un bouton séparé", il sera créé un bouton avec un seul évènement}}</td></tr>
+		<tr><td></td><td>{{Un seul type d'évenement (Simple, Double, Long) par bouton}}</td></tr>
+	</table>
 <?php
 }
 ?>
