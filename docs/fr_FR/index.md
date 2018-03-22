@@ -348,7 +348,7 @@ Generic
 |Info/Son (dB)|`NON`|Générique (Eve Seulement)
 |Info/UV|`NON`|Générique (Eve Seulement)
 |Info/Générique|`NON`|Valeur <64 charactères<br/>avec Unité indiquée ou pas<br/>(Eve Seulement)| 
-|Action/Générique|`NON`|Type "autre"<br/>uniquement<br/><br/>Bouton poussoir|
+|Action/Générique|`NON`|Type "Défaut"<br/>uniquement<br/><br/>Comme un Bouton poussoir|
 |Info/Pluie (accumulation)|`NON`|Générique (Eve Seulement)|
 |Info/Vent (direction)|`NON`|Générique (Eve Seulement)|
 |Info/Vent (vitesse)|`NON`|Générique (Eve Seulement)|
@@ -727,6 +727,8 @@ Voici les paramètres pour cet accessoire :
 ![TGBP](../images/tgbp.png)
 
 Dans l'application Maison, le Bouton poussoir sera représenté comme un interrupteur. Un appui dessus permet le lancement du script et l'interrupteur repasse à OFF (0) tout seul.
+
+>Les commandes de camera (Zoom, Dézoom, Haut, Bas, Gauche, Droite, Présets) et les Action/Générique (de type "Défaut") sont automatiquement créées comme des boutons poussoir.
 
 Virtuel
 --------
