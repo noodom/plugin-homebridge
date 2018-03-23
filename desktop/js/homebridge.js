@@ -23,7 +23,7 @@
 	$('#md_modal').load('index.php?v=d&plugin=homebridge&modal=info_app.homebridge').dialog('open');
 });
 function clickplugin(id_plugin,name_plugin){
-	$('#md_modal').dialog({title: "{{Configuration homebridge du Plugin "+name_plugin+"}}"});
+	$('#md_modal').dialog({title: "{{Configuration homebridge du Plugin}} "+name_plugin});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=plugin.homebridge&plugin_id=' +id_plugin).dialog('open');
 }
 
@@ -33,7 +33,7 @@ function clickobject(id_object){
 }
 
 function clickscenario(id_scenario,name_scenario){
-	$('#md_modal').dialog({title: "{{Configuration homebridge du Scénario "+name_scenario+"}}"});
+	$('#md_modal').dialog({title: "{{Configuration homebridge du Scénario}} "+name_scenario});
     $('#md_modal').load('index.php?v=d&plugin=homebridge&modal=scenario.homebridge&scenario_id=' +id_scenario).dialog('open');
 }
 
