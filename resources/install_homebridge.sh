@@ -153,20 +153,16 @@ sudo chown -R www-data .
 
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
-hasPHP7GMP=`sudo dpkg -l | grep php7.0-gmp | wc -l`
-hasPHP5GMP=`sudo dpkg -l | grep php5-gmp | wc -l`
-testGMP=`php -r "echo extension_loaded('gmp');"`
 
+testGMP=`php -r "echo extension_loaded('gmp');"`
 if [[ "$testGMP" != "1" ]]; then
-  if [[ "$hasPHP7GMP" == "0" ]] && [[ "$hasPHP5GMP" == "0" ]]; then
-    echo "Installation de GMP (génération QRCode)"
-    sudo apt-get -y install php7.0-gmp &>/dev/null
-    if [ $? -ne 0 ]; then
-      echo "pour php5"
-      sudo apt-get -y install php5-gmp
-    else
-      echo "pour php7"
-    fi
+  echo "Installation de GMP (génération QRCode)"
+  sudo apt-get -y install php7.0-gmp &>/dev/null
+  if [ $? -ne 0 ]; then
+    echo "pour php5"
+    sudo apt-get -y install php5-gmp
+  else
+    echo "pour php7"
   fi
   
   sudo service nginx status &>/dev/null
