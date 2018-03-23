@@ -168,13 +168,13 @@ if [[ "$testGMP" != "1" ]]; then
   sudo service nginx status &>/dev/null
   if [ $? = 0 ]; then
     echo "Reload nginx..."
-    sudo service nginx reload
+    sudo systemctl reload nginx.service || sudo service nginx reload
   fi
   sudo service apache2 status &>/dev/null
   if [ $? = 0 ]; then
     echo "Reload apache2..."
-    sudo service apache2 reload
     sudo systemctl daemon-reload
+    sudo systemctl reload apache2.service || sudo service apache2 reload
   fi
 fi
 
