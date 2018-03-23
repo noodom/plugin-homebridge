@@ -163,10 +163,10 @@ echo "--70%"
 testGMP=`php -r "echo extension_loaded('gmp');"`
 if [[ "$testGMP" != "1" ]]; then
   echo "Installation de GMP (génération QRCode)"
-  sudo apt-get -y install php7.0-gmp &>/dev/null
+  sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
   if [ $? -ne 0 ]; then
     echo "pour php5"
-    sudo apt-get -y install php5-gmp
+    sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
   else
     echo "pour php7"
   fi
