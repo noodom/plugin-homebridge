@@ -60,13 +60,13 @@ fi
 echo 20 > ${PROGRESS_FILE}
 echo "--20%"
 sudo apt-get update
-if [[ "$LANG" == *"fr"* ]]; then
-  yes o| sudo dpkg --configure -a
-else
-  if [[ "$LANG" == *"en"* ]]; then
-    yes | sudo dpkg --configure -a
-  fi
-fi
+#if [[ "$LANG" == *"fr"* ]]; then
+#  yes o| sudo dpkg --configure -a
+#else
+#  if [[ "$LANG" == *"en"* ]]; then
+#    yes | sudo dpkg --configure -a
+#  fi
+#fi
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog
 
 echo 30 > ${PROGRESS_FILE}
