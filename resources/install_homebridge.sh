@@ -60,7 +60,13 @@ fi
 echo 20 > ${PROGRESS_FILE}
 echo "--20%"
 sudo apt-get update
-yes | sudo dpkg --configure -a
+if [[ "$LANG" == *"fr"* ]]; then
+  yes o| sudo dpkg --configure -a
+else
+  if [[ "$LANG" == *"en"* ]]; then
+    yes | sudo dpkg --configure -a
+  fi
+fi
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog
 
 echo 30 > ${PROGRESS_FILE}
@@ -153,11 +159,9 @@ sudo chown -R www-data .
 
 echo 70 > ${PROGRESS_FILE}
 echo "--70%"
-hasPHP7GMP=`sudo dpkg -l | grep php7.0-gmp | wc -l`
-hasPHP5GMP=`sudo dpkg -l | grep php5-gmp | wc -l`
-testGMP=`php -r "echo extension_loaded('gmp');"`
 
-if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]] && [[ "$testGMP" != "1" ]]; then
+testGMP=`php -r "echo extension_loaded('gmp');"`
+if [[ "$testGMP" != "1" ]]; then
   echo "Installation de GMP (génération QRCode)"
   sudo apt-get -y install php7.0-gmp &>/dev/null
   if [ $? -ne 0 ]; then
@@ -166,17 +170,17 @@ if [[ "$hasPHP5GMP" == "0" ]] && [[ "$hasPHP7GMP" == "0" ]] && [[ "$testGMP" != 
   else
     echo "pour php7"
   fi
-
+  
   sudo service nginx status &>/dev/null
   if [ $? = 0 ]; then
     echo "Reload nginx..."
-    sudo service nginx reload
+    sudo systemctl reload nginx.service || sudo service nginx reload
   fi
   sudo service apache2 status &>/dev/null
   if [ $? = 0 ]; then
     echo "Reload apache2..."
-    sudo service apache2 reload
     sudo systemctl daemon-reload
+    sudo systemctl reload apache2.service || sudo service apache2 reload
   fi
 fi
 
