@@ -183,9 +183,9 @@
     "plugins\/homebridge\/desktop\/js\/homebridge.js": {
         "Santé homebridge": "Homebridge Health",
         "DebugInfo Homebridge": "Homebridge DebugInfo",
-        "Configuration homebridge du Plugin \"+name_plugin+\"": "Homebridge Config of the Plugin \"+name_plugin+\"",
+        "Configuration homebridge du Plugin": "Homebridge Config of the Plugin",
         "Configuration homebridge de la Pièce": "Homebridge Config for the Room",
-        "Configuration homebridge du Scénario \"+name_scenario+\"": "Homebridge Config of the Scenario \"+name_scenario+\""
+        "Configuration homebridge du Scénario": "Homebridge Config of the Scenario"
     },
     "plugins\/homebridge\/desktop\/js\/accessoryFile.js": {
         "Sauvegarde de la configuration réussie. Relancez le demon": "Configuration saved successfully. Restart the daemon",
