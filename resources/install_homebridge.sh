@@ -60,13 +60,13 @@ fi
 echo 20 > ${PROGRESS_FILE}
 echo "--20%"
 sudo apt-get update
-if [[ "$LANG" == *"fr"* ]]; then
-  yes o| sudo dpkg --configure -a
-else
-  if [[ "$LANG" == *"en"* ]]; then
-    yes | sudo dpkg --configure -a
-  fi
-fi
+#if [[ "$LANG" == *"fr"* ]]; then
+#  yes o| sudo dpkg --configure -a
+#else
+#  if [[ "$LANG" == *"en"* ]]; then
+#    yes | sudo dpkg --configure -a
+#  fi
+#fi
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog
 
 echo 30 > ${PROGRESS_FILE}
@@ -163,10 +163,10 @@ echo "--70%"
 testGMP=`php -r "echo extension_loaded('gmp');"`
 if [[ "$testGMP" != "1" ]]; then
   echo "Installation de GMP (génération QRCode)"
-  sudo apt-get -y install php7.0-gmp &>/dev/null
+  sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
   if [ $? -ne 0 ]; then
     echo "pour php5"
-    sudo apt-get -y install php5-gmp
+    sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
   else
     echo "pour php7"
   fi
