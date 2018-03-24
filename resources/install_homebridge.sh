@@ -167,15 +167,22 @@ if [[ "$testGMP" != "1" ]]; then
   if [ $? -ne 0 ]; then
     echo "pour php5"
     sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
+    
+    sudo service php5-fpm status &>/dev/null
+    if [ $? = 0 ]; then
+      echo "Reload php5-fpm..."
+      sudo systemctl reload php5-fpm.service || sudo service php5-fpm reload
+    fi
   else
     echo "pour php7"
+    
+    sudo service php7.0-fpm status &>/dev/null
+    if [ $? = 0 ]; then
+      echo "Reload php7.0-fpm..."
+      sudo systemctl reload php7.0-fpm.service || sudo service php7.0-fpm reload
+    fi
   fi
   
-  sudo service nginx status &>/dev/null
-  if [ $? = 0 ]; then
-    echo "Reload nginx..."
-    sudo systemctl reload nginx.service || sudo service nginx reload
-  fi
   sudo service apache2 status &>/dev/null
   if [ $? = 0 ]; then
     echo "Reload apache2..."
