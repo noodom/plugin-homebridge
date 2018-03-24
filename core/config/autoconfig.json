@@ -43,7 +43,7 @@
 		},
 		"weather.v1": {
 			"pressure": "PRESSURE",
-			"battery": "BATTERY",
+			"battery": "BATTERY"
 		},
 		"gateway": {
 			"vol": "SPEAKER_VOLUME",
