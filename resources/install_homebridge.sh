@@ -67,6 +67,7 @@ sudo apt-get update
 #    yes | sudo dpkg --configure -a
 #  fi
 #fi
+DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog apt-utils
 
 echo 30 > ${PROGRESS_FILE}
