@@ -2,6 +2,7 @@
 PROGRESS_FILE=/tmp/jeedom/homebridge/dependance
 installVer='8' 	#NodeJS major version to be installed
 minVer='8'	#min NodeJS major version to be accepted
+OLD_DEBIAN_FRONTEND=$DEBIAN_FRONTEND
 sudo -i export DEBIAN_FRONTEND=noninteractive
 
 touch ${PROGRESS_FILE}
@@ -237,4 +238,4 @@ echo 100 > ${PROGRESS_FILE}
 echo "--100%"
 echo "Installation des dépendances Homebridge terminée, vérifiez qu'il n'y a pas d'erreur"
 rm -f ${PROGRESS_FILE}
-sudo -i export DEBIAN_FRONTEND=dialog
+sudo -i export DEBIAN_FRONTEND=$OLD_DEBIAN_FRONTEND
