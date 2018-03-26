@@ -63,7 +63,7 @@ if(!isConnect()) {
 				$color = $rouge;
 			} elseif (jeedom::getHardwareName() == "Docker") {
 				$color = $orange;
-			} elseif (!extension_loaded('gmp')) {
+			} elseif (!extension_loaded('gmp') && !file_exists('/etc/php/7.0/fpm/') && !file_exists('/etc/php5/fpm/')) {
 				$errorMessage = "{{GMP n'est pas bien installé, relancez vos dépendances. (Puis rafraichir)}}";
 				$color = $orange;
 			} elseif ($diffVer) {
