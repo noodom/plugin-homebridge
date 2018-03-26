@@ -2,6 +2,7 @@
 PROGRESS_FILE=/tmp/jeedom/homebridge/dependance
 installVer='8' 	#NodeJS major version to be installed
 minVer='8'	#min NodeJS major version to be accepted
+sudo -i export DEBIAN_FRONTEND=noninteractive
 
 touch ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
@@ -67,7 +68,6 @@ sudo apt-get update
 #    yes | sudo dpkg --configure -a
 #  fi
 #fi
-DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog apt-utils
 
 echo 30 > ${PROGRESS_FILE}
@@ -237,3 +237,4 @@ echo 100 > ${PROGRESS_FILE}
 echo "--100%"
 echo "Installation des dépendances Homebridge terminée, vérifiez qu'il n'y a pas d'erreur"
 rm -f ${PROGRESS_FILE}
+sudo -i export DEBIAN_FRONTEND=dialog
