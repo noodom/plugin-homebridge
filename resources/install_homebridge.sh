@@ -67,7 +67,7 @@ sudo apt-get update
 #    yes | sudo dpkg --configure -a
 #  fi
 #fi
-sudo apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns libavahi-compat-libdnssd-dev dialog apt-utils
 
 echo 30 > ${PROGRESS_FILE}
 echo "--30%"
@@ -163,10 +163,10 @@ echo "--70%"
 testGMP=`php -r "echo extension_loaded('gmp');"`
 if [[ "$testGMP" != "1" ]]; then
   echo "Installation de GMP (génération QRCode)"
-  sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
   if [ $? -ne 0 ]; then
     echo "pour php5"
-    sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
     
     sudo service php5-fpm status &>/dev/null
     if [ $? = 0 ]; then
