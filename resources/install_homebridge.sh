@@ -90,7 +90,7 @@ else
   else
     npmPrefix="/usr"
   fi
-  sudo apt-get -y --purge autoremove nodejs npm
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove nodejs npm
   
   echo 45 > ${PROGRESS_FILE}
   echo "--45%"
@@ -107,11 +107,11 @@ else
     sudo npm install -g npm
   else
     if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
-      sudo apt-get install -y nodejs
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
     else
       echo "Utilisation du dépot officiel"
       curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
-      sudo apt-get install -y nodejs  
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs  
     fi
   fi
   
