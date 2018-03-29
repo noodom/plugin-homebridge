@@ -41,7 +41,7 @@ fi
 if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
   if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
     echo "Smart détectée, migration du repo NodeJS"
-    sudo wget -O - http://repo.jeedom.com/odroid/conf/jeedom.gpg.key | sudo apt-key add -
+    sudo wget --quiet -O - http://repo.jeedom.com/odroid/conf/jeedom.gpg.key | sudo apt-key add -
     sudo rm -rf /etc/apt/sources.list.d/jeedom.list*
     sudo apt-add-repository "deb http://repo.jeedom.com/odroid/ stable main"
   fi
@@ -110,8 +110,8 @@ else
       sudo apt-get install -y nodejs npm
     else
       echo "Utilisation du dépot officiel"
+      sudo wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
       curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
-      wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
       sudo apt-get install -y nodejs  
     fi
   fi
