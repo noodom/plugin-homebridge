@@ -106,10 +106,14 @@ else
     #upgrade to recent npm
     sudo npm install -g npm
   else
-    echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
-    wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    sudo apt-get install -y nodejs  
+    if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
+      sudo apt-get install -y nodejs npm
+    else
+      echo "Utilisation du dépot officiel"
+      curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
+      wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+      sudo apt-get install -y nodejs  
+    fi
   fi
   
   npm config set prefix ${npmPrefix}
