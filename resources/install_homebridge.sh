@@ -107,7 +107,7 @@ else
     sudo npm install -g npm
   else
     if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
-      sudo apt-get install -y nodejs npm
+      sudo apt-get install -y nodejs
     else
       echo "Utilisation du dépot officiel"
       curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
