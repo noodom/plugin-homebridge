@@ -110,7 +110,6 @@ else
       sudo apt-get install -y nodejs npm
     else
       echo "Utilisation du dépot officiel"
-      sudo wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
       curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
       sudo apt-get install -y nodejs  
     fi
