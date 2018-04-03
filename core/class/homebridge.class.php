@@ -978,7 +978,7 @@ class homebridge extends eqLogic {
 							}
 							$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
 						}
-						if ($cmd_array['subType'] == 'numeric' && $cmd_array['configuration']['phpType'] == "string")
+						if ($cmd_array['subType'] == 'numeric' && $cmd_array['configuration']['phpType'] == "string" && !is_numeric($cmd_array['currentValue']))
 						{
 							//if not yet initialized
 							$cmd_array['currentValue']=0;
