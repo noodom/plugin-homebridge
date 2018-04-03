@@ -977,11 +977,12 @@ class homebridge extends eqLogic {
 								unset($cmd_array['value']);
 							}
 							$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
-						}
-						if ($cmd_array['subType'] == 'numeric' && $cmd_array['currentValue'] == '')
-						{
-							//if not yet initialized
-							$cmd_array['currentValue']=0;
+							
+							if ($cmd_array['subType'] == 'numeric' && $cmd_array['currentValue'] == '')
+							{
+								//if not yet initialized
+								$cmd_array['currentValue']=0;
+							}
 						}
 						
 						if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
