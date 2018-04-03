@@ -11,6 +11,17 @@
 			"track_album": "GENERIC_INFO"
 		}
 	},
+	"darksky": {
+		"default": {
+			"summary": "WEATHER_CONDITION",
+			"temperature":"WEATHER_TEMPERATURE",
+			"humidity":"WEATHER_HUMIDITY",
+			"pressure":"WEATHER_PRESSURE",
+			"windSpeed":"WEATHER_WIND_SPEED",
+			"windBearing0":"WEATHER_WIND_DIRECTION",
+			"uvIndex":"WEATHER_UVINDEX"
+		}
+	},
 	"xiaomihome": {
 		"field": "model",
 		"color": {
