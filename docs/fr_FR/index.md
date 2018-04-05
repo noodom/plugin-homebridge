@@ -1101,6 +1101,20 @@ Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont
 
 ![reinitialisation](../images/reinitialisation.png)
 
+
+Plugin Méteo
+---------------
+
+Le plugin météo est compatible avec les applications Maison et Eve. Cependant, dans Maison, seules la température et l'humidité sont remontées. Dans Eve, l'ensemble des informations sont disponibles.
+
+![config-meteo](../images/config-meteo.png)
+
+Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebridge". Le configuration se fait tout seule.
+
+![meteo-eve](../images/meteo-eve.png)
+![meteo-home](../images/meteo-home.png)
+
+
 Changelog
 =========
 
