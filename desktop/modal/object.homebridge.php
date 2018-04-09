@@ -148,6 +148,11 @@ function listThermoSetModes($cmds,$selected) {
 									<span class="cmdAttr" data-l1key="id">{{Plugin Météo auto-configuré}}</span>
 								<?php
 								break;
+								case "Metar_infos" :
+								?>
+									<span class="cmdAttr" data-l1key="id">{{Plugin METAR auto-configuré}}</span>
+								<?php
+								break;
 								case "darksky" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Plugin DarkSky auto-configuré}}</span>
