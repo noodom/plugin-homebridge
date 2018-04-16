@@ -1,8 +1,8 @@
 {
 	"id" : "homebridge",
 	"name" : "Homebridge",
-	"description" : "Plugin pour Homebridge. Passerelle Apple HomeKit pour Jeedom. Controle de certains périphériques par Siri et via application Maison et Eve",
-	"usage" : "Les plugins Mobile et Homebridge ont été séparés. Ce plugin reprend la config du plugin Mobile à l'installation. Jeedom doit être sur le même réseau que votre iPhone/AppleTV. (pas de routage, pas de NAT). Une AppleTV a+ ou un iPad iOS 10+ ou un HomePod sont nécessaires pour l'accès à distance. Support sur le forum (Une demande par sujet, comme un système de tickets).",
+	"description" : "Plugin pour Homebridge.<br/>Passerelle Apple HomeKit pour Jeedom.<br/>Controle de certains périphériques par Siri et via application Maison et Eve<br/><br/><b>ATTENTION</b> : Non supporté : Docker & Raspberry Pi 1-2 & Raspberry Zéro (armv6)",
+	"usage" : "Les plugins Mobile et Homebridge ont été séparés.<br/>Ce plugin reprend la config du plugin Mobile à l'installation.<br/><b>Jeedom doit être sur le même réseau que votre iPhone/AppleTV. (pas de routage, pas de NAT).</b><br/><b>Une AppleTV a+ ou un iPad iOS 10+ ou un HomePod sont nécessaires pour l'accès à distance.</b><br/>Support sur le forum (Une demande par sujet, comme un système de tickets).",
 	"licence" : "AGPL",
 	"author" : "Nebz",
 	"require" : "3.0",
