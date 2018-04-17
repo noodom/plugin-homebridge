@@ -1118,6 +1118,21 @@ Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebrid
 Changelog
 =========
 
+v1.4.1 (24&25-04-2018)
+-------------
+
+* Plugins Météo, Darksky, METAR en partie compatibles (Température et Humidité dans maison) (Plus d'informations dans Elgato Eve ! (Pression, Vitesse et Direction du vent, IndexUV etc))
+
+* Compatibilité Smart sous Stretch
+
+* Type Générique CO2 avec graphique de qualité d'air sur Eve
+
+* Correction d'un bug si Jeedom renvoie "" dans une commande info de type numérique.
+
+* Mise à jour pour compatibilité Jeedom Core 2.3.x
+
+> Attention : la mise à jour doit être effectuée APRÈS la mise à jour vers Jeedom Core 2.3.x pour que les données existantes soient migrées vers le nouveau système de type_génériques du Core.
+
 v1.4.0 (22&23-03-2018)
 -------------
 
