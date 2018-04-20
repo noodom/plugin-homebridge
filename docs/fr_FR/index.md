@@ -1129,7 +1129,7 @@ v1.4.1 (24&25-04-2018)
 
 * Correction d'un bug si Jeedom renvoie "" dans une commande info de type numérique.
 
-* Mise à jour pour compatibilité Jeedom Core 2.3.x
+* Mise à jour pour compatibilité Jeedom Core 3.2.x
 
 > Attention : la mise à jour doit être effectuée APRÈS la mise à jour vers Jeedom Core 2.3.x pour que les données existantes soient migrées vers le nouveau système de type_génériques du Core.
 
