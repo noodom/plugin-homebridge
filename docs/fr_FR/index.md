@@ -1131,7 +1131,7 @@ v1.4.1 (24&25-04-2018)
 
 * Mise à jour pour compatibilité Jeedom Core 3.2.x
 
-> Attention : la mise à jour doit être effectuée APRÈS la mise à jour vers Jeedom Core 2.3.x pour que les données existantes soient migrées vers le nouveau système de type_génériques du Core.
+> Attention : la mise à jour doit être effectuée APRÈS la mise à jour vers Jeedom Core 3.2.x pour que les données existantes soient migrées vers le nouveau système de type_génériques du Core.
 
 v1.4.0 (22&23-03-2018)
 -------------
