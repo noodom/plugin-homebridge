@@ -1101,8 +1101,37 @@ Les actions définies dans la partie "Réinitialisation" du plugin "Alarme" vont
 
 ![reinitialisation](../images/reinitialisation.png)
 
+
+Plugin "Méteo"
+---------------
+
+Le plugin météo est compatible avec les applications Maison et Eve. Cependant, dans Maison, seules la température et l'humidité sont remontées. Dans Eve, l'ensemble des informations sont disponibles.
+
+![config-meteo](../images/config-meteo.png)
+
+Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebridge". Le configuration se fait tout seule.
+
+![meteo-eve](../images/meteo-eve.png)
+![meteo-home](../images/meteo-home.png)
+
+
 Changelog
 =========
+
+v1.4.1 (24&25-04-2018)
+-------------
+
+* Plugins Météo, Darksky, METAR en partie compatibles (Température et Humidité dans maison) (Plus d'informations dans Elgato Eve ! (Pression, Vitesse et Direction du vent, IndexUV etc))
+
+* Compatibilité Smart sous Stretch
+
+* Type Générique CO2 avec graphique de qualité d'air sur Eve
+
+* Correction d'un bug si Jeedom renvoie "" dans une commande info de type numérique.
+
+* Mise à jour pour compatibilité Jeedom Core 3.2.x
+
+> Attention : la mise à jour doit être effectuée APRÈS la mise à jour vers Jeedom Core 3.2.x pour que les données existantes soient migrées vers le nouveau système de type_génériques du Core.
 
 v1.4.0 (22&23-03-2018)
 -------------

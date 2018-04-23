@@ -39,21 +39,11 @@ if [ -f /etc/apt/sources.list.d/deb-multimedia.list* ]; then
 fi
 
 if [ -f /etc/apt/sources.list.d/jeedom.list* ]; then
-  echo "Vérification si la source repo.jeedom.com existe (bug lors de l'installation de node 6 si c'est le cas)"
-  echo "repo.jeedom.com existe !"
-  if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
-    echo "mais on l'a déjà désactivé..."
-  else
-    if [ -f /etc/apt/sources.list.d/jeedom.list ]; then
-      echo "Désactivation de la source repo.jeedom.com !"
-      sudo mv /etc/apt/sources.list.d/jeedom.list /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge
-    else
-      if [ -f /etc/apt/sources.list.d/jeedom.list.disabled ]; then
-        echo "mais il est déjà désactivé..."
-      else
-        echo "mais n'est ni 'disabled' ou 'disabledByHomebridge'... il sera normalement ignoré donc ca devrait passer..."
-      fi
-    fi
+  if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
+    echo "Smart détectée, migration du repo NodeJS"
+    sudo wget --quiet -O - http://repo.jeedom.com/odroid/conf/jeedom.gpg.key | sudo apt-key add -
+    sudo rm -rf /etc/apt/sources.list.d/jeedom.list*
+    sudo apt-add-repository "deb http://repo.jeedom.com/odroid/ stable main"
   fi
 fi
 
@@ -100,7 +90,7 @@ else
   else
     npmPrefix="/usr"
   fi
-  sudo apt-get -y --purge autoremove nodejs npm
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove nodejs npm
   
   echo 45 > ${PROGRESS_FILE}
   echo "--45%"
@@ -116,10 +106,13 @@ else
     #upgrade to recent npm
     sudo npm install -g npm
   else
-    echo "Utilisation du dépot officiel"
-    curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
-    wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-    sudo apt-get install -y nodejs  
+    if [ -f /media/boot/multiboot/meson64_odroidc2.dtb.linux ]; then
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+    else
+      echo "Utilisation du dépot officiel"
+      curl -sL https://deb.nodesource.com/setup_${installVer}.x | sudo -E bash -
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs  
+    fi
   fi
   
   npm config set prefix ${npmPrefix}
@@ -226,10 +219,6 @@ echo "--95%"
 if [ -f /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge ]; then
   echo "Réactivation de la source deb-multimedia qu'on avait désactivé !"
   sudo mv /etc/apt/sources.list.d/deb-multimedia.list.disabledByHomebridge /etc/apt/sources.list.d/deb-multimedia.list
-fi
-if [ -f /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge ]; then
-  echo "Réactivation de la source repo.jeedom.com qu'on avait désactivé !"
-  sudo mv /etc/apt/sources.list.d/jeedom.list.disabledByHomebridge /etc/apt/sources.list.d/jeedom.list
 fi
 
 echo 100 > ${PROGRESS_FILE}

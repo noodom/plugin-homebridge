@@ -61,7 +61,9 @@ class homebridge extends eqLogic {
 			'LIGHT_STATE_BOOL' => array('name' => 'Lumière Etat (Binaire) (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
-			'AIRQUALITY_INDEX' => array('name' => 'Qualité d\'air (Indice AQI) (Homebridge)', 'family' => 'Qualité D\'air', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
+			'AIRQUALITY_INDEX' => array('name' => 'Qualité d\'air (Indice AQI) (Homebridge)', 'family' => 'Qualité D\'air', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'WEATHER_UVINDEX' => array('name' => 'Météo Index UV (Homebridge)', 'family' => 'Météo', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'WEATHER_VISIBILITY' => array('name' => 'Météo Visibilité (Homebridge)', 'family' => 'Météo', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
@@ -975,7 +977,14 @@ class homebridge extends eqLogic {
 								unset($cmd_array['value']);
 							}
 							$cmd_array['configuration']['phpType'] = gettype($cmd_array['currentValue']);
+							
+							if ($cmd_array['subType'] == 'numeric' && $cmd_array['currentValue'] == '')
+							{
+								//if not yet initialized
+								$cmd_array['currentValue']=0;
+							}
 						}
+						
 						if (isset($cmd_array['value']) && $cmd_array['value'] !== null && $cmd_array['value'] != ""){
 							$cmd_array['value'] = str_replace("#","",$cmd_array['value']);	
 						}
