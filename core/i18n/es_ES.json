@@ -116,27 +116,27 @@
         "Sauvegarde effectuée avec succès": "Guardado realizado con éxito",
         "Sauvegarde de la configuration réussie.": "Guardado de la configuración correcta.",
         "Echec de la sauvegarde de la configuration : ": "Error de guardado de la configuración :",
-        "Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')": "Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')",
-        "Groupement des évenements par bouton, cet évènement appartient au :": "Groupement des évenements par bouton, cet évènement appartient au :",
-        "Bouton N°": "Bouton N°",
-        "Un bouton séparé": "Un bouton séparé",
-        "Bouton": "Bouton",
-        "Si vous laissez \"Un bouton séparé\", il sera créé un bouton avec un seul évènement": "Si vous laissez \"Un bouton séparé\", il sera créé un bouton avec un seul évènement",
-        "Un seul type d'évenement (Simple, Double, Long) par bouton": "Un seul type d'évenement (Simple, Double, Long) par bouton",
-        "Mode app Maison": "Mode app Maison",
-        "Mode app Eve": "Mode app Eve",
-        "Mode Jeedom": "Mode Jeedom",
-        "Chauffer": "Chauffer",
-        "CHAUF.": "CHAUF.",
-        "Refroidir": "Refroidir",
+        "Si vous avez des boutons multiples, séparez les valeurs par ';', il doit y avoir le même nombre de ';' pour chaque type d'évènement (même si vous devez taper ';;;')": "Si tiene varios botones, separe los valores por ';', debe haber el mismo número de ';' para cada tipo de evento (incluso si tiene que escribir ';;;')",
+        "Groupement des évenements par bouton, cet évènement appartient au :": "Agrupación de eventos por botón, este evento pertenece al archivo :",
+        "Bouton N°": "Botón Nº",
+        "Un bouton séparé": "Un botón separado",
+        "Bouton": "Botón",
+        "Si vous laissez \"Un bouton séparé\", il sera créé un bouton avec un seul évènement": "Si deja \"Un botón separado\", se creará un botón con un solo evento",
+        "Un seul type d'évenement (Simple, Double, Long) par bouton": "Sólo un tipo de evento (Simple, Doble, Largo) por botón",
+        "Mode app Maison": "Modo app Casa",
+        "Mode app Eve": "Modo app Eve",
+        "Mode Jeedom": "Modo Jeedom",
+        "Chauffer": "Calefacción",
+        "CHAUF.": "CALEF.",
+        "Refroidir": "Climatizador",
         "CLIM.": "CLIM.",
-        "Merci de ne pas choisir plusieurs fois le même mode": "Merci de ne pas choisir plusieurs fois le même mode",
-        "Domicile": "Domicile",
-        "Présence": "Présence",
-        "À distance": "À distance",
-        "Absence": "Absence",
-        "Nuit": "Nuit",
-        "Scénarios": "Scénarios"
+        "Merci de ne pas choisir plusieurs fois le même mode": "Por favor, no elija el mismo modo varias veces",
+        "Domicile": "Domicilio",
+        "Présence": "Presencia",
+        "À distance": "Remotamente",
+        "Absence": "Ausencia",
+        "Nuit": "Noche",
+        "Scénarios": "Escenarios"
     },
     "plugins\/homebridge\/desktop\/modal\/info_app.homebridge.php": {
         "Copier tout dans le presse-papier": "Copiar todo al portapapeles",
@@ -169,8 +169,8 @@
         "Config du Bridge :": "Config del Bridge :",
         "Cache Identifiants :": "Identificadores de caché :",
         "Cache Homebridge :": "Cache Homebridge :",
-        "Système": "Système",
-        "Persistence FakeGato :": "Persistence FakeGato :"
+        "Système": "Sistema",
+        "Persistence FakeGato :": "Persistencia FakeGato :"
     },
     "plugins\/homebridge\/desktop\/modal\/accessoryHB.homebridge.php": {
         "!!! Cette configuration est en mode avancé !!! à vos risques et périls !!! aucun support ne sera donné !!!": "!!! Esta configuración está en modo avanzado! bajo su propio riesgo! no se dará ningún soporte!!",
@@ -181,14 +181,14 @@
         "Sauvegarder les changements": "Guardar cambios"
     },
     "plugins\/homebridge\/desktop\/js\/homebridge.js": {
-        "Santé homebridge": "Santé homebridge",
+        "Santé homebridge": "Salud homebridge",
         "DebugInfo Homebridge": "DebugInfo Homebridge",
-        "Configuration homebridge du Plugin": "Configuration homebridge du Plugin",
-        "Configuration homebridge de la Pièce": "Configuration homebridge de la Pièce",
-        "Configuration homebridge du Scénario": "Configuration homebridge du Scénario"
+        "Configuration homebridge du Plugin": "Configuración del Plugin homebridge",
+        "Configuration homebridge de la Pièce": "Configuración de la habitación homebridge",
+        "Configuration homebridge du Scénario": "Configuración de escenario homebridge"
     },
     "plugins\/homebridge\/desktop\/js\/accessoryFile.js": {
-        "Sauvegarde de la configuration réussie. Relancez le demon": "Sauvegarde de la configuration réussie. Relancez le demon",
-        "Echec de la sauvegarde de la configuration : ": "Echec de la sauvegarde de la configuration : "
+        "Sauvegarde de la configuration réussie. Relancez le demon": "Salvado de configuración exitoso. Reiniciar el demonio",
+        "Echec de la sauvegarde de la configuration : ": "No se guardó la configuración :"
     }
 }
