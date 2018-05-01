@@ -970,7 +970,7 @@ Le type générique "Info/Générique" permet de faire remonter n'importe quelle
 
 ### Utilisation avec le plugin Mode #
 
-Cela permet d'afficher l'intitulé du mode jeedom en cours.
+Cela permet d'afficher l'intitulé du mode jeedom en cours. Pour cela, il faut créer un virtuel et importer l'équipement crée dans le plugin mode.
 
 ![custom-1](../images/custom-1.png)
 
