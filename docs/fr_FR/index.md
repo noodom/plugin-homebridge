@@ -842,7 +842,7 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par 
    ]
 }</code></pre>
 
-### wanscam rtsp HWXXX #
+### wanscam rtsp HW0043 #
 
 <pre><code>{
  "platform":"Camera-ffmpeg",
@@ -954,6 +954,8 @@ Pour configurer plusieurs caméras, il suffit de mettre une barre entre les deux
 }</code></pre>
 
 **Cela est également valable pour toute autre plateforme comme le thermostat NEST par exemple.**
+
+
 
 Type Générique Info/Générique
 ---------------------
