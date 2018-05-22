@@ -108,7 +108,7 @@ Linux : <?=shell_exec("lsb_release -d -s")?>
 
 Homebridge : <?=homebridge::getLocalVersion('homebridge')?>
 
-HAP-NodeJS : <?=homebridge::getLocalVersion('hap-nodejs')?>
+HAP-NodeJS : <?=homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs')?>
 
 <?php if($diffVer) {echo "<span style='color:red'>{{Relancez les dépendances}}</br>";} ?>
 {{Homebridge-Jeedom locale}} : <?=$localVer?>
