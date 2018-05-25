@@ -274,8 +274,8 @@ Thermostats
 |Type générique  | Obligatoire | Valeurs possibles |
 |---------------|:----------------:|----------------|
 |Info/Thermostat Etat (BINAIRE)|`NON`|0 = Eteint<br/>1 = Allumé|
-|Info/Thermostat Etat (HUMAIN)|`NON`|Générique (Eve Seulement)| 
-|Info/Thermostat Mode|`OUI si associé mode homekit`|Générique (Eve Seulement)| 
+|Info/Thermostat Etat (HUMAIN)|`NON`|| 
+|Info/Thermostat Mode|`OUI si associé mode homekit`|Valeur Mappée| 
 |Action/Thermostat Mode|`NON`|Peut être associé mode homekit|
 |Info/Thermostat Température Extérieur|`NON utilisé`|N/A
 |Info/Thermostat Température ambiante|`NON`|-50 → 100| 
