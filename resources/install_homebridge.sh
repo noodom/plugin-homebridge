@@ -143,6 +143,7 @@ echo "--50%"
 # Remove old globals
 sudo npm ls -g homebridge &>/dev/null
 if [ $? -ne 1 ]; then
+  echo "Suppression homebridge global"
   sudo rm -f /usr/bin/homebridge &>/dev/null
   sudo rm -f /usr/local/bin/homebridge &>/dev/null
   sudo npm rm -g homebridge-camera-ffmpeg --save &>/dev/null
