@@ -936,7 +936,7 @@ class homebridge extends eqLogic {
 							$cmd_array['configuration']['minValue'] = floatval($minValue);
 						}
 						if ($listValue != null){
-							$cmd_array['configuration']['$listValue'] = $listValue;	
+							$cmd_array['configuration']['listValue'] = $listValue;	
 						}
 						if ($icon != null) {
 							$cmd_array['display']['icon'] = $icon;
