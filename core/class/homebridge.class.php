@@ -872,6 +872,9 @@ class homebridge extends eqLogic {
 							if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
 								$minValue = $configuration['minValue'];
 							}
+							if(isset($configuration['listValue']) && $configuration['listValue'] != ""){
+								$listValue = $configuration['listValue'];
+							}
 							if(isset($configuration['actionCodeAccess'])){
 								$actionCodeAccess = $configuration['actionCodeAccess'];
 							}
@@ -931,6 +934,9 @@ class homebridge extends eqLogic {
 						}
 						if ($minValue != null) {
 							$cmd_array['configuration']['minValue'] = floatval($minValue);
+						}
+						if ($listValue != null){
+							$cmd_array['configuration']['$listValue'] = $listValue;	
 						}
 						if ($icon != null) {
 							$cmd_array['display']['icon'] = $icon;
