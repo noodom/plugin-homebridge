@@ -141,15 +141,18 @@ fi
 echo 50 > ${PROGRESS_FILE}
 echo "--50%"
 # Remove old globals
-sudo rm -f /usr/bin/homebridge &>/dev/null
-sudo rm -f /usr/local/bin/homebridge &>/dev/null
-sudo npm rm -g homebridge-camera-ffmpeg --save &>/dev/null
-sudo npm rm -g homebridge-jeedom --save &>/dev/null
-sudo npm rm -g homebridge --save &>/dev/null
-sudo npm rm -g request --save &>/dev/null
-sudo npm rm -g node-gyp --save &>/dev/null
-cd `npm root -g`;
-sudo npm rebuild &>/dev/null
+sudo npm ls -g homebridge &>/dev/null
+if [ $? -ne 1 ]; then
+  sudo rm -f /usr/bin/homebridge &>/dev/null
+  sudo rm -f /usr/local/bin/homebridge &>/dev/null
+  sudo npm rm -g homebridge-camera-ffmpeg --save &>/dev/null
+  sudo npm rm -g homebridge-jeedom --save &>/dev/null
+  sudo npm rm -g homebridge --save &>/dev/null
+  sudo npm rm -g request --save &>/dev/null
+  sudo npm rm -g node-gyp --save &>/dev/null
+  cd `npm root -g`;
+  sudo npm rebuild &>/dev/null
+fi
 cd ${BASEDIR};
 #remove old local modules
 sudo rm -rf node_modules
