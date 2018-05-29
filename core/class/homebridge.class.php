@@ -819,13 +819,14 @@ class homebridge extends eqLogic {
 					foreach ($cmds as $cmd) {
 						$cmd_array = $cmd->exportApi();
 						
-						if (jeedom::version() >= '3.2.1') {
-							if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
-								$cmd->setGeneric_type($cmd_array['display']['generic_type']);
-								$cmd->save();
-								$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
-							}
-						}
+						// not needed anymore, done by the core
+						//if (jeedom::version() >= '3.2.1') {
+						//	if(!$cmd_array['generic_type'] && $cmd_array['display'] && $cmd_array['display']['generic_type']) {
+						//		$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+						//		$cmd->save();
+						//		$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+						//	}
+						//}
 							
 						// replace generic_type if auto-config data exists
 						$logicalId = $cmd_array['logicalId'];
