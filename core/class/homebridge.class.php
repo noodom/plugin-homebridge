@@ -857,6 +857,7 @@ class homebridge extends eqLogic {
 						//Variables
 						$maxValue = null;
 						$minValue = null;
+						$listValue = null;
 						$actionCodeAccess = null;
 						$actionConfirm = null;
 						$icon = null;
