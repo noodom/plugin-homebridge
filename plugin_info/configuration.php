@@ -61,7 +61,7 @@ if(!isConnect()) {
 			} elseif ($jsonrpc == 'disable') {
 				$errorMessage = "{{Attention : JSONRPC n'est pas activé (Configuration > API). Homebridge ne fonctionnera pas.}}";
 				$color = $rouge;
-			} elseif (jeedom::getHardwareName() == "Docker") {
+			} elseif (strtolower(jeedom::getHardwareName()) == "docker") {
 				$color = $orange;
 			} elseif (!extension_loaded('gmp') && !file_exists('/etc/php/7.0/fpm/') && !file_exists('/etc/php5/fpm/')) {
 				$errorMessage = "{{GMP n'est pas bien installé, relancez vos dépendances. (Puis rafraichir)}}";
