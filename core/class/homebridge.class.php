@@ -525,7 +525,7 @@ class homebridge extends eqLogic {
 			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
 
-		if(jeedom::getHardwareName() == "Docker") {
+		if(strtolower(jeedom::getHardwareName()) == "docker") {
 			// check dbus-daemon started, if not, start
 			$cmd = 'if [ $(ps -ef | grep -v grep | grep "dbus-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'service dbus start;echo "Démarrage dbus-daemon";sleep 1; fi';
 			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1');
@@ -659,7 +659,7 @@ class homebridge extends eqLogic {
 			log::add('homebridge', 'info', 'réinstallation des dependances');
 			$pluginHomebridge->dependancy_install();
 		}
-		if(jeedom::getHardwareName() == "Docker") {
+		if(strtolower(jeedom::getHardwareName()) == "docker") {
 			exec(system::getCmdSudo().'systemctl restart dbus.service || '.system::getCmdSudo().'service dbus restart;sleep 1');
 		}
 		exec(system::getCmdSudo().'systemctl restart avahi-daemon.service || '.system::getCmdSudo().'service avahi-daemon restart');
