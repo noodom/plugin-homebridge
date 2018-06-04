@@ -111,7 +111,7 @@ Homebridge : <?=homebridge::getLocalVersion('homebridge')?>
 HAP-NodeJS : <?php 
 	$flatVer = homebridge::getLocalVersion('hap-nodejs');
 	if($flatVer != '') echo $flatVer;
-	else echo $homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs');
+	else echo homebridge::getLocalVersion('homebridge/node_modules/hap-nodejs');
 ?>
 
 <?php if($diffVer) {echo "<span style='color:red'>{{Relancez les dépendances}}</br>";} ?>
