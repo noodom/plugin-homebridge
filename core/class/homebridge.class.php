@@ -773,6 +773,8 @@ class homebridge extends eqLogic {
 							$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
 							$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
 							$eqLogic_array["camera"]["imageValid"] = true;
+							$binary_data=null;
+							$im=null;
 						} else {// from jeedom getUrl method
 							$eqLogic_array["camera"]["image"]=$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"]);
 							$binary_data = file_get_contents($eqLogic_array["camera"]["image"]);
@@ -781,6 +783,8 @@ class homebridge extends eqLogic {
 								$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
 								$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
 								$eqLogic_array["camera"]["imageValid"] = true;
+								$binary_data=null;
+								$im=null;
 							} else {// from jeedom flux method
 								$eqLogic_array["camera"]["image"]=network::getNetworkAccess('internal') . '/' .$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"],true);
 								$binary_data = file_get_contents($eqLogic_array["camera"]["image"]);
@@ -789,6 +793,8 @@ class homebridge extends eqLogic {
 									$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
 									$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
 									$eqLogic_array["camera"]["imageValid"] = true;
+									$binary_data=null;
+									$im=null;
 								}
 							}
 						}
