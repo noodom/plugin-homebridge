@@ -754,7 +754,7 @@ class homebridge extends eqLogic {
 							$eqLogic_array["camera"]["flux"]=str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["cameraStreamAccessUrl"]);
 							$eqLogic_array["camera"]["fluxType"]= ((substr($eqLogic_array["camera"]["flux"],0,4)==='rtsp')?'rtsp':'mjpeg');
 						}
-						if(substr($eqLogic_array["camera"]["flux"],4,7)==='://') $eqLogic_array["camera"]["fluxValid"]=true;
+						if(strpos($eqLogic_array["camera"]["flux"],'://')!==false) $eqLogic_array["camera"]["fluxValid"]=true;
 						else $eqLogic_array["camera"]["fluxValid"]=false;
 
 						
@@ -795,6 +795,8 @@ class homebridge extends eqLogic {
 									$eqLogic_array["camera"]["imageValid"] = true;
 									$binary_data=null;
 									$im=null;
+								} else {
+									unset($eqLogic_array["camera"]["image"]);
 								}
 							}
 						}
