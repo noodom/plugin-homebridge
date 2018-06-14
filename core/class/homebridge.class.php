@@ -746,7 +746,7 @@ class homebridge extends eqLogic {
 								'#ip#' => $eqLogic_array["configuration"]["ip"],
 								'#port#' => $eqLogic_array["configuration"]["port"]
 							);
-						$eqLogic_array["camera"]["fluxValid"]=false
+						$eqLogic_array["camera"]["fluxValid"]=false;
 						if($eqLogic_array["configuration"]["cameraStreamAccessUrl"]) { // rtsp flux (or mjpeg ?)
 							//$eqLogic_array["camera"]["cameraStreamAccessUrl"] = $eqLogic_array["configuration"]["cameraStreamAccessUrl"];							
 							$eqLogic_array["camera"]["flux"]=str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["cameraStreamAccessUrl"]);
