@@ -546,7 +546,7 @@ class homebridge extends eqLogic {
 			$insecure='-I ';
 		}			
 		
-		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
+		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure . '--no-qrcode ' .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
