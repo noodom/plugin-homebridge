@@ -160,7 +160,7 @@ function listThermoSetModes($cmds,$selected) {
 								break;
 								case "mode" :
 								?>
-									<span class="cmdAttr" data-l1key="id">{{Plugin Mode non supporté pour l'instant}}</span>
+									<span class="cmdAttr" data-l1key="id">{{Plugin Mode auto-configuré}}</span>
 								<?php
 								break;
 								case "camera" :
