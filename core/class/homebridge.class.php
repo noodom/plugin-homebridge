@@ -449,6 +449,8 @@ class homebridge extends eqLogic {
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
+		
+		config::save('hasAlexa',false,'homebridge');
 		foreach ($jsonPlatforms as $jsonPlatform) {
 			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
@@ -477,6 +479,8 @@ class homebridge extends eqLogic {
 					else {
 						log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
 					}
+				} elseif ($jsonArr['platform']=='Alexa') {
+					config::save('hasAlexa',true,'homebridge'); // we have Alexa config so we'll start the daemon as in Insecure
 				}
 				$response['platforms'][] = $jsonArr;
 			}
@@ -542,8 +546,9 @@ class homebridge extends eqLogic {
 		}
 		
 		$insecure='';
-		if(homebridge::isMagic('NBakLcxU29STU')) { // pass homebridge insecure (for alexa)
+		if(homebridge::isMagic('NBakLcxU29STU') || config::byKey('hasAlexa','homebridge',false,true)) { // pass homebridge insecure (for alexa)
 			$insecure='-I ';
+			log::add('homebridge', 'info', 'Configuration Alexa détectée, le Démon sera démarré en "Insecure" (Permet à un plugin d\'accéder aux status des accessoires)');
 		}			
 		
 		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure . '--no-qrcode ' .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
