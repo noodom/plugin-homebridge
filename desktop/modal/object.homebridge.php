@@ -174,7 +174,7 @@ function listThermoSetModes($cmds,$selected) {
 									$preGenCam['platform']="Camera-ffmpeg";
 									$preGenCam['cameras']=[];
 									$camera = [];
-									$camera['name']=$eqLogic->getHumanName(true);
+									$camera['name']=$eqLogic->getName();
 									$camera['videoConfig']=[];
 									if($camInfo['fluxValid']) {
 										if($camInfo['fluxProtocole'] == 'rtsp') {
