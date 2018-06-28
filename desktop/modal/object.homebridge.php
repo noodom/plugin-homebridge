@@ -186,17 +186,17 @@ function listThermoSetModes($cmds,$selected) {
 										$camError=true;
 									}
 									if($camInfo['imageValid']) {
-										$camera['stillImageSource'] = "-i ".$camInfo['image'];
+										$camera['videoConfig']['stillImageSource'] = "-i ".$camInfo['image'];
 									} else if($camInfo['fluxValid']){
-										$camera['stillImageSource'] = "-i ".$camInfo['flux']." -vframes 1 -r 1";	
+										$camera['videoConfig']['stillImageSource'] = "-i ".$camInfo['flux']." -vframes 1 -r 1";	
 									} else {
-										$camera['stillImageSource'] = "";
+										$camera['videoConfig']['stillImageSource'] = "";
 									}
-									$camera['maxStreams']=2;
-									$camera['maxWidth']=$camInfo['imageWidth'];
-									$camera['maxHeight']=$camInfo['imageHeight'];
-									$camera['maxFPS']=$camInfo['videoFramerate'];
-									$camera['vcodec']='h264';
+									$camera['videoConfig']['maxStreams']=2;
+									$camera['videoConfig']['maxWidth']=$camInfo['imageWidth'];
+									$camera['videoConfig']['maxHeight']=$camInfo['imageHeight'];
+									$camera['videoConfig']['maxFPS']=$camInfo['videoFramerate'];
+									$camera['videoConfig']['vcodec']='h264';
 									
 									$preGenCam['cameras'][] = $camera;
 									if(!$camError) {
