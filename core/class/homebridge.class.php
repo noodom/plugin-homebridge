@@ -357,7 +357,83 @@ class homebridge extends eqLogic {
 			return true;
 		}
 	}
-	
+	public static function getCamInfo($eqLogic_array) {
+
+		//Camera
+		if(isset($eqLogic_array["eqType_name"]) && $eqLogic_array["eqType_name"] == "camera"){
+			$returnArray = [];
+			$returnArray["videoFramerate"] = intval($eqLogic_array["configuration"]["videoFramerate"]);
+			//$returnArray["ip"] = $eqLogic_array["configuration"]["ip"];
+			//$returnArray["port"]=$eqLogic_array["configuration"]["port"];
+			//$returnArray["protocole"] = $eqLogic_array["configuration"]["protocole"];
+			//$returnArray["username"] = $eqLogic_array["configuration"]["username"];
+			//$returnArray["password"] = $eqLogic_array["configuration"]["password"];
+			$replace = array(
+					'#username#' => $eqLogic_array["configuration"]["username"],
+					'#password#' => $eqLogic_array["configuration"]["password"],
+					'#ip#' => $eqLogic_array["configuration"]["ip"],
+					'#port#' => $eqLogic_array["configuration"]["port"]
+				);
+			$returnArray["fluxValid"]=false;
+			if($eqLogic_array["configuration"]["cameraStreamAccessUrl"]) { // rtsp flux (or mjpeg ?)
+				//$returnArray["cameraStreamAccessUrl"] = $eqLogic_array["configuration"]["cameraStreamAccessUrl"];							
+				$returnArray["flux"]=str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["cameraStreamAccessUrl"]);
+				
+				$isFullURL = strpos($returnArray["flux"],'://');
+				if($isFullURL!==false) {
+					$returnArray["fluxValid"]=true;
+					$returnArray["fluxProtocole"]= substr($returnArray["flux"],0,$isFullURL);
+				}
+			}
+			
+
+			
+			// still Image
+			$returnArray["imageValid"] = false;
+			//$returnArray["urlStream"] = $eqLogic_array["configuration"]["urlStream"];
+		
+			// my direct method
+			$returnArray["image"]=  $eqLogic_array["configuration"]["protocole"].'://'.
+												$eqLogic_array["configuration"]["ip"].':'.
+												$eqLogic_array["configuration"]["port"].
+												str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["urlStream"]);
+			$binary_data = file_get_contents($returnArray["image"]);
+			if($binary_data){
+				$im = imagecreatefromstring($binary_data);
+				$returnArray["imageWidth"]=imagesx($im);
+				$returnArray["imageHeight"]=imagesy($im);
+				$returnArray["imageValid"] = true;
+				$binary_data=null;
+				$im=null;
+			} else {// from jeedom getUrl method
+				$returnArray["image"]=$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"]);
+				$binary_data = file_get_contents($returnArray["image"]);
+				if($binary_data){
+					$im = imagecreatefromstring($binary_data);
+					$returnArray["imageWidth"]=imagesx($im);
+					$returnArray["imageHeight"]=imagesy($im);
+					$returnArray["imageValid"] = true;
+					$binary_data=null;
+					$im=null;
+				} else {// from jeedom flux method
+					$returnArray["image"]=network::getNetworkAccess('internal') . '/' .$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"],true);
+					$binary_data = file_get_contents($returnArray["image"]);
+					if($binary_data){
+						$im = imagecreatefromstring($binary_data);
+						$returnArray["imageWidth"]=imagesx($im);
+						$returnArray["imageHeight"]=imagesy($im);
+						$returnArray["imageValid"] = true;
+						$binary_data=null;
+						$im=null;
+					} else {
+						unset($returnArray["image"]);
+					}
+				}
+			}
+			
+		}
+		return $returnArray;
+	}
 	public static function cryptedMagic() {
 		$magicField = config::byKey('magicField','homebridge',"",true);
 		$magicField = explode(" ",$magicField);
@@ -734,80 +810,6 @@ class homebridge extends eqLogic {
 
 					if(isset($eqLogic_array["configuration"]["sendToHomebridge"])){
 						$eqLogic_array["sendToHomebridge"] = intval($eqLogic_array["configuration"]["sendToHomebridge"]);
-					}
-					
-					//Camera
-					if(isset($eqLogic_array["eqType_name"]) && $eqLogic_array["eqType_name"] == "camera"){
-						$eqLogic_array["camera"] = [];
-						$eqLogic_array["camera"]["videoFramerate"] = intval($eqLogic_array["configuration"]["videoFramerate"]);
-						//$eqLogic_array["camera"]["ip"] = $eqLogic_array["configuration"]["ip"];
-						//$eqLogic_array["camera"]["port"]=$eqLogic_array["configuration"]["port"];
-						//$eqLogic_array["camera"]["protocole"] = $eqLogic_array["configuration"]["protocole"];
-						//$eqLogic_array["camera"]["username"] = $eqLogic_array["configuration"]["username"];
-						//$eqLogic_array["camera"]["password"] = $eqLogic_array["configuration"]["password"];
-						$replace = array(
-								'#username#' => $eqLogic_array["configuration"]["username"],
-								'#password#' => $eqLogic_array["configuration"]["password"],
-								'#ip#' => $eqLogic_array["configuration"]["ip"],
-								'#port#' => $eqLogic_array["configuration"]["port"]
-							);
-						$eqLogic_array["camera"]["fluxValid"]=false;
-						if($eqLogic_array["configuration"]["cameraStreamAccessUrl"]) { // rtsp flux (or mjpeg ?)
-							//$eqLogic_array["camera"]["cameraStreamAccessUrl"] = $eqLogic_array["configuration"]["cameraStreamAccessUrl"];							
-							$eqLogic_array["camera"]["flux"]=str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["cameraStreamAccessUrl"]);
-							
-							$isFullURL = strpos($eqLogic_array["camera"]["flux"],'://');
-							if($isFullURL!==false) {
-								$eqLogic_array["camera"]["fluxValid"]=true;
-								$eqLogic_array["camera"]["fluxProtocole"]= substr($eqLogic_array["camera"]["flux"],0,$isFullURL);
-							}
-						}
-						
-
-						
-						// still Image
-						$eqLogic_array["camera"]["imageValid"] = false;
-						//$eqLogic_array["camera"]["urlStream"] = $eqLogic_array["configuration"]["urlStream"];
-					
-						// my direct method
-						$eqLogic_array["camera"]["image"]=  $eqLogic_array["configuration"]["protocole"].'://'.
-															$eqLogic_array["configuration"]["ip"].':'.
-															$eqLogic_array["configuration"]["port"].
-															str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["urlStream"]);
-						$binary_data = file_get_contents($eqLogic_array["camera"]["image"]);
-						if($binary_data){
-							$im = imagecreatefromstring($binary_data);
-							$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
-							$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
-							$eqLogic_array["camera"]["imageValid"] = true;
-							$binary_data=null;
-							$im=null;
-						} else {// from jeedom getUrl method
-							$eqLogic_array["camera"]["image"]=$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"]);
-							$binary_data = file_get_contents($eqLogic_array["camera"]["image"]);
-							if($binary_data){
-								$im = imagecreatefromstring($binary_data);
-								$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
-								$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
-								$eqLogic_array["camera"]["imageValid"] = true;
-								$binary_data=null;
-								$im=null;
-							} else {// from jeedom flux method
-								$eqLogic_array["camera"]["image"]=network::getNetworkAccess('internal') . '/' .$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"],true);
-								$binary_data = file_get_contents($eqLogic_array["camera"]["image"]);
-								if($binary_data){
-									$im = imagecreatefromstring($binary_data);
-									$eqLogic_array["camera"]["imageWidth"]=imagesx($im);
-									$eqLogic_array["camera"]["imageHeight"]=imagesy($im);
-									$eqLogic_array["camera"]["imageValid"] = true;
-									$binary_data=null;
-									$im=null;
-								} else {
-									unset($eqLogic_array["camera"]["image"]);
-								}
-							}
-						}
-						
 					}
 					
 					//Alarm
