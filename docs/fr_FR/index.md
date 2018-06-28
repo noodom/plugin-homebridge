@@ -1120,6 +1120,23 @@ Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebrid
 Changelog
 =========
 
+v1.4.2 (???)
+-------------
+
+* Installation des dépendances plus rapide.
+
+* Update version Homebridge, moins de compilation, plus de caractères spéciaux début des logs
+
+* Fix bug reconnaissance docker avec derniers Core (Docker -> docker)
+
+* préparation pour autoconfig cameras sur base du plugin camera
+
+* préparation pour gestion des listes pour les thermostats
+
+* pré-installation de homebridge-alexa, il reste plus qu'à ajouter la config dans les plateformes supplémentaires.
+
+* intégration du plugin Mode : création d'un interrupteur par mode (chacun est mutuellement exclusif). Permet : "Dis siri, active le mode vacance". Si on désactive un interrupteur actif on effectue l'action jeedom "Mode Précédent".
+
 v1.4.1 (24&25-04-2018)
 -------------
 
