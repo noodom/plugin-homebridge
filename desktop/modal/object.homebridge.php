@@ -169,8 +169,7 @@ function listThermoSetModes($cmds,$selected) {
 									<br />
 								<?php
 									$camError=false;
-									$eqLogic_array = utils::o2a($eqLogic);
-									$camInfo=homebridge::getCamInfo($eqLogic_array);
+									$camInfo=homebridge::getCamInfo($eqLogic);
 									$preGenCam = [];
 									$preGenCam['platform']="Camera-ffmpeg";
 									$preGenCam['cameras']=[];
