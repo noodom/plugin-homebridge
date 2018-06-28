@@ -357,8 +357,8 @@ class homebridge extends eqLogic {
 			return true;
 		}
 	}
-	public static function getCamInfo($eqLogic_array) {
-
+	public static function getCamInfo($eqLogic) {
+		$eqLogic_array = utils::o2a($eqLogic);
 		//Camera
 		if(isset($eqLogic_array["eqType_name"]) && $eqLogic_array["eqType_name"] == "camera"){
 			$returnArray = [];
