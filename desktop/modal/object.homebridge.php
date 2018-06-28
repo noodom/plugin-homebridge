@@ -166,7 +166,47 @@ function listThermoSetModes($cmds,$selected) {
 								case "camera" :
 								?>
 									<span class="cmdAttr" data-l1key="id">{{Les caméras peuvent être gérées via les plateformes supplémentaires Homebridge}}</span>
+									<br />
 								<?php
+									$camError=false;
+									$eqLogic_array = utils::o2a($eqLogic);
+									$camInfo=homebridge::getCamInfo($eqLogic_array);
+									$preGenCam = [];
+									$preGenCam['platform']="Camera-ffmpeg";
+									$preGenCam['cameras']=[];
+									$camera = [];
+									$camera['name']=$eqLogic_array['name'];
+									$camera['videoConfig']=[];
+									if($camInfo['fluxValid']) {
+										if($camInfo['fluxProtocole'] == 'rtsp') {
+											$camera['videoConfig']['source']="-rtsp_transport tcp -re -i ".$camInfo['flux'];
+										} else {
+											$camera['videoConfig']['source']="-f mjpeg -re -i ".$camInfo['flux'];
+										}
+									} else {
+										$camError=true;
+									}
+									if($camInfo['imageValid']) {
+										$camera['stillImageSource'] = "-i ".$camInfo['image'];
+									} else if($camInfo['fluxValid']){
+										$camera['stillImageSource'] = "-i ".$camInfo['flux']." -vframes 1 -r 1";	
+									} else {
+										$camera['stillImageSource'] = "";
+									}
+									$camera['maxStreams']=2;
+									$camera['maxWidth']=$camInfo['imageWidth'];
+									$camera['maxHeight']=$camInfo['imageHeight'];
+									$camera['maxFPS']=$camInfo['videoFramerate'];
+									$camera['vcodec']='h264';
+									
+									$preGenCam['cameras'][] = $camera;
+									if(!$camError) {
+										echo "<h3>Sur base des informations dans votre plugin Camera, j'ai réussi à regrouper ces informations (à vérifier)</h3>";
+										echo "<blockquote>";
+										echo nl2br(stripcslashes(str_replace(" ", "&nbsp;",json_encode($preGenCam,JSON_PRETTY_PRINT))));
+										echo "</blockquote>";
+										echo "Vous pouvez copier-coller ce code dans les plateformes supplémentaires Homebridge (séparez les plateformes avec |)";
+									}
 								break;
 								default :
 									$cmds = null;
