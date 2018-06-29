@@ -539,8 +539,8 @@ class homebridge extends eqLogic {
 				switch(strtolower($jsonArr['platform'])) {
 					case 'camera-ffmpeg' :
 						if($pluginCameraExists) {
-							$AVCONVexists = shell_exec('file -bi `which avconv`');
-							$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
+							$AVCONVexists = shell_exec('file -bi `which avconv` 2>/dev/null');
+							$FFMPEGexists = shell_exec('file -bi `which ffmpeg` 2>/dev/null');
 
 							if (strpos($AVCONVexists, 'application') !== false) {
 								log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
