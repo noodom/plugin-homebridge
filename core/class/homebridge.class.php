@@ -580,7 +580,7 @@ class homebridge extends eqLogic {
 		exec(system::getCmdSudo() . 'mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
-		fwrite($fp, json_encode($response));
+		fwrite($fp, json_encode($response,JSON_PRETTY_PRINT));
 		fclose($fp);
 		if(!file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
 			log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas : '.dirname(__FILE__) . '/../../resources/homebridge/config.json');
