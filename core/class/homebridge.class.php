@@ -536,27 +536,31 @@ class homebridge extends eqLogic {
 				} catch(Exception $e) {
 					$pluginCameraExists=false;
 				}
-				if($jsonArr['platform']=='Camera-ffmpeg') {
-					if($pluginCameraExists) {
-						$AVCONVexists = shell_exec('file -bi `which avconv`');
-						$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
-						
-						if (strpos($AVCONVexists, 'application') !== false) {
-							log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
-							$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
-						} elseif (strpos($FFMPEGexists, 'application') !== false) {
-							log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
-							$jsonArr['videoProcessor'] = 'ffmpeg';
-						} else {
-							log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
-							log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
+				switch(strtolower($jsonArr['platform'])) {
+					case 'camera-ffmpeg' :
+						if($pluginCameraExists) {
+							$AVCONVexists = shell_exec('file -bi `which avconv`');
+							$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
+
+							if (strpos($AVCONVexists, 'application') !== false) {
+								log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
+								$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+							} elseif (strpos($FFMPEGexists, 'application') !== false) {
+								log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
+								$jsonArr['videoProcessor'] = 'ffmpeg';
+							} else {
+								log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+								log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
+							}
 						}
-					}
-					else {
-						log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
-					}
-				} elseif ($jsonArr['platform']=='Alexa') {
-					config::save('hasAlexa',true,'homebridge'); // we have Alexa config so we'll start the daemon as in Insecure
+						else {
+							log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
+						}
+					break;
+					case 'alexa':// we have Alexa config so we'll start the daemon as in Insecure
+					case 'config':// we have config plugin so we'll start the daemon as in Insecure
+						config::save('hasAlexa',true,'homebridge');
+					break;
 				}
 				$response['platforms'][] = $jsonArr;
 			}
