@@ -33,7 +33,8 @@ Siri peut aussi interagir. Il répond aux questions et fait des actions.
 Le plugin prend en charge les scénarios. Il est possible de les exécuter directement depuis l'app Maison d'Apple.
 
 HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
-L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+L'iPad, l'AppleTV et le HomePod peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+>Pour un fonctionnement optimal, il est recommandé d'utiliser une AppleTV ou un Homepod en tant que concentrateur. Ces équipement étant alimentés sur secteur, ils sont beaucoup plus fiables. 
 
 >HomeKit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.
 
@@ -970,14 +971,6 @@ Le type générique "Info/Générique" permet de faire remonter n'importe quelle
 
 >**Il est n'est pas possible de renommer l'accessoire**
 
-### Utilisation avec le plugin Mode #
-
-Cela permet d'afficher l'intitulé du mode jeedom en cours. Pour cela, il faut créer un virtuel et importer l'équipement crée dans le plugin mode.
-
-![custom-1](../images/custom-1.png)
-
-Dans ce cas, il faut attribuer le type générique "Info/Générique" au nom de commande "Mode".
-
 
 ![custom-2](../images/custom-2.png)
 
@@ -1115,6 +1108,37 @@ Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebrid
 
 ![meteo-eve](../images/meteo-eve.png)
 ![meteo-home](../images/meteo-home.png)
+
+Plugin "Mode"
+---------------------
+
+le plugin mode est auto configuré par le plugin. 
+![mode](../images/mode.png)
+
+Dans l'app Maison, les modes sont représentés avec des interrupteurs. 
+
+![modehk](../images/modehk.png)
+
+Pour activer un mode, il suffit de basculer l'interrupteur sur ON sur le mode souhaité. L'interrupteur du mode précédent, passe automatiquement sur OFF.
+
+Les modes fonctionnent avec siri. Dans l'exemple ci dessus, les noms des modes sont les suivants : 
+
+* **1** : Je suis présent.
+* **2** : Je suis absent.
+* **3** : Nuit.
+
+Le plugin, ajout automatiquement le terme mode avant. Ce qui donne au niveau des interrupteur : 
+* **1** : Mode je suis présent.
+* **2** : Mode je suis absent.
+* **3** : Mode nuit.
+
+Si dans le nom du mode d'origine contient le terme "mode", il n'est pas ajouté.
+
+Pour activer le mode "je suis présent", dire, Active le mode, je suis présent.
+
+![modesiri](../images/modesiri.png)
+
+>Certain mode ne fonctionneront pas avec Siri, le mode Nuit par exemple. Si vous demandez à Siri d'activer le mode nuit, il activera Night Shift. Idem avec le mode jour.
 
 
 Changelog
