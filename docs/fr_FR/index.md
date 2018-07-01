@@ -1127,14 +1127,14 @@ Les modes fonctionnent avec siri. Dans l'exemple ci dessus, les noms des modes s
 * **2** : Je suis absent.
 * **3** : Nuit.
 
-Le plugin, ajout automatiquement le terme mode avant. Ce qui donne au niveau des interrupteur : 
+Le plugin, ajoute automatiquement le terme "mode" avant. Ce qui donne au niveau des interrupteurs : 
 * **1** : Mode je suis présent.
 * **2** : Mode je suis absent.
 * **3** : Mode nuit.
 
 Si dans le nom du mode d'origine contient le terme "mode", il n'est pas ajouté.
 
-Pour activer le mode "je suis présent", dire, Active le mode, je suis présent.
+Pour activer le mode "je suis absent" il faut demander à Siri, Active le mode, je suis absent.
 
 ![modesiri](../images/modesiri.png)
 
