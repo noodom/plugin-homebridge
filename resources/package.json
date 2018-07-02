@@ -8,6 +8,6 @@
 	"homebridge": "nfarina/homebridge#master",
 	"homebridge-jeedom": "NebzHB/homebridge-jeedom#beta",
 	"homebridge-camera-ffmpeg": "NebzHB/homebridge-camera-ffmpeg#master",
-	"homebridge-alexa": "NorthernMan54/homebridge-alexa#master"
+	"homebridge-alexa": "NebzHB/homebridge-alexa#master"
   }
 }
