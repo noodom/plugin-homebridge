@@ -357,7 +357,83 @@ class homebridge extends eqLogic {
 			return true;
 		}
 	}
-	
+	public static function getCamInfo($eqLogic) {
+		$eqLogic_array = utils::o2a($eqLogic);
+		//Camera
+		if(isset($eqLogic_array["eqType_name"]) && $eqLogic_array["eqType_name"] == "camera"){
+			$returnArray = [];
+			$returnArray["videoFramerate"] = intval($eqLogic_array["configuration"]["videoFramerate"]);
+			//$returnArray["ip"] = $eqLogic_array["configuration"]["ip"];
+			//$returnArray["port"]=$eqLogic_array["configuration"]["port"];
+			//$returnArray["protocole"] = $eqLogic_array["configuration"]["protocole"];
+			//$returnArray["username"] = $eqLogic_array["configuration"]["username"];
+			//$returnArray["password"] = $eqLogic_array["configuration"]["password"];
+			$replace = array(
+					'#username#' => $eqLogic_array["configuration"]["username"],
+					'#password#' => $eqLogic_array["configuration"]["password"],
+					'#ip#' => $eqLogic_array["configuration"]["ip"],
+					'#port#' => $eqLogic_array["configuration"]["port"]
+				);
+			$returnArray["fluxValid"]=false;
+			if($eqLogic_array["configuration"]["cameraStreamAccessUrl"]) { // rtsp flux (or mjpeg ?)
+				//$returnArray["cameraStreamAccessUrl"] = $eqLogic_array["configuration"]["cameraStreamAccessUrl"];							
+				$returnArray["flux"]=str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["cameraStreamAccessUrl"]);
+				
+				$isFullURL = strpos($returnArray["flux"],'://');
+				if($isFullURL!==false) {
+					$returnArray["fluxValid"]=true;
+					$returnArray["fluxProtocole"]= substr($returnArray["flux"],0,$isFullURL);
+				}
+			}
+			
+
+			
+			// still Image
+			$returnArray["imageValid"] = false;
+			//$returnArray["urlStream"] = $eqLogic_array["configuration"]["urlStream"];
+		
+			// my direct method
+			$returnArray["image"]=  $eqLogic_array["configuration"]["protocole"].'://'.
+												$eqLogic_array["configuration"]["ip"].':'.
+												$eqLogic_array["configuration"]["port"].
+												str_replace(array_keys($replace), $replace, $eqLogic_array["configuration"]["urlStream"]);
+			$binary_data = file_get_contents($returnArray["image"]);
+			if($binary_data){
+				$im = imagecreatefromstring($binary_data);
+				$returnArray["imageWidth"]=imagesx($im);
+				$returnArray["imageHeight"]=imagesy($im);
+				$returnArray["imageValid"] = true;
+				$binary_data=null;
+				$im=null;
+			} else {// from jeedom getUrl method
+				$returnArray["image"]=$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"]);
+				$binary_data = file_get_contents($returnArray["image"]);
+				if($binary_data){
+					$im = imagecreatefromstring($binary_data);
+					$returnArray["imageWidth"]=imagesx($im);
+					$returnArray["imageHeight"]=imagesy($im);
+					$returnArray["imageValid"] = true;
+					$binary_data=null;
+					$im=null;
+				} else {// from jeedom flux method
+					$returnArray["image"]=network::getNetworkAccess('internal') . '/' .$eqLogic->getUrl($eqLogic_array["configuration"]["urlStream"],true);
+					$binary_data = file_get_contents($returnArray["image"]);
+					if($binary_data){
+						$im = imagecreatefromstring($binary_data);
+						$returnArray["imageWidth"]=imagesx($im);
+						$returnArray["imageHeight"]=imagesy($im);
+						$returnArray["imageValid"] = true;
+						$binary_data=null;
+						$im=null;
+					} else {
+						unset($returnArray["image"]);
+					}
+				}
+			}
+			
+		}
+		return $returnArray;
+	}
 	public static function cryptedMagic() {
 		$magicField = config::byKey('magicField','homebridge',"",true);
 		$magicField = explode(" ",$magicField);
@@ -449,6 +525,8 @@ class homebridge extends eqLogic {
 		$jsonPlatforms = explode('|',$jsonFile);
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
+		
+		config::save('startInsecure',false,'homebridge');
 		foreach ($jsonPlatforms as $jsonPlatform) {
 			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
@@ -458,25 +536,38 @@ class homebridge extends eqLogic {
 				} catch(Exception $e) {
 					$pluginCameraExists=false;
 				}
-				if($jsonArr['platform']=='Camera-ffmpeg') {
-					if($pluginCameraExists) {
-						$AVCONVexists = shell_exec('file -bi `which avconv`');
-						$FFMPEGexists = shell_exec('file -bi `which ffmpeg`');
-						
-						if (strpos($AVCONVexists, 'application') !== false) {
-							log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
-							$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
-						} elseif (strpos($FFMPEGexists, 'application') !== false) {
-							log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
-							$jsonArr['videoProcessor'] = 'ffmpeg';
-						} else {
-							log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
-							log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
+				switch(strtolower($jsonArr['platform'])) {
+					case 'camera-ffmpeg' :
+						if($pluginCameraExists) {
+							$AVCONVexists = shell_exec('file -bi `which avconv` 2>/dev/null');
+							$FFMPEGexists = shell_exec('file -bi `which ffmpeg` 2>/dev/null');
+
+							if (strpos($AVCONVexists, 'application') !== false) {
+								log::add('homebridge','info','Avconv existe et c\'est un exécutable, on l\'utilise');
+								$jsonArr['videoProcessor'] = dirname(__FILE__) . '/../../resources/ffmpeg-wrapper';
+							} elseif (strpos($FFMPEGexists, 'application') !== false) {
+								log::add('homebridge','info','FFMPEG existe et c\'est un exécutable, on l\'utilise');
+								$jsonArr['videoProcessor'] = 'ffmpeg';
+							} else {
+								log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
+								log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
+							}
+							
+							if($plateform['debugLevel'] <=100) {
+								foreach($jsonArr['cameras'] as $num => $camera) {
+									$jsonArr['cameras'][$num]['videoConfig']['debug']=true;
+								}
+							}
+	
 						}
-					}
-					else {
-						log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
-					}
+						else {
+							log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
+						}
+					break;
+					case 'alexa':// we have Alexa config so we'll start the daemon as in Insecure
+					case 'config':// we have config plugin so we'll start the daemon as in Insecure
+						config::save('startInsecure',true,'homebridge');
+					break;
 				}
 				$response['platforms'][] = $jsonArr;
 			}
@@ -496,7 +587,7 @@ class homebridge extends eqLogic {
 		exec(system::getCmdSudo() . 'mkdir ' . dirname(__FILE__) . '/../../resources/homebridge >/dev/null 2>&1 &');
 		exec(system::getCmdSudo() . 'chown -R www-data:www-data ' . dirname(__FILE__) . '/../../resources');
 		$fp = fopen(dirname(__FILE__) . '/../../resources/homebridge/config.json', 'w');
-		fwrite($fp, json_encode($response));
+		fwrite($fp, json_encode($response,JSON_PRETTY_PRINT));
 		fclose($fp);
 		if(!file_exists(dirname(__FILE__) . '/../../resources/homebridge/config.json')) {
 			log::add('homebridge','error','Le fichier config.json de Homebridge n\'existe pas : '.dirname(__FILE__) . '/../../resources/homebridge/config.json');
@@ -525,7 +616,7 @@ class homebridge extends eqLogic {
 			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
 
-		if(jeedom::getHardwareName() == "Docker") {
+		if(strtolower(jeedom::getHardwareName()) == "docker") {
 			// check dbus-daemon started, if not, start
 			$cmd = 'if [ $(ps -ef | grep -v grep | grep "dbus-daemon" | wc -l) -eq 0 ]; then ' . system::getCmdSudo() . 'service dbus start;echo "Démarrage dbus-daemon";sleep 1; fi';
 			exec($cmd . ' >> ' . log::getPathToLog('homebridge') . ' 2>&1');
@@ -542,11 +633,12 @@ class homebridge extends eqLogic {
 		}
 		
 		$insecure='';
-		if(homebridge::isMagic('NBakLcxU29STU')) { // pass homebridge insecure (for alexa)
+		if(homebridge::isMagic('NBakLcxU29STU') || config::byKey('startInsecure','homebridge',false,true)) { // pass homebridge insecure (for alexa)
 			$insecure='-I ';
+			log::add('homebridge', 'info', 'Plugin nécessitant le mode "Insecure", le Démon sera démarré en "Insecure" (Permet à un plugin d\'accéder aux status des accessoires)');
 		}			
 		
-		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
+		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure . '--no-qrcode ' .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
 		exec($cmd . ' >> ' . log::getPathToLog('homebridge_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
@@ -659,7 +751,7 @@ class homebridge extends eqLogic {
 			log::add('homebridge', 'info', 'réinstallation des dependances');
 			$pluginHomebridge->dependancy_install();
 		}
-		if(jeedom::getHardwareName() == "Docker") {
+		if(strtolower(jeedom::getHardwareName()) == "docker") {
 			exec(system::getCmdSudo().'systemctl restart dbus.service || '.system::getCmdSudo().'service dbus restart;sleep 1');
 		}
 		exec(system::getCmdSudo().'systemctl restart avahi-daemon.service || '.system::getCmdSudo().'service avahi-daemon restart');
@@ -819,13 +911,14 @@ class homebridge extends eqLogic {
 					foreach ($cmds as $cmd) {
 						$cmd_array = $cmd->exportApi();
 						
-						if (jeedom::version() >= '3.2.1') {
-							if(!$cmd_array['generic_type'] && $cmd_array['display']['generic_type']) {
-								$cmd->setGeneric_type($cmd_array['display']['generic_type']);
-								$cmd->save();
-								$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
-							}
-						}
+						// not needed anymore, done by the core
+						//if (jeedom::version() >= '3.2.1') {
+						//	if(!$cmd_array['generic_type'] && $cmd_array['display'] && $cmd_array['display']['generic_type']) {
+						//		$cmd->setGeneric_type($cmd_array['display']['generic_type']);
+						//		$cmd->save();
+						//		$cmd_array['generic_type']=$cmd_array['display']['generic_type'];
+						//	}
+						//}
 							
 						// replace generic_type if auto-config data exists
 						$logicalId = $cmd_array['logicalId'];
@@ -856,6 +949,7 @@ class homebridge extends eqLogic {
 						//Variables
 						$maxValue = null;
 						$minValue = null;
+						$listValue = null;
 						$actionCodeAccess = null;
 						$actionConfirm = null;
 						$icon = null;
@@ -871,6 +965,9 @@ class homebridge extends eqLogic {
 							}
 							if(isset($configuration['minValue']) && $configuration['minValue'] != ""){
 								$minValue = $configuration['minValue'];
+							}
+							if(isset($configuration['listValue']) && $configuration['listValue'] != ""){
+								$listValue = $configuration['listValue'];
 							}
 							if(isset($configuration['actionCodeAccess'])){
 								$actionCodeAccess = $configuration['actionCodeAccess'];
@@ -931,6 +1028,9 @@ class homebridge extends eqLogic {
 						}
 						if ($minValue != null) {
 							$cmd_array['configuration']['minValue'] = floatval($minValue);
+						}
+						if ($listValue != null){
+							$cmd_array['configuration']['listValue'] = $listValue;	
 						}
 						if ($icon != null) {
 							$cmd_array['display']['icon'] = $icon;

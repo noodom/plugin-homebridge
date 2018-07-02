@@ -33,7 +33,8 @@ Siri peut aussi interagir. Il répond aux questions et fait des actions.
 Le plugin prend en charge les scénarios. Il est possible de les exécuter directement depuis l'app Maison d'Apple.
 
 HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
-L'iPad et l'AppleTV (et bientôt le HomePod) peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+L'iPad, l'AppleTV et le HomePod peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
+>Pour un fonctionnement optimal, il est recommandé d'utiliser une AppleTV ou un Homepod en tant que concentrateur. Ces équipement étant alimentés sur secteur, ils sont beaucoup plus fiables. 
 
 >HomeKit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.
 
@@ -274,8 +275,8 @@ Thermostats
 |Type générique  | Obligatoire | Valeurs possibles |
 |---------------|:----------------:|----------------|
 |Info/Thermostat Etat (BINAIRE)|`NON`|0 = Eteint<br/>1 = Allumé|
-|Info/Thermostat Etat (HUMAIN)|`NON`|Générique (Eve Seulement)| 
-|Info/Thermostat Mode|`OUI si associé mode homekit`|Générique (Eve Seulement)| 
+|Info/Thermostat Etat (HUMAIN)|`NON`|| 
+|Info/Thermostat Mode|`OUI si associé mode homekit`|Valeur Mappée| 
 |Action/Thermostat Mode|`NON`|Peut être associé mode homekit|
 |Info/Thermostat Température Extérieur|`NON utilisé`|N/A
 |Info/Thermostat Température ambiante|`NON`|-50 → 100| 
@@ -842,7 +843,7 @@ Remplacer les valeurs xxx.xxx.xxx.xxx par l'adresse IP de la caméra, login par 
    ]
 }</code></pre>
 
-### wanscam rtsp HWXXX #
+### wanscam rtsp HW0043 #
 
 <pre><code>{
  "platform":"Camera-ffmpeg",
@@ -955,6 +956,8 @@ Pour configurer plusieurs caméras, il suffit de mettre une barre entre les deux
 
 **Cela est également valable pour toute autre plateforme comme le thermostat NEST par exemple.**
 
+
+
 Type Générique Info/Générique
 ---------------------
 
@@ -967,14 +970,6 @@ Le type générique "Info/Générique" permet de faire remonter n'importe quelle
 >**Les interactions avec Siri ainsi que les automations ne sont pas possibles avec ce type générique**
 
 >**Il est n'est pas possible de renommer l'accessoire**
-
-### Utilisation avec le plugin Mode #
-
-Cela permet d'afficher l'intitulé du mode jeedom en cours.
-
-![custom-1](../images/custom-1.png)
-
-Dans ce cas, il faut attribuer le type générique "Info/Générique" au nom de commande "Mode".
 
 
 ![custom-2](../images/custom-2.png)
@@ -1114,9 +1109,57 @@ Pour activer le plugin météo, il suffit de cocher la case "Envoyer à Homebrid
 ![meteo-eve](../images/meteo-eve.png)
 ![meteo-home](../images/meteo-home.png)
 
+Plugin "Mode"
+---------------------
+
+le plugin mode est auto configuré par le plugin. 
+![mode](../images/mode.png)
+
+Dans l'app Maison, les modes sont représentés avec des interrupteurs. 
+
+![modehk](../images/modehk.png)
+
+Pour activer un mode, il suffit de basculer l'interrupteur sur ON sur le mode souhaité. L'interrupteur du mode précédent, passe automatiquement sur OFF. En basculant un mode actif sur OFF, le mode précédent repasse sur ON.
+
+Les modes fonctionnent avec Siri. Dans l'exemple ci dessus, les noms des modes sont les suivants : 
+
+* **1** : Je suis présent.
+* **2** : Je suis absent.
+* **3** : Nuit.
+
+Le plugin, ajoute automatiquement le terme "mode" avant. Ce qui donne au niveau des interrupteurs : 
+* **1** : Mode je suis présent.
+* **2** : Mode je suis absent.
+* **3** : Mode nuit.
+
+Si dans le nom du mode d'origine contient déjà le terme "mode" (ou "modo" en espagnol), il n'est pas ajouté.
+
+Pour activer le mode "je suis absent" il faut demander à Siri:  "Dis Siri, Active le mode je suis absent".
+
+![modesiri](../images/modesiri.png)
+
+>Certains modes ne fonctionneront pas avec Siri, le mode Nuit et le mode Jour par exemple. Si vous demandez à Siri d'activer le mode nuit, il activera Night Shift. Vous pouvez contourner ceci en demandant explicitement : "Dis Siri, active l'interrupteur Mode Nuit" ou en associant l'interrupteur à la Scène "Bonne nuit".
+
 
 Changelog
 =========
+
+v1.4.2 (02&03-07-2018)
+-------------
+
+* Installation des dépendances plus rapide.
+
+* Update version Homebridge, moins de compilation, plus de caractères spéciaux début des logs
+
+* Fix bug reconnaissance docker avec derniers Core (Docker -> docker)
+
+* préparation pour autoconfig cameras sur base du plugin camera, affichage config.
+
+* préparation pour gestion des listes pour les thermostats
+
+* pré-installation de homebridge-alexa, il reste plus qu'à ajouter la config dans les plateformes supplémentaires.
+
+* intégration du plugin Mode : création d'un interrupteur par mode (chacun est mutuellement exclusif). Permet : "Dis siri, active le mode vacance". Si on désactive un interrupteur actif on effectue l'action jeedom "Mode Précédent".
 
 v1.4.1 (24&25-04-2018)
 -------------

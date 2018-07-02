@@ -7,6 +7,7 @@
   "dependencies": {
 	"homebridge": "NebzHB/homebridge-stable#master",
 	"homebridge-jeedom": "NebzHB/homebridge-jeedom#beta",
-	"homebridge-camera-ffmpeg": "NebzHB/homebridge-camera-ffmpeg#master"
+	"homebridge-camera-ffmpeg": "NebzHB/homebridge-camera-ffmpeg#master",
+	"homebridge-alexa": "NebzHB/homebridge-alexa#master"
   }
 }
