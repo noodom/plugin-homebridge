@@ -175,33 +175,26 @@ echo 70 > ${PROGRESS_FILE}
 echo "--70%"
 
 testGMP=`php -r "echo extension_loaded('gmp');"`
+sudo service php5-fpm status &>/dev/null
+nginxPresent=$?
+
 if [[ "$testGMP" != "1" ]]; then
-  echo "Installation de GMP (génération QRCode)"
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
-  if [ $? -ne 0 ]; then
-    echo "pour php5"
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
-    
-    sudo service php5-fpm status &>/dev/null
-    if [ $? = 0 ]; then
-      echo "Reload php5-fpm..."
-      sudo systemctl reload php5-fpm.service || sudo service php5-fpm reload
+  if [[ "$nginxPresent" != "0" ]]; then
+    echo "Installation de GMP (génération QRCode)"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php7.0-gmp &>/dev/null
+    if [ $? -ne 0 ]; then
+      echo "pour php5"
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y php5-gmp
+    else
+      echo "pour php7"
     fi
-  else
-    echo "pour php7"
-    
-    sudo service php7.0-fpm status &>/dev/null
-    if [ $? = 0 ]; then
-      echo "Reload php7.0-fpm..."
-      sudo systemctl reload php7.0-fpm.service || sudo service php7.0-fpm reload
-    fi
-  fi
   
-  sudo service apache2 status &>/dev/null
-  if [ $? = 0 ]; then
-    echo "Reload apache2..."
-    sudo systemctl daemon-reload
-    sudo systemctl reload apache2.service || sudo service apache2 reload
+    sudo service apache2 status &>/dev/null
+    if [ $? = 0 ]; then
+      echo "Reload apache2..."
+      sudo systemctl daemon-reload
+      sudo systemctl reload apache2.service || sudo service apache2 reload
+    fi
   fi
 fi
 
