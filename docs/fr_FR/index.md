@@ -1119,9 +1119,9 @@ Dans l'app Maison, les modes sont représentés avec des interrupteurs.
 
 ![modehk](../images/modehk.png)
 
-Pour activer un mode, il suffit de basculer l'interrupteur sur ON sur le mode souhaité. L'interrupteur du mode précédent, passe automatiquement sur OFF.
+Pour activer un mode, il suffit de basculer l'interrupteur sur ON sur le mode souhaité. L'interrupteur du mode précédent, passe automatiquement sur OFF. En basculant un mode actif sur OFF, le mode précédent repasse sur ON.
 
-Les modes fonctionnent avec siri. Dans l'exemple ci dessus, les noms des modes sont les suivants : 
+Les modes fonctionnent avec Siri. Dans l'exemple ci dessus, les noms des modes sont les suivants : 
 
 * **1** : Je suis présent.
 * **2** : Je suis absent.
@@ -1132,13 +1132,13 @@ Le plugin, ajoute automatiquement le terme "mode" avant. Ce qui donne au niveau 
 * **2** : Mode je suis absent.
 * **3** : Mode nuit.
 
-Si dans le nom du mode d'origine contient le terme "mode", il n'est pas ajouté.
+Si dans le nom du mode d'origine contient déjà le terme "mode" (ou "modo" en espagnol), il n'est pas ajouté.
 
-Pour activer le mode "je suis absent" il faut demander à Siri, Active le mode, je suis absent.
+Pour activer le mode "je suis absent" il faut demander à Siri:  "Dis Siri, Active le mode je suis absent".
 
 ![modesiri](../images/modesiri.png)
 
->Certain mode ne fonctionneront pas avec Siri, le mode Nuit par exemple. Si vous demandez à Siri d'activer le mode nuit, il activera Night Shift. Idem avec le mode jour.
+>Certains modes ne fonctionneront pas avec Siri, le mode Nuit et le mode Jour par exemple. Si vous demandez à Siri d'activer le mode nuit, il activera Night Shift. Vous pouvez contourner ceci en demandant explicitement : "Dis Siri, active l'interrupteur Mode Nuit" ou en associant l'interrupteur à la Scène "Bonne nuit".
 
 
 Changelog
