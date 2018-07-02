@@ -5,7 +5,7 @@
   "license": "GPL-3.0",
   "repository": "npm/npm",
   "dependencies": {
-	"homebridge": "nfarina/homebridge#master",
+	"homebridge": "NebzHB/homebridge-stable#master",
 	"homebridge-jeedom": "NebzHB/homebridge-jeedom#beta",
 	"homebridge-camera-ffmpeg": "NebzHB/homebridge-camera-ffmpeg#master",
 	"homebridge-alexa": "NebzHB/homebridge-alexa#master"
