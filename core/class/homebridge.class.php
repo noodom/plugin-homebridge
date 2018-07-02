@@ -526,7 +526,7 @@ class homebridge extends eqLogic {
 		if(!$jsonPlatforms)
 			$jsonPlatforms = array($jsonFile);
 		
-		config::save('hasAlexa',false,'homebridge');
+		config::save('startInsecure',false,'homebridge');
 		foreach ($jsonPlatforms as $jsonPlatform) {
 			$jsonArr = json_decode($jsonPlatform,true);
 			if($jsonArr !== null) {
@@ -552,6 +552,8 @@ class homebridge extends eqLogic {
 								log::add('homebridge','error','Ni FFMPEG, ni avconv n\'existent... impossible de faire fonctionner les caméras');
 								log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
 							}
+							
+	
 						}
 						else {
 							log::add('homebridge','error','Le plugin Camera n\'existe pas, installez-le');
@@ -559,7 +561,7 @@ class homebridge extends eqLogic {
 					break;
 					case 'alexa':// we have Alexa config so we'll start the daemon as in Insecure
 					case 'config':// we have config plugin so we'll start the daemon as in Insecure
-						config::save('hasAlexa',true,'homebridge');
+						config::save('startInsecure',true,'homebridge');
 					break;
 				}
 				$response['platforms'][] = $jsonArr;
@@ -626,9 +628,9 @@ class homebridge extends eqLogic {
 		}
 		
 		$insecure='';
-		if(homebridge::isMagic('NBakLcxU29STU') || config::byKey('hasAlexa','homebridge',false,true)) { // pass homebridge insecure (for alexa)
+		if(homebridge::isMagic('NBakLcxU29STU') || config::byKey('startInsecure','homebridge',false,true)) { // pass homebridge insecure (for alexa)
 			$insecure='-I ';
-			log::add('homebridge', 'info', 'Configuration Alexa détectée, le Démon sera démarré en "Insecure" (Permet à un plugin d\'accéder aux status des accessoires)');
+			log::add('homebridge', 'info', 'Plugin nécessitant le mode "Insecure", le Démon sera démarré en "Insecure" (Permet à un plugin d\'accéder aux status des accessoires)');
 		}			
 		
 		$cmd = 'export AVAHI_COMPAT_NOWARN=1;'. (($_debug) ? 'DEBUG=* ':'') .dirname(__FILE__) . '/../../resources/node_modules/homebridge/bin/homebridge '. (($_debug) ? '-D ':'') . $insecure . '--no-qrcode ' .'-U '.dirname(__FILE__) . '/../../resources/homebridge';
