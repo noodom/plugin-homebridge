@@ -553,6 +553,11 @@ class homebridge extends eqLogic {
 								log::add('homebridge','error','Réinstallez les dépendances du plugin Camera');
 							}
 							
+							if($plateform['debugLevel'] <=100) {
+								foreach($jsonArr['cameras'] as $num => $camera) {
+									$jsonArr['cameras'][$num]['videoConfig']['debug']=true;
+								}
+							}
 	
 						}
 						else {
