@@ -10,7 +10,7 @@
 	"hasDependency" : true,
 	"hasOwnDeamon" : true,
 	"issue" : "https://github.com/NebzHB/plugin-homebridge/issues",
-	"changelog" : "https://nebzhb.github.io/plugin-homebridge/#language#/#tocAnchor-1-53",
+	"changelog" : "https://nebzhb.github.io/plugin-homebridge/#language#/#tocAnchor-1-54",
 	"documentation" : "https://nebzhb.github.io/plugin-homebridge/#language#/",
 	"forum_link" : "https://www.jeedom.com/forum/viewforum.php?f=188",
 	"languages" : ["fr_FR","en_US"],
