@@ -1144,7 +1144,7 @@ Pour activer le mode "je suis absent" il faut demander à Siri:  "Dis Siri, Acti
 Changelog
 =========
 
-v1.4.2 (???)
+v1.4.2 (02&03-07-2018)
 -------------
 
 * Installation des dépendances plus rapide.
@@ -1153,7 +1153,7 @@ v1.4.2 (???)
 
 * Fix bug reconnaissance docker avec derniers Core (Docker -> docker)
 
-* préparation pour autoconfig cameras sur base du plugin camera
+* préparation pour autoconfig cameras sur base du plugin camera, affichage config.
 
 * préparation pour gestion des listes pour les thermostats
 
