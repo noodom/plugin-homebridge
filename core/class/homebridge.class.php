@@ -72,7 +72,7 @@ class homebridge extends eqLogic {
 	}
 	
 	public static function PluginMultiInEqLogic(){
-		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE'];
+		$PluginMulti = ['LIGHT_STATE','ENERGY_STATE','FLAP_STATE','HEATING_STATE','SIREN_STATE','LOCK_STATE','FAUCET_STATE'];
 		return $PluginMulti;
 	}
 
