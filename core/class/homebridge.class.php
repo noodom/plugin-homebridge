@@ -63,7 +63,10 @@ class homebridge extends eqLogic {
 			'LIGHT_SET_COLOR_TEMP' => array('name' => 'Lumière Température Couleur (Homebridge)', 'family' => 'Lumière', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
 			'AIRQUALITY_INDEX' => array('name' => 'Qualité d\'air (Indice AQI) (Homebridge)', 'family' => 'Qualité D\'air', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
 			'WEATHER_UVINDEX' => array('name' => 'Météo Index UV (Homebridge)', 'family' => 'Météo', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
-			'WEATHER_VISIBILITY' => array('name' => 'Météo Visibilité (Homebridge)', 'family' => 'Météo', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true)
+			'WEATHER_VISIBILITY' => array('name' => 'Météo Visibilité (Homebridge)', 'family' => 'Météo', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'FAUCET_STATE' => array('name' => 'Robinet Etat (Homebridge)', 'family' => 'Valves', 'type' => 'Info', 'ignore' => true, 'homebridge_type' => true),
+			'FAUCET_ON' => array('name' => 'Robinet Bouton On (Homebridge)', 'family' => 'Valves', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true),
+			'FAUCET_OFF' => array('name' => 'Robinet Bouton Off (Homebridge)', 'family' => 'Valves', 'type' => 'Action', 'ignore' => true, 'homebridge_type' => true)
 		);
 		return $CUSTOM_GENERIC_TYPE;
 	}
