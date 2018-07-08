@@ -1,13 +1,13 @@
 Présentation Homebridge
 =======================
 
-*Le plugin Homebridge* est un demon qui permet d’interagir avec un système domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Maison. 
+*Le plugin Homebridge* est un démon qui permet d’interagir avec un système domotique via l’assistant vocal Siri sous iOS. Le HomeKit a été introduit depuis iOS 8, mais est véritablement opérationnel depuis iOS 10 via l’application Maison. 
 
 ![homekit-logo](../images/homekit-logo.jpg)
 
 Le plugin Homebridge de Jeedom permet donc d’exposer des équipements Jeedom qui seront vus comme des accessoires compatibles au protocole *HomeKit*.
 
->Homebridge n'est pas officiellement supporté par Apple. A tout moment Apple peut bloquer ce protocole.
+>Homebridge n'est pas officiellement supporté par Apple. A tout moment, Apple peut bloquer ce protocole.
 
 Que peut-on faire avec Homebridge ?
 ---------------------------------
@@ -18,7 +18,7 @@ Depuis iOS 10, l'application Maison (inclue par défaut avec iOS) permet le pilo
 
 ![cuisine-homekit](../images/cuisine-01.png) ![cuisine-homekit](../images/salon-01.png) ![cuisine-homekit](../images/salle-de-bain-01.png)
 
-Les équipements peuvent être classés par pièce. Il est également possible de mettre des accessoires en favoris sur la pages d'accueil. Une page spécifique indique l'ensemble des états des accessoires.
+Les équipements peuvent être classés par pièce. Il est également possible de mettre des accessoires en favoris sur la page d'accueil. Une page spécifique indique l'ensemble des états des accessoires.
 
 ![piece-homekit](../images/piece-homekit.jpg) ![piece-homekit](../images/accueil-01.png) ![etat](../images/etat.png)
 
@@ -34,7 +34,7 @@ Le plugin prend en charge les scénarios. Il est possible de les exécuter direc
 
 HomeKit a l'avantage d'être utilisable à l'extérieur du domicile. Seule condition: il faut disposer d'un concentrateur. 
 L'iPad, l'AppleTV et le HomePod peuvent servir de concentrateur. Pour cela, ils doivent être connectés au même compte iCloud.
->Pour un fonctionnement optimal, il est recommandé d'utiliser une AppleTV ou un Homepod en tant que concentrateur. Ces équipement étant alimentés sur secteur, ils sont beaucoup plus fiables. 
+>Pour un fonctionnement optimal, il est recommandé d'utiliser une AppleTV ou un Homepod en tant que concentrateur. Ces équipements étant alimentés sur secteur, ils sont beaucoup plus fiables. 
 
 >HomeKit est le nom officiel du protocole développé par Apple. Homebridge est son équivalent Open Source développé par nfarina. Ce dernier a étendu le projet HAP-NodeJS qui est le moteur d'Homebridge.
 
@@ -103,7 +103,7 @@ Ces fichiers peuvent être nécessaires en cas de dysfonctionnement du plugin.
 
 * Homebridge_dep : Historise toutes les étapes de l'installation des dépendances. Si le démon refuse de démarrer par exemple, un coup d'oeil peut aider).
 
-* DebugInfo : Il ne s'agit pas vraiment d'un Log mais plutot d'informations de debuggage qui peuvent aider à diagnostiquer votre problème.  Pour avoir ces informations, il faut passer les logs du démon en "Debug" ou en "Info" puis actualiser la fenêtre (F5). A coté de "Configuration" dans le plugin Homebridge, vous avez l'icone DebugInfo qui est apparue. Il vous suffit de cliquer dessus et attendre que le relevé des informations s'effectue. Vous pouvez ensuite copier tout ou bien la catégorie qui vous est demandée.
+* DebugInfo : Il ne s'agit pas vraiment d'un Log mais plutot d'informations de debuggage qui peuvent aider à diagnostiquer votre problème.  Pour avoir ces informations, il faut passer les logs du démon en "Debug" ou en "Info" puis actualiser la fenêtre (F5). A côté de "Configuration" dans le plugin Homebridge, vous avez l'icone DebugInfo qui est apparue. Il vous suffit de cliquer dessus et attendre que le relevé des informations s'effectue. Vous pouvez ensuite copier tout ou bien la catégorie qui vous est demandée.
 
 Configuration du plugin Homebridge
 =================================
@@ -167,7 +167,7 @@ Afin d'intégrer un accessoire dans Homebridge, il faut sélectionner la pièce 
 Afin d'ajouter un accessoire ou un scénario à Homebridge, il suffit de cocher la case "Envoyer à Homebridge". Pour sauvegarder, il suffit de cliquer sur la petite disquette verte.
 Les scénarios seront créés sous forme d'interrupteurs. En l'activant, vous lancerez le scénario. En le désactivant, vous le stopperez (s'il tournait toujours). L'interrupteur reste activé tant que le scénario tourne.
 
->Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.
+>Si des modifications ont été faites, comme le changement du type générique, la modification d'un paramètre, l'ajout d'un accessoire, il faut impérativement redémarrer le Démon pour la prise en compte dans Homebridge.
 
 Configuration des types génériques
 =================================
@@ -370,7 +370,7 @@ Il existe plusieurs applications sur l'appstore compatibles HomeKit. L'applicati
 
 ![app-domicile](../images/app-domicile.jpg)
 
-Le pont peut être inclu manuellement en entrant ou scannant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
+Le pont peut être inclus manuellement en entrant ou scannant le code PIN et en sélectionnant le pont ou automatiquement en scannant le QR code.
 
 Ajout du pont par QR code
 -------------------------
@@ -762,6 +762,8 @@ Les caméras décrites ci-dessous ont été testées. Elles sont donc fonctionne
 L'intégration des caméras se fait via la bouton rouge "Plateforme Homebridge supplémentaire".
 
 ![plateforme-hb](../images/plateforme-hb.png)
+
+Il suffira ensuite d'ajouter les caméras configurées depuis le menu "Maison" de l'application "Maison" : sélectionner le bouton "+", puis "Ajouter un accessoire". Il faut alors scanner le code PIN Homebridge du plugin et sélectionner la caméra à ajouter (Attention, il ne faut pas scanner le QR Code sinon le message "Accessoire déjà ajouté" apparaîtra et l'ajout ne sera donc pas possible).
 
 ### Foscam C1 # 
 
